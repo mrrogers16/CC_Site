@@ -2,7 +2,7 @@
 
 A professional counseling practice website built with Next.js 14+, TypeScript, Tailwind CSS, and Prisma ORM. This application provides appointment booking, service information, blog functionality, and contact forms for a mental health counseling practice.
 
-## 🚀 Features
+## Features
 
 - **Modern Stack**: Next.js 14+ with App Router, TypeScript, Tailwind CSS v4
 - **Database**: PostgreSQL with Prisma ORM for type-safe database operations
@@ -13,14 +13,14 @@ A professional counseling practice website built with Next.js 14+, TypeScript, T
 - **Testing**: Jest for unit testing, Playwright for E2E testing
 - **Code Quality**: ESLint, Prettier, and strict TypeScript configuration
 
-## 🛠️ Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed:
 - **Node.js** (v18.0.0 or higher)
 - **npm** (v9.0.0 or higher)
 - **PostgreSQL** (v14.0 or higher)
 
-## 📦 Installation
+## Installation
 
 1. **Clone the repository**
    ```bash
@@ -54,7 +54,7 @@ Before you begin, ensure you have the following installed:
    npm run db:seed
    ```
 
-## 🚀 Development
+## Development
 
 Start the development server:
 
@@ -89,7 +89,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 - `npm run db:migrate` - Create and run migrations
 - `npm run db:studio` - Open Prisma Studio
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 src/
@@ -109,7 +109,7 @@ src/
 └── types/                 # TypeScript type definitions
 ```
 
-## 🎨 Design System
+## Design System
 
 The website uses a calming, professional color palette suitable for a counseling practice:
 
@@ -118,7 +118,7 @@ The website uses a calming, professional color palette suitable for a counseling
 - **Accent**: Warm Beige (#b5a588) - approachable
 - **Typography**: Inter (body) + Playfair Display (headings)
 
-## 🔧 Configuration
+## Configuration
 
 ### Database Schema
 
@@ -138,7 +138,7 @@ Key environment variables (see `.env.example`):
 - Calendar integration settings
 - Payment processing (Stripe)
 
-## 📱 Key Features
+## Key Features
 
 ### Appointment Booking
 - Calendar-based booking interface
@@ -157,7 +157,7 @@ Key environment variables (see `.env.example`):
 - Email notifications
 - Lead tracking and management
 
-## 🧪 Testing
+## Testing
 
 The project includes comprehensive testing:
 
@@ -171,7 +171,7 @@ Run all tests:
 npm run test && npm run test:e2e
 ```
 
-## 🚀 Deployment
+## Deployment
 
 ### Production Build
 ```bash
@@ -191,7 +191,7 @@ npm run start
 - **Railway/Render** - Full-stack applications
 - **AWS/Google Cloud** - Enterprise solutions
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -200,18 +200,18 @@ npm run start
 5. Ensure all tests pass
 6. Submit a pull request
 
-## 📄 License
+## License
 
 This project is private and proprietary. All rights reserved.
 
-## 🆘 Support
+## Support
 
 For support and questions:
 - Check the documentation in `/docs`
 - Review the `CLAUDE.md` file for development guidance
 - Contact the development team
 
-## 🔐 Security
+## Security
 
 This application includes:
 - Input validation and sanitization

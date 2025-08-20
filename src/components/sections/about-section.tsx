@@ -7,15 +7,15 @@ export function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="font-serif text-3xl sm:text-4xl font-light text-foreground mb-6">
-              About Dr. Sarah Johnson
+              About LPC Sara Clarke
             </h2>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              With over 15 years of experience in mental health counseling, Dr. Johnson 
+              With over 15 years of experience in mental health counseling, Sara Clarke 
               specializes in helping individuals, couples, and families navigate through 
               life's challenges with compassion and evidence-based therapeutic approaches.
             </p>
             <p className="text-muted-foreground mb-8 leading-relaxed">
-              She holds a Doctorate in Clinical Psychology and is a Licensed Professional 
+              She holds a Masters in Clinical Psychology and is a Licensed Professional 
               Counselor (LPC) committed to creating a safe, non-judgmental space where 
               healing and growth can flourish.
             </p>
@@ -54,7 +54,7 @@ export function AboutSection() {
               href="/about"
               className="inline-flex items-center justify-center px-6 py-3 font-medium text-primary border-2 border-primary rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
             >
-              Learn More About Dr. Johnson
+              Learn More About Sara Clarke
             </Link>
           </div>
           

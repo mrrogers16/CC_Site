@@ -432,3 +432,23 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
 - **Test Coverage**: Maintain 70% coverage threshold
 - **Performance**: Use Next.js Image component for all images
 - **Security**: Always validate inputs with Zod schemas
+
+## Working with This Codebase
+
+### Before Making Changes
+1. Always check Implementation Status section below
+2. Read TODO comments in relevant files
+3. Check PROJECT_STATUS.md for recent updates
+
+### After Making Changes
+1. Update Implementation Status in this file
+2. Add TODO comments for incomplete work
+3. Document any breaking changes or important decisions
+
+### Communication Protocol
+- Use TODO: for future work
+- Use FIXME: for bugs
+- Use NOTE: for important context
+- Use HACK: for temporary solutions
+- Update this file's status section after major changes
+- Never use emojis in code or comments
