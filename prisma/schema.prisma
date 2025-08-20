@@ -1,0 +1,121 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  appointments  Appointment[]
+  contactSubmissions ContactSubmission[]
+
+  @@map("users")
+}
+
+model Service {
+  id          String  @id @default(cuid())
+  title       String
+  description String
+  duration    Int     // Duration in minutes
+  price       Decimal @db.Money
+  isActive    Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  appointments Appointment[]
+
+  @@map("services")
+}
+
+model Appointment {
+  id          String            @id @default(cuid())
+  userId      String
+  serviceId   String
+  dateTime    DateTime
+  status      AppointmentStatus @default(PENDING)
+  notes       String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@map("appointments")
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  userId    String?
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("contact_submissions")
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  isPublished Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tags BlogTag[]
+
+  @@map("blog_posts")
+}
+
+model Tag {
+  id   String @id @default(cuid())
+  name String @unique
+
+  blogTags BlogTag[]
+
+  @@map("tags")
+}
+
+model BlogTag {
+  blogPostId String
+  tagId      String
+
+  blogPost BlogPost @relation(fields: [blogPostId], references: [id], onDelete: Cascade)
+  tag      Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([blogPostId, tagId])
+  @@map("blog_tags")
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  NO_SHOW
+}
