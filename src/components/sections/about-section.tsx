@@ -10,13 +10,13 @@ export function AboutSection() {
               About LPC Sara Clarke
             </h2>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              With over 15 years of experience in mental health counseling, Sara Clarke 
+              With years of experience in mental health counseling, Sara Clarke 
               specializes in helping individuals, couples, and families navigate through 
               life's challenges with compassion and evidence-based therapeutic approaches.
             </p>
             <p className="text-muted-foreground mb-8 leading-relaxed">
-              She holds a Masters in Clinical Psychology and is a Licensed Professional 
-              Counselor (LPC) committed to creating a safe, non-judgmental space where 
+              She holds a Masters in Clinical Mental Health Counseling and is a Licensed Professional 
+              Counselor Associate (LPC-A) committed to creating a safe, non-judgmental space where 
               healing and growth can flourish.
             </p>
             
