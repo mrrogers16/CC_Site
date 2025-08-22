@@ -14,8 +14,11 @@ export class AppError extends Error {
 }
 
 export class ValidationError extends AppError {
-  constructor(message: string = "Validation failed") {
+  public readonly details?: any;
+  
+  constructor(message: string = "Validation failed", details?: any) {
     super(message, 400);
+    this.details = details;
   }
 }
 

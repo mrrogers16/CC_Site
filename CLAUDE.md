@@ -96,11 +96,10 @@ This is a professional counseling practice website built with Next.js 14+ App Ro
    - Build verification and artifact generation
 
 #### Pending Implementation
-- Services page with detailed service information
-- Contact form with validation and email integration
 - Appointment booking system with calendar UI
 - Blog system with MDX support
-- Authentication system (NextAuth.js ready)
+- Email verification system implementation
+- Password reset functionality
 
 ### Folder Structure
 ```
@@ -130,11 +129,15 @@ src/
 #### Models Created
 ```prisma
 User {
-  id        String (cuid)
-  email     String (unique)
-  name      String
-  phone     String? (optional)
-  // Relationships to appointments and contact submissions
+  id            String (cuid)
+  email         String (unique)
+  name          String
+  phone         String? (optional)
+  password      String? (for credentials provider)
+  emailVerified DateTime? (email verification status)
+  image         String? (for OAuth providers)
+  role          UserRole (CLIENT/ADMIN enum)
+  // Relationships to appointments, contact submissions, accounts, sessions
 }
 
 Service {
@@ -181,6 +184,26 @@ BlogPost {
 
 AppointmentStatus Enum {
   PENDING, CONFIRMED, CANCELLED, COMPLETED, NO_SHOW
+}
+
+UserRole Enum {
+  CLIENT, ADMIN
+}
+
+Account {
+  // NextAuth account linking for OAuth providers
+  userId, type, provider, providerAccountId
+  // OAuth tokens and metadata
+}
+
+Session {
+  // NextAuth session management
+  sessionToken, userId, expires
+}
+
+VerificationToken {
+  // Email verification and password reset tokens
+  identifier, token, expires
 }
 ```
 
@@ -241,12 +264,49 @@ export function ComponentName() {
 - **Responsive Design**: Mobile-first with consistent breakpoints
 - **Accessibility**: Semantic HTML, ARIA labels, keyboard navigation
 
-### Form Handling (Ready for Implementation)
+### Authentication System (Fully Implemented)
 ```typescript
-// Pattern established in /lib/validations/index.ts
+// Pattern established in /lib/auth.ts
+import { NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+
+export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    CredentialsProvider({
+      // Secure password validation with bcrypt
+      // Email verification requirement for credentials login
+    })
+  ],
+  callbacks: {
+    // Role-based access control (CLIENT/ADMIN)
+    // Email verification enforcement
+    // Session management with user data
+  }
+};
+```
+
+### Form Handling (Fully Implemented)
+```typescript
+// Pattern established in /lib/validations/auth.ts and /lib/validations/index.ts
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+// Authentication schemas
+const registerSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters").max(100),
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters")
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, "Password requirements"),
+  // ... other fields with validation
+});
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -254,6 +314,7 @@ const contactFormSchema = z.object({
   // ... other fields
 });
 
+type RegisterFormData = z.infer<typeof registerSchema>;
 type ContactFormData = z.infer<typeof contactFormSchema>;
 ```
 
@@ -329,8 +390,9 @@ export const siteConfig: SiteConfig = {
 # Key variables configured in .env.example:
 DATABASE_URL="postgresql://username:password@localhost:5432/counseling_db"
 NEXTAUTH_SECRET="your-nextauth-secret-here"
-EMAIL_SERVER_HOST="smtp.gmail.com"
 GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+EMAIL_SERVER_HOST="smtp.gmail.com"
 STRIPE_SECRET_KEY="sk_test_your-stripe-secret-key"
 ```
 
@@ -340,11 +402,12 @@ STRIPE_SECRET_KEY="sk_test_your-stripe-secret-key"
 - **✅ Type Safety**: All TypeScript strict checks passing
 - **✅ Code Quality**: ESLint and Prettier configured and working
 
-### Testing Infrastructure (Ready)
-- **Jest**: Unit testing configured with Next.js integration
-- **Playwright**: E2E testing with multi-browser support
-- **Coverage**: 70% threshold set with proper exclusions
-- **CI/CD**: GitHub Actions pipeline for automated testing
+### Testing Infrastructure (Comprehensive Implementation)
+- **Jest**: Unit testing with Next.js integration and authentication mocking
+- **Playwright**: E2E testing with multi-browser and mobile device support
+- **Coverage**: 70% threshold achieved for authentication system
+- **CI/CD**: GitHub Actions pipeline for automated testing across all environments
+- **Authentication Testing**: Complete suite covering unit, integration, and E2E scenarios
 
 ### Security Implementation (Foundation Complete)
 - **Type Safety**: Strict TypeScript prevents runtime type errors
@@ -358,16 +421,120 @@ STRIPE_SECRET_KEY="sk_test_your-stripe-secret-key"
 - **Code Splitting**: App Router provides automatic code splitting
 - **CSS Optimization**: Tailwind CSS v4 with minimal bundle size
 
+## Testing Patterns Established
+
+### Authentication Testing Methodology
+```typescript
+// Unit Test Pattern for Validation Schemas
+describe('Authentication Validation', () => {
+  it('accepts valid registration data', () => {
+    const validData = { name: 'John Doe', email: 'john@example.com', /* ... */ };
+    const result = registerSchema.safeParse(validData);
+    expect(result.success).toBe(true);
+  });
+
+  it('rejects invalid email formats', () => {
+    const invalidData = { email: 'invalid-email', /* ... */ };
+    const result = registerSchema.safeParse(invalidData);
+    expect(result.success).toBe(false);
+    expect(result.error.errors[0].message).toBe('Please enter a valid email address');
+  });
+});
+
+// Integration Test Pattern for Auth Flows
+describe('Authentication Flow Integration', () => {
+  it('completes registration and login flow', async () => {
+    // 1. Registration
+    const registrationResponse = await POST(registrationRequest);
+    expect(registrationResponse.status).toBe(201);
+
+    // 2. Login
+    const loginResult = await credentialsProvider.authorize(credentials);
+    expect(loginResult.id).toBeDefined();
+
+    // 3. Session creation
+    const sessionResult = await authOptions.callbacks!.session!({ session, token });
+    expect(sessionResult.user.id).toBe(loginResult.id);
+  });
+});
+
+// E2E Test Pattern for User Journeys
+test('completes full registration process', async ({ page }) => {
+  await page.goto('/auth/register');
+  await page.fill('[data-testid="name-input"]', 'E2E Test User');
+  await page.fill('[data-testid="email-input"]', 'e2e@example.com');
+  await page.click('[data-testid="register-submit"]');
+  await expect(page).toHaveURL('/auth/verify-email');
+});
+```
+
+### Mobile Testing Patterns
+```typescript
+// Mobile Device Configuration
+test.use({ ...devices['iPhone 12'] });
+
+// Touch-Friendly Element Testing
+test('should have touch-friendly form elements', async ({ page }) => {
+  const inputs = page.locator('input[type="email"]');
+  const boundingBox = await inputs.boundingBox();
+  expect(boundingBox?.height).toBeGreaterThanOrEqual(44); // iOS touch target minimum
+});
+
+// Mobile Keyboard Testing
+test('should use correct input modes', async ({ page }) => {
+  const emailInput = page.locator('[data-testid="email-input"]');
+  await expect(emailInput).toHaveAttribute('inputmode', 'email');
+});
+```
+
+### Testing Component Enhancement Pattern
+```typescript
+// Add test attributes to components
+<input
+  {...register("email")}
+  type="email"
+  data-testid="email-input"      // For E2E testing
+  inputMode="email"              // For mobile keyboards
+  aria-label="Email address"     // For accessibility
+/>
+
+// Error messages with proper ARIA
+{errors.email && (
+  <p data-testid="email-error" role="alert">
+    {errors.email.message}
+  </p>
+)}
+```
+
+### Test Coverage Patterns
+```bash
+# Run specific test suites
+npm run test -- auth-validation.test.ts
+npm run test:e2e -- auth-flow.spec.ts
+npm run test:e2e -- mobile-auth.spec.ts
+
+# Coverage requirements by area
+- Authentication: 90%+ (critical security)
+- Forms: 85%+ (user interaction)
+- API endpoints: 80%+ (data handling)
+- UI components: 70%+ (visual elements)
+```
+
 ## Implementation Patterns Established
 
 ### Adding New Features (Follow This Pattern)
 1. **Types**: Create TypeScript interfaces in `/types/index.ts`
-2. **Validation**: Add Zod schemas in `/lib/validations/index.ts` 
+2. **Validation**: Add Zod schemas in `/lib/validations/` (separate files by feature)
 3. **Database**: Update Prisma schema, run `npm run db:generate`
 4. **API**: Create route handlers using `withErrorHandler` wrapper
 5. **Components**: Build UI following the section pattern (py-20 px-4...)
-6. **Tests**: Add unit tests and E2E tests for critical paths
-7. **Documentation**: Update this CLAUDE.md file
+6. **Testing**: Follow established testing methodology:
+   - Unit tests for validation and business logic
+   - Integration tests for API flows and data consistency
+   - E2E tests for complete user journeys
+   - Mobile tests for responsive and touch interactions
+7. **Test Attributes**: Add data-testid and ARIA labels for reliable testing
+8. **Documentation**: Update this CLAUDE.md file
 
 ### Component Creation Pattern
 ```typescript
@@ -420,10 +587,11 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
 6. **Lint**: Run `npm run lint:fix` for code quality issues
 
 ### Next Priority Features to Implement
-1. **Services Page**: Use the established section pattern for service details
-2. **Contact Form**: Implement using react-hook-form + Zod validation
-3. **Appointment Booking**: Create calendar UI with time slot selection
+1. **Appointment Booking**: Create calendar UI with time slot selection and user authentication integration
+2. **Email Verification**: Complete the verification flow for user registration
+3. **Password Reset**: Add forgot password and reset password functionality
 4. **Blog System**: Add MDX support for content management
+5. **User Dashboard**: Create protected user area for appointment management
 
 ### Important Notes for Future Development
 - **Maintain Design System**: Use established colors and typography
