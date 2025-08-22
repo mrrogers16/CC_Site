@@ -1,29 +1,108 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { debounce } from "lodash-es";
 import { registerSchema, type RegisterFormData } from "@/lib/validations/auth";
 import { logger } from "@/lib/logger";
+
+interface EmailCheckState {
+  isChecking: boolean;
+  isValid: boolean;
+  message?: string;
+}
 
 export function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [emailCheck, setEmailCheck] = useState<EmailCheckState>({
+    isChecking: false,
+    isValid: false,
+  });
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
     reset,
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
+    mode: "onChange", // Enable real-time validation
   });
 
+  const emailValue = watch("email");
+
+  // Debounced email availability checking
+  const checkEmailAvailability = useCallback(
+    debounce(async (email: string) => {
+      // Don't check if email is empty or has validation errors
+      if (!email || errors.email) {
+        setEmailCheck({ isChecking: false, isValid: false });
+        return;
+      }
+
+      // Validate email format first using the schema
+      const emailValidation = registerSchema.shape.email.safeParse(email);
+      if (!emailValidation.success) {
+        setEmailCheck({ isChecking: false, isValid: false });
+        return;
+      }
+
+      setEmailCheck({ isChecking: true, isValid: false });
+      
+      try {
+        logger.info("Checking email availability", { email });
+        
+        const response = await fetch(`/api/auth/check-email?email=${encodeURIComponent(email)}`);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to check email availability");
+        }
+
+        setEmailCheck({
+          isChecking: false,
+          isValid: data.available,
+          message: data.message,
+        });
+
+        logger.info("Email availability check completed", { 
+          email, 
+          available: data.available 
+        });
+      } catch (error) {
+        logger.error("Email availability check failed", error instanceof Error ? error : new Error(String(error)));
+        setEmailCheck({
+          isChecking: false,
+          isValid: false,
+          message: "Unable to verify email availability",
+        });
+      }
+    }, 500), // 500ms debounce delay
+    [errors.email]
+  );
+
+  // Watch for email changes and trigger availability check
+  useEffect(() => {
+    if (emailValue) {
+      checkEmailAvailability(emailValue);
+    } else {
+      setEmailCheck({ isChecking: false, isValid: false });
+    }
+  }, [emailValue, checkEmailAvailability]);
+
   const onSubmit = async (data: RegisterFormData) => {
+    // Prevent submission if email is already taken
+    if (!emailCheck.isValid && emailCheck.message === "Email address is already registered") {
+      setSubmitError("Email address is already registered. Please use a different email or sign in.");
+      return;
+    }
     setIsLoading(true);
     setSubmitError(null);
 
@@ -55,8 +134,7 @@ export function RegisterForm() {
       logger.info("User registered successfully", { email: data.email });
       
       // Show success message and redirect to verification page
-      alert("Registration successful! Please check your email to verify your account.");
-      router.push("/auth/verify-email");
+      router.push(`/auth/verify-email?email=${encodeURIComponent(data.email)}`);
       
     } catch (error) {
       logger.error("Registration error", error instanceof Error ? error : new Error(String(error)));
@@ -130,6 +208,7 @@ export function RegisterForm() {
             type="text"
             id="name"
             data-testid="name-input"
+            autoComplete="name"
             className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="Enter your full name"
           />
@@ -142,17 +221,47 @@ export function RegisterForm() {
           <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
             Email Address *
           </label>
-          <input
-            {...register("email")}
-            type="email"
-            id="email"
-            data-testid="email-input"
-            inputMode="email"
-            className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            placeholder="Enter your email address"
-          />
+          <div className="relative">
+            <input
+              {...register("email")}
+              type="email"
+              id="email"
+              data-testid="email-input"
+              inputMode="email"
+              autoComplete="email"
+              className="w-full px-3 py-2 pr-10 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              placeholder="Enter your email address"
+            />
+            {/* Visual feedback for email availability */}
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+              {emailCheck.isChecking && !errors.email && emailValue && (
+                <div className="animate-spin h-4 w-4 border-2 border-muted-foreground border-t-transparent rounded-full" data-testid="email-checking" />
+              )}
+              {!emailCheck.isChecking && emailCheck.isValid && !errors.email && (
+                <svg className="w-5 h-5 text-green-500" data-testid="email-available" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+              {!emailCheck.isChecking && !emailCheck.isValid && emailCheck.message === "Email address is already registered" && (
+                <svg className="w-5 h-5 text-red-500" data-testid="email-taken" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              )}
+            </div>
+          </div>
+          {/* Email validation error */}
           {errors.email && (
             <p className="mt-1 text-sm text-red-600" data-testid="email-error" role="alert">{errors.email.message}</p>
+          )}
+          {/* Email availability feedback */}
+          {!errors.email && emailCheck.message && (
+            <p 
+              className={`mt-1 text-sm ${emailCheck.isValid ? 'text-green-600' : 'text-red-600'}`}
+              data-testid="email-availability-message"
+              role="status"
+            >
+              {emailCheck.message}
+            </p>
           )}
         </div>
 
@@ -166,6 +275,7 @@ export function RegisterForm() {
             id="phone"
             data-testid="phone-input"
             inputMode="tel"
+            autoComplete="tel"
             className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="Enter your phone number"
           />
@@ -184,6 +294,7 @@ export function RegisterForm() {
               type={showPassword ? "text" : "password"}
               id="password"
               data-testid="password-input"
+              autoComplete="new-password"
               className="w-full px-3 py-2 pr-10 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="Create a password"
             />
@@ -232,6 +343,7 @@ export function RegisterForm() {
             type="password"
             id="confirmPassword"
             data-testid="confirm-password-input"
+            autoComplete="new-password"
             className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="Confirm your password"
           />
