@@ -19,15 +19,16 @@ const responseSchema = z.object({
 });
 
 // PATCH: Mark submission as read/unread
-export const PATCH = withErrorHandler(async (request: NextRequest, { params }: { params: { id: string } }) => {
+export const PATCH = withErrorHandler(async (request: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
   const startTime = Date.now();
+  const { id } = await params;
   
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
     if (!session) {
       const duration = Date.now() - startTime;
-      logger.api("PATCH", `/api/admin/contact/${params.id}`, 401, duration);
+      logger.api("PATCH", `/api/admin/contact/${id}`, 401, duration);
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -36,17 +37,17 @@ export const PATCH = withErrorHandler(async (request: NextRequest, { params }: {
 
     // Find and update the submission
     const submission = await prisma.contactSubmission.findUnique({
-      where: { id: params.id }
+      where: { id }
     });
 
     if (!submission) {
       const duration = Date.now() - startTime;
-      logger.api("PATCH", `/api/admin/contact/${params.id}`, 404, duration);
+      logger.api("PATCH", `/api/admin/contact/${id}`, 404, duration);
       return NextResponse.json({ error: "Submission not found" }, { status: 404 });
     }
 
     const updatedSubmission = await prisma.contactSubmission.update({
-      where: { id: params.id },
+      where: { id },
       data: { isRead },
       include: {
         user: {
@@ -61,13 +62,13 @@ export const PATCH = withErrorHandler(async (request: NextRequest, { params }: {
     });
 
     logger.info("Contact submission status updated", {
-      submissionId: params.id,
+      submissionId: id,
       isRead,
       adminUserId: session.user.id
     });
 
     const duration = Date.now() - startTime;
-    logger.api("PATCH", `/api/admin/contact/${params.id}`, 200, duration);
+    logger.api("PATCH", `/api/admin/contact/${id}`, 200, duration);
 
     return NextResponse.json({
       success: true,
@@ -76,21 +77,22 @@ export const PATCH = withErrorHandler(async (request: NextRequest, { params }: {
 
   } catch (error) {
     const duration = Date.now() - startTime;
-    logger.api("PATCH", `/api/admin/contact/${params.id}`, 500, duration);
+    logger.api("PATCH", `/api/admin/contact/${id}`, 500, duration);
     throw error;
   }
 });
 
 // POST: Send response to contact submission
-export const POST = withErrorHandler(async (request: NextRequest, { params }: { params: { id: string } }) => {
+export const POST = withErrorHandler(async (request: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
   const startTime = Date.now();
+  const { id } = await params;
   
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
     if (!session) {
       const duration = Date.now() - startTime;
-      logger.api("POST", `/api/admin/contact/${params.id}`, 401, duration);
+      logger.api("POST", `/api/admin/contact/${id}`, 401, duration);
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -99,7 +101,7 @@ export const POST = withErrorHandler(async (request: NextRequest, { params }: { 
 
     // Find the submission
     const submission = await prisma.contactSubmission.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         user: true
       }
@@ -107,7 +109,7 @@ export const POST = withErrorHandler(async (request: NextRequest, { params }: { 
 
     if (!submission) {
       const duration = Date.now() - startTime;
-      logger.api("POST", `/api/admin/contact/${params.id}`, 404, duration);
+      logger.api("POST", `/api/admin/contact/${id}`, 404, duration);
       return NextResponse.json({ error: "Submission not found" }, { status: 404 });
     }
 
@@ -116,17 +118,17 @@ export const POST = withErrorHandler(async (request: NextRequest, { params }: { 
       submission.email,
       subject,
       message,
-      params.id
+      id
     );
 
     if (!emailResult.success) {
       logger.error("Failed to send admin response email", new Error(emailResult.error || "Unknown error"), { 
-        submissionId: params.id,
+        submissionId: id,
         adminUserId: session.user.id
       });
       
       const duration = Date.now() - startTime;
-      logger.api("POST", `/api/admin/contact/${params.id}`, 500, duration);
+      logger.api("POST", `/api/admin/contact/${id}`, 500, duration);
       
       return NextResponse.json({ 
         error: "Failed to send email response",
@@ -136,12 +138,12 @@ export const POST = withErrorHandler(async (request: NextRequest, { params }: { 
 
     // Mark submission as read
     await prisma.contactSubmission.update({
-      where: { id: params.id },
+      where: { id },
       data: { isRead: true }
     });
 
     logger.info("Admin response sent successfully", {
-      submissionId: params.id,
+      submissionId: id,
       to: submission.email,
       subject,
       adminUserId: session.user.id,
@@ -149,7 +151,7 @@ export const POST = withErrorHandler(async (request: NextRequest, { params }: { 
     });
 
     const duration = Date.now() - startTime;
-    logger.api("POST", `/api/admin/contact/${params.id}`, 200, duration);
+    logger.api("POST", `/api/admin/contact/${id}`, 200, duration);
 
     return NextResponse.json({
       success: true,
@@ -160,27 +162,28 @@ export const POST = withErrorHandler(async (request: NextRequest, { params }: { 
 
   } catch (error) {
     const duration = Date.now() - startTime;
-    logger.api("POST", `/api/admin/contact/${params.id}`, 500, duration);
+    logger.api("POST", `/api/admin/contact/${id}`, 500, duration);
     throw error;
   }
 });
 
 // GET: Get specific submission details
-export const GET = withErrorHandler(async (request: NextRequest, { params }: { params: { id: string } }) => {
+export const GET = withErrorHandler(async (request: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
   const startTime = Date.now();
+  const { id } = await params;
   
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
     if (!session) {
       const duration = Date.now() - startTime;
-      logger.api("GET", `/api/admin/contact/${params.id}`, 401, duration);
+      logger.api("GET", `/api/admin/contact/${id}`, 401, duration);
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Find the submission
     const submission = await prisma.contactSubmission.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         user: {
           select: {
@@ -195,17 +198,17 @@ export const GET = withErrorHandler(async (request: NextRequest, { params }: { p
 
     if (!submission) {
       const duration = Date.now() - startTime;
-      logger.api("GET", `/api/admin/contact/${params.id}`, 404, duration);
+      logger.api("GET", `/api/admin/contact/${id}`, 404, duration);
       return NextResponse.json({ error: "Submission not found" }, { status: 404 });
     }
 
     logger.info("Contact submission retrieved", {
-      submissionId: params.id,
+      submissionId: id,
       adminUserId: session.user.id
     });
 
     const duration = Date.now() - startTime;
-    logger.api("GET", `/api/admin/contact/${params.id}`, 200, duration);
+    logger.api("GET", `/api/admin/contact/${id}`, 200, duration);
 
     return NextResponse.json({
       success: true,
@@ -214,7 +217,7 @@ export const GET = withErrorHandler(async (request: NextRequest, { params }: { p
 
   } catch (error) {
     const duration = Date.now() - startTime;
-    logger.api("GET", `/api/admin/contact/${params.id}`, 500, duration);
+    logger.api("GET", `/api/admin/contact/${id}`, 500, duration);
     throw error;
   }
 });

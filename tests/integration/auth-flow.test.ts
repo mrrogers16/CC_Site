@@ -110,8 +110,8 @@ describe('Authentication Flow Integration Tests', () => {
         token: tokenResult,
       } as any);
 
-      expect(sessionResult.user.id).toBe(mockCreatedUser.id);
-      expect(sessionResult.user.role).toBe('CLIENT');
+      expect('id' in sessionResult.user! ? sessionResult.user.id : undefined).toBe(mockCreatedUser.id);
+      expect('role' in sessionResult.user! ? sessionResult.user.role : undefined).toBe('CLIENT');
     });
 
     it('blocks login for unverified email with credentials', async () => {
@@ -247,7 +247,7 @@ describe('Authentication Flow Integration Tests', () => {
         token: tokenResult,
       } as any);
 
-      expect(sessionResult.user.role).toBe('ADMIN');
+      expect('role' in sessionResult.user! ? sessionResult.user.role : undefined).toBe('ADMIN');
     });
   });
 
@@ -348,9 +348,9 @@ describe('Authentication Flow Integration Tests', () => {
       } as any);
 
       // Verify data consistency
-      expect(loginResult?.id).toBe(sessionResult.user.id);
-      expect(loginResult?.email).toBe(sessionResult.user.email);
-      expect(loginResult?.role).toBe(sessionResult.user.role);
+      expect('id' in loginResult! && 'id' in sessionResult.user! ? loginResult.id : undefined).toBe('id' in sessionResult.user! ? sessionResult.user.id : undefined);
+      expect(loginResult?.email).toBe(sessionResult.user?.email);
+      expect('role' in loginResult! && 'role' in sessionResult.user! ? loginResult.role : undefined).toBe('role' in sessionResult.user! ? sessionResult.user.role : undefined);
     });
   });
 

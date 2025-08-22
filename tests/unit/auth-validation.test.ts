@@ -75,7 +75,7 @@ describe('Authentication Validation Schemas', () => {
         const result = registerSchema.safeParse(data);
         expect(result.success).toBe(false);
         if (!result.success) {
-          expect(result.error.issues[0].message).toBe('Name must be at least 2 characters');
+          expect(result.error.issues[0]?.message).toBe('Name must be at least 2 characters');
         }
       });
 
@@ -90,7 +90,7 @@ describe('Authentication Validation Schemas', () => {
         const result = registerSchema.safeParse(data);
         expect(result.success).toBe(false);
         if (!result.success) {
-          expect(result.error.issues[0].message).toBe('Name must be less than 100 characters');
+          expect(result.error.issues[0]?.message).toBe('Name must be less than 100 characters');
         }
       });
     });
@@ -116,7 +116,7 @@ describe('Authentication Validation Schemas', () => {
           const result = registerSchema.safeParse(data);
           expect(result.success).toBe(false);
           if (!result.success) {
-            expect(result.error.issues[0].message).toBe('Please enter a valid email address');
+            expect(result.error.issues[0]?.message).toBe('Please enter a valid email address');
           }
         });
       });
@@ -134,7 +134,7 @@ describe('Authentication Validation Schemas', () => {
         const result = registerSchema.safeParse(data);
         expect(result.success).toBe(false);
         if (!result.success) {
-          expect(result.error.issues[0].message).toBe('Password must be at least 8 characters');
+          expect(result.error.issues[0]?.message).toBe('Password must be at least 8 characters');
         }
       });
 
@@ -149,7 +149,7 @@ describe('Authentication Validation Schemas', () => {
         const result = registerSchema.safeParse(data);
         expect(result.success).toBe(false);
         if (!result.success) {
-          expect(result.error.issues[0].message).toContain('Password must contain');
+          expect(result.error.issues[0]?.message).toContain('Password must contain');
         }
       });
 
@@ -164,7 +164,7 @@ describe('Authentication Validation Schemas', () => {
         const result = registerSchema.safeParse(data);
         expect(result.success).toBe(false);
         if (!result.success) {
-          expect(result.error.issues[0].message).toContain('Password must contain');
+          expect(result.error.issues[0]?.message).toContain('Password must contain');
         }
       });
 
@@ -179,7 +179,7 @@ describe('Authentication Validation Schemas', () => {
         const result = registerSchema.safeParse(data);
         expect(result.success).toBe(false);
         if (!result.success) {
-          expect(result.error.issues[0].message).toContain('Password must contain');
+          expect(result.error.issues[0]?.message).toContain('Password must contain');
         }
       });
     });
@@ -224,7 +224,7 @@ describe('Authentication Validation Schemas', () => {
           const result = registerSchema.safeParse(data);
           expect(result.success).toBe(false);
           if (!result.success) {
-            expect(result.error.issues[0].message).toBe('Please enter a valid phone number');
+            expect(result.error.issues[0]?.message).toBe('Please enter a valid phone number');
           }
         });
       });
@@ -254,7 +254,7 @@ describe('Authentication Validation Schemas', () => {
       const result = loginSchema.safeParse(data);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe('Please enter a valid email address');
+        expect(result.error.issues[0]?.message).toBe('Please enter a valid email address');
       }
     });
 
@@ -267,7 +267,7 @@ describe('Authentication Validation Schemas', () => {
       const result = loginSchema.safeParse(data);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe('Password is required');
+        expect(result.error.issues[0]?.message).toBe('Password is required');
       }
     });
 
@@ -299,7 +299,7 @@ describe('Authentication Validation Schemas', () => {
       const result = emailVerificationSchema.safeParse(data);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('Verification token is required');
+        expect(result.error.issues[0]?.message).toBe('Verification token is required');
       }
     });
   });
@@ -323,7 +323,7 @@ describe('Authentication Validation Schemas', () => {
       const result = forgotPasswordSchema.safeParse(data);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe('Please enter a valid email address');
+        expect(result.error.issues[0]?.message).toBe('Please enter a valid email address');
       }
     });
   });
@@ -370,7 +370,7 @@ describe('Authentication Validation Schemas', () => {
       const result = resetPasswordSchema.safeParse(data);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('Password must be at least 8 characters');
+        expect(result.error.issues[0]?.message).toBe('Password must be at least 8 characters');
       }
     });
   });

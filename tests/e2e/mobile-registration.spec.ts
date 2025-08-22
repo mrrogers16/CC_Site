@@ -293,11 +293,11 @@ test.describe('Mobile Accessibility', () => {
 
     // Check ARIA labels and roles
     await expect(page.getByRole('form')).toBeVisible();
-    await expect(page.getByLabelText(/full name/i)).toBeVisible();
-    await expect(page.getByLabelText(/email address/i)).toBeVisible();
-    await expect(page.getByLabelText(/phone number/i)).toBeVisible();
-    await expect(page.getByLabelText('Password *')).toBeVisible();
-    await expect(page.getByLabelText(/confirm password/i)).toBeVisible();
+    await expect(page.getByLabel(/full name/i)).toBeVisible();
+    await expect(page.getByLabel(/email address/i)).toBeVisible();
+    await expect(page.getByLabel(/phone number/i)).toBeVisible();
+    await expect(page.getByLabel('Password *')).toBeVisible();
+    await expect(page.getByLabel(/confirm password/i)).toBeVisible();
 
     // Check button accessibility
     await expect(page.getByRole('button', { name: /create account/i })).toBeVisible();

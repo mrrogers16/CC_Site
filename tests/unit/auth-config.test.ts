@@ -47,8 +47,8 @@ describe('Enhanced NextAuth Configuration', () => {
 
     it('has correct providers configured', () => {
       expect(authOptions.providers).toHaveLength(2);
-      expect(authOptions.providers[0].type).toBe('oauth');
-      expect(authOptions.providers[1].type).toBe('credentials');
+      expect(authOptions.providers[0]?.type).toBe('oauth');
+      expect(authOptions.providers[1]?.type).toBe('credentials');
     });
 
     it('has correct session strategy', () => {
@@ -57,7 +57,7 @@ describe('Enhanced NextAuth Configuration', () => {
 
     it('has correct page configuration', () => {
       expect(authOptions.pages?.signIn).toBe('/auth/login');
-      expect(authOptions.pages?.signUp).toBe('/auth/register');
+      expect(authOptions.pages && 'signUp' in authOptions.pages ? (authOptions.pages as any).signUp : undefined).toBe('/auth/register');
     });
 
     it('has correct environment variables', () => {
@@ -302,9 +302,9 @@ describe('Enhanced NextAuth Configuration', () => {
 
       const result = await authOptions.callbacks!.session!({ session, token } as any);
 
-      expect(result.user.id).toBe('user-123');
-      expect(result.user.role).toBe('CLIENT');
-      expect(result.user.emailVerified).toBe(token.emailVerified);
+      expect('id' in result.user! ? result.user.id : undefined).toBe('user-123');
+      expect('role' in result.user! ? result.user.role : undefined).toBe('CLIENT');
+      expect('emailVerified' in result.user! ? result.user.emailVerified : undefined).toBe(token.emailVerified);
     });
 
     it('handles missing token data gracefully', async () => {
@@ -313,9 +313,9 @@ describe('Enhanced NextAuth Configuration', () => {
 
       const result = await authOptions.callbacks!.session!({ session, token } as any);
 
-      expect(result.user.id).toBeUndefined();
-      expect(result.user.role).toBeUndefined();
-      expect(result.user.emailVerified).toBeUndefined();
+      expect('id' in result.user! ? result.user.id : undefined).toBeUndefined();
+      expect('role' in result.user! ? result.user.role : undefined).toBeUndefined();
+      expect('emailVerified' in result.user! ? result.user.emailVerified : undefined).toBeUndefined();
     });
   });
 

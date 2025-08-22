@@ -31,7 +31,7 @@ describe('NextAuth Configuration', () => {
     it('has correct basic configuration', () => {
       expect(authOptions.providers).toHaveLength(1);
       expect(authOptions.providers[0]).toBeInstanceOf(CredentialsProvider);
-      expect(authOptions.session.strategy).toBe('jwt');
+      expect(authOptions.session?.strategy).toBe('jwt');
       expect(authOptions.pages?.signIn).toBe('/admin/login');
     });
 
@@ -193,7 +193,7 @@ describe('NextAuth Configuration', () => {
 
       const result = await authOptions.callbacks!.session!({ session, token } as any);
 
-      expect(result.user.id).toBe('user-123');
+      expect('id' in result.user! ? result.user.id : undefined).toBe('user-123');
     });
 
     it('handles missing token id', async () => {
@@ -202,7 +202,7 @@ describe('NextAuth Configuration', () => {
 
       const result = await authOptions.callbacks!.session!({ session, token } as any);
 
-      expect(result.user.id).toBeUndefined();
+      expect('id' in result.user! ? result.user.id : undefined).toBeUndefined();
     });
   });
 });

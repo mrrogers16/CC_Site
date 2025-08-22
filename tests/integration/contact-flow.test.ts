@@ -240,7 +240,7 @@ describe('Contact System Integration', () => {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const response = await AdminResponse(request, { params: { id: submissionId } });
+      const response = await AdminResponse(request, { params: Promise.resolve({ id: submissionId }) });
       const result = await response.json();
 
       expect(response.status).toBe(200);
@@ -301,7 +301,7 @@ describe('Contact System Integration', () => {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const response = await AdminUpdate(request, { params: { id: submissionId } });
+      const response = await AdminUpdate(request, { params: Promise.resolve({ id: submissionId }) });
       const result = await response.json();
 
       expect(response.status).toBe(200);
@@ -333,7 +333,7 @@ describe('Contact System Integration', () => {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const response = await AdminUpdate(request, { params: { id: 'test-id' } });
+      const response = await AdminUpdate(request, { params: Promise.resolve({ id: 'test-id' }) });
       const result = await response.json();
 
       expect(response.status).toBe(401);
@@ -412,7 +412,7 @@ describe('Contact System Integration', () => {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const response = await AdminResponse(request, { params: { id: submissionId } });
+      const response = await AdminResponse(request, { params: Promise.resolve({ id: submissionId }) });
       const result = await response.json();
 
       expect(response.status).toBe(500);

@@ -294,7 +294,7 @@ export function EnhancedRegisterForm() {
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
               <ValidationIcon 
                 isValid={emailValidation.isValid && !errors.email && !!watchedValues.email} 
-                isChecking={emailValidation.isChecking && !errors.email && !!watchedValues.email}
+                isChecking={!!emailValidation.isChecking && !errors.email && !!watchedValues.email}
               />
             </div>
           </div>

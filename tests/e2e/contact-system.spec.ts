@@ -186,6 +186,9 @@ test.describe('Contact System E2E', () => {
       await page.addInitScript(() => {
         // Mock NextAuth session
         window.__NEXT_DATA__ = {
+          page: '/admin/contact',
+          query: {},
+          buildId: 'test-build-id',
           props: {
             session: {
               user: {
