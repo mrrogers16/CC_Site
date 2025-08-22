@@ -768,3 +768,329 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
 - Use HACK: for temporary solutions
 - Update this file's status section after major changes
 - Never use emojis in code or comments
+
+## Code Quality Guidelines
+
+This section provides comprehensive guidelines for maintaining high code quality standards across the project. These guidelines are based on the ESLint configuration and best practices established in the codebase.
+
+### ESLint Configuration
+
+#### Current Configuration
+The project uses ESLint with the following key configurations:
+- **Next.js**: `next/core-web-vitals` and `next/typescript` presets
+- **Prettier Integration**: Automatic code formatting
+- **TypeScript Strict**: Enhanced type checking with custom rules
+- **React Hooks**: Exhaustive dependency checking
+
+#### File Exclusions
+The following files and directories are excluded from linting:
+```javascript
+// Global ignores in eslint.config.mjs
+{
+  ignores: [
+    "node_modules/**",
+    ".next/**", 
+    "out/**",
+    "build/**",
+    "dist/**",
+    "src/generated/**/*",     // Prisma generated files
+    "*.config.js",
+    "*.config.mjs",
+    "jest.setup.js",
+    "next-env.d.ts",
+    "coverage/**",
+    "playwright-report/**",
+    "test-results/**",
+    "**/*.trace.zip",
+    "**/*.png",
+    "**/.DS_Store",
+  ],
+}
+```
+
+### React/JSX Best Practices
+
+#### Entity Escaping
+**Rule**: All special characters in JSX content must be properly escaped.
+
+**Examples**:
+```jsx
+// ❌ Incorrect - Unescaped entities
+<p>We're here to help!</p>
+<p>Say "hello" to everyone.</p>
+<p>Anxiety & Depression support</p>
+
+// ✅ Correct - Properly escaped entities  
+<p>We&apos;re here to help!</p>
+<p>Say &quot;hello&quot; to everyone.</p>
+<p>Anxiety &amp; Depression support</p>
+```
+
+**Common Entities**:
+- Apostrophe `'` → `&apos;`
+- Double quote `"` → `&quot;`
+- Ampersand `&` → `&amp;`
+- Less than `<` → `&lt;`
+- Greater than `>` → `&gt;`
+- Bullet point `•` → `&bull;`
+
+#### Self-Closing Components
+**Rule**: Empty components must be self-closing.
+
+```jsx
+// ❌ Incorrect
+<div className="spinner"></div>
+<input type="text"></input>
+
+// ✅ Correct
+<div className="spinner" />
+<input type="text" />
+```
+
+#### Autocomplete Attributes
+**Rule**: Add proper autocomplete attributes to form fields to eliminate browser warnings.
+
+```jsx
+// ✅ Correct form field attributes
+<input
+  type="email"
+  autoComplete="email"
+  inputMode="email"
+  aria-label="Email address"
+/>
+<input
+  type="tel"
+  autoComplete="tel"
+  inputMode="tel"
+  aria-label="Phone number"
+/>
+<input
+  type="password"
+  autoComplete="new-password"
+  aria-label="Password"
+/>
+```
+
+### TypeScript Best Practices
+
+#### Unused Variables
+**Rule**: All unused variables must be prefixed with underscore `_` or removed.
+
+```typescript
+// ❌ Incorrect - Unused variables
+const { reset, data, error } = useForm();
+catch (error) { /* not used */ }
+
+// ✅ Correct - Prefixed with underscore
+const { reset: _reset, data, error: _error } = useForm();
+catch (_error) { /* explicitly unused */ }
+```
+
+#### Explicit Any Types
+**Rule**: Avoid `any` types where possible. Use proper typing or `unknown` for better type safety.
+
+```typescript
+// ❌ Avoid explicit any
+const handleData = (data: any) => { /* ... */ };
+
+// ✅ Preferred approaches
+const handleData = (data: unknown) => { /* ... */ };
+const handleData = <T>(data: T) => { /* ... */ };
+const handleData = (data: User | Contact) => { /* ... */ };
+```
+
+#### Optional Chain Safety
+**Rule**: Never use non-null assertions with optional chaining.
+
+```typescript
+// ❌ Dangerous - Non-null assertion with optional chaining
+const height = boundingBox?.height!;
+const result = data?.items?.[0]!.name;
+
+// ✅ Safe - Proper null checking
+if (boundingBox) {
+  const height = boundingBox.height;
+}
+const result = data?.items?.[0]?.name;
+```
+
+### React Hooks Best Practices
+
+#### useCallback Dependencies
+**Rule**: All dependencies of useCallback must be properly declared or use alternative patterns for debounced functions.
+
+```typescript
+// ❌ Problematic - debounce returns function with unknown dependencies
+const debouncedFn = useCallback(
+  debounce(someFunction, 500),
+  [someFunction]
+);
+
+// ✅ Solution 1 - Use useRef for debounced functions
+const debouncedFnRef = useRef(debounce(someFunction, 500));
+useEffect(() => {
+  debouncedFnRef.current = debounce(someFunction, 500);
+}, [someFunction]);
+
+// ✅ Solution 2 - Separate the function and debouncing
+const handleFunction = useCallback(
+  async (param: string) => {
+    // Function logic here
+  },
+  [dependencies]
+);
+
+const debouncedHandle = useCallback(
+  debounce(handleFunction, 500),
+  [handleFunction]
+);
+```
+
+#### useEffect Dependencies
+**Rule**: Include all dependencies in useEffect dependency arrays.
+
+```typescript
+// ❌ Missing dependencies
+useEffect(() => {
+  fetchData(userId);
+}, []); // Missing userId dependency
+
+// ✅ Complete dependencies
+useEffect(() => {
+  fetchData(userId);
+}, [userId, fetchData]);
+```
+
+### Import/Export Best Practices
+
+#### Unused Imports
+**Rule**: Remove unused imports or prefix with underscore if needed for configuration.
+
+```typescript
+// ❌ Unused imports
+import { useState, useEffect, useCallback } from 'react';
+import { SomeUnusedUtility } from './utils';
+
+// ✅ Only import what you use
+import { useState, useEffect } from 'react';
+
+// ✅ For configuration/validation imports that appear unused
+import SomeProvider from 'provider';
+// Suppress unused import warnings for configuration validation
+const _configProviders = { SomeProvider };
+```
+
+### Testing Code Quality
+
+#### Test File Standards
+**Rule**: Maintain the same code quality standards in test files.
+
+```typescript
+// ✅ Proper test patterns
+import { render, screen } from '@testing-library/react';
+// Remove fireEvent if not used
+import userEvent from '@testing-library/user-event';
+
+// Use proper typing for mocks
+const mockFetch = jest.fn();
+global.fetch = mockFetch as jest.MockedFunction<typeof fetch>;
+
+// Prefix unused variables in tests
+test('example', async () => {
+  const _response = await apiCall(); // Not checking response
+  expect(screen.getByText('Success')).toBeInTheDocument();
+});
+```
+
+### Before Committing Checklist
+
+Run these commands and fix any issues before committing:
+
+1. **Linting**: `npm run lint:fix`
+   - Should return **0 errors** (warnings are acceptable if properly justified)
+   
+2. **Type Checking**: `npm run typecheck`
+   - Must pass with no TypeScript errors
+   
+3. **Code Formatting**: `npm run format`
+   - Ensures consistent code style
+   
+4. **Testing**: `npm run test`
+   - All tests must pass
+   
+5. **Build Verification**: `npm run build`
+   - Production build must complete successfully
+
+### Common ESLint Rule Fixes
+
+#### React Specific
+- `react/no-unescaped-entities`: Escape special characters in JSX
+- `react/self-closing-comp`: Use self-closing tags for empty components
+- `react/jsx-curly-brace-presence`: Remove unnecessary braces in JSX
+- `react-hooks/exhaustive-deps`: Include all dependencies in hook arrays
+
+#### TypeScript Specific  
+- `@typescript-eslint/no-unused-vars`: Prefix unused variables with `_`
+- `@typescript-eslint/no-explicit-any`: Use proper typing instead of `any`
+- `@typescript-eslint/no-non-null-asserted-optional-chain`: Avoid `?.prop!` patterns
+
+#### Import/Export
+- Remove unused imports completely
+- Use meaningful variable names
+- Group related imports together
+
+### Troubleshooting Common Issues
+
+#### Generated Files Being Linted
+**Problem**: Prisma generated files or build output being processed by ESLint.
+**Solution**: Add to the `ignores` array in `eslint.config.mjs`:
+```javascript
+"src/generated/**/*",
+".next/**",
+"dist/**"
+```
+
+#### Debounced Functions in useCallback
+**Problem**: `React Hook useCallback received a function whose dependencies are unknown`
+**Solution**: Use the useRef pattern shown above for debounced functions.
+
+#### Optional Chaining with Non-null Assertion
+**Problem**: `Optional chain expressions can return undefined by design`
+**Solution**: Use proper null checking instead of non-null assertions.
+
+```typescript
+// ❌ Problematic
+const value = obj?.prop!;
+
+// ✅ Safe
+const value = obj?.prop;
+if (obj && obj.prop) {
+  const value = obj.prop; // Now safely typed
+}
+```
+
+#### Test File Configuration
+**Problem**: Test files not following same standards.
+**Solution**: Ensure test files use proper imports, handle unused variables, and maintain typing standards.
+
+### Performance Considerations
+
+#### Bundle Size Impact
+- Unused imports increase bundle size
+- Proper ESLint configuration prevents this automatically
+- Tree shaking works better with clean imports
+
+#### Development Experience
+- Fast linting feedback prevents runtime errors
+- TypeScript strict mode catches issues early
+- Consistent formatting improves code review efficiency
+
+### Integration with CI/CD
+
+The GitHub Actions pipeline enforces these standards:
+- Linting must pass with 0 errors
+- TypeScript compilation must succeed
+- All tests must pass
+- Code formatting must be consistent
+
+This ensures code quality is maintained across all contributions to the project.

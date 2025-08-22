@@ -14,7 +14,7 @@ export function HeroSection() {
         
         <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
           Professional counseling services focused on your mental health and wellbeing. 
-          Compassionate, evidence-based therapy to help you navigate life's challenges.
+          Compassionate, evidence-based therapy to help you navigate life&apos;s challenges.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">

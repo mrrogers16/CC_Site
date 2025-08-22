@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
@@ -46,7 +46,7 @@ export function EnhancedRegisterForm() {
 
   // Debounced email availability check
   const checkEmailAvailability = useCallback(
-    debounce(async (email: string) => {
+    async (email: string) => {
       if (!email || errors.email) {
         setEmailValidation({ isValid: false });
         return;
@@ -79,18 +79,26 @@ export function EnhancedRegisterForm() {
           message: "Error checking email availability",
         });
       }
-    }, 500),
+    },
     [errors.email]
   );
+
+  // Create debounced version using ref to avoid unknown dependencies
+  const debouncedEmailCheckRef = useRef(debounce(checkEmailAvailability, 500));
+  
+  // Update ref when checkEmailAvailability changes
+  useEffect(() => {
+    debouncedEmailCheckRef.current = debounce(checkEmailAvailability, 500);
+  }, [checkEmailAvailability]);
 
   // Real-time validation effects
   useEffect(() => {
     if (watchedValues.email) {
-      checkEmailAvailability(watchedValues.email);
+      debouncedEmailCheckRef.current(watchedValues.email);
     } else {
       setEmailValidation({ isValid: false });
     }
-  }, [watchedValues.email, checkEmailAvailability]);
+  }, [watchedValues.email]);
 
   useEffect(() => {
     if (watchedValues.name && touchedFields.name) {

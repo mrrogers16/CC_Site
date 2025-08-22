@@ -9,7 +9,7 @@ export function ContactSection() {
             Ready to Begin Your Healing Journey?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Take the first step towards better mental health. We're here to support you.
+            Take the first step towards better mental health. We&apos;re here to support you.
           </p>
         </div>
 

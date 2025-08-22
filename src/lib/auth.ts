@@ -90,7 +90,7 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account, profile: _profile }) {
       // Require email verification for credentials login
       if (account?.provider === "credentials") {
         if (!user.emailVerified) {

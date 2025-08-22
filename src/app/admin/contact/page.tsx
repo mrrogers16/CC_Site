@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Navigation } from "@/components/layout/navigation";
@@ -52,12 +52,7 @@ export default function AdminContactPage() {
     }
   }, [session, status, router]);
 
-  // Fetch submissions
-  useEffect(() => {
-    fetchSubmissions();
-  }, [filter]);
-
-  const fetchSubmissions = async (page = 1) => {
+  const fetchSubmissions = useCallback(async (page = 1) => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -81,7 +76,12 @@ export default function AdminContactPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
+
+  // Fetch submissions
+  useEffect(() => {
+    fetchSubmissions();
+  }, [fetchSubmissions]);
 
   const markAsRead = async (submissionId: string, isRead: boolean) => {
     try {
@@ -152,7 +152,7 @@ export default function AdminContactPage() {
   if (status === "loading") {
     return <div className="min-h-screen bg-background flex items-center justify-center">
       <div className="text-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" />
         <p className="mt-2 text-muted-foreground">Loading...</p>
       </div>
     </div>;
@@ -208,7 +208,7 @@ export default function AdminContactPage() {
           <div className="bg-card border border-border rounded-lg overflow-hidden">
             {loading ? (
               <div className="p-8 text-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" />
                 <p className="mt-2 text-muted-foreground">Loading submissions...</p>
               </div>
             ) : submissions.length === 0 ? (

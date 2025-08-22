@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
@@ -30,7 +30,7 @@ export function RegisterForm() {
     handleSubmit,
     formState: { errors },
     watch,
-    reset,
+    reset: _reset,
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     mode: "onChange", // Enable real-time validation
@@ -38,9 +38,9 @@ export function RegisterForm() {
 
   const emailValue = watch("email");
 
-  // Debounced email availability checking
+  // Email availability checking function
   const checkEmailAvailability = useCallback(
-    debounce(async (email: string) => {
+    async (email: string) => {
       // Don't check if email is empty or has validation errors
       if (!email || errors.email) {
         setEmailCheck({ isChecking: false, isValid: false });
@@ -84,18 +84,26 @@ export function RegisterForm() {
           message: "Unable to verify email availability",
         });
       }
-    }, 500), // 500ms debounce delay
+    },
     [errors.email]
   );
+
+  // Debounced email availability checking using ref to avoid unknown dependencies
+  const debouncedEmailCheckRef = useRef(debounce(checkEmailAvailability, 500));
+  
+  // Update ref when checkEmailAvailability changes
+  useEffect(() => {
+    debouncedEmailCheckRef.current = debounce(checkEmailAvailability, 500);
+  }, [checkEmailAvailability]);
 
   // Watch for email changes and trigger availability check
   useEffect(() => {
     if (emailValue) {
-      checkEmailAvailability(emailValue);
+      debouncedEmailCheckRef.current(emailValue);
     } else {
       setEmailCheck({ isChecking: false, isValid: false });
     }
-  }, [emailValue, checkEmailAvailability]);
+  }, [emailValue]);
 
   const onSubmit = async (data: RegisterFormData) => {
     // Prevent submission if email is already taken

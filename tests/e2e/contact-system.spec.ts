@@ -215,7 +215,7 @@ test.describe('Contact System E2E', () => {
     test('displays contact submissions dashboard', async ({ page }) => {
       // Mock API responses for authenticated user
       await page.route('/api/contact*', async route => {
-        const url = new URL(route.request().url());
+        const _url = new URL(route.request().url());
         if (route.request().method() === 'GET') {
           await route.fulfill({
             status: 200,

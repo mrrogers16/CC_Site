@@ -29,21 +29,21 @@ export function ContactResponseEmail({ name }: ContactResponseEmailProps) {
             
             <Text style={paragraph}>
               Thank you for reaching out to Healing Pathways Counseling. 
-              We've received your message and truly appreciate you taking this important step.
+              We&apos;ve received your message and truly appreciate you taking this important step.
             </Text>
 
             <Text style={paragraph}>
               We understand that reaching out can take courage, and we want you to know 
-              that we're here to support you on your journey to better mental health and wellbeing.
+              that we&apos;re here to support you on your journey to better mental health and wellbeing.
             </Text>
 
             <Section style={responseInfo}>
               <Text style={responseTitle}>What happens next?</Text>
               <Text style={responseText}>
-                • We'll review your message carefully<br />
-                • A member of our team will respond within 24 hours during business days<br />
-                • We'll answer any questions and help you take the next steps<br />
-                • All communications are kept strictly confidential
+                &bull; We&apos;ll review your message carefully<br />
+                &bull; A member of our team will respond within 24 hours during business days<br />
+                &bull; We&apos;ll answer any questions and help you take the next steps<br />
+                &bull; All communications are kept strictly confidential
               </Text>
             </Section>
 
@@ -52,7 +52,7 @@ export function ContactResponseEmail({ name }: ContactResponseEmailProps) {
             <Section style={contactInfo}>
               <Text style={contactTitle}>Need immediate support?</Text>
               <Text style={contactText}>
-                If you're experiencing a crisis or need immediate support, please don't wait for our response:
+                If you&apos;re experiencing a crisis or need immediate support, please don&apos;t wait for our response:
               </Text>
               <Text style={contactText}>
                 <strong>Call our office:</strong> <Link href="tel:+15551234567" style={link}>(555) 123-4567</Link><br />

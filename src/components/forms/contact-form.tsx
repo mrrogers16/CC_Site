@@ -139,7 +139,7 @@ export function ContactForm({ className = "" }: ContactFormProps) {
         {submitStatus === 'success' && (
           <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
             <p className="text-green-800">
-              Thank you for your message! We'll get back to you within 24 hours.
+              Thank you for your message! We&apos;ll get back to you within 24 hours.
             </p>
           </div>
         )}

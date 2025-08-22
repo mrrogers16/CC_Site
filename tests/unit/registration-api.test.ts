@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { POST } from '@/app/api/auth/register/route';
 import bcrypt from 'bcryptjs';
 
@@ -260,7 +260,7 @@ describe('/api/auth/register', () => {
       (bcrypt.hash as jest.Mock).mockResolvedValue('hashed-password');
 
       const request = createMockRequest(requestData);
-      const response = await POST(request);
+      const _response = await POST(request);
 
       expect(prisma.user.findUnique).toHaveBeenCalledWith({
         where: { email: 'john.doe@example.com' },

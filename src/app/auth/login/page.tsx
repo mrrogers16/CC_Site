@@ -47,8 +47,8 @@ export default function LoginPage() {
               Need Help?
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              If you're having trouble accessing your account or need assistance, 
-              we're here to help. Our team is available during business hours.
+              If you&apos;re having trouble accessing your account or need assistance, 
+              we&apos;re here to help. Our team is available during business hours.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-card rounded-lg p-6 border border-border">

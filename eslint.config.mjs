@@ -10,6 +10,27 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // Global ignores first
+  {
+    ignores: [
+      "node_modules/**",
+      ".next/**",
+      "out/**", 
+      "build/**",
+      "dist/**",
+      "src/generated/**/*",
+      "*.config.js",
+      "*.config.mjs", 
+      "jest.setup.js",
+      "next-env.d.ts",
+      "coverage/**",
+      "playwright-report/**",
+      "test-results/**",
+      "**/*.trace.zip",
+      "**/*.png",
+      "**/.DS_Store",
+    ],
+  },
   ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
   {
     languageOptions: {
@@ -19,18 +40,18 @@ const eslintConfig = [
       },
     },
     rules: {
-      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-unused-vars": ["error", {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }],
       "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
       "react/jsx-curly-brace-presence": ["error", "never"],
       "react/self-closing-comp": "error",
+      "react/jsx-no-target-blank": "error",
+      "react-hooks/exhaustive-deps": "error",
     },
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
-    ],
   },
 ];
 

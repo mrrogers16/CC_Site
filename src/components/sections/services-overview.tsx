@@ -30,7 +30,7 @@ export function ServicesOverview() {
             Counseling Services
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Comprehensive mental health services designed to support you through life's challenges
+            Comprehensive mental health services designed to support you through life&apos;s challenges
           </p>
         </div>
 

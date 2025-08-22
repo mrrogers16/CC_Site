@@ -49,7 +49,7 @@ export function VerifyEmailContent() {
 
         {email && (
           <p className="text-muted-foreground mb-6">
-            We've sent a verification link to:
+            We&apos;ve sent a verification link to:
             <br />
             <span className="font-medium text-foreground" data-testid="email-display">
               {email}
@@ -65,7 +65,7 @@ export function VerifyEmailContent() {
             <div>
               <p className="font-medium text-foreground">Check your email inbox</p>
               <p className="text-sm text-muted-foreground">
-                Look for an email from Healing Pathways Counseling with the subject "Verify your account"
+                Look for an email from Healing Pathways Counseling with the subject &quot;Verify your account&quot;
               </p>
             </div>
           </div>
@@ -97,7 +97,7 @@ export function VerifyEmailContent() {
 
         <div className="border-t border-border pt-6">
           <p className="text-sm text-muted-foreground mb-4">
-            Didn't receive the email? Check your spam folder or:
+            Didn&apos;t receive the email? Check your spam folder or:
           </p>
 
           {resendMessage && (
@@ -131,7 +131,7 @@ export function VerifyEmailContent() {
 
       <div className="mt-8 text-center">
         <p className="text-sm text-muted-foreground">
-          Remember to check your spam/junk folder if you don't see the email within a few minutes.
+          Remember to check your spam/junk folder if you don&apos;t see the email within a few minutes.
         </p>
       </div>
     </div>

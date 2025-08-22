@@ -48,7 +48,7 @@ function ServiceCard({ service }: { service: Awaited<ReturnType<typeof getServic
 
         {service.features && service.features.length > 0 && (
           <div className="border-t border-border pt-6">
-            <h4 className="text-sm font-medium text-foreground mb-3">What's Included:</h4>
+            <h4 className="text-sm font-medium text-foreground mb-3">What&apos;s Included:</h4>
             <ul className="space-y-2">
               {service.features.map((feature, index) => (
                 <li key={index} className="flex items-start">
@@ -143,7 +143,7 @@ export default async function ServicesPage() {
           </div>
           <p className="text-sm text-muted-foreground">
             Please contact us to discuss your insurance coverage and payment options. 
-            We're here to help you access the care you need.
+            We&apos;re here to help you access the care you need.
           </p>
         </div>
       </section>

@@ -21,7 +21,7 @@ export default function ContactPage() {
                 Contact Us
               </h1>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                We're here to support you on your journey to better mental health. 
+                We&apos;re here to support you on your journey to better mental health. 
                 Reach out to us with any questions about our services or to schedule your first appointment.
               </p>
             </div>
@@ -104,8 +104,8 @@ export default function ContactPage() {
                 Crisis Support Resources
               </h2>
               <p className="text-orange-800 mb-6">
-                If you're experiencing a mental health crisis or having thoughts of self-harm, 
-                please reach out for immediate support. You don't have to face this alone.
+                If you&apos;re experiencing a mental health crisis or having thoughts of self-harm, 
+                please reach out for immediate support. You don&apos;t have to face this alone.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -143,7 +143,7 @@ export default function ContactPage() {
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
                   You can schedule your first appointment by calling our office, using our online contact form, 
-                  or emailing us directly. We'll start with a brief phone consultation to understand your needs 
+                  or emailing us directly. We&apos;ll start with a brief phone consultation to understand your needs 
                   and match you with the right therapist.
                 </p>
               </div>
@@ -153,7 +153,7 @@ export default function ContactPage() {
                   Do you accept insurance?
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Yes, we accept most major insurance plans. We'll verify your coverage and explain your benefits 
+                  Yes, we accept most major insurance plans. We&apos;ll verify your coverage and explain your benefits 
                   before your first appointment. We also offer competitive self-pay rates and sliding scale fees 
                   based on financial need.
                 </p>
@@ -165,7 +165,7 @@ export default function ContactPage() {
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Your first session will focus on getting to know you and understanding your concerns. 
-                  We'll discuss your goals for therapy, review your history, and begin developing a treatment plan 
+                  We&apos;ll discuss your goals for therapy, review your history, and begin developing a treatment plan 
                   tailored to your specific needs.
                 </p>
               </div>
@@ -177,7 +177,7 @@ export default function ContactPage() {
                 <p className="text-muted-foreground leading-relaxed">
                   Yes, everything you share in therapy is confidential. We follow strict professional guidelines 
                   to protect your privacy. The only exceptions are situations involving imminent danger to yourself 
-                  or others, which we'll discuss with you during your first session.
+                  or others, which we&apos;ll discuss with you during your first session.
                 </p>
               </div>
             </div>

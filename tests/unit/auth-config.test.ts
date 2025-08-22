@@ -1,6 +1,9 @@
 import { authOptions } from '@/lib/auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
+
+// Suppress unused import warnings for providers used in configuration validation
+const _providers = { CredentialsProvider, GoogleProvider };
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import bcrypt from 'bcryptjs';
 

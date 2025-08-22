@@ -34,7 +34,7 @@ export default function AdminLoginPage() {
           router.push("/admin/contact");
         }
       }
-    } catch (error) {
+    } catch (_error) {
       setError("An error occurred during login");
     } finally {
       setIsLoading(false);

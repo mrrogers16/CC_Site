@@ -175,7 +175,9 @@ test.describe('Mobile Authentication Experience', () => {
         const secondCardBox = await secondCard.boundingBox();
         
         // Cards should be stacked (second card below first)
-        expect(secondCardBox?.y).toBeGreaterThan(firstCardBox?.y! + firstCardBox?.height!);
+        if (firstCardBox && secondCardBox) {
+          expect(secondCardBox.y).toBeGreaterThan(firstCardBox.y + firstCardBox.height);
+        }
       }
     });
   });
@@ -277,7 +279,9 @@ test.describe('Mobile Authentication Experience', () => {
         // Error should not be cut off on mobile
         const errorBox = await error.boundingBox();
         const viewportWidth = page.viewportSize()?.width || 0;
-        expect(errorBox?.x! + errorBox?.width!).toBeLessThanOrEqual(viewportWidth);
+        if (errorBox) {
+          expect(errorBox.x + errorBox.width).toBeLessThanOrEqual(viewportWidth);
+        }
       }
     });
 
@@ -316,7 +320,9 @@ test.describe('Mobile Authentication Experience', () => {
         const secondCardBox = await secondCard.boundingBox();
         
         // Cards should be stacked vertically
-        expect(secondCardBox?.y).toBeGreaterThan(firstCardBox?.y! + firstCardBox?.height! - 10);
+        if (firstCardBox && secondCardBox) {
+          expect(secondCardBox.y).toBeGreaterThan(firstCardBox.y + firstCardBox.height - 10);
+        }
       }
     });
 

@@ -22,7 +22,7 @@ export default function VerifyEmailPage() {
                 Check Your Email
               </h1>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                We've sent you a verification link to complete your account setup. 
+                We&apos;ve sent you a verification link to complete your account setup. 
                 Please check your email and click the link to verify your account.
               </p>
             </div>
@@ -51,7 +51,7 @@ export default function VerifyEmailPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <h3 className="font-medium text-foreground mb-3">Didn't Receive the Email?</h3>
+                <h3 className="font-medium text-foreground mb-3">Didn&apos;t Receive the Email?</h3>
                 <p className="text-muted-foreground text-sm mb-4">
                   Check your spam/junk folder. Sometimes verification emails can end up there. 
                   Also verify you entered the correct email address.
