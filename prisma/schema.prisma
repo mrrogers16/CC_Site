@@ -35,6 +35,7 @@ model Service {
   description String
   duration    Int     // Duration in minutes
   price       Decimal @db.Money
+  features    Json? 
   isActive    Boolean @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
