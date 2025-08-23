@@ -101,9 +101,11 @@ describe("Complete Booking Flow Integration", () => {
       };
 
       // Mock the service creation to return the test service
-      const mockPrismaService = prisma.service.create as jest.MockedFunction<typeof prisma.service.create>;
+      const mockPrismaService = prisma.service.create as jest.MockedFunction<
+        typeof prisma.service.create
+      >;
       mockPrismaService.mockResolvedValue(testService);
-      
+
       const _createdService = await prisma.service.create({
         data: testService,
       });

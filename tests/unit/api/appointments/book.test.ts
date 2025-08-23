@@ -2,7 +2,11 @@ import { NextRequest } from "next/server";
 import { POST } from "@/app/api/appointments/book/route";
 import { getServerSession } from "next-auth";
 import { isTimeSlotAvailable } from "@/lib/utils/time-slots";
-import { createMockService, createMockUser, createMockAppointmentWithIncludes } from "../../../utils/mock-factories";
+import {
+  createMockService,
+  createMockUser,
+  createMockAppointmentWithIncludes,
+} from "../../../utils/mock-factories";
 import type { AppointmentStatus } from "@/generated/prisma";
 import { Decimal } from "@/generated/prisma/runtime/library";
 
@@ -40,11 +44,17 @@ import { prisma } from "@/lib/db";
 // Get typed access to the mocked prisma
 const mockPrisma = {
   service: {
-    findUnique: prisma.service.findUnique as jest.MockedFunction<typeof prisma.service.findUnique>,
+    findUnique: prisma.service.findUnique as jest.MockedFunction<
+      typeof prisma.service.findUnique
+    >,
   },
   appointment: {
-    findFirst: prisma.appointment.findFirst as jest.MockedFunction<typeof prisma.appointment.findFirst>,
-    create: prisma.appointment.create as jest.MockedFunction<typeof prisma.appointment.create>,
+    findFirst: prisma.appointment.findFirst as jest.MockedFunction<
+      typeof prisma.appointment.findFirst
+    >,
+    create: prisma.appointment.create as jest.MockedFunction<
+      typeof prisma.appointment.create
+    >,
   },
 };
 
@@ -97,7 +107,7 @@ describe("/api/appointments/book", () => {
   describe("POST /api/appointments/book", () => {
     it("should successfully book an appointment", async () => {
       const mockAppointment = createMockAppointmentWithIncludes(
-        { 
+        {
           id: "clxxxxxxxxxxxxxxxxxxxxxxx",
           title: "Individual Therapy",
           duration: 60,
@@ -105,7 +115,7 @@ describe("/api/appointments/book", () => {
         },
         {
           id: "user-123",
-          name: "Test Client", 
+          name: "Test Client",
           email: "test@example.com",
         },
         {
@@ -280,7 +290,7 @@ describe("/api/appointments/book", () => {
       };
 
       const mockAppointment = createMockAppointmentWithIncludes(
-        { 
+        {
           id: "clxxxxxxxxxxxxxxxxxxxxxxx",
           title: "Individual Therapy",
           duration: 60,
@@ -288,7 +298,7 @@ describe("/api/appointments/book", () => {
         },
         {
           id: "user-123",
-          name: "Test Client", 
+          name: "Test Client",
           email: "test@example.com",
         },
         {
@@ -375,7 +385,7 @@ describe("/api/appointments/book", () => {
 
     it("should format price as string in response", async () => {
       const mockAppointment = createMockAppointmentWithIncludes(
-        { 
+        {
           id: "clxxxxxxxxxxxxxxxxxxxxxxx",
           title: "Individual Therapy",
           duration: 60,
@@ -383,7 +393,7 @@ describe("/api/appointments/book", () => {
         },
         {
           id: "user-123",
-          name: "Test Client", 
+          name: "Test Client",
           email: "test@example.com",
         },
         {

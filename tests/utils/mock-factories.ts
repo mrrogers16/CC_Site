@@ -1,4 +1,10 @@
-import type { Service, Appointment, User, AppointmentStatus, UserRole } from "@/generated/prisma";
+import type {
+  Service,
+  Appointment,
+  User,
+  AppointmentStatus,
+  UserRole,
+} from "@/generated/prisma";
 import { Decimal } from "@/generated/prisma/runtime/library";
 
 /**
@@ -14,12 +20,18 @@ export const createMockService = (overrides?: Partial<Service>): Service => ({
   description: "One-on-one therapy sessions with personalized care",
   duration: 60,
   price: new Decimal("120.00"),
-  features: ["Personalized care", "Evidence-based treatment", "Confidential sessions"],
+  features: [
+    "Personalized care",
+    "Evidence-based treatment",
+    "Confidential sessions",
+  ],
   isActive: true,
   ...overrides,
 });
 
-export const createMockAppointment = (overrides?: Partial<Appointment>): Appointment => ({
+export const createMockAppointment = (
+  overrides?: Partial<Appointment>
+): Appointment => ({
   id: `appointment-${Date.now()}`,
   createdAt: new Date("2025-08-23T10:00:00Z"),
   updatedAt: new Date("2025-08-23T10:00:00Z"),

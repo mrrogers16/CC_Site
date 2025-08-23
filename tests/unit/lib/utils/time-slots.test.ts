@@ -37,16 +37,24 @@ import { prisma } from "@/lib/db";
 // Get typed access to the mocked prisma
 const mockPrisma = {
   service: {
-    findUnique: prisma.service.findUnique as jest.MockedFunction<typeof prisma.service.findUnique>,
+    findUnique: prisma.service.findUnique as jest.MockedFunction<
+      typeof prisma.service.findUnique
+    >,
   },
   availability: {
-    findMany: prisma.availability.findMany as jest.MockedFunction<typeof prisma.availability.findMany>,
+    findMany: prisma.availability.findMany as jest.MockedFunction<
+      typeof prisma.availability.findMany
+    >,
   },
   appointment: {
-    findMany: prisma.appointment.findMany as jest.MockedFunction<typeof prisma.appointment.findMany>,
+    findMany: prisma.appointment.findMany as jest.MockedFunction<
+      typeof prisma.appointment.findMany
+    >,
   },
   blockedSlot: {
-    findMany: prisma.blockedSlot.findMany as jest.MockedFunction<typeof prisma.blockedSlot.findMany>,
+    findMany: prisma.blockedSlot.findMany as jest.MockedFunction<
+      typeof prisma.blockedSlot.findMany
+    >,
   },
 };
 
