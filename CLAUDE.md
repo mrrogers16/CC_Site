@@ -248,7 +248,7 @@ Fully implemented with NextAuth.js:
 ### Testing Patterns
 
 ```typescript
-// Component testing with validation
+// Component testing with validation (ensure mode: "onChange" for real-time validation)
 test("shows validation error for invalid email", async () => {
   render(<ContactForm />);
   await user.type(screen.getByLabelText(/email/i), "invalid-email");
@@ -261,6 +261,21 @@ test("shows validation error for invalid email", async () => {
 test("creates contact submission successfully", async () => {
   const response = await POST(mockRequest);
   expect(response.status).toBe(201);
+});
+
+// Enhanced form testing with async validation
+test("handles email availability checking", async () => {
+  (fetch as jest.Mock).mockResolvedValueOnce({
+    ok: true,
+    json: async () => ({ available: true, message: "Email address is available" }),
+  });
+
+  render(<EnhancedRegisterForm />);
+  await user.type(screen.getByTestId("email-input"), "test@example.com");
+  
+  await waitFor(() => {
+    expect(screen.getByText("Email address is available")).toBeInTheDocument();
+  });
 });
 ```
 

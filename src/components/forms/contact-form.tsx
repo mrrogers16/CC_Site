@@ -23,6 +23,7 @@ export function ContactForm({ className = "" }: ContactFormProps) {
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
+    mode: "onChange", // Enable real-time validation for tests
   });
 
   const onSubmit = async (data: ContactFormData) => {

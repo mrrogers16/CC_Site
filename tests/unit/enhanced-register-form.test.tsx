@@ -399,7 +399,16 @@ describe("EnhancedRegisterForm", () => {
     it("shows loading state during submission", async () => {
       const user = userEvent.setup();
 
-      // Mock a delayed response
+      // Mock email availability check as available
+      (fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          available: true,
+          message: "Email address is available",
+        }),
+      });
+
+      // Mock a delayed registration response
       (fetch as jest.Mock).mockImplementationOnce(
         () =>
           new Promise(resolve =>
@@ -419,6 +428,12 @@ describe("EnhancedRegisterForm", () => {
       // Fill form with valid data
       await user.type(screen.getByTestId("name-input"), validFormData.name);
       await user.type(screen.getByTestId("email-input"), validFormData.email);
+      
+      // Wait for email validation to complete
+      await waitFor(() => {
+        expect(screen.getByText("Email address is available")).toBeInTheDocument();
+      });
+
       await user.type(
         screen.getByTestId("password-input"),
         validFormData.password
@@ -431,8 +446,11 @@ describe("EnhancedRegisterForm", () => {
       const submitButton = screen.getByTestId("register-submit");
       await user.click(submitButton);
 
-      expect(submitButton).toBeDisabled();
-      expect(screen.getByText("Creating Account...")).toBeInTheDocument();
+      // Check loading state immediately after click
+      await waitFor(() => {
+        expect(submitButton).toBeDisabled();
+        expect(screen.getByText("Creating Account...")).toBeInTheDocument();
+      });
     });
 
     it("shows error on registration failure", async () => {

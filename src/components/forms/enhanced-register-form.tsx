@@ -382,7 +382,8 @@ export function EnhancedRegisterForm() {
           )}
           {!errors.email &&
             emailValidation.message &&
-            !!watchedValues.email && (
+            !!watchedValues.email &&
+            !submitError && (
               <p
                 className={`mt-1 text-sm ${emailValidation.isValid ? "text-green-600" : "text-red-600"}`}
                 data-testid="email-availability"
