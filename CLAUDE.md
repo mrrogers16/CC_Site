@@ -1426,6 +1426,47 @@ Formatting checks are required for:
 - Direct pushes to protected branches
 - Release deployments
 
+#### Database Configuration in CI/CD
+
+The GitHub Actions pipeline includes comprehensive database setup and testing:
+
+**PostgreSQL Service Configuration**:
+```yaml
+services:
+  postgres:
+    image: postgres:15
+    env:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: counseling_test
+    options: >-
+      --health-cmd pg_isready
+      --health-interval 10s
+      --health-timeout 5s
+      --health-retries 5
+    ports:
+      - 5432:5432
+```
+
+**Environment Variables for Database Steps**:
+All database-related CI/CD steps include both required environment variables:
+```yaml
+env:
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/counseling_test
+  DIRECT_URL: postgresql://postgres:postgres@localhost:5432/counseling_test
+```
+
+**Database Steps in CI/CD Pipeline**:
+1. **Generate Prisma Client**: Creates type-safe database client
+2. **Push Database Schema**: Applies schema changes to test database
+3. **Run Unit Tests**: Tests with database connectivity
+4. **Run E2E Tests**: End-to-end testing with full database functionality
+
+**Important Notes**:
+- **DIRECT_URL Required**: Prisma requires both DATABASE_URL and DIRECT_URL for Supabase pattern
+- **Test Database Isolation**: Each CI/CD run uses fresh postgres:15 container
+- **Health Checks**: Pipeline waits for database readiness before proceeding
+- **Build Phase**: Uses dummy database URLs since no database connection needed for build
+
 ### Development Guidelines Integration
 
 #### Pre-Commit Formatting Requirements

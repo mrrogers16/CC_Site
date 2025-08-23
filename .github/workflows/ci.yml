@@ -49,16 +49,21 @@ jobs:
 
       - name: Generate Prisma client
         run: npm run db:generate
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/counseling_test
+          DIRECT_URL: postgresql://postgres:postgres@localhost:5432/counseling_test
 
       - name: Push database schema
         run: npm run db:push
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/counseling_test
+          DIRECT_URL: postgresql://postgres:postgres@localhost:5432/counseling_test
 
       - name: Run unit tests
         run: npm run test:coverage
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/counseling_test
+          DIRECT_URL: postgresql://postgres:postgres@localhost:5432/counseling_test
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
@@ -67,6 +72,7 @@ jobs:
         run: npm run test:e2e
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/counseling_test
+          DIRECT_URL: postgresql://postgres:postgres@localhost:5432/counseling_test
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
@@ -98,11 +104,15 @@ jobs:
 
       - name: Generate Prisma client
         run: npm run db:generate
+        env:
+          DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
+          DIRECT_URL: postgresql://dummy:dummy@localhost:5432/dummy
 
       - name: Build application
         run: npm run build
         env:
           DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
+          DIRECT_URL: postgresql://dummy:dummy@localhost:5432/dummy
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
