@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
@@ -52,49 +52,6 @@ export function EnhancedRegisterForm() {
 
   const watchedValues = watch();
 
-  // Debounced email availability check
-  const checkEmailAvailability = useCallback(
-    async (email: string) => {
-      if (!email || errors.email) {
-        setEmailValidation({ isValid: false });
-        return;
-      }
-
-      setEmailValidation({ isValid: false, isChecking: true });
-
-      try {
-        const response = await fetch(
-          `/api/auth/check-email?email=${encodeURIComponent(email)}`
-        );
-        const result: EmailCheckResult = await response.json();
-
-        if (response.ok) {
-          setEmailValidation({
-            isValid: result.available,
-            isChecking: false,
-            message: result.message,
-          });
-        } else {
-          setEmailValidation({
-            isValid: false,
-            isChecking: false,
-            message: "Error checking email availability",
-          });
-        }
-      } catch (error) {
-        logger.error(
-          "Email availability check failed",
-          error instanceof Error ? error : new Error(String(error))
-        );
-        setEmailValidation({
-          isValid: false,
-          isChecking: false,
-          message: "Error checking email availability",
-        });
-      }
-    },
-    [errors.email]
-  );
 
   // Create stable debounced function using useRef
   const debouncedEmailCheckRef = useRef(
