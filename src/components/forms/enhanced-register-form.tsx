@@ -40,13 +40,15 @@ export function EnhancedRegisterForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, touchedFields },
+    formState,
     watch,
     trigger,
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     mode: "onChange",
   });
+  
+  const { errors, touchedFields } = formState;
 
   const watchedValues = watch();
 
@@ -94,13 +96,49 @@ export function EnhancedRegisterForm() {
     [errors.email]
   );
 
-  // Create debounced version using ref to avoid unknown dependencies
-  const debouncedEmailCheckRef = useRef(debounce(checkEmailAvailability, 500));
+  // Create stable debounced function using useRef
+  const debouncedEmailCheckRef = useRef(
+    debounce(async (email: string) => {
+      // Get current form state for validation check
+      if (!email) {
+        setEmailValidation({ isValid: false });
+        return;
+      }
 
-  // Update ref when checkEmailAvailability changes
-  useEffect(() => {
-    debouncedEmailCheckRef.current = debounce(checkEmailAvailability, 500);
-  }, [checkEmailAvailability]);
+      setEmailValidation({ isValid: false, isChecking: true });
+
+      try {
+        const response = await fetch(
+          `/api/auth/check-email?email=${encodeURIComponent(email)}`
+        );
+        const result: EmailCheckResult = await response.json();
+
+        if (response.ok) {
+          setEmailValidation({
+            isValid: result.available,
+            isChecking: false,
+            message: result.message,
+          });
+        } else {
+          setEmailValidation({
+            isValid: false,
+            isChecking: false,
+            message: "Error checking email availability",
+          });
+        }
+      } catch (error) {
+        logger.error(
+          "Email availability check failed",
+          error instanceof Error ? error : new Error(String(error))
+        );
+        setEmailValidation({
+          isValid: false,
+          isChecking: false,
+          message: "Error checking email availability",
+        });
+      }
+    }, 500)
+  );
 
   // Real-time validation effects
   useEffect(() => {
@@ -452,7 +490,9 @@ export function EnhancedRegisterForm() {
               onFocus={() => setPasswordFocused(true)}
               onBlur={() => {
                 setPasswordFocused(false);
-                trigger("password");
+                if (watchedValues.password) {
+                  trigger("password");
+                }
               }}
             />
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-2">
@@ -501,8 +541,8 @@ export function EnhancedRegisterForm() {
             </p>
           )}
 
-          {/* Password Requirements (show on focus or error) */}
-          {(passwordFocused || errors.password) && (
+          {/* Password Requirements (show on focus or if there's a validation error) */}
+          {(passwordFocused || !!errors.password) && (
             <div
               className="mt-2 p-3 bg-muted/30 rounded-lg"
               data-testid="password-requirements"
