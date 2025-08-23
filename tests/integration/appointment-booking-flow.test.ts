@@ -48,7 +48,7 @@ const mockGetServerSession = getServerSession as jest.MockedFunction<
 
 // Import mocked dependencies after mock setup
 import { prisma } from "@/lib/db";
-const mockPrisma = prisma as jest.Mocked<typeof prisma>;
+const _mockPrisma = prisma as jest.Mocked<typeof prisma>;
 
 describe("Appointment Booking Flow Integration", () => {
   let testUser: any;

@@ -80,7 +80,7 @@ describe("/api/appointments/book", () => {
     price: new Decimal("150.00"),
   });
 
-  const mockUser = createMockUser({
+  const _mockUser = createMockUser({
     id: "user-123",
     name: "Test Client",
     email: "test@example.com",

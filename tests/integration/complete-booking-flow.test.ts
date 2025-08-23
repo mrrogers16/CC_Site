@@ -65,7 +65,7 @@ jest.mock("@/lib/email", () => ({
 import { prisma } from "@/lib/db";
 
 // Get typed mock access
-const mockPrisma = prisma as jest.Mocked<typeof prisma>;
+const _mockPrisma = prisma as jest.Mocked<typeof prisma>;
 
 describe("Complete Booking Flow Integration", () => {
   beforeEach(async () => {
