@@ -33,13 +33,17 @@ export function handleApiError(error: unknown): NextResponse {
   }
 
   if (error instanceof AppError) {
-    return NextResponse.json(
-      {
-        error: error.constructor.name,
-        message: error.message,
-      },
-      { status: error.statusCode }
-    );
+    const response: { error: string; message: string; details?: unknown } = {
+      error: error.constructor.name,
+      message: error.message,
+    };
+    
+    // Include details if the error has them (e.g., ValidationError)
+    if ('details' in error && error.details) {
+      response.details = error.details;
+    }
+    
+    return NextResponse.json(response, { status: error.statusCode });
   }
 
   const appError = handleError(error);

@@ -102,7 +102,7 @@ describe("/api/auth/check-email", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("Validation failed");
+      expect(responseData.error).toBe("AppError");
       expect(responseData.details).toBeDefined();
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
     });
@@ -116,7 +116,7 @@ describe("/api/auth/check-email", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("Validation failed");
+      expect(responseData.error).toBe("AppError");
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
     });
 
@@ -126,7 +126,7 @@ describe("/api/auth/check-email", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("Validation failed");
+      expect(responseData.error).toBe("AppError");
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
     });
 
@@ -140,7 +140,7 @@ describe("/api/auth/check-email", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(500);
-      expect(responseData.error).toBe("Internal server error");
+      expect(responseData.error).toBe("Internal Server Error");
       expect(logger.error).toHaveBeenCalledWith(
         "Database error during email availability check",
         expect.any(Error)

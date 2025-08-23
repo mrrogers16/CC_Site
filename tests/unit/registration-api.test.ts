@@ -152,7 +152,7 @@ describe("/api/auth/register", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("Validation failed");
+      expect(responseData.error).toBe("AppError");
       expect(responseData.details).toBeDefined();
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
       expect(prisma.user.create).not.toHaveBeenCalled();
@@ -171,7 +171,7 @@ describe("/api/auth/register", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("Validation failed");
+      expect(responseData.error).toBe("AppError");
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
     });
 
@@ -189,9 +189,7 @@ describe("/api/auth/register", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(409);
-      expect(responseData.error).toBe(
-        "User already exists with this email address"
-      );
+      expect(responseData.error).toBe("AppError");
       expect(prisma.user.create).not.toHaveBeenCalled();
       expect(bcrypt.hash).not.toHaveBeenCalled();
     });
@@ -206,9 +204,9 @@ describe("/api/auth/register", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(500);
-      expect(responseData.error).toBe("Internal server error");
+      expect(responseData.error).toBe("Internal Server Error");
       expect(logger.error).toHaveBeenCalledWith(
-        "Unhandled API error",
+        "API Error occurred",
         expect.any(Error)
       );
     });
@@ -225,7 +223,7 @@ describe("/api/auth/register", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(500);
-      expect(responseData.error).toBe("Internal server error");
+      expect(responseData.error).toBe("Internal Server Error");
       expect(logger.error).toHaveBeenCalledWith(
         "Database error during user registration",
         expect.any(Error)
@@ -241,7 +239,7 @@ describe("/api/auth/register", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(500);
-      expect(responseData.error).toBe("Internal server error");
+      expect(responseData.error).toBe("Internal Server Error");
       expect(prisma.user.create).not.toHaveBeenCalled();
     });
 

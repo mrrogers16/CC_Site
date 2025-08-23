@@ -225,7 +225,7 @@ describe("/api/contact", () => {
           subject: "Test 1",
           message: "Message 1",
           isRead: false,
-          createdAt: new Date(),
+          createdAt: "2025-08-23T01:34:26.933Z",
           user: {
             id: "user-1",
             name: "John Doe",
@@ -240,7 +240,7 @@ describe("/api/contact", () => {
           subject: "Test 2",
           message: "Message 2",
           isRead: true,
-          createdAt: new Date(),
+          createdAt: "2025-08-23T01:34:26.933Z",
           user: {
             id: "user-2",
             name: "Jane Smith",
