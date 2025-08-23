@@ -428,10 +428,12 @@ describe("EnhancedRegisterForm", () => {
       // Fill form with valid data
       await user.type(screen.getByTestId("name-input"), validFormData.name);
       await user.type(screen.getByTestId("email-input"), validFormData.email);
-      
+
       // Wait for email validation to complete
       await waitFor(() => {
-        expect(screen.getByText("Email address is available")).toBeInTheDocument();
+        expect(
+          screen.getByText("Email address is available")
+        ).toBeInTheDocument();
       });
 
       await user.type(

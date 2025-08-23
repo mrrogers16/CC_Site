@@ -115,7 +115,9 @@ describe("Authentication Flow Integration Tests", () => {
         role: "CLIENT",
       };
 
-      (prisma.user.findUnique as jest.Mock).mockResolvedValueOnce(unverifiedUser);
+      (prisma.user.findUnique as jest.Mock).mockResolvedValueOnce(
+        unverifiedUser
+      );
       (bcrypt.compare as jest.Mock).mockResolvedValueOnce(true);
 
       // Login should succeed at credentials level
@@ -376,7 +378,9 @@ describe("Authentication Flow Integration Tests", () => {
         id: "security-123",
         ...registrationData,
       });
-      (bcrypt.hash as jest.Mock).mockResolvedValueOnce("securely-hashed-password");
+      (bcrypt.hash as jest.Mock).mockResolvedValueOnce(
+        "securely-hashed-password"
+      );
 
       const request = {
         json: jest.fn().mockResolvedValue(registrationData),

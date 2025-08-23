@@ -272,7 +272,7 @@ test("handles email availability checking", async () => {
 
   render(<EnhancedRegisterForm />);
   await user.type(screen.getByTestId("email-input"), "test@example.com");
-  
+
   await waitFor(() => {
     expect(screen.getByText("Email address is available")).toBeInTheDocument();
   });
@@ -400,3 +400,26 @@ export function NewComponent() {
 ---
 
 **Important**: This is a professional counseling practice website. Maintain healthcare technology standards, ensure accessibility compliance, and preserve the calming, trustworthy design aesthetic.
+
+### Before Committing Checklist
+
+Run these commands and fix any issues before committing:
+
+1. **Code Formatting**: `npm run format`
+   - Automatically fixes all formatting issues across the codebase
+   - MUST be run first to ensure clean diffs and avoid CI/CD pipeline failures
+2. **Verify Formatting**: `npm run format:check`
+   - Verify formatting compliance after running format command
+3. **Linting**: `npm run lint:fix`
+   - Should return **0 errors** (warnings are acceptable if properly justified)
+   - Handles code quality issues after formatting is complete
+4. **Type Checking**: `npm run typecheck`
+   - Must pass with no TypeScript errors
+   - Ensures strict mode compliance for professional healthcare standards
+5. **Testing**: `npm run test:coverage`
+   - All critical unit tests must pass (API routes, validations, utilities)
+   - Target: 60%+ coverage (realistic threshold based on project analysis)
+   - Integration test failures acceptable if non-critical functionality
+6. **Build Verification**: `npm run build`
+   - Production build must complete successfully (skip if Windows permission issues)
+   - Ensures deployment readiness
