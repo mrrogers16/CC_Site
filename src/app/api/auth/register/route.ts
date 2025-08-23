@@ -8,22 +8,25 @@ import { ValidationError, ConflictError } from "@/lib/errors";
 
 export const POST = withErrorHandler(async (request: NextRequest) => {
   const body = await request.json();
-  
+
   // Validate input
   const validationResult = registerSchema.safeParse(body);
   if (!validationResult.success) {
-    logger.warn("Registration validation failed", { 
-      body, 
-      errors: validationResult.error.issues 
+    logger.warn("Registration validation failed", {
+      body,
+      errors: validationResult.error.issues,
     });
-    throw new ValidationError("Invalid registration data", validationResult.error.issues);
+    throw new ValidationError(
+      "Invalid registration data",
+      validationResult.error.issues
+    );
   }
 
   const { name, email, password, phone } = validationResult.data;
 
   // Check if user already exists
   const existingUser = await prisma.user.findUnique({
-    where: { email: email.toLowerCase() }
+    where: { email: email.toLowerCase() },
   });
 
   if (existingUser) {
@@ -46,10 +49,10 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
       },
     });
 
-    logger.info("User registered successfully", { 
-      userId: user.id, 
+    logger.info("User registered successfully", {
+      userId: user.id,
       email: user.email,
-      role: user.role 
+      role: user.role,
     });
 
     // TODO: Send verification email here
@@ -59,21 +62,30 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
     // 3. Send email with verification link
     // For now, we'll just log that verification email should be sent
 
-    logger.info("Verification email should be sent", { userId: user.id, email: user.email });
+    logger.info("Verification email should be sent", {
+      userId: user.id,
+      email: user.email,
+    });
 
-    return NextResponse.json({
-      success: true,
-      message: "Registration successful. Please check your email to verify your account.",
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      }
-    }, { status: 201 });
-
+    return NextResponse.json(
+      {
+        success: true,
+        message:
+          "Registration successful. Please check your email to verify your account.",
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        },
+      },
+      { status: 201 }
+    );
   } catch (error) {
-    logger.error("Database error during user registration", error instanceof Error ? error : new Error(String(error)));
+    logger.error(
+      "Database error during user registration",
+      error instanceof Error ? error : new Error(String(error))
+    );
     throw new Error("Failed to create user account");
   }
 });

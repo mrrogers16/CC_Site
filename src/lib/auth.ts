@@ -17,7 +17,7 @@ export const authOptions: NextAuthOptions = {
       name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -27,22 +27,32 @@ export const authOptions: NextAuthOptions = {
 
         try {
           const user = await prisma.user.findUnique({
-            where: { email: credentials.email }
+            where: { email: credentials.email },
           });
 
           if (!user || !user.password) {
-            logger.warn("Invalid login attempt - user not found", { email: credentials.email });
+            logger.warn("Invalid login attempt - user not found", {
+              email: credentials.email,
+            });
             return null;
           }
 
-          const passwordMatch = await bcrypt.compare(credentials.password, user.password);
-          
+          const passwordMatch = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
+
           if (!passwordMatch) {
-            logger.warn("Invalid login attempt - wrong password", { email: credentials.email });
+            logger.warn("Invalid login attempt - wrong password", {
+              email: credentials.email,
+            });
             return null;
           }
 
-          logger.info("User login successful", { userId: user.id, role: user.role });
+          logger.info("User login successful", {
+            userId: user.id,
+            role: user.role,
+          });
           return {
             id: user.id,
             email: user.email,
@@ -51,11 +61,14 @@ export const authOptions: NextAuthOptions = {
             emailVerified: user.emailVerified,
           };
         } catch (error) {
-          logger.error("Auth error", error instanceof Error ? error : new Error(String(error)));
+          logger.error(
+            "Auth error",
+            error instanceof Error ? error : new Error(String(error))
+          );
           return null;
         }
-      }
-    })
+      },
+    }),
   ],
   session: {
     strategy: "jwt",
@@ -70,16 +83,16 @@ export const authOptions: NextAuthOptions = {
         token.role = user.role;
         token.emailVerified = user.emailVerified;
       }
-      
+
       // Handle Google OAuth user role assignment
       if (account?.provider === "google" && user) {
         await prisma.user.update({
           where: { id: user.id },
-          data: { role: "CLIENT" } // Default role for OAuth users
+          data: { role: "CLIENT" }, // Default role for OAuth users
         });
         token.role = "CLIENT";
       }
-      
+
       return token;
     },
     async session({ session, token }) {
@@ -94,7 +107,9 @@ export const authOptions: NextAuthOptions = {
       // Require email verification for credentials login
       if (account?.provider === "credentials") {
         if (!user.emailVerified) {
-          logger.warn("Login blocked - email not verified", { email: user.email });
+          logger.warn("Login blocked - email not verified", {
+            email: user.email,
+          });
           return false;
         }
       }
@@ -103,10 +118,10 @@ export const authOptions: NextAuthOptions = {
   },
   events: {
     async signIn({ user, account, isNewUser }) {
-      logger.info("User signed in", { 
-        userId: user.id, 
+      logger.info("User signed in", {
+        userId: user.id,
         provider: account?.provider,
-        isNewUser 
+        isNewUser,
       });
     },
     async createUser({ user }) {

@@ -30,7 +30,7 @@ export function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navigationItems.map((item) => (
+            {navigationItems.map(item => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -39,7 +39,7 @@ export function Navigation() {
                 {item.title}
               </Link>
             ))}
-            
+
             <Link
               href="/appointments/book"
               className="bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors duration-200 font-medium"
@@ -85,7 +85,7 @@ export function Navigation() {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-background border-t border-border">
-              {navigationItems.map((item) => (
+              {navigationItems.map(item => (
                 <Link
                   key={item.href}
                   href={item.href}

@@ -5,7 +5,8 @@ import { LoginForm } from "@/components/forms/login-form";
 
 export const metadata: Metadata = {
   title: "Login | Healing Pathways Counseling",
-  description: "Sign in to your account to access your appointments and manage your wellness journey.",
+  description:
+    "Sign in to your account to access your appointments and manage your wellness journey.",
 };
 
 export default function LoginPage() {
@@ -21,8 +22,8 @@ export default function LoginPage() {
                 Welcome Back
               </h1>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Sign in to your account to access your appointments, manage your profile, 
-                and continue your journey towards better mental health.
+                Sign in to your account to access your appointments, manage your
+                profile, and continue your journey towards better mental health.
               </p>
             </div>
           </div>
@@ -47,20 +48,28 @@ export default function LoginPage() {
               Need Help?
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              If you&apos;re having trouble accessing your account or need assistance, 
-              we&apos;re here to help. Our team is available during business hours.
+              If you&apos;re having trouble accessing your account or need
+              assistance, we&apos;re here to help. Our team is available during
+              business hours.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-card rounded-lg p-6 border border-border">
-                <h3 className="font-medium text-foreground mb-3">Contact Support</h3>
+                <h3 className="font-medium text-foreground mb-3">
+                  Contact Support
+                </h3>
                 <p className="text-muted-foreground text-sm mb-4">
-                  Reach out to our support team for account-related issues or technical difficulties.
+                  Reach out to our support team for account-related issues or
+                  technical difficulties.
                 </p>
                 <p className="text-primary font-medium">(555) 123-4567</p>
-                <p className="text-primary font-medium">support@healingpathways.com</p>
+                <p className="text-primary font-medium">
+                  support@healingpathways.com
+                </p>
               </div>
               <div className="bg-card rounded-lg p-6 border border-border">
-                <h3 className="font-medium text-foreground mb-3">Office Hours</h3>
+                <h3 className="font-medium text-foreground mb-3">
+                  Office Hours
+                </h3>
                 <div className="text-muted-foreground text-sm space-y-1">
                   <p>Monday - Thursday: 9:00 AM - 7:00 PM</p>
                   <p>Friday: 9:00 AM - 5:00 PM</p>

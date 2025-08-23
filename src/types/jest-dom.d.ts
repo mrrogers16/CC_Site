@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
 declare global {
   namespace jest {
@@ -19,7 +19,9 @@ declare global {
       toHaveStyle(css: string | Record<string, any>): R;
       toContainElement(element: HTMLElement | null): R;
       toContainHTML(htmlText: string): R;
-      toHaveAccessibleDescription(expectedAccessibleDescription?: string | RegExp): R;
+      toHaveAccessibleDescription(
+        expectedAccessibleDescription?: string | RegExp
+      ): R;
       toHaveAccessibleName(expectedAccessibleName?: string | RegExp): R;
       toHaveErrorMessage(expectedErrorMessage?: string | RegExp): R;
     }

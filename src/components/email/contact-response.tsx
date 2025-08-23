@@ -26,23 +26,30 @@ export function ContactResponseEmail({ name }: ContactResponseEmailProps) {
 
           <Section style={content}>
             <Text style={greeting}>Dear {name},</Text>
-            
+
             <Text style={paragraph}>
-              Thank you for reaching out to Healing Pathways Counseling. 
-              We&apos;ve received your message and truly appreciate you taking this important step.
+              Thank you for reaching out to Healing Pathways Counseling.
+              We&apos;ve received your message and truly appreciate you taking
+              this important step.
             </Text>
 
             <Text style={paragraph}>
-              We understand that reaching out can take courage, and we want you to know 
-              that we&apos;re here to support you on your journey to better mental health and wellbeing.
+              We understand that reaching out can take courage, and we want you
+              to know that we&apos;re here to support you on your journey to
+              better mental health and wellbeing.
             </Text>
 
             <Section style={responseInfo}>
               <Text style={responseTitle}>What happens next?</Text>
               <Text style={responseText}>
-                &bull; We&apos;ll review your message carefully<br />
-                &bull; A member of our team will respond within 24 hours during business days<br />
-                &bull; We&apos;ll answer any questions and help you take the next steps<br />
+                &bull; We&apos;ll review your message carefully
+                <br />
+                &bull; A member of our team will respond within 24 hours during
+                business days
+                <br />
+                &bull; We&apos;ll answer any questions and help you take the
+                next steps
+                <br />
                 &bull; All communications are kept strictly confidential
               </Text>
             </Section>
@@ -52,12 +59,22 @@ export function ContactResponseEmail({ name }: ContactResponseEmailProps) {
             <Section style={contactInfo}>
               <Text style={contactTitle}>Need immediate support?</Text>
               <Text style={contactText}>
-                If you&apos;re experiencing a crisis or need immediate support, please don&apos;t wait for our response:
+                If you&apos;re experiencing a crisis or need immediate support,
+                please don&apos;t wait for our response:
               </Text>
               <Text style={contactText}>
-                <strong>Call our office:</strong> <Link href="tel:+15551234567" style={link}>(555) 123-4567</Link><br />
-                <strong>National Crisis Line:</strong> <Link href="tel:988" style={link}>988</Link><br />
-                <strong>Crisis Text Line:</strong> Text HOME to 741741<br />
+                <strong>Call our office:</strong>{" "}
+                <Link href="tel:+15551234567" style={link}>
+                  (555) 123-4567
+                </Link>
+                <br />
+                <strong>National Crisis Line:</strong>{" "}
+                <Link href="tel:988" style={link}>
+                  988
+                </Link>
+                <br />
+                <strong>Crisis Text Line:</strong> Text HOME to 741741
+                <br />
                 <strong>Emergency:</strong> Call 911
               </Text>
             </Section>
@@ -65,11 +82,13 @@ export function ContactResponseEmail({ name }: ContactResponseEmailProps) {
             <Hr style={hr} />
 
             <Text style={paragraph}>
-              We look forward to connecting with you soon and helping you on your path to healing.
+              We look forward to connecting with you soon and helping you on
+              your path to healing.
             </Text>
 
             <Text style={signature}>
-              Warm regards,<br />
+              Warm regards,
+              <br />
               The Team at Healing Pathways Counseling
             </Text>
           </Section>
@@ -77,10 +96,21 @@ export function ContactResponseEmail({ name }: ContactResponseEmailProps) {
           <Section style={footer}>
             <Text style={footerTitle}>Healing Pathways Counseling</Text>
             <Text style={footerText}>
-              123 Wellness Way, Suite 200<br />
-              Your City, ST 12345<br />
-              <Link href="tel:+15551234567" style={footerLink}>(555) 123-4567</Link> | 
-              <Link href="mailto:contact@healingpathways.com" style={footerLink}> contact@healingpathways.com</Link>
+              123 Wellness Way, Suite 200
+              <br />
+              Your City, ST 12345
+              <br />
+              <Link href="tel:+15551234567" style={footerLink}>
+                (555) 123-4567
+              </Link>{" "}
+              |
+              <Link
+                href="mailto:contact@healingpathways.com"
+                style={footerLink}
+              >
+                {" "}
+                contact@healingpathways.com
+              </Link>
             </Text>
             <Text style={footerText}>
               <Link href={`${process.env.NEXTAUTH_URL}`} style={footerLink}>

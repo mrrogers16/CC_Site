@@ -16,6 +16,7 @@ A professional counseling practice website built with Next.js 14+, TypeScript, T
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
+
 - **Node.js** (v18.0.0 or higher)
 - **npm** (v9.0.0 or higher)
 - **PostgreSQL** (v14.0 or higher)
@@ -23,33 +24,38 @@ Before you begin, ensure you have the following installed:
 ## Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd counseling-site
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env
    ```
+
    Edit the `.env` file with your configuration:
    - Database connection string
    - Email service credentials
    - API keys for integrations
 
 4. **Set up the database**
+
    ```bash
    # Generate Prisma client
    npm run db:generate
-   
+
    # Push database schema
    npm run db:push
-   
+
    # (Optional) Seed with initial data
    npm run db:seed
    ```
@@ -67,23 +73,27 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 ### Available Scripts
 
 **Development**
+
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 
 **Code Quality**
+
 - `npm run lint` - Run ESLint
 - `npm run lint:fix` - Fix ESLint errors automatically
 - `npm run format` - Format code with Prettier
 - `npm run typecheck` - Run TypeScript type checking
 
 **Testing**
+
 - `npm run test` - Run Jest unit tests
 - `npm run test:watch` - Run tests in watch mode
 - `npm run test:coverage` - Run tests with coverage
 - `npm run test:e2e` - Run Playwright E2E tests
 
 **Database**
+
 - `npm run db:generate` - Generate Prisma client
 - `npm run db:push` - Push schema changes to database
 - `npm run db:migrate` - Create and run migrations
@@ -123,6 +133,7 @@ The website uses a calming, professional color palette suitable for a counseling
 ### Database Schema
 
 The application includes models for:
+
 - Users and authentication
 - Services offered
 - Appointment booking system
@@ -132,6 +143,7 @@ The application includes models for:
 ### Environment Variables
 
 Key environment variables (see `.env.example`):
+
 - `DATABASE_URL` - PostgreSQL connection string
 - `NEXTAUTH_SECRET` - Authentication secret
 - Email service configuration
@@ -141,18 +153,21 @@ Key environment variables (see `.env.example`):
 ## Key Features
 
 ### Appointment Booking
+
 - Calendar-based booking interface
 - Email confirmations and reminders
 - Status tracking and management
 - Conflict resolution
 
 ### Content Management
+
 - Blog with MDX support
 - SEO optimization
 - Image optimization
 - Dynamic sitemap generation
 
 ### Contact System
+
 - Validated contact forms
 - Email notifications
 - Lead tracking and management
@@ -167,6 +182,7 @@ The project includes comprehensive testing:
 - **Coverage**: Minimum 70% coverage threshold
 
 Run all tests:
+
 ```bash
 npm run test && npm run test:e2e
 ```
@@ -174,12 +190,14 @@ npm run test && npm run test:e2e
 ## Deployment
 
 ### Production Build
+
 ```bash
 npm run build
 npm run start
 ```
 
 ### Environment Setup
+
 1. Set up PostgreSQL database
 2. Configure environment variables
 3. Run database migrations
@@ -187,6 +205,7 @@ npm run start
 5. Configure domain and SSL
 
 ### Recommended Hosting
+
 - **Vercel** - Seamless Next.js deployment
 - **Railway/Render** - Full-stack applications
 - **AWS/Google Cloud** - Enterprise solutions
@@ -207,6 +226,7 @@ This project is private and proprietary. All rights reserved.
 ## Support
 
 For support and questions:
+
 - Check the documentation in `/docs`
 - Review the `CLAUDE.md` file for development guidance
 - Contact the development team
@@ -214,6 +234,7 @@ For support and questions:
 ## Security
 
 This application includes:
+
 - Input validation and sanitization
 - SQL injection prevention
 - XSS protection

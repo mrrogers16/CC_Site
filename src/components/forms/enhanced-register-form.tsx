@@ -25,10 +25,16 @@ export function EnhancedRegisterForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
-  const [emailValidation, setEmailValidation] = useState<FieldValidationState>({ isValid: false });
-  const [nameValidation, setNameValidation] = useState<FieldValidationState>({ isValid: false });
-  const [passwordValidation, setPasswordValidation] = useState<FieldValidationState>({ isValid: false });
-  const [confirmPasswordValidation, setConfirmPasswordValidation] = useState<FieldValidationState>({ isValid: false });
+  const [emailValidation, setEmailValidation] = useState<FieldValidationState>({
+    isValid: false,
+  });
+  const [nameValidation, setNameValidation] = useState<FieldValidationState>({
+    isValid: false,
+  });
+  const [passwordValidation, setPasswordValidation] =
+    useState<FieldValidationState>({ isValid: false });
+  const [confirmPasswordValidation, setConfirmPasswordValidation] =
+    useState<FieldValidationState>({ isValid: false });
   const router = useRouter();
 
   const {
@@ -55,7 +61,9 @@ export function EnhancedRegisterForm() {
       setEmailValidation({ isValid: false, isChecking: true });
 
       try {
-        const response = await fetch(`/api/auth/check-email?email=${encodeURIComponent(email)}`);
+        const response = await fetch(
+          `/api/auth/check-email?email=${encodeURIComponent(email)}`
+        );
         const result: EmailCheckResult = await response.json();
 
         if (response.ok) {
@@ -72,7 +80,10 @@ export function EnhancedRegisterForm() {
           });
         }
       } catch (error) {
-        logger.error("Email availability check failed", error instanceof Error ? error : new Error(String(error)));
+        logger.error(
+          "Email availability check failed",
+          error instanceof Error ? error : new Error(String(error))
+        );
         setEmailValidation({
           isValid: false,
           isChecking: false,
@@ -85,7 +96,7 @@ export function EnhancedRegisterForm() {
 
   // Create debounced version using ref to avoid unknown dependencies
   const debouncedEmailCheckRef = useRef(debounce(checkEmailAvailability, 500));
-  
+
   // Update ref when checkEmailAvailability changes
   useEffect(() => {
     debouncedEmailCheckRef.current = debounce(checkEmailAvailability, 500);
@@ -116,12 +127,21 @@ export function EnhancedRegisterForm() {
     if (watchedValues.confirmPassword && touchedFields.confirmPassword) {
       setConfirmPasswordValidation({ isValid: !errors.confirmPassword });
     }
-  }, [watchedValues.confirmPassword, touchedFields.confirmPassword, errors.confirmPassword]);
+  }, [
+    watchedValues.confirmPassword,
+    touchedFields.confirmPassword,
+    errors.confirmPassword,
+  ]);
 
   const onSubmit = async (data: RegisterFormData) => {
     // Prevent submission if email is already taken
-    if (!emailValidation.isValid && emailValidation.message === "Email address is already registered") {
-      setSubmitError("Email address is already registered. Please use a different email or sign in.");
+    if (
+      !emailValidation.isValid &&
+      emailValidation.message === "Email address is already registered"
+    ) {
+      setSubmitError(
+        "Email address is already registered. Please use a different email or sign in."
+      );
       return;
     }
 
@@ -152,13 +172,19 @@ export function EnhancedRegisterForm() {
       }
 
       logger.info("User registered successfully", { email: data.email });
-      
+
       // Redirect to email verification page with email parameter
       router.push(`/auth/verify-email?email=${encodeURIComponent(data.email)}`);
-      
     } catch (error) {
-      logger.error("Registration error", error instanceof Error ? error : new Error(String(error)));
-      setSubmitError(error instanceof Error ? error.message : "Registration failed. Please try again.");
+      logger.error(
+        "Registration error",
+        error instanceof Error ? error : new Error(String(error))
+      );
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Registration failed. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -168,14 +194,19 @@ export function EnhancedRegisterForm() {
     try {
       await signIn("google", { callbackUrl: "/" });
     } catch (error) {
-      logger.error("Google sign-in error", error instanceof Error ? error : new Error(String(error)));
+      logger.error(
+        "Google sign-in error",
+        error instanceof Error ? error : new Error(String(error))
+      );
       setSubmitError("Google sign-in failed. Please try again.");
     }
   };
 
-  const getPasswordStrength = (password: string): { score: number; label: string; color: string } => {
+  const getPasswordStrength = (
+    password: string
+  ): { score: number; label: string; color: string } => {
     if (!password) return { score: 0, label: "", color: "" };
-    
+
     let score = 0;
     if (password.length >= 8) score++;
     if (/[a-z]/.test(password)) score++;
@@ -191,21 +222,37 @@ export function EnhancedRegisterForm() {
 
   const passwordStrength = getPasswordStrength(watchedValues.password || "");
 
-  const ValidationIcon = ({ isValid, isChecking }: { isValid: boolean; isChecking?: boolean }) => {
+  const ValidationIcon = ({
+    isValid,
+    isChecking,
+  }: {
+    isValid: boolean;
+    isChecking?: boolean;
+  }) => {
     if (isChecking) {
       return (
         <div className="w-5 h-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
       );
     }
-    
+
     if (isValid) {
       return (
-        <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        <svg
+          className="w-5 h-5 text-green-600"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M5 13l4 4L19 7"
+          />
         </svg>
       );
     }
-    
+
     return null;
   };
 
@@ -244,12 +291,17 @@ export function EnhancedRegisterForm() {
           <div className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-card text-muted-foreground">Or register with email</span>
+          <span className="px-2 bg-card text-muted-foreground">
+            Or register with email
+          </span>
         </div>
       </div>
 
       {submitError && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4" data-testid="registration-error">
+        <div
+          className="bg-red-50 border border-red-200 rounded-lg p-4"
+          data-testid="registration-error"
+        >
           <p className="text-red-800 text-sm">{submitError}</p>
         </div>
       )}
@@ -257,7 +309,10 @@ export function EnhancedRegisterForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" role="form">
         {/* Name Field */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Full Name *
           </label>
           <div className="relative">
@@ -272,11 +327,17 @@ export function EnhancedRegisterForm() {
               onBlur={() => trigger("name")}
             />
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-              <ValidationIcon isValid={nameValidation.isValid && !!touchedFields.name} />
+              <ValidationIcon
+                isValid={nameValidation.isValid && !!touchedFields.name}
+              />
             </div>
           </div>
           {errors.name && (
-            <p className="mt-1 text-sm text-red-600" data-testid="name-error" role="alert">
+            <p
+              className="mt-1 text-sm text-red-600"
+              data-testid="name-error"
+              role="alert"
+            >
               {errors.name.message}
             </p>
           )}
@@ -284,7 +345,10 @@ export function EnhancedRegisterForm() {
 
         {/* Email Field */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Email Address *
           </label>
           <div className="relative">
@@ -300,30 +364,47 @@ export function EnhancedRegisterForm() {
               onBlur={() => trigger("email")}
             />
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-              <ValidationIcon 
-                isValid={emailValidation.isValid && !errors.email && !!watchedValues.email} 
-                isChecking={!!emailValidation.isChecking && !errors.email && !!watchedValues.email}
+              <ValidationIcon
+                isValid={
+                  emailValidation.isValid &&
+                  !errors.email &&
+                  !!watchedValues.email
+                }
+                isChecking={
+                  !!emailValidation.isChecking &&
+                  !errors.email &&
+                  !!watchedValues.email
+                }
               />
             </div>
           </div>
           {errors.email && (
-            <p className="mt-1 text-sm text-red-600" data-testid="email-error" role="alert">
+            <p
+              className="mt-1 text-sm text-red-600"
+              data-testid="email-error"
+              role="alert"
+            >
               {errors.email.message}
             </p>
           )}
-          {!errors.email && emailValidation.message && !!watchedValues.email && (
-            <p 
-              className={`mt-1 text-sm ${emailValidation.isValid ? 'text-green-600' : 'text-red-600'}`}
-              data-testid="email-availability"
-            >
-              {emailValidation.message}
-            </p>
-          )}
+          {!errors.email &&
+            emailValidation.message &&
+            !!watchedValues.email && (
+              <p
+                className={`mt-1 text-sm ${emailValidation.isValid ? "text-green-600" : "text-red-600"}`}
+                data-testid="email-availability"
+              >
+                {emailValidation.message}
+              </p>
+            )}
         </div>
 
         {/* Phone Field */}
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="phone"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Phone Number (Optional)
           </label>
           <input
@@ -337,7 +418,11 @@ export function EnhancedRegisterForm() {
             placeholder="Enter your phone number"
           />
           {errors.phone && (
-            <p className="mt-1 text-sm text-red-600" data-testid="phone-error" role="alert">
+            <p
+              className="mt-1 text-sm text-red-600"
+              data-testid="phone-error"
+              role="alert"
+            >
               {errors.phone.message}
             </p>
           )}
@@ -345,7 +430,10 @@ export function EnhancedRegisterForm() {
 
         {/* Password Field */}
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Password *
           </label>
           <div className="relative">
@@ -364,7 +452,9 @@ export function EnhancedRegisterForm() {
               }}
             />
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-2">
-              <ValidationIcon isValid={passwordValidation.isValid && !!touchedFields.password} />
+              <ValidationIcon
+                isValid={passwordValidation.isValid && !!touchedFields.password}
+              />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
@@ -398,37 +488,86 @@ export function EnhancedRegisterForm() {
             </div>
           </div>
           {errors.password && (
-            <p className="mt-1 text-sm text-red-600" data-testid="password-error" role="alert">
+            <p
+              className="mt-1 text-sm text-red-600"
+              data-testid="password-error"
+              role="alert"
+            >
               {errors.password.message}
             </p>
           )}
-          
+
           {/* Password Requirements (show on focus or error) */}
           {(passwordFocused || errors.password) && (
-            <div className="mt-2 p-3 bg-muted/30 rounded-lg" data-testid="password-requirements">
-              <p className="text-sm font-medium text-foreground mb-2">Password Requirements:</p>
+            <div
+              className="mt-2 p-3 bg-muted/30 rounded-lg"
+              data-testid="password-requirements"
+            >
+              <p className="text-sm font-medium text-foreground mb-2">
+                Password Requirements:
+              </p>
               <ul className="text-sm space-y-1">
-                <li className={`flex items-center ${(watchedValues.password?.length >= 8) ? 'text-green-600' : 'text-muted-foreground'}`}>
-                  <svg className="w-3 h-3 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <li
+                  className={`flex items-center ${watchedValues.password?.length >= 8 ? "text-green-600" : "text-muted-foreground"}`}
+                >
+                  <svg
+                    className="w-3 h-3 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                   At least 8 characters
                 </li>
-                <li className={`flex items-center ${/[a-z]/.test(watchedValues.password || '') ? 'text-green-600' : 'text-muted-foreground'}`}>
-                  <svg className="w-3 h-3 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <li
+                  className={`flex items-center ${/[a-z]/.test(watchedValues.password || "") ? "text-green-600" : "text-muted-foreground"}`}
+                >
+                  <svg
+                    className="w-3 h-3 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                   One lowercase letter
                 </li>
-                <li className={`flex items-center ${/[A-Z]/.test(watchedValues.password || '') ? 'text-green-600' : 'text-muted-foreground'}`}>
-                  <svg className="w-3 h-3 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <li
+                  className={`flex items-center ${/[A-Z]/.test(watchedValues.password || "") ? "text-green-600" : "text-muted-foreground"}`}
+                >
+                  <svg
+                    className="w-3 h-3 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                   One uppercase letter
                 </li>
-                <li className={`flex items-center ${/\d/.test(watchedValues.password || '') ? 'text-green-600' : 'text-muted-foreground'}`}>
-                  <svg className="w-3 h-3 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <li
+                  className={`flex items-center ${/\d/.test(watchedValues.password || "") ? "text-green-600" : "text-muted-foreground"}`}
+                >
+                  <svg
+                    className="w-3 h-3 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                   One number
                 </li>
@@ -437,18 +576,26 @@ export function EnhancedRegisterForm() {
                 <div className="mt-2">
                   <div className="flex items-center space-x-2">
                     <span className="text-sm">Strength:</span>
-                    <span className={`text-sm font-medium ${passwordStrength.color}`}>
+                    <span
+                      className={`text-sm font-medium ${passwordStrength.color}`}
+                    >
                       {passwordStrength.label}
                     </span>
                   </div>
                   <div className="mt-1 w-full bg-gray-200 rounded-full h-1">
-                    <div 
+                    <div
                       className={`h-1 rounded-full transition-all duration-300 ${
-                        passwordStrength.score < 2 ? 'bg-red-500' :
-                        passwordStrength.score < 4 ? 'bg-orange-500' :
-                        passwordStrength.score < 5 ? 'bg-blue-500' : 'bg-green-500'
+                        passwordStrength.score < 2
+                          ? "bg-red-500"
+                          : passwordStrength.score < 4
+                            ? "bg-orange-500"
+                            : passwordStrength.score < 5
+                              ? "bg-blue-500"
+                              : "bg-green-500"
                       }`}
-                      style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
+                      style={{
+                        width: `${(passwordStrength.score / 5) * 100}%`,
+                      }}
                     />
                   </div>
                 </div>
@@ -459,7 +606,10 @@ export function EnhancedRegisterForm() {
 
         {/* Confirm Password Field */}
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="confirmPassword"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Confirm Password *
           </label>
           <div className="relative">
@@ -474,11 +624,20 @@ export function EnhancedRegisterForm() {
               onBlur={() => trigger("confirmPassword")}
             />
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-              <ValidationIcon isValid={confirmPasswordValidation.isValid && !!touchedFields.confirmPassword} />
+              <ValidationIcon
+                isValid={
+                  confirmPasswordValidation.isValid &&
+                  !!touchedFields.confirmPassword
+                }
+              />
             </div>
           </div>
           {errors.confirmPassword && (
-            <p className="mt-1 text-sm text-red-600" data-testid="confirm-password-error" role="alert">
+            <p
+              className="mt-1 text-sm text-red-600"
+              data-testid="confirm-password-error"
+              role="alert"
+            >
               {errors.confirmPassword.message}
             </p>
           )}
@@ -497,7 +656,11 @@ export function EnhancedRegisterForm() {
       <div className="text-center">
         <p className="text-sm text-muted-foreground">
           Already have an account?{" "}
-          <a href="/auth/login" className="text-primary hover:underline font-medium" data-testid="login-link">
+          <a
+            href="/auth/login"
+            className="text-primary hover:underline font-medium"
+            data-testid="login-link"
+          >
             Sign in here
           </a>
         </p>

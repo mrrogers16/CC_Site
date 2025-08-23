@@ -7,14 +7,14 @@ import { sendContactNotification, sendAutoResponse } from "@/lib/email";
 
 export const POST = withErrorHandler(async (request: NextRequest) => {
   const startTime = Date.now();
-  
+
   try {
     const body = await request.json();
     const validatedData = contactFormSchema.parse(body);
 
     // Smart user creation/update logic
     let user = await prisma.user.findUnique({
-      where: { email: validatedData.email }
+      where: { email: validatedData.email },
     });
 
     if (!user) {
@@ -22,10 +22,13 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
         data: {
           email: validatedData.email,
           name: validatedData.name,
-          phone: validatedData.phone || null
-        }
+          phone: validatedData.phone || null,
+        },
       });
-      logger.info("Created new user from contact form", { userId: user.id, email: user.email });
+      logger.info("Created new user from contact form", {
+        userId: user.id,
+        email: user.email,
+      });
     } else {
       // Update user info if name or phone changed
       const updateData: { name?: string; phone?: string | null } = {};
@@ -39,11 +42,11 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
       if (Object.keys(updateData).length > 0) {
         user = await prisma.user.update({
           where: { id: user.id },
-          data: updateData
+          data: updateData,
         });
-        logger.info("Updated existing user from contact form", { 
-          userId: user.id, 
-          updates: Object.keys(updateData) 
+        logger.info("Updated existing user from contact form", {
+          userId: user.id,
+          updates: Object.keys(updateData),
         });
       }
     }
@@ -57,57 +60,71 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
         phone: validatedData.phone || null,
         subject: validatedData.subject,
         message: validatedData.message,
-        isRead: false
-      }
+        isRead: false,
+      },
     });
 
-    logger.info("Contact form submission saved", { 
+    logger.info("Contact form submission saved", {
       submissionId: contactSubmission.id,
       userId: user.id,
-      subject: validatedData.subject
+      subject: validatedData.subject,
     });
 
     // Send email notifications (don't block the response if emails fail)
     Promise.all([
       sendContactNotification(validatedData, contactSubmission.id),
-      sendAutoResponse(validatedData)
-    ]).then(([notificationResult, autoResponseResult]) => {
-      if (notificationResult.success) {
-        logger.info("Contact notification email sent", { 
-          submissionId: contactSubmission.id,
-          messageId: notificationResult.messageId 
-        });
-      } else {
-        logger.error("Failed to send contact notification", new Error(notificationResult.error || "Unknown error"), { 
-          submissionId: contactSubmission.id
-        });
-      }
+      sendAutoResponse(validatedData),
+    ])
+      .then(([notificationResult, autoResponseResult]) => {
+        if (notificationResult.success) {
+          logger.info("Contact notification email sent", {
+            submissionId: contactSubmission.id,
+            messageId: notificationResult.messageId,
+          });
+        } else {
+          logger.error(
+            "Failed to send contact notification",
+            new Error(notificationResult.error || "Unknown error"),
+            {
+              submissionId: contactSubmission.id,
+            }
+          );
+        }
 
-      if (autoResponseResult.success) {
-        logger.info("Auto-response email sent", { 
-          submissionId: contactSubmission.id,
-          messageId: autoResponseResult.messageId 
-        });
-      } else {
-        logger.error("Failed to send auto-response", new Error(autoResponseResult.error || "Unknown error"), { 
-          submissionId: contactSubmission.id
-        });
-      }
-    }).catch(error => {
-      logger.error("Email notification error", error instanceof Error ? error : new Error(String(error)), { 
-        submissionId: contactSubmission.id 
+        if (autoResponseResult.success) {
+          logger.info("Auto-response email sent", {
+            submissionId: contactSubmission.id,
+            messageId: autoResponseResult.messageId,
+          });
+        } else {
+          logger.error(
+            "Failed to send auto-response",
+            new Error(autoResponseResult.error || "Unknown error"),
+            {
+              submissionId: contactSubmission.id,
+            }
+          );
+        }
+      })
+      .catch(error => {
+        logger.error(
+          "Email notification error",
+          error instanceof Error ? error : new Error(String(error)),
+          {
+            submissionId: contactSubmission.id,
+          }
+        );
       });
-    });
 
     const duration = Date.now() - startTime;
     logger.api("POST", "/api/contact", 200, duration);
 
     return NextResponse.json({
       success: true,
-      message: "Thank you for your message. We'll get back to you within 24 hours.",
-      submissionId: contactSubmission.id
+      message:
+        "Thank you for your message. We'll get back to you within 24 hours.",
+      submissionId: contactSubmission.id,
     });
-
   } catch (error) {
     const duration = Date.now() - startTime;
     logger.api("POST", "/api/contact", 500, duration);
@@ -117,19 +134,19 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
 
 export const GET = withErrorHandler(async (request: NextRequest) => {
   const startTime = Date.now();
-  
+
   try {
     const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '10');
-    const isRead = searchParams.get('isRead');
-    
+    const page = parseInt(searchParams.get("page") || "1");
+    const limit = parseInt(searchParams.get("limit") || "10");
+    const isRead = searchParams.get("isRead");
+
     const skip = (page - 1) * limit;
 
     // Build where clause
     const where: any = {};
     if (isRead !== null) {
-      where.isRead = isRead === 'true';
+      where.isRead = isRead === "true";
     }
 
     // Get submissions with pagination
@@ -142,17 +159,17 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
               id: true,
               name: true,
               email: true,
-              phone: true
-            }
-          }
+              phone: true,
+            },
+          },
         },
         orderBy: {
-          createdAt: 'desc'
+          createdAt: "desc",
         },
         skip,
-        take: limit
+        take: limit,
       }),
-      prisma.contactSubmission.count({ where })
+      prisma.contactSubmission.count({ where }),
     ]);
 
     const duration = Date.now() - startTime;
@@ -168,11 +185,10 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
           total,
           totalPages: Math.ceil(total / limit),
           hasNext: skip + limit < total,
-          hasPrev: page > 1
-        }
-      }
+          hasPrev: page > 1,
+        },
+      },
     });
-
   } catch (error) {
     const duration = Date.now() - startTime;
     logger.api("GET", "/api/contact", 500, duration);

@@ -38,8 +38,9 @@ export default function AdminContactPage() {
   const [submissions, setSubmissions] = useState<ContactSubmission[]>([]);
   const [pagination, setPagination] = useState<PaginationData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<'all' | 'unread' | 'read'>('all');
-  const [selectedSubmission, setSelectedSubmission] = useState<ContactSubmission | null>(null);
+  const [filter, setFilter] = useState<"all" | "unread" | "read">("all");
+  const [selectedSubmission, setSelectedSubmission] =
+    useState<ContactSubmission | null>(null);
   const [responseMessage, setResponseMessage] = useState("");
   const [responseSubject, setResponseSubject] = useState("");
   const [isResponding, setIsResponding] = useState(false);
@@ -52,31 +53,34 @@ export default function AdminContactPage() {
     }
   }, [session, status, router]);
 
-  const fetchSubmissions = useCallback(async (page = 1) => {
-    try {
-      setLoading(true);
-      const params = new URLSearchParams({
-        page: page.toString(),
-        limit: '10',
-      });
-      
-      if (filter !== 'all') {
-        params.append('isRead', filter === 'read' ? 'true' : 'false');
-      }
+  const fetchSubmissions = useCallback(
+    async (page = 1) => {
+      try {
+        setLoading(true);
+        const params = new URLSearchParams({
+          page: page.toString(),
+          limit: "10",
+        });
 
-      const response = await fetch(`/api/contact?${params}`);
-      const data = await response.json();
+        if (filter !== "all") {
+          params.append("isRead", filter === "read" ? "true" : "false");
+        }
 
-      if (data.success) {
-        setSubmissions(data.data.submissions);
-        setPagination(data.data.pagination);
+        const response = await fetch(`/api/contact?${params}`);
+        const data = await response.json();
+
+        if (data.success) {
+          setSubmissions(data.data.submissions);
+          setPagination(data.data.pagination);
+        }
+      } catch (error) {
+        console.error("Failed to fetch submissions:", error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Failed to fetch submissions:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [filter]);
+    },
+    [filter]
+  );
 
   // Fetch submissions
   useEffect(() => {
@@ -86,18 +90,16 @@ export default function AdminContactPage() {
   const markAsRead = async (submissionId: string, isRead: boolean) => {
     try {
       const response = await fetch(`/api/admin/contact/${submissionId}`, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ isRead }),
       });
 
       if (response.ok) {
         setSubmissions(prev =>
-          prev.map(sub =>
-            sub.id === submissionId ? { ...sub, isRead } : sub
-          )
+          prev.map(sub => (sub.id === submissionId ? { ...sub, isRead } : sub))
         );
       }
     } catch (error) {
@@ -106,20 +108,28 @@ export default function AdminContactPage() {
   };
 
   const sendResponse = async () => {
-    if (!selectedSubmission || !responseMessage.trim() || !responseSubject.trim()) return;
+    if (
+      !selectedSubmission ||
+      !responseMessage.trim() ||
+      !responseSubject.trim()
+    )
+      return;
 
     try {
       setIsResponding(true);
-      const response = await fetch(`/api/admin/contact/${selectedSubmission.id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          subject: responseSubject,
-          message: responseMessage,
-        }),
-      });
+      const response = await fetch(
+        `/api/admin/contact/${selectedSubmission.id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subject: responseSubject,
+            message: responseMessage,
+          }),
+        }
+      );
 
       if (response.ok) {
         // Mark as read and close modal
@@ -140,22 +150,24 @@ export default function AdminContactPage() {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
   if (status === "loading") {
-    return <div className="min-h-screen bg-background flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" />
-        <p className="mt-2 text-muted-foreground">Loading...</p>
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" />
+          <p className="mt-2 text-muted-foreground">Loading...</p>
+        </div>
       </div>
-    </div>;
+    );
   }
 
   if (!session) {
@@ -188,14 +200,14 @@ export default function AdminContactPage() {
           {/* Filters */}
           <div className="mb-6">
             <div className="flex gap-2">
-              {(['all', 'unread', 'read'] as const).map((filterValue) => (
+              {(["all", "unread", "read"] as const).map(filterValue => (
                 <button
                   key={filterValue}
                   onClick={() => setFilter(filterValue)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     filter === filterValue
-                      ? 'bg-primary text-white'
-                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                      ? "bg-primary text-white"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80"
                   }`}
                 >
                   {filterValue.charAt(0).toUpperCase() + filterValue.slice(1)}
@@ -209,7 +221,9 @@ export default function AdminContactPage() {
             {loading ? (
               <div className="p-8 text-center">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" />
-                <p className="mt-2 text-muted-foreground">Loading submissions...</p>
+                <p className="mt-2 text-muted-foreground">
+                  Loading submissions...
+                </p>
               </div>
             ) : submissions.length === 0 ? (
               <div className="p-8 text-center">
@@ -221,28 +235,49 @@ export default function AdminContactPage() {
                   <table className="w-full">
                     <thead>
                       <tr className="border-b border-border bg-muted/30">
-                        <th className="text-left py-3 px-4 font-medium text-foreground">Status</th>
-                        <th className="text-left py-3 px-4 font-medium text-foreground">Name</th>
-                        <th className="text-left py-3 px-4 font-medium text-foreground">Email</th>
-                        <th className="text-left py-3 px-4 font-medium text-foreground">Subject</th>
-                        <th className="text-left py-3 px-4 font-medium text-foreground">Date</th>
-                        <th className="text-left py-3 px-4 font-medium text-foreground">Actions</th>
+                        <th className="text-left py-3 px-4 font-medium text-foreground">
+                          Status
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-foreground">
+                          Name
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-foreground">
+                          Email
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-foreground">
+                          Subject
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-foreground">
+                          Date
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-foreground">
+                          Actions
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {submissions.map((submission) => (
-                        <tr key={submission.id} className="border-b border-border hover:bg-muted/20">
+                      {submissions.map(submission => (
+                        <tr
+                          key={submission.id}
+                          className="border-b border-border hover:bg-muted/20"
+                        >
                           <td className="py-3 px-4">
-                            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                              submission.isRead
-                                ? 'bg-green-100 text-green-800'
-                                : 'bg-yellow-100 text-yellow-800'
-                            }`}>
-                              {submission.isRead ? 'Read' : 'Unread'}
+                            <span
+                              className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                                submission.isRead
+                                  ? "bg-green-100 text-green-800"
+                                  : "bg-yellow-100 text-yellow-800"
+                              }`}
+                            >
+                              {submission.isRead ? "Read" : "Unread"}
                             </span>
                           </td>
-                          <td className="py-3 px-4 text-foreground">{submission.name}</td>
-                          <td className="py-3 px-4 text-muted-foreground">{submission.email}</td>
+                          <td className="py-3 px-4 text-foreground">
+                            {submission.name}
+                          </td>
+                          <td className="py-3 px-4 text-muted-foreground">
+                            {submission.email}
+                          </td>
                           <td className="py-3 px-4 text-foreground max-w-xs truncate">
                             {submission.subject}
                           </td>
@@ -252,16 +287,22 @@ export default function AdminContactPage() {
                           <td className="py-3 px-4">
                             <div className="flex gap-2">
                               <button
-                                onClick={() => setSelectedSubmission(submission)}
+                                onClick={() =>
+                                  setSelectedSubmission(submission)
+                                }
                                 className="text-primary hover:text-primary/80 text-sm font-medium"
                               >
                                 View
                               </button>
                               <button
-                                onClick={() => markAsRead(submission.id, !submission.isRead)}
+                                onClick={() =>
+                                  markAsRead(submission.id, !submission.isRead)
+                                }
                                 className="text-muted-foreground hover:text-foreground text-sm font-medium"
                               >
-                                {submission.isRead ? 'Mark Unread' : 'Mark Read'}
+                                {submission.isRead
+                                  ? "Mark Unread"
+                                  : "Mark Read"}
                               </button>
                             </div>
                           </td>
@@ -275,9 +316,12 @@ export default function AdminContactPage() {
                 {pagination && pagination.totalPages > 1 && (
                   <div className="flex items-center justify-between p-4 border-t border-border">
                     <p className="text-sm text-muted-foreground">
-                      Showing {((pagination.page - 1) * pagination.limit) + 1} to{' '}
-                      {Math.min(pagination.page * pagination.limit, pagination.total)} of{' '}
-                      {pagination.total} submissions
+                      Showing {(pagination.page - 1) * pagination.limit + 1} to{" "}
+                      {Math.min(
+                        pagination.page * pagination.limit,
+                        pagination.total
+                      )}{" "}
+                      of {pagination.total} submissions
                     </p>
                     <div className="flex gap-2">
                       <button
@@ -316,68 +360,106 @@ export default function AdminContactPage() {
                   onClick={() => setSelectedSubmission(null)}
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </div>
 
               <div className="space-y-4 mb-6">
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">Name</label>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    Name
+                  </label>
                   <p className="text-foreground">{selectedSubmission.name}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">Email</label>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    Email
+                  </label>
                   <p className="text-foreground">{selectedSubmission.email}</p>
                 </div>
                 {selectedSubmission.phone && (
                   <div>
-                    <label className="text-sm font-medium text-muted-foreground">Phone</label>
-                    <p className="text-foreground">{selectedSubmission.phone}</p>
+                    <label className="text-sm font-medium text-muted-foreground">
+                      Phone
+                    </label>
+                    <p className="text-foreground">
+                      {selectedSubmission.phone}
+                    </p>
                   </div>
                 )}
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">Subject</label>
-                  <p className="text-foreground">{selectedSubmission.subject}</p>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    Subject
+                  </label>
+                  <p className="text-foreground">
+                    {selectedSubmission.subject}
+                  </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">Message</label>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    Message
+                  </label>
                   <div className="bg-muted/30 rounded-lg p-4 mt-1">
-                    <p className="text-foreground whitespace-pre-wrap">{selectedSubmission.message}</p>
+                    <p className="text-foreground whitespace-pre-wrap">
+                      {selectedSubmission.message}
+                    </p>
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">Submitted</label>
-                  <p className="text-foreground">{formatDate(selectedSubmission.createdAt)}</p>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    Submitted
+                  </label>
+                  <p className="text-foreground">
+                    {formatDate(selectedSubmission.createdAt)}
+                  </p>
                 </div>
               </div>
 
               {/* Response Section */}
               <div className="border-t border-border pt-6">
-                <h3 className="font-medium text-foreground mb-4">Send Response</h3>
+                <h3 className="font-medium text-foreground mb-4">
+                  Send Response
+                </h3>
                 <div className="space-y-4">
                   <div>
-                    <label htmlFor="responseSubject" className="block text-sm font-medium text-foreground mb-2">
+                    <label
+                      htmlFor="responseSubject"
+                      className="block text-sm font-medium text-foreground mb-2"
+                    >
                       Subject
                     </label>
                     <input
                       type="text"
                       id="responseSubject"
                       value={responseSubject}
-                      onChange={(e) => setResponseSubject(e.target.value)}
+                      onChange={e => setResponseSubject(e.target.value)}
                       className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                       placeholder={`Re: ${selectedSubmission.subject}`}
                     />
                   </div>
                   <div>
-                    <label htmlFor="responseMessage" className="block text-sm font-medium text-foreground mb-2">
+                    <label
+                      htmlFor="responseMessage"
+                      className="block text-sm font-medium text-foreground mb-2"
+                    >
                       Message
                     </label>
                     <textarea
                       id="responseMessage"
                       value={responseMessage}
-                      onChange={(e) => setResponseMessage(e.target.value)}
+                      onChange={e => setResponseMessage(e.target.value)}
                       rows={6}
                       className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-vertical"
                       placeholder={`Dear ${selectedSubmission.name},\n\nThank you for reaching out to us...`}
@@ -392,10 +474,14 @@ export default function AdminContactPage() {
                     </button>
                     <button
                       onClick={sendResponse}
-                      disabled={isResponding || !responseMessage.trim() || !responseSubject.trim()}
+                      disabled={
+                        isResponding ||
+                        !responseMessage.trim() ||
+                        !responseSubject.trim()
+                      }
                       className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {isResponding ? 'Sending...' : 'Send Response'}
+                      {isResponding ? "Sending..." : "Send Response"}
                     </button>
                   </div>
                 </div>

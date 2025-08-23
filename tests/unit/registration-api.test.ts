@@ -1,9 +1,9 @@
-import { NextRequest } from 'next/server';
-import { POST } from '@/app/api/auth/register/route';
-import bcrypt from 'bcryptjs';
+import { NextRequest } from "next/server";
+import { POST } from "@/app/api/auth/register/route";
+import bcrypt from "bcryptjs";
 
 // Mock dependencies
-jest.mock('@/lib/db', () => ({
+jest.mock("@/lib/db", () => ({
   prisma: {
     user: {
       findUnique: jest.fn(),
@@ -12,7 +12,7 @@ jest.mock('@/lib/db', () => ({
   },
 }));
 
-jest.mock('@/lib/logger', () => ({
+jest.mock("@/lib/logger", () => ({
   logger: {
     info: jest.fn(),
     warn: jest.fn(),
@@ -20,25 +20,25 @@ jest.mock('@/lib/logger', () => ({
   },
 }));
 
-jest.mock('bcryptjs', () => ({
+jest.mock("bcryptjs", () => ({
   hash: jest.fn(),
 }));
 
-import { prisma } from '@/lib/db';
-import { logger } from '@/lib/logger';
+import { prisma } from "@/lib/db";
+import { logger } from "@/lib/logger";
 
-describe('/api/auth/register', () => {
+describe("/api/auth/register", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('POST', () => {
+  describe("POST", () => {
     const validRequestData = {
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      password: 'Password123',
-      confirmPassword: 'Password123',
-      phone: '(555) 123-4567',
+      name: "John Doe",
+      email: "john.doe@example.com",
+      password: "Password123",
+      confirmPassword: "Password123",
+      phone: "(555) 123-4567",
     };
 
     const createMockRequest = (data: any) => {
@@ -47,18 +47,18 @@ describe('/api/auth/register', () => {
       } as unknown as NextRequest;
     };
 
-    it('successfully registers a new user', async () => {
+    it("successfully registers a new user", async () => {
       const mockUser = {
-        id: 'user-123',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        role: 'CLIENT',
-        phone: '(555) 123-4567',
+        id: "user-123",
+        name: "John Doe",
+        email: "john.doe@example.com",
+        role: "CLIENT",
+        phone: "(555) 123-4567",
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
       (prisma.user.create as jest.Mock).mockResolvedValue(mockUser);
-      (bcrypt.hash as jest.Mock).mockResolvedValue('hashed-password');
+      (bcrypt.hash as jest.Mock).mockResolvedValue("hashed-password");
 
       const request = createMockRequest(validRequestData);
       const response = await POST(request);
@@ -67,61 +67,58 @@ describe('/api/auth/register', () => {
       expect(response.status).toBe(201);
       expect(responseData.success).toBe(true);
       expect(responseData.message).toBe(
-        'Registration successful. Please check your email to verify your account.'
+        "Registration successful. Please check your email to verify your account."
       );
       expect(responseData.user).toEqual({
-        id: 'user-123',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        role: 'CLIENT',
+        id: "user-123",
+        name: "John Doe",
+        email: "john.doe@example.com",
+        role: "CLIENT",
       });
 
       expect(prisma.user.findUnique).toHaveBeenCalledWith({
-        where: { email: 'john.doe@example.com' },
+        where: { email: "john.doe@example.com" },
       });
 
-      expect(bcrypt.hash).toHaveBeenCalledWith('Password123', 12);
+      expect(bcrypt.hash).toHaveBeenCalledWith("Password123", 12);
 
       expect(prisma.user.create).toHaveBeenCalledWith({
         data: {
-          name: 'John Doe',
-          email: 'john.doe@example.com',
-          password: 'hashed-password',
-          phone: '(555) 123-4567',
-          role: 'CLIENT',
+          name: "John Doe",
+          email: "john.doe@example.com",
+          password: "hashed-password",
+          phone: "(555) 123-4567",
+          role: "CLIENT",
           emailVerified: null,
         },
       });
 
-      expect(logger.info).toHaveBeenCalledWith(
-        'User registered successfully',
-        {
-          userId: 'user-123',
-          email: 'john.doe@example.com',
-          role: 'CLIENT',
-        }
-      );
+      expect(logger.info).toHaveBeenCalledWith("User registered successfully", {
+        userId: "user-123",
+        email: "john.doe@example.com",
+        role: "CLIENT",
+      });
     });
 
-    it('successfully registers user without phone', async () => {
+    it("successfully registers user without phone", async () => {
       const requestData = {
-        name: 'Jane Smith',
-        email: 'jane.smith@example.com',
-        password: 'Password123',
-        confirmPassword: 'Password123',
+        name: "Jane Smith",
+        email: "jane.smith@example.com",
+        password: "Password123",
+        confirmPassword: "Password123",
       };
 
       const mockUser = {
-        id: 'user-456',
-        name: 'Jane Smith',
-        email: 'jane.smith@example.com',
-        role: 'CLIENT',
+        id: "user-456",
+        name: "Jane Smith",
+        email: "jane.smith@example.com",
+        role: "CLIENT",
         phone: null,
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
       (prisma.user.create as jest.Mock).mockResolvedValue(mockUser);
-      (bcrypt.hash as jest.Mock).mockResolvedValue('hashed-password');
+      (bcrypt.hash as jest.Mock).mockResolvedValue("hashed-password");
 
       const request = createMockRequest(requestData);
       const response = await POST(request);
@@ -132,22 +129,22 @@ describe('/api/auth/register', () => {
 
       expect(prisma.user.create).toHaveBeenCalledWith({
         data: {
-          name: 'Jane Smith',
-          email: 'jane.smith@example.com',
-          password: 'hashed-password',
+          name: "Jane Smith",
+          email: "jane.smith@example.com",
+          password: "hashed-password",
           phone: null,
-          role: 'CLIENT',
+          role: "CLIENT",
           emailVerified: null,
         },
       });
     });
 
-    it('rejects registration with invalid data', async () => {
+    it("rejects registration with invalid data", async () => {
       const invalidData = {
-        name: 'A', // Too short
-        email: 'invalid-email',
-        password: 'weak',
-        confirmPassword: 'weak',
+        name: "A", // Too short
+        email: "invalid-email",
+        password: "weak",
+        confirmPassword: "weak",
       };
 
       const request = createMockRequest(invalidData);
@@ -155,18 +152,18 @@ describe('/api/auth/register', () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe('Validation failed');
+      expect(responseData.error).toBe("Validation failed");
       expect(responseData.details).toBeDefined();
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
       expect(prisma.user.create).not.toHaveBeenCalled();
     });
 
-    it('rejects registration with mismatched passwords', async () => {
+    it("rejects registration with mismatched passwords", async () => {
       const invalidData = {
-        name: 'John Doe',
-        email: 'john@example.com',
-        password: 'Password123',
-        confirmPassword: 'DifferentPassword123',
+        name: "John Doe",
+        email: "john@example.com",
+        password: "Password123",
+        confirmPassword: "DifferentPassword123",
       };
 
       const request = createMockRequest(invalidData);
@@ -174,15 +171,15 @@ describe('/api/auth/register', () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe('Validation failed');
+      expect(responseData.error).toBe("Validation failed");
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
     });
 
-    it('rejects registration if user already exists', async () => {
+    it("rejects registration if user already exists", async () => {
       const existingUser = {
-        id: 'existing-123',
-        email: 'john.doe@example.com',
-        name: 'Existing User',
+        id: "existing-123",
+        email: "john.doe@example.com",
+        name: "Existing User",
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(existingUser);
@@ -192,145 +189,151 @@ describe('/api/auth/register', () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(409);
-      expect(responseData.error).toBe('User already exists with this email address');
+      expect(responseData.error).toBe(
+        "User already exists with this email address"
+      );
       expect(prisma.user.create).not.toHaveBeenCalled();
       expect(bcrypt.hash).not.toHaveBeenCalled();
     });
 
-    it('handles database errors during user lookup', async () => {
-      (prisma.user.findUnique as jest.Mock).mockRejectedValue(new Error('Database connection failed'));
+    it("handles database errors during user lookup", async () => {
+      (prisma.user.findUnique as jest.Mock).mockRejectedValue(
+        new Error("Database connection failed")
+      );
 
       const request = createMockRequest(validRequestData);
       const response = await POST(request);
       const responseData = await response.json();
 
       expect(response.status).toBe(500);
-      expect(responseData.error).toBe('Internal server error');
+      expect(responseData.error).toBe("Internal server error");
       expect(logger.error).toHaveBeenCalledWith(
-        'Unhandled API error',
+        "Unhandled API error",
         expect.any(Error)
       );
     });
 
-    it('handles database errors during user creation', async () => {
+    it("handles database errors during user creation", async () => {
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
-      (bcrypt.hash as jest.Mock).mockResolvedValue('hashed-password');
-      (prisma.user.create as jest.Mock).mockRejectedValue(new Error('Database write failed'));
+      (bcrypt.hash as jest.Mock).mockResolvedValue("hashed-password");
+      (prisma.user.create as jest.Mock).mockRejectedValue(
+        new Error("Database write failed")
+      );
 
       const request = createMockRequest(validRequestData);
       const response = await POST(request);
       const responseData = await response.json();
 
       expect(response.status).toBe(500);
-      expect(responseData.error).toBe('Internal server error');
+      expect(responseData.error).toBe("Internal server error");
       expect(logger.error).toHaveBeenCalledWith(
-        'Database error during user registration',
+        "Database error during user registration",
         expect.any(Error)
       );
     });
 
-    it('handles bcrypt hashing errors', async () => {
+    it("handles bcrypt hashing errors", async () => {
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
-      (bcrypt.hash as jest.Mock).mockRejectedValue(new Error('Hashing failed'));
+      (bcrypt.hash as jest.Mock).mockRejectedValue(new Error("Hashing failed"));
 
       const request = createMockRequest(validRequestData);
       const response = await POST(request);
       const responseData = await response.json();
 
       expect(response.status).toBe(500);
-      expect(responseData.error).toBe('Internal server error');
+      expect(responseData.error).toBe("Internal server error");
       expect(prisma.user.create).not.toHaveBeenCalled();
     });
 
-    it('normalizes email to lowercase', async () => {
+    it("normalizes email to lowercase", async () => {
       const requestData = {
         ...validRequestData,
-        email: 'John.Doe@EXAMPLE.COM',
+        email: "John.Doe@EXAMPLE.COM",
       };
 
       const mockUser = {
-        id: 'user-123',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        role: 'CLIENT',
+        id: "user-123",
+        name: "John Doe",
+        email: "john.doe@example.com",
+        role: "CLIENT",
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
       (prisma.user.create as jest.Mock).mockResolvedValue(mockUser);
-      (bcrypt.hash as jest.Mock).mockResolvedValue('hashed-password');
+      (bcrypt.hash as jest.Mock).mockResolvedValue("hashed-password");
 
       const request = createMockRequest(requestData);
       const _response = await POST(request);
 
       expect(prisma.user.findUnique).toHaveBeenCalledWith({
-        where: { email: 'john.doe@example.com' },
+        where: { email: "john.doe@example.com" },
       });
 
       expect(prisma.user.create).toHaveBeenCalledWith({
         data: expect.objectContaining({
-          email: 'john.doe@example.com',
+          email: "john.doe@example.com",
         }),
       });
     });
 
-    it('logs verification email notification', async () => {
+    it("logs verification email notification", async () => {
       const mockUser = {
-        id: 'user-123',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        role: 'CLIENT',
+        id: "user-123",
+        name: "John Doe",
+        email: "john.doe@example.com",
+        role: "CLIENT",
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
       (prisma.user.create as jest.Mock).mockResolvedValue(mockUser);
-      (bcrypt.hash as jest.Mock).mockResolvedValue('hashed-password');
+      (bcrypt.hash as jest.Mock).mockResolvedValue("hashed-password");
 
       const request = createMockRequest(validRequestData);
       await POST(request);
 
       expect(logger.info).toHaveBeenCalledWith(
-        'Verification email should be sent',
+        "Verification email should be sent",
         {
-          userId: 'user-123',
-          email: 'john.doe@example.com',
+          userId: "user-123",
+          email: "john.doe@example.com",
         }
       );
     });
 
-    it('sets correct default role for new users', async () => {
+    it("sets correct default role for new users", async () => {
       const mockUser = {
-        id: 'user-123',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        role: 'CLIENT',
+        id: "user-123",
+        name: "John Doe",
+        email: "john.doe@example.com",
+        role: "CLIENT",
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
       (prisma.user.create as jest.Mock).mockResolvedValue(mockUser);
-      (bcrypt.hash as jest.Mock).mockResolvedValue('hashed-password');
+      (bcrypt.hash as jest.Mock).mockResolvedValue("hashed-password");
 
       const request = createMockRequest(validRequestData);
       await POST(request);
 
       expect(prisma.user.create).toHaveBeenCalledWith({
         data: expect.objectContaining({
-          role: 'CLIENT',
+          role: "CLIENT",
         }),
       });
     });
 
-    it('sets emailVerified to null for new users', async () => {
+    it("sets emailVerified to null for new users", async () => {
       const mockUser = {
-        id: 'user-123',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        role: 'CLIENT',
+        id: "user-123",
+        name: "John Doe",
+        email: "john.doe@example.com",
+        role: "CLIENT",
         emailVerified: null,
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
       (prisma.user.create as jest.Mock).mockResolvedValue(mockUser);
-      (bcrypt.hash as jest.Mock).mockResolvedValue('hashed-password');
+      (bcrypt.hash as jest.Mock).mockResolvedValue("hashed-password");
 
       const request = createMockRequest(validRequestData);
       await POST(request);

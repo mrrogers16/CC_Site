@@ -58,14 +58,17 @@ export default function AdminLoginPage() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-foreground mb-2"
+                >
                   Email Address
                 </label>
                 <input
                   type="email"
                   id="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   required
                   className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
                   placeholder="admin@healingpathways.com"
@@ -73,14 +76,17 @@ export default function AdminLoginPage() {
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-foreground mb-2"
+                >
                   Password
                 </label>
                 <input
                   type="password"
                   id="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                   required
                   className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
                   placeholder="Enter your password"
@@ -103,7 +109,9 @@ export default function AdminLoginPage() {
             </form>
 
             <div className="mt-8 p-4 bg-muted/30 rounded-lg">
-              <h3 className="font-medium text-foreground mb-2">Demo Credentials</h3>
+              <h3 className="font-medium text-foreground mb-2">
+                Demo Credentials
+              </h3>
               <p className="text-sm text-muted-foreground mb-2">
                 For testing purposes, use these credentials:
               </p>
@@ -112,7 +120,8 @@ export default function AdminLoginPage() {
                 <p>Password: admin123</p>
               </div>
               <p className="text-xs text-muted-foreground mt-2">
-                Note: In production, implement proper password hashing and secure authentication.
+                Note: In production, implement proper password hashing and
+                secure authentication.
               </p>
             </div>
           </div>

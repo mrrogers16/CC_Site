@@ -1,8 +1,8 @@
-import { NextRequest } from 'next/server';
-import { GET } from '@/app/api/auth/check-email/route';
+import { NextRequest } from "next/server";
+import { GET } from "@/app/api/auth/check-email/route";
 
 // Mock dependencies
-jest.mock('@/lib/db', () => ({
+jest.mock("@/lib/db", () => ({
   prisma: {
     user: {
       findUnique: jest.fn(),
@@ -10,7 +10,7 @@ jest.mock('@/lib/db', () => ({
   },
 }));
 
-jest.mock('@/lib/logger', () => ({
+jest.mock("@/lib/logger", () => ({
   logger: {
     info: jest.fn(),
     warn: jest.fn(),
@@ -18,153 +18,155 @@ jest.mock('@/lib/logger', () => ({
   },
 }));
 
-import { prisma } from '@/lib/db';
-import { logger } from '@/lib/logger';
+import { prisma } from "@/lib/db";
+import { logger } from "@/lib/logger";
 
-describe('/api/auth/check-email', () => {
+describe("/api/auth/check-email", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('GET', () => {
+  describe("GET", () => {
     const createMockRequest = (email: string) => {
       return {
         url: `http://localhost:3000/api/auth/check-email?email=${encodeURIComponent(email)}`,
       } as NextRequest;
     };
 
-    it('returns available true for non-existent email', async () => {
+    it("returns available true for non-existent email", async () => {
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
 
-      const request = createMockRequest('available@example.com');
+      const request = createMockRequest("available@example.com");
       const response = await GET(request);
       const responseData = await response.json();
 
       expect(response.status).toBe(200);
       expect(responseData).toEqual({
         available: true,
-        message: 'Email address is available',
+        message: "Email address is available",
       });
 
       expect(prisma.user.findUnique).toHaveBeenCalledWith({
-        where: { email: 'available@example.com' },
+        where: { email: "available@example.com" },
         select: { id: true },
       });
 
-      expect(logger.info).toHaveBeenCalledWith('Email availability check', {
-        email: 'available@example.com',
+      expect(logger.info).toHaveBeenCalledWith("Email availability check", {
+        email: "available@example.com",
         available: true,
         userExists: false,
       });
     });
 
-    it('returns available false for existing email', async () => {
-      const mockUser = { id: 'user-123' };
+    it("returns available false for existing email", async () => {
+      const mockUser = { id: "user-123" };
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(mockUser);
 
-      const request = createMockRequest('existing@example.com');
+      const request = createMockRequest("existing@example.com");
       const response = await GET(request);
       const responseData = await response.json();
 
       expect(response.status).toBe(200);
       expect(responseData).toEqual({
         available: false,
-        message: 'Email address is already registered',
+        message: "Email address is already registered",
       });
 
       expect(prisma.user.findUnique).toHaveBeenCalledWith({
-        where: { email: 'existing@example.com' },
+        where: { email: "existing@example.com" },
         select: { id: true },
       });
 
-      expect(logger.info).toHaveBeenCalledWith('Email availability check', {
-        email: 'existing@example.com',
+      expect(logger.info).toHaveBeenCalledWith("Email availability check", {
+        email: "existing@example.com",
         available: false,
         userExists: true,
       });
     });
 
-    it('normalizes email addresses to lowercase', async () => {
+    it("normalizes email addresses to lowercase", async () => {
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
 
-      const request = createMockRequest('Test.User@EXAMPLE.COM');
+      const request = createMockRequest("Test.User@EXAMPLE.COM");
       await GET(request);
 
       expect(prisma.user.findUnique).toHaveBeenCalledWith({
-        where: { email: 'test.user@example.com' },
+        where: { email: "test.user@example.com" },
         select: { id: true },
       });
     });
 
-    it('validates email format', async () => {
-      const request = createMockRequest('invalid-email');
+    it("validates email format", async () => {
+      const request = createMockRequest("invalid-email");
       const response = await GET(request);
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe('Validation failed');
+      expect(responseData.error).toBe("Validation failed");
       expect(responseData.details).toBeDefined();
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
     });
 
-    it('requires email parameter', async () => {
+    it("requires email parameter", async () => {
       const request = {
-        url: 'http://localhost:3000/api/auth/check-email',
+        url: "http://localhost:3000/api/auth/check-email",
       } as NextRequest;
 
       const response = await GET(request);
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe('Validation failed');
+      expect(responseData.error).toBe("Validation failed");
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
     });
 
-    it('handles empty email parameter', async () => {
-      const request = createMockRequest('');
+    it("handles empty email parameter", async () => {
+      const request = createMockRequest("");
       const response = await GET(request);
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe('Validation failed');
+      expect(responseData.error).toBe("Validation failed");
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
     });
 
-    it('handles database errors gracefully', async () => {
-      (prisma.user.findUnique as jest.Mock).mockRejectedValue(new Error('Database connection failed'));
+    it("handles database errors gracefully", async () => {
+      (prisma.user.findUnique as jest.Mock).mockRejectedValue(
+        new Error("Database connection failed")
+      );
 
-      const request = createMockRequest('test@example.com');
+      const request = createMockRequest("test@example.com");
       const response = await GET(request);
       const responseData = await response.json();
 
       expect(response.status).toBe(500);
-      expect(responseData.error).toBe('Internal server error');
+      expect(responseData.error).toBe("Internal server error");
       expect(logger.error).toHaveBeenCalledWith(
-        'Database error during email availability check',
+        "Database error during email availability check",
         expect.any(Error)
       );
     });
 
-    it('validates various email formats correctly', async () => {
+    it("validates various email formats correctly", async () => {
       const validEmails = [
-        'user@example.com',
-        'user.name@example.com',
-        'user+tag@example.com',
-        'user123@example-domain.com',
+        "user@example.com",
+        "user.name@example.com",
+        "user+tag@example.com",
+        "user123@example-domain.com",
       ];
 
       const invalidEmails = [
-        'invalid-email',
-        '@example.com',
-        'user@',
-        'user..name@example.com',
-        'user@example',
+        "invalid-email",
+        "@example.com",
+        "user@",
+        "user..name@example.com",
+        "user@example",
       ];
 
       // Test valid emails
       for (const email of validEmails) {
         (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
-        
+
         const request = createMockRequest(email);
         const response = await GET(request);
 
@@ -178,7 +180,7 @@ describe('/api/auth/check-email', () => {
       // Test invalid emails
       for (const email of invalidEmails) {
         jest.clearAllMocks();
-        
+
         const request = createMockRequest(email);
         const response = await GET(request);
 
@@ -187,51 +189,55 @@ describe('/api/auth/check-email', () => {
       }
     });
 
-    it('handles special characters in email correctly', async () => {
+    it("handles special characters in email correctly", async () => {
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
 
-      const emailWithSpecialChars = 'user+test@example.com';
+      const emailWithSpecialChars = "user+test@example.com";
       const request = createMockRequest(emailWithSpecialChars);
       await GET(request);
 
       expect(prisma.user.findUnique).toHaveBeenCalledWith({
-        where: { email: 'user+test@example.com' },
+        where: { email: "user+test@example.com" },
         select: { id: true },
       });
     });
 
-    it('logs appropriate information for monitoring', async () => {
-      (prisma.user.findUnique as jest.Mock).mockResolvedValue({ id: 'user-123' });
+    it("logs appropriate information for monitoring", async () => {
+      (prisma.user.findUnique as jest.Mock).mockResolvedValue({
+        id: "user-123",
+      });
 
-      const request = createMockRequest('monitoring@example.com');
+      const request = createMockRequest("monitoring@example.com");
       await GET(request);
 
-      expect(logger.info).toHaveBeenCalledWith('Email availability check', {
-        email: 'monitoring@example.com',
+      expect(logger.info).toHaveBeenCalledWith("Email availability check", {
+        email: "monitoring@example.com",
         available: false,
         userExists: true,
       });
     });
 
-    it('only selects necessary fields for efficiency', async () => {
-      (prisma.user.findUnique as jest.Mock).mockResolvedValue({ id: 'user-123' });
+    it("only selects necessary fields for efficiency", async () => {
+      (prisma.user.findUnique as jest.Mock).mockResolvedValue({
+        id: "user-123",
+      });
 
-      const request = createMockRequest('efficiency@example.com');
+      const request = createMockRequest("efficiency@example.com");
       await GET(request);
 
       expect(prisma.user.findUnique).toHaveBeenCalledWith({
-        where: { email: 'efficiency@example.com' },
+        where: { email: "efficiency@example.com" },
         select: { id: true }, // Only id field selected for efficiency
       });
     });
 
-    it('handles concurrent requests correctly', async () => {
+    it("handles concurrent requests correctly", async () => {
       (prisma.user.findUnique as jest.Mock)
         .mockResolvedValueOnce(null)
-        .mockResolvedValueOnce({ id: 'user-123' });
+        .mockResolvedValueOnce({ id: "user-123" });
 
-      const request1 = createMockRequest('available@example.com');
-      const request2 = createMockRequest('taken@example.com');
+      const request1 = createMockRequest("available@example.com");
+      const request2 = createMockRequest("taken@example.com");
 
       const [response1, response2] = await Promise.all([
         GET(request1),

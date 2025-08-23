@@ -45,9 +45,11 @@ export function LoginForm() {
       logger.info("User login successful", { email: data.email });
       router.push("/");
       router.refresh();
-      
     } catch (error) {
-      logger.error("Login error", error instanceof Error ? error : new Error(String(error)));
+      logger.error(
+        "Login error",
+        error instanceof Error ? error : new Error(String(error))
+      );
       setSubmitError("Sign in failed. Please try again.");
     } finally {
       setIsLoading(false);
@@ -58,7 +60,10 @@ export function LoginForm() {
     try {
       await signIn("google", { callbackUrl: "/" });
     } catch (error) {
-      logger.error("Google sign-in error", error instanceof Error ? error : new Error(String(error)));
+      logger.error(
+        "Google sign-in error",
+        error instanceof Error ? error : new Error(String(error))
+      );
       setSubmitError("Google sign-in failed. Please try again.");
     }
   };
@@ -98,19 +103,27 @@ export function LoginForm() {
           <div className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-card text-muted-foreground">Or sign in with email</span>
+          <span className="px-2 bg-card text-muted-foreground">
+            Or sign in with email
+          </span>
         </div>
       </div>
 
       {submitError && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4" data-testid="login-error">
+        <div
+          className="bg-red-50 border border-red-200 rounded-lg p-4"
+          data-testid="login-error"
+        >
           <p className="text-red-800 text-sm">{submitError}</p>
         </div>
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" role="form">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Email Address
           </label>
           <input
@@ -123,12 +136,21 @@ export function LoginForm() {
             placeholder="Enter your email address"
           />
           {errors.email && (
-            <p className="mt-1 text-sm text-red-600" data-testid="email-error" role="alert">{errors.email.message}</p>
+            <p
+              className="mt-1 text-sm text-red-600"
+              data-testid="email-error"
+              role="alert"
+            >
+              {errors.email.message}
+            </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Password
           </label>
           <div className="relative">
@@ -172,7 +194,13 @@ export function LoginForm() {
             </button>
           </div>
           {errors.password && (
-            <p className="mt-1 text-sm text-red-600" data-testid="password-error" role="alert">{errors.password.message}</p>
+            <p
+              className="mt-1 text-sm text-red-600"
+              data-testid="password-error"
+              role="alert"
+            >
+              {errors.password.message}
+            </p>
           )}
         </div>
 
@@ -183,9 +211,15 @@ export function LoginForm() {
               data-testid="remember-me"
               className="rounded border-border text-primary focus:ring-primary focus:ring-2"
             />
-            <span className="ml-2 text-sm text-muted-foreground">Remember me</span>
+            <span className="ml-2 text-sm text-muted-foreground">
+              Remember me
+            </span>
           </label>
-          <a href="/auth/forgot-password" className="text-sm text-primary hover:underline" data-testid="forgot-password-link">
+          <a
+            href="/auth/forgot-password"
+            className="text-sm text-primary hover:underline"
+            data-testid="forgot-password-link"
+          >
             Forgot password?
           </a>
         </div>
@@ -203,7 +237,11 @@ export function LoginForm() {
       <div className="text-center">
         <p className="text-sm text-muted-foreground">
           Don&apos;t have an account?{" "}
-          <a href="/auth/register" className="text-primary hover:underline font-medium" data-testid="register-link">
+          <a
+            href="/auth/register"
+            className="text-primary hover:underline font-medium"
+            data-testid="register-link"
+          >
             Register here
           </a>
         </p>

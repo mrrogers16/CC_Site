@@ -12,40 +12,47 @@ interface ContactFormProps {
 
 export function ContactForm({ className = "" }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema)
+    resolver: zodResolver(contactFormSchema),
   });
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
-    setSubmitStatus('idle');
+    setSubmitStatus("idle");
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      const response = await fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit form');
+        throw new Error("Failed to submit form");
       }
 
-      setSubmitStatus('success');
+      setSubmitStatus("success");
       reset();
-      logger.info('Contact form submitted successfully', { subject: data.subject });
+      logger.info("Contact form submitted successfully", {
+        subject: data.subject,
+      });
     } catch (error) {
-      logger.error('Contact form submission failed', error instanceof Error ? error : new Error(String(error)));
-      setSubmitStatus('error');
+      logger.error(
+        "Contact form submission failed",
+        error instanceof Error ? error : new Error(String(error))
+      );
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
@@ -56,7 +63,10 @@ export function ContactForm({ className = "" }: ContactFormProps) {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-foreground mb-2"
+            >
               Name *
             </label>
             <input
@@ -72,7 +82,10 @@ export function ContactForm({ className = "" }: ContactFormProps) {
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-foreground mb-2"
+            >
               Email *
             </label>
             <input
@@ -83,14 +96,20 @@ export function ContactForm({ className = "" }: ContactFormProps) {
               placeholder="your.email@example.com"
             />
             {errors.email && (
-              <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+              <p className="mt-1 text-sm text-red-600">
+                {errors.email.message}
+              </p>
             )}
           </div>
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
-            Phone Number <span className="text-muted-foreground">(optional)</span>
+          <label
+            htmlFor="phone"
+            className="block text-sm font-medium text-foreground mb-2"
+          >
+            Phone Number{" "}
+            <span className="text-muted-foreground">(optional)</span>
           </label>
           <input
             {...register("phone")}
@@ -105,7 +124,10 @@ export function ContactForm({ className = "" }: ContactFormProps) {
         </div>
 
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
+          <label
+            htmlFor="subject"
+            className="block text-sm font-medium text-foreground mb-2"
+          >
             Subject *
           </label>
           <input
@@ -116,12 +138,17 @@ export function ContactForm({ className = "" }: ContactFormProps) {
             placeholder="How can we help you?"
           />
           {errors.subject && (
-            <p className="mt-1 text-sm text-red-600">{errors.subject.message}</p>
+            <p className="mt-1 text-sm text-red-600">
+              {errors.subject.message}
+            </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+          <label
+            htmlFor="message"
+            className="block text-sm font-medium text-foreground mb-2"
+          >
             Message *
           </label>
           <textarea
@@ -132,22 +159,26 @@ export function ContactForm({ className = "" }: ContactFormProps) {
             placeholder="Please share what you'd like to discuss or any questions you have about our services..."
           />
           {errors.message && (
-            <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
+            <p className="mt-1 text-sm text-red-600">
+              {errors.message.message}
+            </p>
           )}
         </div>
 
-        {submitStatus === 'success' && (
+        {submitStatus === "success" && (
           <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
             <p className="text-green-800">
-              Thank you for your message! We&apos;ll get back to you within 24 hours.
+              Thank you for your message! We&apos;ll get back to you within 24
+              hours.
             </p>
           </div>
         )}
 
-        {submitStatus === 'error' && (
+        {submitStatus === "error" && (
           <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
             <p className="text-red-800">
-              There was an error sending your message. Please try again or call us directly.
+              There was an error sending your message. Please try again or call
+              us directly.
             </p>
           </div>
         )}
@@ -157,7 +188,7 @@ export function ContactForm({ className = "" }: ContactFormProps) {
           disabled={isSubmitting}
           className="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
-          {isSubmitting ? 'Sending...' : 'Send Message'}
+          {isSubmitting ? "Sending..." : "Send Message"}
         </button>
 
         <p className="text-sm text-muted-foreground text-center">

@@ -33,7 +33,7 @@ export function ContactNotificationEmail({
 
           <Section style={content}>
             <Text style={title}>Contact Details</Text>
-            
+
             <Section style={infoSection}>
               <Text style={label}>Name:</Text>
               <Text style={value}>{name}</Text>
@@ -82,9 +82,7 @@ export function ContactNotificationEmail({
                   View in Admin Dashboard
                 </Link>
               </Text>
-              <Text style={submissionInfo}>
-                Submission ID: {submissionId}
-              </Text>
+              <Text style={submissionInfo}>Submission ID: {submissionId}</Text>
             </Section>
           </Section>
 
@@ -93,7 +91,8 @@ export function ContactNotificationEmail({
               Healing Pathways Counseling Admin Notification
             </Text>
             <Text style={footerText}>
-              This email was automatically generated from your website contact form.
+              This email was automatically generated from your website contact
+              form.
             </Text>
           </Section>
         </Container>

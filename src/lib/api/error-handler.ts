@@ -16,7 +16,10 @@ export function withErrorHandler<T extends unknown[]>(
 }
 
 export function handleApiError(error: unknown): NextResponse {
-  logger.error("API Error occurred", error instanceof Error ? error : new Error(String(error)));
+  logger.error(
+    "API Error occurred",
+    error instanceof Error ? error : new Error(String(error))
+  );
 
   if (error instanceof ZodError) {
     return NextResponse.json(
@@ -43,9 +46,10 @@ export function handleApiError(error: unknown): NextResponse {
   return NextResponse.json(
     {
       error: "Internal Server Error",
-      message: process.env.NODE_ENV === "development" 
-        ? appError.message 
-        : "An unexpected error occurred",
+      message:
+        process.env.NODE_ENV === "development"
+          ? appError.message
+          : "An unexpected error occurred",
     },
     { status: 500 }
   );
@@ -54,7 +58,7 @@ export function handleApiError(error: unknown): NextResponse {
 export async function logRequest(request: NextRequest): Promise<void> {
   const start = Date.now();
   const { method, url } = request;
-  
+
   // You could add more sophisticated logging here
   logger.api(method, url, 0, Date.now() - start);
 }

@@ -39,7 +39,10 @@ export function slugify(text: string): string {
     .replace(/ +/g, "-");
 }
 
-export function generateExcerpt(content: string, maxLength: number = 160): string {
+export function generateExcerpt(
+  content: string,
+  maxLength: number = 160
+): string {
   if (content.length <= maxLength) return content;
   return content.slice(0, maxLength).replace(/\s+\S*$/, "") + "...";
 }

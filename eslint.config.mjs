@@ -15,12 +15,12 @@ const eslintConfig = [
     ignores: [
       "node_modules/**",
       ".next/**",
-      "out/**", 
+      "out/**",
       "build/**",
       "dist/**",
       "src/generated/**/*",
       "*.config.js",
-      "*.config.mjs", 
+      "*.config.mjs",
       "jest.setup.js",
       "next-env.d.ts",
       "coverage/**",
@@ -40,11 +40,14 @@ const eslintConfig = [
       },
     },
     rules: {
-      "@typescript-eslint/no-unused-vars": ["error", {
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_",
-        "caughtErrorsIgnorePattern": "^_"
-      }],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
       "react/jsx-curly-brace-presence": ["error", "never"],

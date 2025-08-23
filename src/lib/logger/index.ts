@@ -11,7 +11,12 @@ interface LogEntry {
 class Logger {
   private isDevelopment = process.env.NODE_ENV === "development";
 
-  private log(level: LogLevel, message: string, context?: Record<string, unknown>, error?: Error): void {
+  private log(
+    level: LogLevel,
+    message: string,
+    context?: Record<string, unknown>,
+    error?: Error
+  ): void {
     const entry: LogEntry = {
       level,
       message,
@@ -44,11 +49,20 @@ class Logger {
     this.log("warn", message, context);
   }
 
-  error(message: string, error?: Error, context?: Record<string, unknown>): void {
+  error(
+    message: string,
+    error?: Error,
+    context?: Record<string, unknown>
+  ): void {
     this.log("error", message, context, error);
   }
 
-  api(method: string, url: string, statusCode: number, duration?: number): void {
+  api(
+    method: string,
+    url: string,
+    statusCode: number,
+    duration?: number
+  ): void {
     this.info(`${method} ${url} ${statusCode}`, {
       method,
       url,

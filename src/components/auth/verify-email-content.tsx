@@ -23,12 +23,17 @@ export function VerifyEmailContent() {
       // TODO: Implement resend verification endpoint
       // For now, just simulate the action
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       logger.info("Verification email resend requested", { email });
       setResendMessage("Verification email sent! Please check your inbox.");
     } catch (error) {
-      logger.error("Failed to resend verification email", error instanceof Error ? error : new Error(String(error)));
-      setResendMessage("Failed to resend email. Please try again or contact support.");
+      logger.error(
+        "Failed to resend verification email",
+        error instanceof Error ? error : new Error(String(error))
+      );
+      setResendMessage(
+        "Failed to resend email. Please try again or contact support."
+      );
     } finally {
       setIsResending(false);
     }
@@ -38,8 +43,18 @@ export function VerifyEmailContent() {
     <div className="max-w-2xl mx-auto">
       <div className="bg-card rounded-lg shadow-sm border border-border p-8 text-center">
         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          <svg
+            className="w-8 h-8 text-green-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            />
           </svg>
         </div>
 
@@ -51,7 +66,10 @@ export function VerifyEmailContent() {
           <p className="text-muted-foreground mb-6">
             We&apos;ve sent a verification link to:
             <br />
-            <span className="font-medium text-foreground" data-testid="email-display">
+            <span
+              className="font-medium text-foreground"
+              data-testid="email-display"
+            >
               {email}
             </span>
           </p>
@@ -63,9 +81,12 @@ export function VerifyEmailContent() {
               1
             </span>
             <div>
-              <p className="font-medium text-foreground">Check your email inbox</p>
+              <p className="font-medium text-foreground">
+                Check your email inbox
+              </p>
               <p className="text-sm text-muted-foreground">
-                Look for an email from Healing Pathways Counseling with the subject &quot;Verify your account&quot;
+                Look for an email from Healing Pathways Counseling with the
+                subject &quot;Verify your account&quot;
               </p>
             </div>
           </div>
@@ -75,7 +96,9 @@ export function VerifyEmailContent() {
               2
             </span>
             <div>
-              <p className="font-medium text-foreground">Click the verification link</p>
+              <p className="font-medium text-foreground">
+                Click the verification link
+              </p>
               <p className="text-sm text-muted-foreground">
                 This will activate your account and redirect you to sign in
               </p>
@@ -87,9 +110,12 @@ export function VerifyEmailContent() {
               3
             </span>
             <div>
-              <p className="font-medium text-foreground">Start your wellness journey</p>
+              <p className="font-medium text-foreground">
+                Start your wellness journey
+              </p>
               <p className="text-sm text-muted-foreground">
-                Schedule your first appointment and explore our counseling services
+                Schedule your first appointment and explore our counseling
+                services
               </p>
             </div>
           </div>
@@ -101,11 +127,15 @@ export function VerifyEmailContent() {
           </p>
 
           {resendMessage && (
-            <div className={`mb-4 p-3 rounded-lg text-sm ${
-              resendMessage.includes("sent") || resendMessage.includes("Please check")
-                ? "bg-green-50 text-green-800 border border-green-200"
-                : "bg-red-50 text-red-800 border border-red-200"
-            }`} data-testid="resend-message">
+            <div
+              className={`mb-4 p-3 rounded-lg text-sm ${
+                resendMessage.includes("sent") ||
+                resendMessage.includes("Please check")
+                  ? "bg-green-50 text-green-800 border border-green-200"
+                  : "bg-red-50 text-red-800 border border-red-200"
+              }`}
+              data-testid="resend-message"
+            >
               {resendMessage}
             </div>
           )}
@@ -131,7 +161,8 @@ export function VerifyEmailContent() {
 
       <div className="mt-8 text-center">
         <p className="text-sm text-muted-foreground">
-          Remember to check your spam/junk folder if you don&apos;t see the email within a few minutes.
+          Remember to check your spam/junk folder if you don&apos;t see the
+          email within a few minutes.
         </p>
       </div>
     </div>

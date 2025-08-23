@@ -37,7 +37,8 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-              Professional counseling services focused on your mental health and wellbeing.
+              Professional counseling services focused on your mental health and
+              wellbeing.
             </p>
             <div className="flex space-x-4">
               {/* Social links would go here */}
@@ -48,7 +49,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Services</h3>
             <ul className="space-y-2">
-              {footerLinks.services.map((link) => (
+              {footerLinks.services.map(link => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -65,7 +66,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Resources</h3>
             <ul className="space-y-2">
-              {footerLinks.resources.map((link) => (
+              {footerLinks.resources.map(link => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -82,7 +83,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Contact</h3>
             <ul className="space-y-2">
-              {footerLinks.contact.map((link) => (
+              {footerLinks.contact.map(link => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

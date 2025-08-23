@@ -1,20 +1,20 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
-import { EnhancedRegisterForm } from '@/components/forms/enhanced-register-form';
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { EnhancedRegisterForm } from "@/components/forms/enhanced-register-form";
 
 // Mock dependencies
-jest.mock('next/navigation', () => ({
+jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
 }));
 
-jest.mock('next-auth/react', () => ({
+jest.mock("next-auth/react", () => ({
   signIn: jest.fn(),
 }));
 
-jest.mock('@/lib/logger', () => ({
+jest.mock("@/lib/logger", () => ({
   logger: {
     info: jest.fn(),
     error: jest.fn(),
@@ -27,260 +27,336 @@ global.fetch = jest.fn();
 const mockPush = jest.fn();
 const mockRouter = { push: mockPush };
 
-describe('EnhancedRegisterForm', () => {
+describe("EnhancedRegisterForm", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (useRouter as jest.Mock).mockReturnValue(mockRouter);
     (fetch as jest.Mock).mockClear();
   });
 
-  describe('Form Rendering', () => {
-    it('renders all form fields', () => {
+  describe("Form Rendering", () => {
+    it("renders all form fields", () => {
       render(<EnhancedRegisterForm />);
 
       expect(screen.getByLabelText(/full name/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/email address/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/phone number/i)).toBeInTheDocument();
-      expect(screen.getByLabelText('Password *')).toBeInTheDocument();
+      expect(screen.getByLabelText("Password *")).toBeInTheDocument();
       expect(screen.getByLabelText(/confirm password/i)).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /create account/i })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /create account/i })
+      ).toBeInTheDocument();
     });
 
-    it('renders Google sign-in button', () => {
+    it("renders Google sign-in button", () => {
       render(<EnhancedRegisterForm />);
-      
-      expect(screen.getByRole('button', { name: /continue with google/i })).toBeInTheDocument();
+
+      expect(
+        screen.getByRole("button", { name: /continue with google/i })
+      ).toBeInTheDocument();
     });
 
-    it('has proper form accessibility attributes', () => {
+    it("has proper form accessibility attributes", () => {
       render(<EnhancedRegisterForm />);
-      
-      const form = screen.getByRole('form');
+
+      const form = screen.getByRole("form");
       expect(form).toBeInTheDocument();
-      
+
       // Check for proper input associations
-      expect(screen.getByLabelText(/full name/i)).toHaveAttribute('id', 'name');
-      expect(screen.getByLabelText(/email address/i)).toHaveAttribute('id', 'email');
+      expect(screen.getByLabelText(/full name/i)).toHaveAttribute("id", "name");
+      expect(screen.getByLabelText(/email address/i)).toHaveAttribute(
+        "id",
+        "email"
+      );
     });
   });
 
-  describe('Real-time Validation', () => {
-    it('shows validation icon for valid name input', async () => {
+  describe("Real-time Validation", () => {
+    it("shows validation icon for valid name input", async () => {
       const user = userEvent.setup();
       render(<EnhancedRegisterForm />);
 
       const nameInput = screen.getByLabelText(/full name/i);
-      await user.type(nameInput, 'John Doe');
+      await user.type(nameInput, "John Doe");
       await user.tab(); // Trigger blur
 
       await waitFor(() => {
-        expect(screen.getByTestId('name-input').parentElement?.querySelector('svg')).toBeInTheDocument();
+        expect(
+          screen.getByTestId("name-input").parentElement?.querySelector("svg")
+        ).toBeInTheDocument();
       });
     });
 
-    it('shows email availability checking in real-time as user types', async () => {
+    it("shows email availability checking in real-time as user types", async () => {
       const user = userEvent.setup();
       (fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
-        json: async () => ({ available: true, message: 'Email address is available' }),
+        json: async () => ({
+          available: true,
+          message: "Email address is available",
+        }),
       });
 
       render(<EnhancedRegisterForm />);
 
       const emailInput = screen.getByLabelText(/email address/i);
-      await user.type(emailInput, 'test@example.com');
+      await user.type(emailInput, "test@example.com");
       // No need to tab - validation should trigger as user types
 
-      await waitFor(() => {
-        expect(fetch).toHaveBeenCalledWith('/api/auth/check-email?email=test%40example.com');
-      }, { timeout: 3000 }); // Allow time for debounce
+      await waitFor(
+        () => {
+          expect(fetch).toHaveBeenCalledWith(
+            "/api/auth/check-email?email=test%40example.com"
+          );
+        },
+        { timeout: 3000 }
+      ); // Allow time for debounce
 
       await waitFor(() => {
-        expect(screen.getByText('Email address is available')).toBeInTheDocument();
+        expect(
+          screen.getByText("Email address is available")
+        ).toBeInTheDocument();
       });
     });
 
-    it('shows email unavailable message in real-time', async () => {
+    it("shows email unavailable message in real-time", async () => {
       const user = userEvent.setup();
       (fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
-        json: async () => ({ available: false, message: 'Email address is already registered' }),
+        json: async () => ({
+          available: false,
+          message: "Email address is already registered",
+        }),
       });
 
       render(<EnhancedRegisterForm />);
 
       const emailInput = screen.getByLabelText(/email address/i);
-      await user.type(emailInput, 'existing@example.com');
+      await user.type(emailInput, "existing@example.com");
 
-      await waitFor(() => {
-        expect(screen.getByText('Email address is already registered')).toBeInTheDocument();
-      }, { timeout: 3000 });
+      await waitFor(
+        () => {
+          expect(
+            screen.getByText("Email address is already registered")
+          ).toBeInTheDocument();
+        },
+        { timeout: 3000 }
+      );
     });
 
-    it('handles email availability check errors gracefully', async () => {
+    it("handles email availability check errors gracefully", async () => {
       const user = userEvent.setup();
-      (fetch as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
+      (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
 
       render(<EnhancedRegisterForm />);
 
       const emailInput = screen.getByLabelText(/email address/i);
-      await user.type(emailInput, 'test@example.com');
+      await user.type(emailInput, "test@example.com");
 
-      await waitFor(() => {
-        expect(screen.getByText('Error checking email availability')).toBeInTheDocument();
-      }, { timeout: 3000 });
+      await waitFor(
+        () => {
+          expect(
+            screen.getByText("Error checking email availability")
+          ).toBeInTheDocument();
+        },
+        { timeout: 3000 }
+      );
     });
 
-    it('debounces email availability checks during rapid typing', async () => {
+    it("debounces email availability checks during rapid typing", async () => {
       const user = userEvent.setup();
       (fetch as jest.Mock).mockResolvedValue({
         ok: true,
-        json: async () => ({ available: true, message: 'Email address is available' }),
+        json: async () => ({
+          available: true,
+          message: "Email address is available",
+        }),
       });
 
       render(<EnhancedRegisterForm />);
 
       const emailInput = screen.getByLabelText(/email address/i);
-      
+
       // Type multiple characters rapidly
-      await user.type(emailInput, 'test');
-      await user.type(emailInput, '@example');
-      await user.type(emailInput, '.com');
+      await user.type(emailInput, "test");
+      await user.type(emailInput, "@example");
+      await user.type(emailInput, ".com");
 
       // Wait for debounce delay (500ms)
-      await waitFor(() => {
-        expect(fetch).toHaveBeenCalledWith('/api/auth/check-email?email=test%40example.com');
-      }, { timeout: 3000 });
+      await waitFor(
+        () => {
+          expect(fetch).toHaveBeenCalledWith(
+            "/api/auth/check-email?email=test%40example.com"
+          );
+        },
+        { timeout: 3000 }
+      );
 
       // Should only call the API once due to debouncing
       expect(fetch).toHaveBeenCalledTimes(1);
     });
 
-    it('prevents form submission when email is already taken', async () => {
+    it("prevents form submission when email is already taken", async () => {
       const user = userEvent.setup();
       (fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
-        json: async () => ({ available: false, message: 'Email address is already registered' }),
+        json: async () => ({
+          available: false,
+          message: "Email address is already registered",
+        }),
       });
 
       render(<EnhancedRegisterForm />);
 
       // Fill form with taken email
-      await user.type(screen.getByTestId('name-input'), 'John Doe');
-      await user.type(screen.getByTestId('email-input'), 'taken@example.com');
-      await user.type(screen.getByTestId('password-input'), 'StrongPassword123!');
-      await user.type(screen.getByTestId('confirm-password-input'), 'StrongPassword123!');
+      await user.type(screen.getByTestId("name-input"), "John Doe");
+      await user.type(screen.getByTestId("email-input"), "taken@example.com");
+      await user.type(
+        screen.getByTestId("password-input"),
+        "StrongPassword123!"
+      );
+      await user.type(
+        screen.getByTestId("confirm-password-input"),
+        "StrongPassword123!"
+      );
 
-      await waitFor(() => {
-        expect(screen.getByText('Email address is already registered')).toBeInTheDocument();
-      }, { timeout: 3000 });
+      await waitFor(
+        () => {
+          expect(
+            screen.getByText("Email address is already registered")
+          ).toBeInTheDocument();
+        },
+        { timeout: 3000 }
+      );
 
       // Try to submit form
-      await user.click(screen.getByTestId('register-submit'));
+      await user.click(screen.getByTestId("register-submit"));
 
       // Should show error message and not call registration API
       await waitFor(() => {
-        expect(screen.getByText(/email address is already registered/i)).toBeInTheDocument();
+        expect(
+          screen.getByText(/email address is already registered/i)
+        ).toBeInTheDocument();
       });
 
       // Should not call registration endpoint
-      expect(fetch).not.toHaveBeenCalledWith('/api/auth/register', expect.any(Object));
+      expect(fetch).not.toHaveBeenCalledWith(
+        "/api/auth/register",
+        expect.any(Object)
+      );
     });
   });
 
-  describe('Autocomplete Attributes', () => {
-    it('has proper autocomplete attributes on all form fields', () => {
+  describe("Autocomplete Attributes", () => {
+    it("has proper autocomplete attributes on all form fields", () => {
       render(<EnhancedRegisterForm />);
 
-      expect(screen.getByTestId('name-input')).toHaveAttribute('autoComplete', 'name');
-      expect(screen.getByTestId('email-input')).toHaveAttribute('autoComplete', 'email');
-      expect(screen.getByTestId('phone-input')).toHaveAttribute('autoComplete', 'tel');
-      expect(screen.getByTestId('password-input')).toHaveAttribute('autoComplete', 'new-password');
-      expect(screen.getByTestId('confirm-password-input')).toHaveAttribute('autoComplete', 'new-password');
+      expect(screen.getByTestId("name-input")).toHaveAttribute(
+        "autoComplete",
+        "name"
+      );
+      expect(screen.getByTestId("email-input")).toHaveAttribute(
+        "autoComplete",
+        "email"
+      );
+      expect(screen.getByTestId("phone-input")).toHaveAttribute(
+        "autoComplete",
+        "tel"
+      );
+      expect(screen.getByTestId("password-input")).toHaveAttribute(
+        "autoComplete",
+        "new-password"
+      );
+      expect(screen.getByTestId("confirm-password-input")).toHaveAttribute(
+        "autoComplete",
+        "new-password"
+      );
     });
   });
 
-  describe('Password Requirements', () => {
-    it('shows password requirements on focus', async () => {
+  describe("Password Requirements", () => {
+    it("shows password requirements on focus", async () => {
       const user = userEvent.setup();
       render(<EnhancedRegisterForm />);
 
-      const passwordInput = screen.getByTestId('password-input');
+      const passwordInput = screen.getByTestId("password-input");
       await user.click(passwordInput);
 
-      expect(screen.getByTestId('password-requirements')).toBeInTheDocument();
-      expect(screen.getByText('Password Requirements:')).toBeInTheDocument();
-      expect(screen.getByText('At least 8 characters')).toBeInTheDocument();
+      expect(screen.getByTestId("password-requirements")).toBeInTheDocument();
+      expect(screen.getByText("Password Requirements:")).toBeInTheDocument();
+      expect(screen.getByText("At least 8 characters")).toBeInTheDocument();
     });
 
-    it('updates password strength indicator', async () => {
+    it("updates password strength indicator", async () => {
       const user = userEvent.setup();
       render(<EnhancedRegisterForm />);
 
-      const passwordInput = screen.getByTestId('password-input');
+      const passwordInput = screen.getByTestId("password-input");
       await user.click(passwordInput);
-      await user.type(passwordInput, 'weak');
+      await user.type(passwordInput, "weak");
 
-      expect(screen.getByText('Weak')).toBeInTheDocument();
+      expect(screen.getByText("Weak")).toBeInTheDocument();
 
       await user.clear(passwordInput);
-      await user.type(passwordInput, 'StrongPassword123!');
+      await user.type(passwordInput, "StrongPassword123!");
 
       await waitFor(() => {
-        expect(screen.getByText('Strong')).toBeInTheDocument();
+        expect(screen.getByText("Strong")).toBeInTheDocument();
       });
     });
 
-    it('hides password requirements on blur when no error', async () => {
+    it("hides password requirements on blur when no error", async () => {
       const user = userEvent.setup();
       render(<EnhancedRegisterForm />);
 
-      const passwordInput = screen.getByTestId('password-input');
+      const passwordInput = screen.getByTestId("password-input");
       await user.click(passwordInput);
-      
-      expect(screen.getByTestId('password-requirements')).toBeInTheDocument();
-      
+
+      expect(screen.getByTestId("password-requirements")).toBeInTheDocument();
+
       await user.tab();
-      
-      expect(screen.queryByTestId('password-requirements')).not.toBeInTheDocument();
+
+      expect(
+        screen.queryByTestId("password-requirements")
+      ).not.toBeInTheDocument();
     });
   });
 
-  describe('Password Visibility Toggle', () => {
-    it('toggles password visibility', async () => {
+  describe("Password Visibility Toggle", () => {
+    it("toggles password visibility", async () => {
       const user = userEvent.setup();
       render(<EnhancedRegisterForm />);
 
-      const passwordInput = screen.getByTestId('password-input');
-      const toggleButton = screen.getByTestId('password-toggle');
+      const passwordInput = screen.getByTestId("password-input");
+      const toggleButton = screen.getByTestId("password-toggle");
 
-      expect(passwordInput).toHaveAttribute('type', 'password');
-
-      await user.click(toggleButton);
-      expect(passwordInput).toHaveAttribute('type', 'text');
+      expect(passwordInput).toHaveAttribute("type", "password");
 
       await user.click(toggleButton);
-      expect(passwordInput).toHaveAttribute('type', 'password');
+      expect(passwordInput).toHaveAttribute("type", "text");
+
+      await user.click(toggleButton);
+      expect(passwordInput).toHaveAttribute("type", "password");
     });
 
-    it('has proper ARIA labels for password toggle', () => {
+    it("has proper ARIA labels for password toggle", () => {
       render(<EnhancedRegisterForm />);
-      
-      const toggleButton = screen.getByTestId('password-toggle');
-      expect(toggleButton).toHaveAttribute('aria-label', 'Show password');
+
+      const toggleButton = screen.getByTestId("password-toggle");
+      expect(toggleButton).toHaveAttribute("aria-label", "Show password");
     });
   });
 
-  describe('Form Submission', () => {
+  describe("Form Submission", () => {
     const validFormData = {
-      name: 'John Doe',
-      email: 'john@example.com',
-      password: 'Password123',
-      confirmPassword: 'Password123',
-      phone: '555-123-4567',
+      name: "John Doe",
+      email: "john@example.com",
+      password: "Password123",
+      confirmPassword: "Password123",
+      phone: "555-123-4567",
     };
 
-    it('submits form with valid data', async () => {
+    it("submits form with valid data", async () => {
       const user = userEvent.setup();
       (fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
@@ -290,90 +366,123 @@ describe('EnhancedRegisterForm', () => {
       render(<EnhancedRegisterForm />);
 
       // Fill form
-      await user.type(screen.getByTestId('name-input'), validFormData.name);
-      await user.type(screen.getByTestId('email-input'), validFormData.email);
-      await user.type(screen.getByTestId('phone-input'), validFormData.phone);
-      await user.type(screen.getByTestId('password-input'), validFormData.password);
-      await user.type(screen.getByTestId('confirm-password-input'), validFormData.confirmPassword);
+      await user.type(screen.getByTestId("name-input"), validFormData.name);
+      await user.type(screen.getByTestId("email-input"), validFormData.email);
+      await user.type(screen.getByTestId("phone-input"), validFormData.phone);
+      await user.type(
+        screen.getByTestId("password-input"),
+        validFormData.password
+      );
+      await user.type(
+        screen.getByTestId("confirm-password-input"),
+        validFormData.confirmPassword
+      );
 
       // Submit form
-      await user.click(screen.getByTestId('register-submit'));
+      await user.click(screen.getByTestId("register-submit"));
 
       await waitFor(() => {
-        expect(fetch).toHaveBeenCalledWith('/api/auth/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        expect(fetch).toHaveBeenCalledWith("/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(validFormData),
         });
       });
 
       await waitFor(() => {
-        expect(mockPush).toHaveBeenCalledWith('/auth/verify-email?email=john%40example.com');
+        expect(mockPush).toHaveBeenCalledWith(
+          "/auth/verify-email?email=john%40example.com"
+        );
       });
     });
 
-    it('shows loading state during submission', async () => {
+    it("shows loading state during submission", async () => {
       const user = userEvent.setup();
-      
+
       // Mock a delayed response
-      (fetch as jest.Mock).mockImplementationOnce(() => 
-        new Promise(resolve => setTimeout(() => resolve({
-          ok: true,
-          json: async () => ({ success: true }),
-        }), 100))
+      (fetch as jest.Mock).mockImplementationOnce(
+        () =>
+          new Promise(resolve =>
+            setTimeout(
+              () =>
+                resolve({
+                  ok: true,
+                  json: async () => ({ success: true }),
+                }),
+              100
+            )
+          )
       );
 
       render(<EnhancedRegisterForm />);
 
       // Fill form with valid data
-      await user.type(screen.getByTestId('name-input'), validFormData.name);
-      await user.type(screen.getByTestId('email-input'), validFormData.email);
-      await user.type(screen.getByTestId('password-input'), validFormData.password);
-      await user.type(screen.getByTestId('confirm-password-input'), validFormData.confirmPassword);
+      await user.type(screen.getByTestId("name-input"), validFormData.name);
+      await user.type(screen.getByTestId("email-input"), validFormData.email);
+      await user.type(
+        screen.getByTestId("password-input"),
+        validFormData.password
+      );
+      await user.type(
+        screen.getByTestId("confirm-password-input"),
+        validFormData.confirmPassword
+      );
 
-      const submitButton = screen.getByTestId('register-submit');
+      const submitButton = screen.getByTestId("register-submit");
       await user.click(submitButton);
 
       expect(submitButton).toBeDisabled();
-      expect(screen.getByText('Creating Account...')).toBeInTheDocument();
+      expect(screen.getByText("Creating Account...")).toBeInTheDocument();
     });
 
-    it('shows error on registration failure', async () => {
+    it("shows error on registration failure", async () => {
       const user = userEvent.setup();
       (fetch as jest.Mock).mockResolvedValueOnce({
         ok: false,
-        json: async () => ({ error: 'Registration failed' }),
+        json: async () => ({ error: "Registration failed" }),
       });
 
       render(<EnhancedRegisterForm />);
 
       // Fill and submit form
-      await user.type(screen.getByTestId('name-input'), validFormData.name);
-      await user.type(screen.getByTestId('email-input'), validFormData.email);
-      await user.type(screen.getByTestId('password-input'), validFormData.password);
-      await user.type(screen.getByTestId('confirm-password-input'), validFormData.confirmPassword);
+      await user.type(screen.getByTestId("name-input"), validFormData.name);
+      await user.type(screen.getByTestId("email-input"), validFormData.email);
+      await user.type(
+        screen.getByTestId("password-input"),
+        validFormData.password
+      );
+      await user.type(
+        screen.getByTestId("confirm-password-input"),
+        validFormData.confirmPassword
+      );
 
-      await user.click(screen.getByTestId('register-submit'));
+      await user.click(screen.getByTestId("register-submit"));
 
       await waitFor(() => {
-        expect(screen.getByTestId('registration-error')).toBeInTheDocument();
-        expect(screen.getByText('Registration failed')).toBeInTheDocument();
+        expect(screen.getByTestId("registration-error")).toBeInTheDocument();
+        expect(screen.getByText("Registration failed")).toBeInTheDocument();
       });
     });
 
-    it('handles network errors gracefully', async () => {
+    it("handles network errors gracefully", async () => {
       const user = userEvent.setup();
-      (fetch as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
+      (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
 
       render(<EnhancedRegisterForm />);
 
       // Fill and submit form
-      await user.type(screen.getByTestId('name-input'), validFormData.name);
-      await user.type(screen.getByTestId('email-input'), validFormData.email);
-      await user.type(screen.getByTestId('password-input'), validFormData.password);
-      await user.type(screen.getByTestId('confirm-password-input'), validFormData.confirmPassword);
+      await user.type(screen.getByTestId("name-input"), validFormData.name);
+      await user.type(screen.getByTestId("email-input"), validFormData.email);
+      await user.type(
+        screen.getByTestId("password-input"),
+        validFormData.password
+      );
+      await user.type(
+        screen.getByTestId("confirm-password-input"),
+        validFormData.confirmPassword
+      );
 
-      await user.click(screen.getByTestId('register-submit'));
+      await user.click(screen.getByTestId("register-submit"));
 
       await waitFor(() => {
         expect(screen.getByText(/registration failed/i)).toBeInTheDocument();
@@ -381,24 +490,24 @@ describe('EnhancedRegisterForm', () => {
     });
   });
 
-  describe('Google Sign-in', () => {
-    it('triggers Google sign-in', async () => {
+  describe("Google Sign-in", () => {
+    it("triggers Google sign-in", async () => {
       const user = userEvent.setup();
       render(<EnhancedRegisterForm />);
 
-      const googleButton = screen.getByTestId('google-signin');
+      const googleButton = screen.getByTestId("google-signin");
       await user.click(googleButton);
 
-      expect(signIn).toHaveBeenCalledWith('google', { callbackUrl: '/' });
+      expect(signIn).toHaveBeenCalledWith("google", { callbackUrl: "/" });
     });
 
-    it('handles Google sign-in errors', async () => {
+    it("handles Google sign-in errors", async () => {
       const user = userEvent.setup();
-      (signIn as jest.Mock).mockRejectedValueOnce(new Error('Google error'));
+      (signIn as jest.Mock).mockRejectedValueOnce(new Error("Google error"));
 
       render(<EnhancedRegisterForm />);
 
-      const googleButton = screen.getByTestId('google-signin');
+      const googleButton = screen.getByTestId("google-signin");
       await user.click(googleButton);
 
       await waitFor(() => {
@@ -407,71 +516,85 @@ describe('EnhancedRegisterForm', () => {
     });
   });
 
-  describe('Form Validation', () => {
-    it('shows validation errors for empty required fields', async () => {
+  describe("Form Validation", () => {
+    it("shows validation errors for empty required fields", async () => {
       const user = userEvent.setup();
       render(<EnhancedRegisterForm />);
 
-      const submitButton = screen.getByTestId('register-submit');
+      const submitButton = screen.getByTestId("register-submit");
       await user.click(submitButton);
 
       await waitFor(() => {
-        expect(screen.getByTestId('name-error')).toBeInTheDocument();
-        expect(screen.getByTestId('email-error')).toBeInTheDocument();
-        expect(screen.getByTestId('password-error')).toBeInTheDocument();
+        expect(screen.getByTestId("name-error")).toBeInTheDocument();
+        expect(screen.getByTestId("email-error")).toBeInTheDocument();
+        expect(screen.getByTestId("password-error")).toBeInTheDocument();
       });
     });
 
-    it('validates password confirmation mismatch', async () => {
+    it("validates password confirmation mismatch", async () => {
       const user = userEvent.setup();
       render(<EnhancedRegisterForm />);
 
-      await user.type(screen.getByTestId('password-input'), 'Password123');
-      await user.type(screen.getByTestId('confirm-password-input'), 'DifferentPassword');
+      await user.type(screen.getByTestId("password-input"), "Password123");
+      await user.type(
+        screen.getByTestId("confirm-password-input"),
+        "DifferentPassword"
+      );
       await user.tab();
 
       await waitFor(() => {
-        expect(screen.getByTestId('confirm-password-error')).toBeInTheDocument();
+        expect(
+          screen.getByTestId("confirm-password-error")
+        ).toBeInTheDocument();
         expect(screen.getByText("Passwords don't match")).toBeInTheDocument();
       });
     });
 
-    it('validates email format', async () => {
+    it("validates email format", async () => {
       const user = userEvent.setup();
       render(<EnhancedRegisterForm />);
 
-      await user.type(screen.getByTestId('email-input'), 'invalid-email');
+      await user.type(screen.getByTestId("email-input"), "invalid-email");
       await user.tab();
 
       await waitFor(() => {
-        expect(screen.getByTestId('email-error')).toBeInTheDocument();
+        expect(screen.getByTestId("email-error")).toBeInTheDocument();
       });
     });
   });
 
-  describe('Accessibility', () => {
-    it('has proper ARIA attributes for error messages', async () => {
+  describe("Accessibility", () => {
+    it("has proper ARIA attributes for error messages", async () => {
       const user = userEvent.setup();
       render(<EnhancedRegisterForm />);
 
-      await user.click(screen.getByTestId('register-submit'));
+      await user.click(screen.getByTestId("register-submit"));
 
       await waitFor(() => {
-        expect(screen.getByTestId('name-error')).toHaveAttribute('role', 'alert');
-        expect(screen.getByTestId('email-error')).toHaveAttribute('role', 'alert');
-        expect(screen.getByTestId('password-error')).toHaveAttribute('role', 'alert');
+        expect(screen.getByTestId("name-error")).toHaveAttribute(
+          "role",
+          "alert"
+        );
+        expect(screen.getByTestId("email-error")).toHaveAttribute(
+          "role",
+          "alert"
+        );
+        expect(screen.getByTestId("password-error")).toHaveAttribute(
+          "role",
+          "alert"
+        );
       });
     });
 
-    it('supports keyboard navigation', async () => {
+    it("supports keyboard navigation", async () => {
       render(<EnhancedRegisterForm />);
 
-      const nameInput = screen.getByTestId('name-input');
+      const nameInput = screen.getByTestId("name-input");
       nameInput.focus();
       expect(nameInput).toHaveFocus();
 
-      fireEvent.keyDown(nameInput, { key: 'Tab' });
-      expect(screen.getByTestId('email-input')).toHaveFocus();
+      fireEvent.keyDown(nameInput, { key: "Tab" });
+      expect(screen.getByTestId("email-input")).toHaveFocus();
     });
   });
 });

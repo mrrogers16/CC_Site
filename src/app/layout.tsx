@@ -20,7 +20,13 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: ["counseling", "therapy", "mental health", "psychology", "wellness"],
+  keywords: [
+    "counseling",
+    "therapy",
+    "mental health",
+    "psychology",
+    "wellness",
+  ],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
   openGraph: {
@@ -58,9 +64,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
       >
-        <SessionProviderWrapper>
-          {children}
-        </SessionProviderWrapper>
+        <SessionProviderWrapper>{children}</SessionProviderWrapper>
       </body>
     </html>
   );

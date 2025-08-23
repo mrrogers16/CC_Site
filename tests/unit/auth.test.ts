@@ -1,8 +1,8 @@
-import { authOptions } from '@/lib/auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import { authOptions } from "@/lib/auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 // Mock dependencies
-jest.mock('@/lib/db', () => ({
+jest.mock("@/lib/db", () => ({
   prisma: {
     user: {
       findUnique: jest.fn(),
@@ -11,7 +11,7 @@ jest.mock('@/lib/db', () => ({
   },
 }));
 
-jest.mock('@/lib/logger', () => ({
+jest.mock("@/lib/logger", () => ({
   logger: {
     info: jest.fn(),
     warn: jest.fn(),
@@ -19,74 +19,79 @@ jest.mock('@/lib/logger', () => ({
   },
 }));
 
-import { prisma } from '@/lib/db';
-import { logger } from '@/lib/logger';
+import { prisma } from "@/lib/db";
+import { logger } from "@/lib/logger";
 
-describe('NextAuth Configuration', () => {
+describe("NextAuth Configuration", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('authOptions', () => {
-    it('has correct basic configuration', () => {
+  describe("authOptions", () => {
+    it("has correct basic configuration", () => {
       expect(authOptions.providers).toHaveLength(1);
       expect(authOptions.providers[0]).toBeInstanceOf(CredentialsProvider);
-      expect(authOptions.session?.strategy).toBe('jwt');
-      expect(authOptions.pages?.signIn).toBe('/admin/login');
+      expect(authOptions.session?.strategy).toBe("jwt");
+      expect(authOptions.pages?.signIn).toBe("/admin/login");
     });
 
-    it('has correct environment variable for secret', () => {
+    it("has correct environment variable for secret", () => {
       expect(authOptions.secret).toBe(process.env.NEXTAUTH_SECRET);
     });
   });
 
-  describe('Credentials Provider', () => {
+  describe("Credentials Provider", () => {
     const credentialsProvider = authOptions.providers[0] as any;
 
-    describe('authorize function', () => {
-      it('returns null for missing credentials', async () => {
+    describe("authorize function", () => {
+      it("returns null for missing credentials", async () => {
         const result = await credentialsProvider.authorize({});
-        
-        expect(result).toBeNull();
-        expect(logger.warn).toHaveBeenCalledWith('Login attempt without credentials');
-      });
 
-      it('returns null for missing email', async () => {
-        const result = await credentialsProvider.authorize({
-          password: 'admin123',
-        });
-        
-        expect(result).toBeNull();
-        expect(logger.warn).toHaveBeenCalledWith('Login attempt without credentials');
-      });
-
-      it('returns null for missing password', async () => {
-        const result = await credentialsProvider.authorize({
-          email: 'admin@healingpathways.com',
-        });
-        
-        expect(result).toBeNull();
-        expect(logger.warn).toHaveBeenCalledWith('Login attempt without credentials');
-      });
-
-      it('returns null for invalid credentials', async () => {
-        const result = await credentialsProvider.authorize({
-          email: 'wrong@example.com',
-          password: 'wrongpassword',
-        });
-        
         expect(result).toBeNull();
         expect(logger.warn).toHaveBeenCalledWith(
-          'Invalid login attempt',
-          { email: 'wrong@example.com' }
+          "Login attempt without credentials"
         );
       });
 
-      it('creates admin user if not exists and returns user for valid credentials', async () => {
+      it("returns null for missing email", async () => {
+        const result = await credentialsProvider.authorize({
+          password: "admin123",
+        });
+
+        expect(result).toBeNull();
+        expect(logger.warn).toHaveBeenCalledWith(
+          "Login attempt without credentials"
+        );
+      });
+
+      it("returns null for missing password", async () => {
+        const result = await credentialsProvider.authorize({
+          email: "admin@healingpathways.com",
+        });
+
+        expect(result).toBeNull();
+        expect(logger.warn).toHaveBeenCalledWith(
+          "Login attempt without credentials"
+        );
+      });
+
+      it("returns null for invalid credentials", async () => {
+        const result = await credentialsProvider.authorize({
+          email: "wrong@example.com",
+          password: "wrongpassword",
+        });
+
+        expect(result).toBeNull();
+        expect(logger.warn).toHaveBeenCalledWith("Invalid login attempt", {
+          email: "wrong@example.com",
+        });
+      });
+
+      it("creates admin user if not exists and returns user for valid credentials", async () => {
         const mockAdminUser = {
-          id: 'admin-123',
-          email: 'admin@healingpathways.com',
-          name: 'Admin User',
+          id: "admin-123",
+          email: "admin@healingpathways.com",
+          name: "Admin User",
           phone: null,
         };
 
@@ -94,115 +99,125 @@ describe('NextAuth Configuration', () => {
         (prisma.user.create as jest.Mock).mockResolvedValue(mockAdminUser);
 
         const result = await credentialsProvider.authorize({
-          email: 'admin@healingpathways.com',
-          password: 'admin123',
+          email: "admin@healingpathways.com",
+          password: "admin123",
         });
 
         expect(prisma.user.findUnique).toHaveBeenCalledWith({
-          where: { email: 'admin@healingpathways.com' },
+          where: { email: "admin@healingpathways.com" },
         });
         expect(prisma.user.create).toHaveBeenCalledWith({
           data: {
-            email: 'admin@healingpathways.com',
-            name: 'Admin User',
+            email: "admin@healingpathways.com",
+            name: "Admin User",
             phone: null,
           },
         });
-        expect(logger.info).toHaveBeenCalledWith(
-          'Created admin user',
-          { userId: 'admin-123' }
-        );
-        expect(logger.info).toHaveBeenCalledWith(
-          'Admin login successful',
-          { userId: 'admin-123' }
-        );
+        expect(logger.info).toHaveBeenCalledWith("Created admin user", {
+          userId: "admin-123",
+        });
+        expect(logger.info).toHaveBeenCalledWith("Admin login successful", {
+          userId: "admin-123",
+        });
         expect(result).toEqual({
-          id: 'admin-123',
-          email: 'admin@healingpathways.com',
-          name: 'Admin User',
+          id: "admin-123",
+          email: "admin@healingpathways.com",
+          name: "Admin User",
         });
       });
 
-      it('returns existing admin user for valid credentials', async () => {
+      it("returns existing admin user for valid credentials", async () => {
         const mockAdminUser = {
-          id: 'admin-123',
-          email: 'admin@healingpathways.com',
-          name: 'Admin User',
+          id: "admin-123",
+          email: "admin@healingpathways.com",
+          name: "Admin User",
           phone: null,
         };
 
         (prisma.user.findUnique as jest.Mock).mockResolvedValue(mockAdminUser);
 
         const result = await credentialsProvider.authorize({
-          email: 'admin@healingpathways.com',
-          password: 'admin123',
+          email: "admin@healingpathways.com",
+          password: "admin123",
         });
 
         expect(prisma.user.findUnique).toHaveBeenCalledWith({
-          where: { email: 'admin@healingpathways.com' },
+          where: { email: "admin@healingpathways.com" },
         });
         expect(prisma.user.create).not.toHaveBeenCalled();
-        expect(logger.info).toHaveBeenCalledWith(
-          'Admin login successful',
-          { userId: 'admin-123' }
-        );
+        expect(logger.info).toHaveBeenCalledWith("Admin login successful", {
+          userId: "admin-123",
+        });
         expect(result).toEqual({
-          id: 'admin-123',
-          email: 'admin@healingpathways.com',
-          name: 'Admin User',
+          id: "admin-123",
+          email: "admin@healingpathways.com",
+          name: "Admin User",
         });
       });
 
-      it('handles database errors gracefully', async () => {
-        (prisma.user.findUnique as jest.Mock).mockRejectedValue(new Error('Database error'));
+      it("handles database errors gracefully", async () => {
+        (prisma.user.findUnique as jest.Mock).mockRejectedValue(
+          new Error("Database error")
+        );
 
         const result = await credentialsProvider.authorize({
-          email: 'admin@healingpathways.com',
-          password: 'admin123',
+          email: "admin@healingpathways.com",
+          password: "admin123",
         });
 
         expect(result).toBeNull();
-        expect(logger.error).toHaveBeenCalledWith('Auth error', expect.any(Error));
+        expect(logger.error).toHaveBeenCalledWith(
+          "Auth error",
+          expect.any(Error)
+        );
       });
     });
   });
 
-  describe('JWT Callback', () => {
-    it('adds user id to token', async () => {
+  describe("JWT Callback", () => {
+    it("adds user id to token", async () => {
       const token = {};
-      const user = { id: 'user-123', email: 'test@example.com' };
+      const user = { id: "user-123", email: "test@example.com" };
 
       const result = await authOptions.callbacks!.jwt!({ token, user } as any);
 
-      expect(result.id).toBe('user-123');
+      expect(result.id).toBe("user-123");
     });
 
-    it('preserves existing token when no user provided', async () => {
-      const token = { id: 'existing-id', email: 'test@example.com' };
+    it("preserves existing token when no user provided", async () => {
+      const token = { id: "existing-id", email: "test@example.com" };
 
       const result = await authOptions.callbacks!.jwt!({ token } as any);
 
-      expect(result.id).toBe('existing-id');
+      expect(result.id).toBe("existing-id");
     });
   });
 
-  describe('Session Callback', () => {
-    it('adds user id to session', async () => {
-      const session = { user: { email: 'test@example.com' } };
-      const token = { id: 'user-123' };
+  describe("Session Callback", () => {
+    it("adds user id to session", async () => {
+      const session = { user: { email: "test@example.com" } };
+      const token = { id: "user-123" };
 
-      const result = await authOptions.callbacks!.session!({ session, token } as any);
+      const result = await authOptions.callbacks!.session!({
+        session,
+        token,
+      } as any);
 
-      expect('id' in result.user! ? result.user.id : undefined).toBe('user-123');
+      expect("id" in result.user! ? result.user.id : undefined).toBe(
+        "user-123"
+      );
     });
 
-    it('handles missing token id', async () => {
-      const session = { user: { email: 'test@example.com' } };
+    it("handles missing token id", async () => {
+      const session = { user: { email: "test@example.com" } };
       const token = {};
 
-      const result = await authOptions.callbacks!.session!({ session, token } as any);
+      const result = await authOptions.callbacks!.session!({
+        session,
+        token,
+      } as any);
 
-      expect('id' in result.user! ? result.user.id : undefined).toBeUndefined();
+      expect("id" in result.user! ? result.user.id : undefined).toBeUndefined();
     });
   });
 });

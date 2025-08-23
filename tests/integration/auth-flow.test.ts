@@ -1,11 +1,11 @@
-import { NextRequest } from 'next/server';
-import { POST } from '@/app/api/auth/register/route';
-import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/db';
-import bcrypt from 'bcryptjs';
+import { NextRequest } from "next/server";
+import { POST } from "@/app/api/auth/register/route";
+import { authOptions } from "@/lib/auth";
+import { prisma } from "@/lib/db";
+import bcrypt from "bcryptjs";
 
 // Mock dependencies for integration testing
-jest.mock('@/lib/db', () => ({
+jest.mock("@/lib/db", () => ({
   prisma: {
     user: {
       findUnique: jest.fn(),
@@ -15,12 +15,12 @@ jest.mock('@/lib/db', () => ({
   },
 }));
 
-jest.mock('bcryptjs', () => ({
+jest.mock("bcryptjs", () => ({
   hash: jest.fn(),
   compare: jest.fn(),
 }));
 
-jest.mock('@/lib/logger', () => ({
+jest.mock("@/lib/logger", () => ({
   logger: {
     info: jest.fn(),
     warn: jest.fn(),
@@ -28,35 +28,35 @@ jest.mock('@/lib/logger', () => ({
   },
 }));
 
-describe('Authentication Flow Integration Tests', () => {
+describe("Authentication Flow Integration Tests", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('Complete Registration → Login Flow', () => {
+  describe("Complete Registration → Login Flow", () => {
     const testUser = {
-      name: 'Integration Test User',
-      email: 'integration@example.com',
-      password: 'TestPassword123',
-      confirmPassword: 'TestPassword123',
-      phone: '(555) 987-6543',
+      name: "Integration Test User",
+      email: "integration@example.com",
+      password: "TestPassword123",
+      confirmPassword: "TestPassword123",
+      phone: "(555) 987-6543",
     };
 
-    it('successfully completes registration and login flow', async () => {
+    it("successfully completes registration and login flow", async () => {
       // Step 1: Registration
       const mockCreatedUser = {
-        id: 'integration-user-123',
+        id: "integration-user-123",
         name: testUser.name,
         email: testUser.email,
-        role: 'CLIENT',
+        role: "CLIENT",
         phone: testUser.phone,
         emailVerified: new Date(), // Simulating verified email
-        password: 'hashed-password',
+        password: "hashed-password",
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
       (prisma.user.create as jest.Mock).mockResolvedValue(mockCreatedUser);
-      (bcrypt.hash as jest.Mock).mockResolvedValue('hashed-password');
+      (bcrypt.hash as jest.Mock).mockResolvedValue("hashed-password");
 
       // Create registration request
       const registrationRequest = {
@@ -77,7 +77,7 @@ describe('Authentication Flow Integration Tests', () => {
 
       // Get credentials provider
       const credentialsProvider = authOptions.providers.find(
-        (provider) => provider.type === 'credentials'
+        provider => provider.type === "credentials"
       ) as any;
 
       // Execute login
@@ -101,7 +101,7 @@ describe('Authentication Flow Integration Tests', () => {
       } as any);
 
       expect(tokenResult.id).toBe(mockCreatedUser.id);
-      expect(tokenResult.role).toBe('CLIENT');
+      expect(tokenResult.role).toBe("CLIENT");
       expect(tokenResult.emailVerified).toBe(mockCreatedUser.emailVerified);
 
       // Step 4: Session creation
@@ -110,18 +110,22 @@ describe('Authentication Flow Integration Tests', () => {
         token: tokenResult,
       } as any);
 
-      expect('id' in sessionResult.user! ? sessionResult.user.id : undefined).toBe(mockCreatedUser.id);
-      expect('role' in sessionResult.user! ? sessionResult.user.role : undefined).toBe('CLIENT');
+      expect(
+        "id" in sessionResult.user! ? sessionResult.user.id : undefined
+      ).toBe(mockCreatedUser.id);
+      expect(
+        "role" in sessionResult.user! ? sessionResult.user.role : undefined
+      ).toBe("CLIENT");
     });
 
-    it('blocks login for unverified email with credentials', async () => {
+    it("blocks login for unverified email with credentials", async () => {
       // Create user with unverified email
       const unverifiedUser = {
-        id: 'unverified-user-123',
-        email: 'unverified@example.com',
-        password: 'hashed-password',
+        id: "unverified-user-123",
+        email: "unverified@example.com",
+        password: "hashed-password",
         emailVerified: null, // Not verified
-        role: 'CLIENT',
+        role: "CLIENT",
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(unverifiedUser);
@@ -129,12 +133,12 @@ describe('Authentication Flow Integration Tests', () => {
 
       // Login should succeed at credentials level
       const credentialsProvider = authOptions.providers.find(
-        (provider) => provider.type === 'credentials'
+        provider => provider.type === "credentials"
       ) as any;
 
       const loginResult = await credentialsProvider.authorize({
-        email: 'unverified@example.com',
-        password: 'password123',
+        email: "unverified@example.com",
+        password: "password123",
       });
 
       expect(loginResult.emailVerified).toBeNull();
@@ -142,73 +146,73 @@ describe('Authentication Flow Integration Tests', () => {
       // But signIn callback should block it
       const signInResult = await authOptions.callbacks!.signIn!({
         user: loginResult,
-        account: { provider: 'credentials' },
+        account: { provider: "credentials" },
       } as any);
 
       expect(signInResult).toBe(false);
     });
   });
 
-  describe('OAuth Registration → Login Flow', () => {
-    it('successfully handles Google OAuth user creation and role assignment', async () => {
+  describe("OAuth Registration → Login Flow", () => {
+    it("successfully handles Google OAuth user creation and role assignment", async () => {
       const googleUser = {
-        id: 'google-user-123',
-        email: 'google@example.com',
-        name: 'Google User',
-        image: 'https://example.com/avatar.jpg',
+        id: "google-user-123",
+        email: "google@example.com",
+        name: "Google User",
+        image: "https://example.com/avatar.jpg",
       };
 
       // Simulate OAuth user login (PrismaAdapter handles user creation)
       const jwtResult = await authOptions.callbacks!.jwt!({
         token: {},
         user: googleUser,
-        account: { provider: 'google' },
+        account: { provider: "google" },
       } as any);
 
       // Should trigger role assignment
       expect(prisma.user.update).toHaveBeenCalledWith({
-        where: { id: 'google-user-123' },
-        data: { role: 'CLIENT' },
+        where: { id: "google-user-123" },
+        data: { role: "CLIENT" },
       });
 
-      expect(jwtResult.role).toBe('CLIENT');
+      expect(jwtResult.role).toBe("CLIENT");
     });
 
-    it('allows OAuth sign in without email verification requirement', async () => {
+    it("allows OAuth sign in without email verification requirement", async () => {
       const oauthUser = {
-        id: 'oauth-user-123',
-        email: 'oauth@example.com',
+        id: "oauth-user-123",
+        email: "oauth@example.com",
         emailVerified: null, // OAuth users might not have emailVerified set initially
       };
 
       const signInResult = await authOptions.callbacks!.signIn!({
         user: oauthUser,
-        account: { provider: 'google' },
+        account: { provider: "google" },
       } as any);
 
       expect(signInResult).toBe(true);
     });
   });
 
-  describe('Role-Based Access Control', () => {
-    it('correctly assigns CLIENT role to new registrations', async () => {
+  describe("Role-Based Access Control", () => {
+    it("correctly assigns CLIENT role to new registrations", async () => {
       const newUserData = {
-        name: 'New Client',
-        email: 'client@example.com',
-        password: 'Password123',
-        confirmPassword: 'Password123',
+        name: "New Client",
+        email: "client@example.com",
+        password: "Password123",
+        confirmPassword: "Password123",
       };
 
       const mockUser = {
-        id: 'client-123',
+        id: "client-123",
         ...newUserData,
-        role: 'CLIENT',
+        role: "CLIENT",
         emailVerified: null,
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
       (prisma.user.create as jest.Mock).mockResolvedValue(mockUser);
-      (bcrypt.hash as jest.Mock).mockResolvedValue('hashed-password');
+      (bcrypt.hash as jest.Mock).mockResolvedValue("hashed-password");
 
       const request = {
         json: jest.fn().mockResolvedValue(newUserData),
@@ -217,19 +221,19 @@ describe('Authentication Flow Integration Tests', () => {
       const response = await POST(request);
       const responseData = await response.json();
 
-      expect(responseData.user.role).toBe('CLIENT');
+      expect(responseData.user.role).toBe("CLIENT");
       expect(prisma.user.create).toHaveBeenCalledWith({
         data: expect.objectContaining({
-          role: 'CLIENT',
+          role: "CLIENT",
         }),
       });
     });
 
-    it('preserves role information through JWT and session callbacks', async () => {
+    it("preserves role information through JWT and session callbacks", async () => {
       const adminUser = {
-        id: 'admin-123',
-        email: 'admin@example.com',
-        role: 'ADMIN',
+        id: "admin-123",
+        email: "admin@example.com",
+        role: "ADMIN",
         emailVerified: new Date(),
       };
 
@@ -239,7 +243,7 @@ describe('Authentication Flow Integration Tests', () => {
         user: adminUser,
       } as any);
 
-      expect(tokenResult.role).toBe('ADMIN');
+      expect(tokenResult.role).toBe("ADMIN");
 
       // Session callback
       const sessionResult = await authOptions.callbacks!.session!({
@@ -247,26 +251,28 @@ describe('Authentication Flow Integration Tests', () => {
         token: tokenResult,
       } as any);
 
-      expect('role' in sessionResult.user! ? sessionResult.user.role : undefined).toBe('ADMIN');
+      expect(
+        "role" in sessionResult.user! ? sessionResult.user.role : undefined
+      ).toBe("ADMIN");
     });
   });
 
-  describe('Error Handling and Edge Cases', () => {
-    it('handles registration conflicts gracefully', async () => {
+  describe("Error Handling and Edge Cases", () => {
+    it("handles registration conflicts gracefully", async () => {
       const existingUser = {
-        id: 'existing-123',
-        email: 'existing@example.com',
-        name: 'Existing User',
+        id: "existing-123",
+        email: "existing@example.com",
+        name: "Existing User",
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(existingUser);
 
       const duplicateRequest = {
         json: jest.fn().mockResolvedValue({
-          name: 'Duplicate User',
-          email: 'existing@example.com',
-          password: 'Password123',
-          confirmPassword: 'Password123',
+          name: "Duplicate User",
+          email: "existing@example.com",
+          password: "Password123",
+          confirmPassword: "Password123",
         }),
       } as unknown as NextRequest;
 
@@ -274,65 +280,67 @@ describe('Authentication Flow Integration Tests', () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(409);
-      expect(responseData.error).toBe('User already exists with this email address');
+      expect(responseData.error).toBe(
+        "User already exists with this email address"
+      );
       expect(prisma.user.create).not.toHaveBeenCalled();
     });
 
-    it('handles login attempts with non-existent users', async () => {
+    it("handles login attempts with non-existent users", async () => {
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
 
       const credentialsProvider = authOptions.providers.find(
-        (provider) => provider.type === 'credentials'
+        provider => provider.type === "credentials"
       ) as any;
 
       const result = await credentialsProvider.authorize({
-        email: 'nonexistent@example.com',
-        password: 'password123',
+        email: "nonexistent@example.com",
+        password: "password123",
       });
 
       expect(result).toBeNull();
     });
 
-    it('handles login attempts with incorrect passwords', async () => {
+    it("handles login attempts with incorrect passwords", async () => {
       const user = {
-        id: 'user-123',
-        email: 'user@example.com',
-        password: 'hashed-password',
-        role: 'CLIENT',
+        id: "user-123",
+        email: "user@example.com",
+        password: "hashed-password",
+        role: "CLIENT",
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(user);
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
 
       const credentialsProvider = authOptions.providers.find(
-        (provider) => provider.type === 'credentials'
+        provider => provider.type === "credentials"
       ) as any;
 
       const result = await credentialsProvider.authorize({
-        email: 'user@example.com',
-        password: 'wrongpassword',
+        email: "user@example.com",
+        password: "wrongpassword",
       });
 
       expect(result).toBeNull();
     });
 
-    it('maintains data consistency across auth flow', async () => {
+    it("maintains data consistency across auth flow", async () => {
       const userData = {
-        id: 'consistency-123',
-        email: 'consistency@example.com',
-        name: 'Consistency Test',
-        role: 'CLIENT',
+        id: "consistency-123",
+        email: "consistency@example.com",
+        name: "Consistency Test",
+        role: "CLIENT",
         emailVerified: new Date(),
       };
 
       // Login
       const credentialsProvider = authOptions.providers.find(
-        (provider) => provider.type === 'credentials'
+        provider => provider.type === "credentials"
       ) as any;
 
       const loginResult = await credentialsProvider.authorize({
         email: userData.email,
-        password: 'password123',
+        password: "password123",
       });
 
       // JWT
@@ -348,27 +356,37 @@ describe('Authentication Flow Integration Tests', () => {
       } as any);
 
       // Verify data consistency
-      expect('id' in loginResult! && 'id' in sessionResult.user! ? loginResult.id : undefined).toBe('id' in sessionResult.user! ? sessionResult.user.id : undefined);
+      expect(
+        "id" in loginResult! && "id" in sessionResult.user!
+          ? loginResult.id
+          : undefined
+      ).toBe("id" in sessionResult.user! ? sessionResult.user.id : undefined);
       expect(loginResult?.email).toBe(sessionResult.user?.email);
-      expect('role' in loginResult! && 'role' in sessionResult.user! ? loginResult.role : undefined).toBe('role' in sessionResult.user! ? sessionResult.user.role : undefined);
+      expect(
+        "role" in loginResult! && "role" in sessionResult.user!
+          ? loginResult.role
+          : undefined
+      ).toBe(
+        "role" in sessionResult.user! ? sessionResult.user.role : undefined
+      );
     });
   });
 
-  describe('Security Validations', () => {
-    it('properly hashes passwords during registration', async () => {
+  describe("Security Validations", () => {
+    it("properly hashes passwords during registration", async () => {
       const registrationData = {
-        name: 'Security Test',
-        email: 'security@example.com',
-        password: 'SecurePassword123',
-        confirmPassword: 'SecurePassword123',
+        name: "Security Test",
+        email: "security@example.com",
+        password: "SecurePassword123",
+        confirmPassword: "SecurePassword123",
       };
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
       (prisma.user.create as jest.Mock).mockResolvedValue({
-        id: 'security-123',
+        id: "security-123",
         ...registrationData,
       });
-      (bcrypt.hash as jest.Mock).mockResolvedValue('securely-hashed-password');
+      (bcrypt.hash as jest.Mock).mockResolvedValue("securely-hashed-password");
 
       const request = {
         json: jest.fn().mockResolvedValue(registrationData),
@@ -376,31 +394,31 @@ describe('Authentication Flow Integration Tests', () => {
 
       await POST(request);
 
-      expect(bcrypt.hash).toHaveBeenCalledWith('SecurePassword123', 12);
+      expect(bcrypt.hash).toHaveBeenCalledWith("SecurePassword123", 12);
       expect(prisma.user.create).toHaveBeenCalledWith({
         data: expect.objectContaining({
-          password: 'securely-hashed-password',
+          password: "securely-hashed-password",
         }),
       });
     });
 
-    it('normalizes email addresses consistently', async () => {
-      const mixedCaseEmail = 'Test.User@EXAMPLE.COM';
-      const normalizedEmail = 'test.user@example.com';
+    it("normalizes email addresses consistently", async () => {
+      const mixedCaseEmail = "Test.User@EXAMPLE.COM";
+      const normalizedEmail = "test.user@example.com";
 
       (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
       (prisma.user.create as jest.Mock).mockResolvedValue({
-        id: 'normalized-123',
+        id: "normalized-123",
         email: normalizedEmail,
       });
-      (bcrypt.hash as jest.Mock).mockResolvedValue('hashed-password');
+      (bcrypt.hash as jest.Mock).mockResolvedValue("hashed-password");
 
       const request = {
         json: jest.fn().mockResolvedValue({
-          name: 'Test User',
+          name: "Test User",
           email: mixedCaseEmail,
-          password: 'Password123',
-          confirmPassword: 'Password123',
+          password: "Password123",
+          confirmPassword: "Password123",
         }),
       } as unknown as NextRequest;
 

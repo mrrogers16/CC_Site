@@ -55,11 +55,13 @@ export function RegisterForm() {
       }
 
       setEmailCheck({ isChecking: true, isValid: false });
-      
+
       try {
         logger.info("Checking email availability", { email });
-        
-        const response = await fetch(`/api/auth/check-email?email=${encodeURIComponent(email)}`);
+
+        const response = await fetch(
+          `/api/auth/check-email?email=${encodeURIComponent(email)}`
+        );
         const data = await response.json();
 
         if (!response.ok) {
@@ -72,12 +74,15 @@ export function RegisterForm() {
           message: data.message,
         });
 
-        logger.info("Email availability check completed", { 
-          email, 
-          available: data.available 
+        logger.info("Email availability check completed", {
+          email,
+          available: data.available,
         });
       } catch (error) {
-        logger.error("Email availability check failed", error instanceof Error ? error : new Error(String(error)));
+        logger.error(
+          "Email availability check failed",
+          error instanceof Error ? error : new Error(String(error))
+        );
         setEmailCheck({
           isChecking: false,
           isValid: false,
@@ -90,7 +95,7 @@ export function RegisterForm() {
 
   // Debounced email availability checking using ref to avoid unknown dependencies
   const debouncedEmailCheckRef = useRef(debounce(checkEmailAvailability, 500));
-  
+
   // Update ref when checkEmailAvailability changes
   useEffect(() => {
     debouncedEmailCheckRef.current = debounce(checkEmailAvailability, 500);
@@ -107,8 +112,13 @@ export function RegisterForm() {
 
   const onSubmit = async (data: RegisterFormData) => {
     // Prevent submission if email is already taken
-    if (!emailCheck.isValid && emailCheck.message === "Email address is already registered") {
-      setSubmitError("Email address is already registered. Please use a different email or sign in.");
+    if (
+      !emailCheck.isValid &&
+      emailCheck.message === "Email address is already registered"
+    ) {
+      setSubmitError(
+        "Email address is already registered. Please use a different email or sign in."
+      );
       return;
     }
     setIsLoading(true);
@@ -140,13 +150,19 @@ export function RegisterForm() {
       }
 
       logger.info("User registered successfully", { email: data.email });
-      
+
       // Show success message and redirect to verification page
       router.push(`/auth/verify-email?email=${encodeURIComponent(data.email)}`);
-      
     } catch (error) {
-      logger.error("Registration error", error instanceof Error ? error : new Error(String(error)));
-      setSubmitError(error instanceof Error ? error.message : "Registration failed. Please try again.");
+      logger.error(
+        "Registration error",
+        error instanceof Error ? error : new Error(String(error))
+      );
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Registration failed. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -156,7 +172,10 @@ export function RegisterForm() {
     try {
       await signIn("google", { callbackUrl: "/" });
     } catch (error) {
-      logger.error("Google sign-in error", error instanceof Error ? error : new Error(String(error)));
+      logger.error(
+        "Google sign-in error",
+        error instanceof Error ? error : new Error(String(error))
+      );
       setSubmitError("Google sign-in failed. Please try again.");
     }
   };
@@ -196,19 +215,27 @@ export function RegisterForm() {
           <div className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-card text-muted-foreground">Or register with email</span>
+          <span className="px-2 bg-card text-muted-foreground">
+            Or register with email
+          </span>
         </div>
       </div>
 
       {submitError && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4" data-testid="registration-error">
+        <div
+          className="bg-red-50 border border-red-200 rounded-lg p-4"
+          data-testid="registration-error"
+        >
           <p className="text-red-800 text-sm">{submitError}</p>
         </div>
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" role="form">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Full Name *
           </label>
           <input
@@ -221,12 +248,21 @@ export function RegisterForm() {
             placeholder="Enter your full name"
           />
           {errors.name && (
-            <p className="mt-1 text-sm text-red-600" data-testid="name-error" role="alert">{errors.name.message}</p>
+            <p
+              className="mt-1 text-sm text-red-600"
+              data-testid="name-error"
+              role="alert"
+            >
+              {errors.name.message}
+            </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Email Address *
           </label>
           <div className="relative">
@@ -243,28 +279,64 @@ export function RegisterForm() {
             {/* Visual feedback for email availability */}
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
               {emailCheck.isChecking && !errors.email && emailValue && (
-                <div className="animate-spin h-4 w-4 border-2 border-muted-foreground border-t-transparent rounded-full" data-testid="email-checking" />
+                <div
+                  className="animate-spin h-4 w-4 border-2 border-muted-foreground border-t-transparent rounded-full"
+                  data-testid="email-checking"
+                />
               )}
-              {!emailCheck.isChecking && emailCheck.isValid && !errors.email && (
-                <svg className="w-5 h-5 text-green-500" data-testid="email-available" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              )}
-              {!emailCheck.isChecking && !emailCheck.isValid && emailCheck.message === "Email address is already registered" && (
-                <svg className="w-5 h-5 text-red-500" data-testid="email-taken" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              )}
+              {!emailCheck.isChecking &&
+                emailCheck.isValid &&
+                !errors.email && (
+                  <svg
+                    className="w-5 h-5 text-green-500"
+                    data-testid="email-available"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                )}
+              {!emailCheck.isChecking &&
+                !emailCheck.isValid &&
+                emailCheck.message ===
+                  "Email address is already registered" && (
+                  <svg
+                    className="w-5 h-5 text-red-500"
+                    data-testid="email-taken"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                )}
             </div>
           </div>
           {/* Email validation error */}
           {errors.email && (
-            <p className="mt-1 text-sm text-red-600" data-testid="email-error" role="alert">{errors.email.message}</p>
+            <p
+              className="mt-1 text-sm text-red-600"
+              data-testid="email-error"
+              role="alert"
+            >
+              {errors.email.message}
+            </p>
           )}
           {/* Email availability feedback */}
           {!errors.email && emailCheck.message && (
-            <p 
-              className={`mt-1 text-sm ${emailCheck.isValid ? 'text-green-600' : 'text-red-600'}`}
+            <p
+              className={`mt-1 text-sm ${emailCheck.isValid ? "text-green-600" : "text-red-600"}`}
               data-testid="email-availability-message"
               role="status"
             >
@@ -274,7 +346,10 @@ export function RegisterForm() {
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="phone"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Phone Number (Optional)
           </label>
           <input
@@ -288,12 +363,21 @@ export function RegisterForm() {
             placeholder="Enter your phone number"
           />
           {errors.phone && (
-            <p className="mt-1 text-sm text-red-600" data-testid="phone-error" role="alert">{errors.phone.message}</p>
+            <p
+              className="mt-1 text-sm text-red-600"
+              data-testid="phone-error"
+              role="alert"
+            >
+              {errors.phone.message}
+            </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Password *
           </label>
           <div className="relative">
@@ -338,12 +422,21 @@ export function RegisterForm() {
             </button>
           </div>
           {errors.password && (
-            <p className="mt-1 text-sm text-red-600" data-testid="password-error" role="alert">{errors.password.message}</p>
+            <p
+              className="mt-1 text-sm text-red-600"
+              data-testid="password-error"
+              role="alert"
+            >
+              {errors.password.message}
+            </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="confirmPassword"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Confirm Password *
           </label>
           <input
@@ -356,7 +449,13 @@ export function RegisterForm() {
             placeholder="Confirm your password"
           />
           {errors.confirmPassword && (
-            <p className="mt-1 text-sm text-red-600" data-testid="confirm-password-error" role="alert">{errors.confirmPassword.message}</p>
+            <p
+              className="mt-1 text-sm text-red-600"
+              data-testid="confirm-password-error"
+              role="alert"
+            >
+              {errors.confirmPassword.message}
+            </p>
           )}
         </div>
 
@@ -373,7 +472,10 @@ export function RegisterForm() {
       <div className="text-center">
         <p className="text-sm text-muted-foreground">
           Already have an account?{" "}
-          <a href="/auth/login" className="text-primary hover:underline font-medium">
+          <a
+            href="/auth/login"
+            className="text-primary hover:underline font-medium"
+          >
             Sign in here
           </a>
         </p>

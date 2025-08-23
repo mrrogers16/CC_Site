@@ -27,7 +27,10 @@ async function sendEmail({ to, subject, html, text }: SendEmailOptions) {
   try {
     // Check if email configuration is available
     if (!process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD) {
-      logger.warn("Email configuration not available, skipping email send", { to, subject });
+      logger.warn("Email configuration not available, skipping email send", {
+        to,
+        subject,
+      });
       return { success: false, error: "Email configuration not available" };
     }
 
@@ -40,56 +43,76 @@ async function sendEmail({ to, subject, html, text }: SendEmailOptions) {
     };
 
     const info = await transporter.sendMail(mailOptions);
-    logger.info("Email sent successfully", { 
-      to, 
-      subject, 
-      messageId: info.messageId 
+    logger.info("Email sent successfully", {
+      to,
+      subject,
+      messageId: info.messageId,
     });
-    
+
     return { success: true, messageId: info.messageId };
   } catch (error) {
-    logger.error("Failed to send email", error instanceof Error ? error : new Error(String(error)), { to, subject });
-    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+    logger.error(
+      "Failed to send email",
+      error instanceof Error ? error : new Error(String(error)),
+      { to, subject }
+    );
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
   }
 }
 
-export async function sendContactNotification(contactData: ContactFormData, submissionId: string) {
+export async function sendContactNotification(
+  contactData: ContactFormData,
+  submissionId: string
+) {
   try {
-    const html = await render(ContactNotificationEmail({ 
-      contactData,
-      submissionId 
-    }));
-    
+    const html = await render(
+      ContactNotificationEmail({
+        contactData,
+        submissionId,
+      })
+    );
+
     const result = await sendEmail({
       to: process.env.EMAIL_FROM || "admin@healingpathways.com",
       subject: `New Contact Form Submission: ${contactData.subject}`,
       html,
       text: `New contact form submission from ${contactData.name} (${contactData.email}): ${contactData.message}`,
     });
-    
+
     return result;
   } catch (error) {
-    logger.error("Failed to send contact notification", error instanceof Error ? error : new Error(String(error)));
+    logger.error(
+      "Failed to send contact notification",
+      error instanceof Error ? error : new Error(String(error))
+    );
     return { success: false, error: "Failed to render notification email" };
   }
 }
 
 export async function sendAutoResponse(contactData: ContactFormData) {
   try {
-    const html = await render(ContactResponseEmail({ 
-      name: contactData.name 
-    }));
-    
+    const html = await render(
+      ContactResponseEmail({
+        name: contactData.name,
+      })
+    );
+
     const result = await sendEmail({
       to: contactData.email,
       subject: "Thank you for contacting Healing Pathways Counseling",
       html,
       text: `Dear ${contactData.name}, thank you for reaching out to us. We've received your message and will respond within 24 hours during business days.`,
     });
-    
+
     return result;
   } catch (error) {
-    logger.error("Failed to send auto-response", error instanceof Error ? error : new Error(String(error)));
+    logger.error(
+      "Failed to send auto-response",
+      error instanceof Error ? error : new Error(String(error))
+    );
     return { success: false, error: "Failed to render auto-response email" };
   }
 }
@@ -108,7 +131,13 @@ export async function sendAdminResponse(
         </div>
         <div style="padding: 30px; background-color: #f9f9f9;">
           <div style="background-color: white; padding: 20px; border-radius: 8px;">
-            ${message.split('\n').map(paragraph => `<p style="margin-bottom: 15px; line-height: 1.6;">${paragraph}</p>`).join('')}
+            ${message
+              .split("\n")
+              .map(
+                paragraph =>
+                  `<p style="margin-bottom: 15px; line-height: 1.6;">${paragraph}</p>`
+              )
+              .join("")}
           </div>
           <div style="margin-top: 30px; padding: 20px; background-color: #f0f7f7; border-left: 4px solid #4a8b8c;">
             <p style="margin: 0; font-size: 14px; color: #666;">
@@ -122,29 +151,33 @@ export async function sendAdminResponse(
         </div>
       </div>
     `;
-    
+
     const result = await sendEmail({
       to,
       subject,
       html,
       text: message,
     });
-    
+
     if (result.success) {
-      logger.info("Admin response sent successfully", { 
-        to, 
-        subject, 
-        contactSubmissionId 
+      logger.info("Admin response sent successfully", {
+        to,
+        subject,
+        contactSubmissionId,
       });
     }
-    
+
     return result;
   } catch (error) {
-    logger.error("Failed to send admin response", error instanceof Error ? error : new Error(String(error)), { 
-      to, 
-      subject, 
-      contactSubmissionId 
-    });
+    logger.error(
+      "Failed to send admin response",
+      error instanceof Error ? error : new Error(String(error)),
+      {
+        to,
+        subject,
+        contactSubmissionId,
+      }
+    );
     return { success: false, error: "Failed to send admin response" };
   }
 }
@@ -155,12 +188,15 @@ export async function verifyEmailConfig(): Promise<boolean> {
     if (!process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD) {
       return false;
     }
-    
+
     await transporter.verify();
     logger.info("Email configuration verified successfully");
     return true;
   } catch (error) {
-    logger.error("Email configuration verification failed", error instanceof Error ? error : new Error(String(error)));
+    logger.error(
+      "Email configuration verification failed",
+      error instanceof Error ? error : new Error(String(error))
+    );
     return false;
   }
 }
