@@ -2,6 +2,7 @@ import { POST as BookingPost } from "@/app/api/appointments/book/route";
 import { GET as ServicesGet } from "@/app/api/services/route";
 import { GET as AvailableGet } from "@/app/api/appointments/available/route";
 import { NextRequest } from "next/server";
+import { Decimal } from "@/generated/prisma/runtime/library";
 
 // Mock Prisma client with all required methods
 jest.mock("@/lib/db", () => ({
@@ -92,14 +93,17 @@ describe("Complete Booking Flow Integration", () => {
         title: "Integration Test Counseling",
         description: "Test service for integration testing",
         duration: 60,
-        price: 120,
+        price: new Decimal("120.00"),
         isActive: true,
         features: ["Test feature 1", "Test feature 2"],
         createdAt: new Date(),
         updatedAt: new Date(),
       };
 
-      mockPrisma.service.create.mockResolvedValue(testService);
+      // Mock the service creation to return the test service
+      const mockPrismaService = prisma.service.create as jest.MockedFunction<typeof prisma.service.create>;
+      mockPrismaService.mockResolvedValue(testService);
+      
       const _createdService = await prisma.service.create({
         data: testService,
       });

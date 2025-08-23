@@ -2,6 +2,9 @@ import { NextRequest } from "next/server";
 import { POST } from "@/app/api/appointments/book/route";
 import { getServerSession } from "next-auth";
 import { isTimeSlotAvailable } from "@/lib/utils/time-slots";
+import { createMockService, createMockUser, createMockAppointmentWithIncludes } from "../../../utils/mock-factories";
+import type { AppointmentStatus } from "@/generated/prisma";
+import { Decimal } from "@/generated/prisma/runtime/library";
 
 // Mock dependencies
 jest.mock("next-auth", () => ({
@@ -69,18 +72,19 @@ describe("/api/appointments/book", () => {
     notes: "Looking forward to the session",
   };
 
-  const mockService = {
+  // Use complete Prisma-compliant mock data
+  const mockService = createMockService({
     id: "clxxxxxxxxxxxxxxxxxxxxxxx",
     title: "Individual Therapy",
     duration: 60,
-    price: 150,
-  };
+    price: new Decimal("150.00"),
+  });
 
-  const mockUser = {
+  const mockUser = createMockUser({
     id: "user-123",
     name: "Test Client",
     email: "test@example.com",
-  };
+  });
 
   const mockSession = {
     user: {
@@ -92,15 +96,27 @@ describe("/api/appointments/book", () => {
 
   describe("POST /api/appointments/book", () => {
     it("should successfully book an appointment", async () => {
-      const mockAppointment = {
-        id: "appointment-123",
-        dateTime: new Date("2025-08-25T10:00:00Z"),
-        status: "PENDING",
-        notes: "Looking forward to the session",
-        service: mockService,
-        user: mockUser,
-        createdAt: new Date("2025-08-23T10:00:00Z"),
-      };
+      const mockAppointment = createMockAppointmentWithIncludes(
+        { 
+          id: "clxxxxxxxxxxxxxxxxxxxxxxx",
+          title: "Individual Therapy",
+          duration: 60,
+          price: new Decimal("150.00"),
+        },
+        {
+          id: "user-123",
+          name: "Test Client", 
+          email: "test@example.com",
+        },
+        {
+          id: "appointment-123",
+          dateTime: new Date("2025-08-25T10:00:00Z"),
+          status: "PENDING" as AppointmentStatus,
+          notes: "Looking forward to the session",
+          userId: "user-123",
+          serviceId: "clxxxxxxxxxxxxxxxxxxxxxxx",
+        }
+      );
 
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.service.findUnique.mockResolvedValue(mockService);
@@ -219,12 +235,16 @@ describe("/api/appointments/book", () => {
     });
 
     it("should return 400 when user already has appointment at same time", async () => {
-      const existingAppointment = {
-        id: "existing-appointment",
-        userId: mockSession.user.id,
-        dateTime: new Date("2025-08-25T10:00:00Z"),
-        status: "CONFIRMED",
-      };
+      const existingAppointment = createMockAppointmentWithIncludes(
+        undefined,
+        undefined,
+        {
+          id: "existing-appointment",
+          userId: mockSession.user.id,
+          dateTime: new Date("2025-08-25T10:00:00Z"),
+          status: "CONFIRMED" as AppointmentStatus,
+        }
+      );
 
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.service.findUnique.mockResolvedValue(mockService);
@@ -259,15 +279,27 @@ describe("/api/appointments/book", () => {
         dateTime: "2025-08-25T10:00:00Z",
       };
 
-      const mockAppointment = {
-        id: "appointment-123",
-        dateTime: new Date("2025-08-25T10:00:00Z"),
-        status: "PENDING",
-        notes: null,
-        service: mockService,
-        user: mockUser,
-        createdAt: new Date("2025-08-23T10:00:00Z"),
-      };
+      const mockAppointment = createMockAppointmentWithIncludes(
+        { 
+          id: "clxxxxxxxxxxxxxxxxxxxxxxx",
+          title: "Individual Therapy",
+          duration: 60,
+          price: new Decimal("150.00"),
+        },
+        {
+          id: "user-123",
+          name: "Test Client", 
+          email: "test@example.com",
+        },
+        {
+          id: "appointment-123",
+          dateTime: new Date("2025-08-25T10:00:00Z"),
+          status: "PENDING" as AppointmentStatus,
+          notes: null,
+          userId: "user-123",
+          serviceId: "clxxxxxxxxxxxxxxxxxxxxxxx",
+        }
+      );
 
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.service.findUnique.mockResolvedValue(mockService);
@@ -342,18 +374,27 @@ describe("/api/appointments/book", () => {
     });
 
     it("should format price as string in response", async () => {
-      const mockAppointment = {
-        id: "appointment-123",
-        dateTime: new Date("2025-08-25T10:00:00Z"),
-        status: "PENDING",
-        notes: "Looking forward to the session",
-        service: {
-          ...mockService,
-          price: 150.0, // Number from database
+      const mockAppointment = createMockAppointmentWithIncludes(
+        { 
+          id: "clxxxxxxxxxxxxxxxxxxxxxxx",
+          title: "Individual Therapy",
+          duration: 60,
+          price: new Decimal("150.0"), // Decimal from database
         },
-        user: mockUser,
-        createdAt: new Date("2025-08-23T10:00:00Z"),
-      };
+        {
+          id: "user-123",
+          name: "Test Client", 
+          email: "test@example.com",
+        },
+        {
+          id: "appointment-123",
+          dateTime: new Date("2025-08-25T10:00:00Z"),
+          status: "PENDING" as AppointmentStatus,
+          notes: "Looking forward to the session",
+          userId: "user-123",
+          serviceId: "clxxxxxxxxxxxxxxxxxxxxxxx",
+        }
+      );
 
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.service.findUnique.mockResolvedValue(mockService);
