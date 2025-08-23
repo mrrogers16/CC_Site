@@ -112,10 +112,14 @@ export function EnhancedRegisterForm() {
   }, [watchedValues.email]);
 
   useEffect(() => {
-    if (watchedValues.name && touchedFields.name) {
-      setNameValidation({ isValid: !errors.name });
+    if (watchedValues.name) {
+      setNameValidation({
+        isValid: !errors.name && watchedValues.name.length >= 2,
+      });
+    } else {
+      setNameValidation({ isValid: false });
     }
-  }, [watchedValues.name, touchedFields.name, errors.name]);
+  }, [watchedValues.name, errors.name]);
 
   useEffect(() => {
     if (watchedValues.password && touchedFields.password) {
@@ -328,7 +332,7 @@ export function EnhancedRegisterForm() {
             />
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
               <ValidationIcon
-                isValid={nameValidation.isValid && !!touchedFields.name}
+                isValid={nameValidation.isValid && !!watchedValues.name}
               />
             </div>
           </div>

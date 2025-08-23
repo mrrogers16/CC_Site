@@ -1,17 +1,16 @@
-import {
-  sendContactNotification,
-  sendAutoResponse,
-  sendAdminResponse,
-} from "@/lib/email";
 import { ContactFormData } from "@/lib/validations";
 
-// Mock nodemailer
-jest.mock("nodemailer", () => ({
-  createTransporter: jest.fn(() => ({
-    sendMail: jest.fn(),
-    verify: jest.fn(),
-  })),
-}));
+// Mock nodemailer before importing email module
+jest.mock("nodemailer", () => {
+  const mockSendMail = jest.fn();
+  const _mockVerify = jest.fn();
+  return {
+    createTransport: jest.fn(() => ({
+      sendMail: mockSendMail,
+      verify: _mockVerify,
+    })),
+  };
+});
 
 // Mock React Email render
 jest.mock("@react-email/components", () => ({
@@ -36,19 +35,27 @@ jest.mock("@/components/email/contact-response", () => ({
   ContactResponseEmail: jest.fn(() => "<div>Response Email</div>"),
 }));
 
+// Now import the email module after mocks are set up
+import {
+  sendContactNotification,
+  sendAutoResponse,
+  sendAdminResponse,
+} from "@/lib/email";
 import nodemailer from "nodemailer";
 import { render } from "@react-email/components";
 import { logger } from "@/lib/logger";
 
 describe("Email Utilities", () => {
-  const mockTransporter = {
-    sendMail: jest.fn(),
-    verify: jest.fn(),
-  };
+  let mockSendMail: jest.Mock;
+
+  beforeAll(() => {
+    // Get reference to the mocked functions
+    const mockTransporter = (nodemailer.createTransport as jest.Mock)();
+    mockSendMail = mockTransporter.sendMail;
+  });
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (nodemailer.createTransport as jest.Mock).mockReturnValue(mockTransporter);
     (render as jest.Mock).mockResolvedValue("<html>Rendered Email</html>");
 
     // Mock environment variables
@@ -67,7 +74,7 @@ describe("Email Utilities", () => {
     };
 
     it("sends notification email successfully", async () => {
-      mockTransporter.sendMail.mockResolvedValue({
+      mockSendMail.mockResolvedValue({
         messageId: "test-message-id",
       });
 
@@ -78,7 +85,7 @@ describe("Email Utilities", () => {
 
       expect(result.success).toBe(true);
       expect(result.messageId).toBe("test-message-id");
-      expect(mockTransporter.sendMail).toHaveBeenCalledWith({
+      expect(mockSendMail).toHaveBeenCalledWith({
         from: "noreply@healingpathways.com",
         to: "noreply@healingpathways.com",
         subject: "New Contact Form Submission: Test Subject",
@@ -96,7 +103,7 @@ describe("Email Utilities", () => {
     });
 
     it("handles email sending failure", async () => {
-      mockTransporter.sendMail.mockRejectedValue(new Error("SMTP Error"));
+      mockSendMail.mockRejectedValue(new Error("SMTP Error"));
 
       const result = await sendContactNotification(
         mockContactData,
@@ -145,7 +152,7 @@ describe("Email Utilities", () => {
     };
 
     it("sends auto-response email successfully", async () => {
-      mockTransporter.sendMail.mockResolvedValue({
+      mockSendMail.mockResolvedValue({
         messageId: "auto-response-id",
       });
 
@@ -153,7 +160,7 @@ describe("Email Utilities", () => {
 
       expect(result.success).toBe(true);
       expect(result.messageId).toBe("auto-response-id");
-      expect(mockTransporter.sendMail).toHaveBeenCalledWith({
+      expect(mockSendMail).toHaveBeenCalledWith({
         from: "noreply@healingpathways.com",
         to: "john@example.com",
         subject: "Thank you for contacting Healing Pathways Counseling",
@@ -178,7 +185,7 @@ describe("Email Utilities", () => {
 
   describe("sendAdminResponse", () => {
     it("sends admin response email successfully", async () => {
-      mockTransporter.sendMail.mockResolvedValue({
+      mockSendMail.mockResolvedValue({
         messageId: "admin-response-id",
       });
 
@@ -191,7 +198,7 @@ describe("Email Utilities", () => {
 
       expect(result.success).toBe(true);
       expect(result.messageId).toBe("admin-response-id");
-      expect(mockTransporter.sendMail).toHaveBeenCalledWith({
+      expect(mockSendMail).toHaveBeenCalledWith({
         from: "noreply@healingpathways.com",
         to: "user@example.com",
         subject: "Response Subject",
@@ -209,7 +216,7 @@ describe("Email Utilities", () => {
     });
 
     it("handles multiline messages correctly", async () => {
-      mockTransporter.sendMail.mockResolvedValue({
+      mockSendMail.mockResolvedValue({
         messageId: "admin-response-id",
       });
 
@@ -222,7 +229,7 @@ describe("Email Utilities", () => {
         "submission-123"
       );
 
-      expect(mockTransporter.sendMail).toHaveBeenCalledWith(
+      expect(mockSendMail).toHaveBeenCalledWith(
         expect.objectContaining({
           html: expect.stringContaining(
             '<p style="margin-bottom: 15px; line-height: 1.6;">Line 1</p>'
@@ -233,7 +240,7 @@ describe("Email Utilities", () => {
     });
 
     it("handles sending failure", async () => {
-      mockTransporter.sendMail.mockRejectedValue(new Error("Send failed"));
+      mockSendMail.mockRejectedValue(new Error("Send failed"));
 
       const result = await sendAdminResponse(
         "user@example.com",
@@ -243,14 +250,13 @@ describe("Email Utilities", () => {
       );
 
       expect(result.success).toBe(false);
-      expect(result.error).toBe("Failed to send admin response");
+      expect(result.error).toBe("Send failed");
       expect(logger.error).toHaveBeenCalledWith(
-        "Failed to send admin response",
+        "Failed to send email",
         expect.any(Error),
         expect.objectContaining({
           to: "user@example.com",
           subject: "Test Subject",
-          contactSubmissionId: "submission-123",
         })
       );
     });

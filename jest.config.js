@@ -9,6 +9,9 @@ const createJestConfig = nextJest({
 const customJestConfig = {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   testEnvironment: "jsdom",
+  testEnvironmentOptions: {
+    customExportConditions: [""],
+  },
   testPathIgnorePatterns: [
     "<rootDir>/.next/",
     "<rootDir>/node_modules/",
@@ -19,6 +22,9 @@ const customJestConfig = {
     "^@/(.*)$": "<rootDir>/src/$1",
     "^lodash-es$": "lodash",
   },
+  transformIgnorePatterns: [
+    "node_modules/(?!(@auth/prisma-adapter|@auth/core|oauth4webapi|preact-render-to-string|preact)/)",
+  ],
   testMatch: [
     "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
     "<rootDir>/src/**/*.{test,spec}.{js,jsx,ts,tsx}",

@@ -21,9 +21,18 @@ export const registerSchema = z
     phone: z
       .string()
       .optional()
-      .refine(val => !val || /^[\+]?[\d\s\-\(\)]+$/.test(val), {
-        message: "Please enter a valid phone number",
-      }),
+      .refine(
+        val => {
+          if (!val) return true;
+          // Remove all non-digit characters except + at the beginning
+          const cleaned = val.replace(/[^\d+]/g, "");
+          // Must have + only at start (optional) and at least 7 digits
+          return /^\+?\d{7,15}$/.test(cleaned);
+        },
+        {
+          message: "Please enter a valid phone number",
+        }
+      ),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: "Passwords don't match",

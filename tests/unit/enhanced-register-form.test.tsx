@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -485,7 +485,7 @@ describe("EnhancedRegisterForm", () => {
       await user.click(screen.getByTestId("register-submit"));
 
       await waitFor(() => {
-        expect(screen.getByText(/registration failed/i)).toBeInTheDocument();
+        expect(screen.getByTestId("registration-error")).toBeInTheDocument();
       });
     });
   });
@@ -587,13 +587,14 @@ describe("EnhancedRegisterForm", () => {
     });
 
     it("supports keyboard navigation", async () => {
+      const user = userEvent.setup();
       render(<EnhancedRegisterForm />);
 
       const nameInput = screen.getByTestId("name-input");
-      nameInput.focus();
+      await user.click(nameInput);
       expect(nameInput).toHaveFocus();
 
-      fireEvent.keyDown(nameInput, { key: "Tab" });
+      await user.tab();
       expect(screen.getByTestId("email-input")).toHaveFocus();
     });
   });
