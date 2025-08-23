@@ -37,12 +37,12 @@ export function handleApiError(error: unknown): NextResponse {
       error: error.constructor.name,
       message: error.message,
     };
-    
+
     // Include details if the error has them (e.g., ValidationError)
-    if ('details' in error && error.details) {
+    if ("details" in error && error.details) {
       response.details = error.details;
     }
-    
+
     return NextResponse.json(response, { status: error.statusCode });
   }
 

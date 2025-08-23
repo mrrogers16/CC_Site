@@ -433,7 +433,7 @@ The error handling system was enhanced to provide consistent error responses:
 // Error handler returns consistent format
 // For AppError (including ValidationError):
 {
-  "error": "ValidationError", // Constructor name  
+  "error": "ValidationError", // Constructor name
   "message": "Invalid email format",
   "details": [...] // Included if error has details property
 }
@@ -742,7 +742,7 @@ npm run test:e2e -- mobile-auth.spec.ts
 # Updated Jest configuration excludes:
 "!src/generated/**/*",        // Prisma generated files
 "!src/app/**/page.tsx",       // Simple page components
-"!src/app/**/layout.tsx",     // Layout components  
+"!src/app/**/layout.tsx",     // Layout components
 "!src/components/sections/**/*", // Section components
 "!src/components/providers/**/*", // Provider components
 ```
@@ -758,12 +758,12 @@ const mockSubmissions = [
     id: "sub-1",
     createdAt: "2025-08-23T01:34:26.933Z", // Not new Date()
     // ... other properties
-  }
+  },
 ];
 
 // Error message expectations - Use constructor names
 expect(responseData.error).toBe("ValidationError"); // Constructor name
-expect(responseData.error).toBe("AppError"); // Generic AppError  
+expect(responseData.error).toBe("AppError"); // Generic AppError
 expect(responseData.error).toBe("Internal Server Error"); // Server errors
 
 // Logger message expectations - Match actual implementation
