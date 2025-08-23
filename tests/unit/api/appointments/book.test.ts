@@ -2,16 +2,22 @@ import { NextRequest } from "next/server";
 import { POST } from "@/app/api/appointments/book/route";
 import { getServerSession } from "next-auth";
 import { isTimeSlotAvailable } from "@/lib/utils/time-slots";
-import { createMockPrisma } from "../../../setup/prisma-mocks";
 
 // Mock dependencies
 jest.mock("next-auth", () => ({
   getServerSession: jest.fn(),
 }));
 
-const mockPrisma = createMockPrisma();
 jest.mock("@/lib/db", () => ({
-  prisma: mockPrisma,
+  prisma: {
+    service: {
+      findUnique: jest.fn(),
+    },
+    appointment: {
+      findFirst: jest.fn(),
+      create: jest.fn(),
+    },
+  },
 }));
 
 jest.mock("@/lib/utils/time-slots", () => ({
@@ -24,6 +30,20 @@ jest.mock("@/lib/logger", () => ({
     error: jest.fn(),
   },
 }));
+
+// Import mocked dependencies after mock setup
+import { prisma } from "@/lib/db";
+
+// Get typed access to the mocked prisma
+const mockPrisma = {
+  service: {
+    findUnique: prisma.service.findUnique as jest.MockedFunction<typeof prisma.service.findUnique>,
+  },
+  appointment: {
+    findFirst: prisma.appointment.findFirst as jest.MockedFunction<typeof prisma.appointment.findFirst>,
+    create: prisma.appointment.create as jest.MockedFunction<typeof prisma.appointment.create>,
+  },
+};
 
 const mockGetServerSession = getServerSession as jest.MockedFunction<
   typeof getServerSession

@@ -4,12 +4,23 @@ import {
   isTimeSlotAvailable,
 } from "@/lib/utils/time-slots";
 import { BUSINESS_RULES } from "@/lib/validations/appointments";
-import { createMockPrisma } from "../../../setup/prisma-mocks";
 
-// Mock Prisma
-const mockPrisma = createMockPrisma();
+// Mock Prisma using direct Jest mock factory pattern
 jest.mock("@/lib/db", () => ({
-  prisma: mockPrisma,
+  prisma: {
+    service: {
+      findUnique: jest.fn(),
+    },
+    availability: {
+      findMany: jest.fn(),
+    },
+    appointment: {
+      findMany: jest.fn(),
+    },
+    blockedSlot: {
+      findMany: jest.fn(),
+    },
+  },
 }));
 
 // Mock logger
@@ -19,6 +30,25 @@ jest.mock("@/lib/logger", () => ({
     error: jest.fn(),
   },
 }));
+
+// Import mocked dependencies after mock setup
+import { prisma } from "@/lib/db";
+
+// Get typed access to the mocked prisma
+const mockPrisma = {
+  service: {
+    findUnique: prisma.service.findUnique as jest.MockedFunction<typeof prisma.service.findUnique>,
+  },
+  availability: {
+    findMany: prisma.availability.findMany as jest.MockedFunction<typeof prisma.availability.findMany>,
+  },
+  appointment: {
+    findMany: prisma.appointment.findMany as jest.MockedFunction<typeof prisma.appointment.findMany>,
+  },
+  blockedSlot: {
+    findMany: prisma.blockedSlot.findMany as jest.MockedFunction<typeof prisma.blockedSlot.findMany>,
+  },
+};
 
 describe("Time Slot Utilities", () => {
   beforeEach(() => {

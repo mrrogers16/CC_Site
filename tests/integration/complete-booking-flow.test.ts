@@ -1,9 +1,50 @@
 import { POST as BookingPost } from "@/app/api/appointments/book/route";
 import { GET as ServicesGet } from "@/app/api/services/route";
 import { GET as AvailableGet } from "@/app/api/appointments/available/route";
-import { prisma } from "@/lib/db";
-import { logger as _logger } from "@/lib/logger";
 import { NextRequest } from "next/server";
+
+// Mock Prisma client with all required methods
+jest.mock("@/lib/db", () => ({
+  prisma: {
+    user: {
+      create: jest.fn(),
+      findUnique: jest.fn(),
+      findMany: jest.fn(),
+      count: jest.fn(),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
+    },
+    service: {
+      create: jest.fn(),
+      findUnique: jest.fn(),
+      findMany: jest.fn(),
+      update: jest.fn(),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
+    },
+    appointment: {
+      create: jest.fn(),
+      findFirst: jest.fn(),
+      findUnique: jest.fn(),
+      findMany: jest.fn(),
+      count: jest.fn(),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
+    },
+    availability: {
+      create: jest.fn(),
+      findFirst: jest.fn(),
+      findMany: jest.fn(),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
+    },
+    blockedSlot: {
+      create: jest.fn(),
+      findFirst: jest.fn(),
+      findMany: jest.fn(),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
+    },
+    $connect: jest.fn().mockResolvedValue(undefined),
+    $disconnect: jest.fn().mockResolvedValue(undefined),
+    $transaction: jest.fn(),
+  },
+}));
 
 // Mock external dependencies
 jest.mock("@/lib/logger", () => ({
@@ -18,6 +59,12 @@ jest.mock("@/lib/logger", () => ({
 jest.mock("@/lib/email", () => ({
   sendEmail: jest.fn().mockResolvedValue(true),
 }));
+
+// Import after mocking
+import { prisma } from "@/lib/db";
+
+// Get typed mock access
+const mockPrisma = prisma as jest.Mocked<typeof prisma>;
 
 describe("Complete Booking Flow Integration", () => {
   beforeEach(async () => {
@@ -40,16 +87,21 @@ describe("Complete Booking Flow Integration", () => {
   describe("End-to-End Booking Workflow", () => {
     it("completes full booking flow: services → availability → booking", async () => {
       // Step 1: Create test service
-      const _testService = await prisma.service.create({
-        data: {
-          id: "test-service-1",
-          title: "Integration Test Counseling",
-          description: "Test service for integration testing",
-          duration: 60,
-          price: 120,
-          isActive: true,
-          features: ["Test feature 1", "Test feature 2"],
-        },
+      const testService = {
+        id: "test-service-1",
+        title: "Integration Test Counseling",
+        description: "Test service for integration testing",
+        duration: 60,
+        price: 120,
+        isActive: true,
+        features: ["Test feature 1", "Test feature 2"],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      mockPrisma.service.create.mockResolvedValue(testService);
+      const _createdService = await prisma.service.create({
+        data: testService,
       });
 
       // Step 2: Get services (simulating service selector)

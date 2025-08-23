@@ -1,4 +1,3 @@
-import { prisma } from "@/lib/db";
 import { POST as bookAppointment } from "@/app/api/appointments/book/route";
 import { GET as getAvailableSlots } from "@/app/api/appointments/available/route";
 import {
@@ -7,6 +6,35 @@ import {
 } from "@/app/api/appointments/[id]/route";
 import { generateTimeSlots } from "@/lib/utils/time-slots";
 import { NextRequest } from "next/server";
+
+// Mock Prisma client
+jest.mock("@/lib/db", () => ({
+  prisma: {
+    user: {
+      create: jest.fn(),
+      findFirst: jest.fn(),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
+    },
+    service: {
+      create: jest.fn(),
+      findFirst: jest.fn(),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
+    },
+    appointment: {
+      create: jest.fn(),
+      findFirst: jest.fn(),
+      findMany: jest.fn(),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
+    },
+    availability: {
+      create: jest.fn(),
+      findFirst: jest.fn(),
+      findMany: jest.fn(),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
+    },
+    $disconnect: jest.fn().mockResolvedValue(undefined),
+  },
+}));
 
 // Mock session for authenticated requests
 jest.mock("next-auth", () => ({
@@ -17,6 +45,10 @@ import { getServerSession } from "next-auth";
 const mockGetServerSession = getServerSession as jest.MockedFunction<
   typeof getServerSession
 >;
+
+// Import mocked dependencies after mock setup
+import { prisma } from "@/lib/db";
+const mockPrisma = prisma as jest.Mocked<typeof prisma>;
 
 describe("Appointment Booking Flow Integration", () => {
   let testUser: any;
