@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { DayPicker, DayModifiers } from "react-day-picker";
+import { DayPicker } from "react-day-picker";
+import type { Modifiers } from "react-day-picker";
 import { BUSINESS_RULES } from "@/lib/validations/appointments";
+import "react-day-picker/style.css";
 import "@/styles/calendar.css";
 
 interface CalendarViewProps {
@@ -72,23 +74,27 @@ export default function CalendarView({
 
         for (let i = 0; i < responses.length; i++) {
           const response = responses[i];
-          if (response.ok) {
+          if (response?.ok) {
             const data = await response.json();
             if (data.slots && data.slots.length > 0) {
               // Check if any slots are available
               const hasAvailableSlots = data.slots.some(
                 (slot: any) => slot.available
               );
-              if (hasAvailableSlots) {
-                availableDatesSet.add(dates[i].toISOString().split("T")[0]);
+              if (hasAvailableSlots && dates[i]) {
+                const dateStr = dates[i]?.toISOString().split("T")[0];
+                if (dateStr) {
+                  availableDatesSet.add(dateStr);
+                }
               }
             }
           }
         }
 
-        const availableDatesArray = dates.filter(date =>
-          availableDatesSet.has(date.toISOString().split("T")[0])
-        );
+        const availableDatesArray = dates.filter(date => {
+          const dateStr = date?.toISOString().split("T")[0];
+          return dateStr && availableDatesSet.has(dateStr);
+        });
 
         setAvailableDates(availableDatesArray);
       } catch (error) {
@@ -117,22 +123,23 @@ export default function CalendarView({
     }
   };
 
-  const modifiers: DayModifiers = {
+  const modifiers: Modifiers = {
     available: availableDates,
     weekend: (date: Date) => date.getDay() === 0 || date.getDay() === 6,
-    disabled: (date: Date) => {
-      // Disable past dates
-      if (date < minDate) return true;
-      // Disable dates beyond booking window
-      if (date > maxDate) return true;
-      // Disable weekends
-      if (date.getDay() === 0 || date.getDay() === 6) return true;
-      // Disable dates without available slots
-      const dateStr = date.toISOString().split("T")[0];
-      return !availableDates.some(
-        availableDate => availableDate.toISOString().split("T")[0] === dateStr
-      );
-    },
+  };
+
+  const disabledDays = (date: Date) => {
+    // Disable past dates
+    if (date < minDate) return true;
+    // Disable dates beyond booking window
+    if (date > maxDate) return true;
+    // Disable weekends
+    if (date.getDay() === 0 || date.getDay() === 6) return true;
+    // Disable dates without available slots
+    const dateStr = date.toISOString().split("T")[0];
+    return !availableDates.some(
+      availableDate => availableDate.toISOString().split("T")[0] === dateStr
+    );
   };
 
   const modifiersClassNames = {
@@ -160,7 +167,7 @@ export default function CalendarView({
             ← Back to Services
           </button>
         </div>
-        <div className="bg-background border border-border rounded-lg p-8">
+        <div className="bg-background border border-border rounded-lg p-8" data-testid="calendar-loading">
           <div className="animate-pulse space-y-4">
             <div className="h-8 bg-muted rounded w-48 mx-auto" />
             <div className="grid grid-cols-7 gap-2">
@@ -248,7 +255,7 @@ export default function CalendarView({
           modifiersClassNames={modifiersClassNames}
           fromDate={minDate}
           toDate={maxDate}
-          disabled={date => modifiers.disabled(date)}
+          disabled={disabledDays}
           showOutsideDays={false}
           fixedWeeks={true}
           className="rdp"
@@ -273,8 +280,8 @@ export default function CalendarView({
             month: "rdp-month",
           }}
           labels={{
-            labelPrevious: "Go to previous month",
-            labelNext: "Go to next month",
+            labelPrevious: () => "Go to previous month",
+            labelNext: () => "Go to next month",
           }}
         />
 

@@ -11,20 +11,24 @@ import BookingSuccess from "./booking-success";
 
 export interface BookingState {
   step: number;
-  selectedService?: {
-    id: string;
-    title: string;
-    duration: number;
-    price: number;
-  } | undefined;
+  selectedService?:
+    | {
+        id: string;
+        title: string;
+        duration: number;
+        price: number;
+      }
+    | undefined;
   selectedDate?: Date | undefined;
   selectedTime?: Date | undefined;
-  clientDetails?: {
-    name: string;
-    email: string;
-    phone?: string | undefined;
-    notes?: string | undefined;
-  } | undefined;
+  clientDetails?:
+    | {
+        name: string;
+        email: string;
+        phone?: string | undefined;
+        notes?: string | undefined;
+      }
+    | undefined;
   appointmentId?: string | undefined;
 }
 

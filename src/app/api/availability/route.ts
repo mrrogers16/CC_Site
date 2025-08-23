@@ -42,11 +42,13 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
         "Friday",
         "Saturday",
       ];
-      
+
       // Ensure dayOfWeek is within valid range (0-6)
       const dayName = dayNames[window.dayOfWeek];
       if (!dayName) {
-        logger.warn(`Invalid dayOfWeek value: ${window.dayOfWeek} for availability window ${window.id}`);
+        logger.warn(
+          `Invalid dayOfWeek value: ${window.dayOfWeek} for availability window ${window.id}`
+        );
         return acc;
       }
 

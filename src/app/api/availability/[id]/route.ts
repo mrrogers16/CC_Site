@@ -136,7 +136,7 @@ export const PATCH = withErrorHandler(
     const updateData = Object.fromEntries(
       Object.entries(validated).filter(([, value]) => value !== undefined)
     );
-    
+
     const updatedAvailability = await prisma.availability.update({
       where: { id: availabilityId },
       data: updateData,

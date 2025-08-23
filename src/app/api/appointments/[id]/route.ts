@@ -144,18 +144,19 @@ export const PATCH = withErrorHandler(
     // Status change validation
     if (validated.status) {
       // Only allow certain status transitions
-      const allowedTransitions: Record<AppointmentStatus, AppointmentStatus[]> = {
-        PENDING: ["CONFIRMED", "CANCELLED"],
-        CONFIRMED: ["COMPLETED", "CANCELLED", "NO_SHOW"],
-        CANCELLED: [], // Cannot change from cancelled
-        COMPLETED: [], // Cannot change from completed
-        NO_SHOW: [], // Cannot change from no show
-      };
+      const allowedTransitions: Record<AppointmentStatus, AppointmentStatus[]> =
+        {
+          PENDING: ["CONFIRMED", "CANCELLED"],
+          CONFIRMED: ["COMPLETED", "CANCELLED", "NO_SHOW"],
+          CANCELLED: [], // Cannot change from cancelled
+          COMPLETED: [], // Cannot change from completed
+          NO_SHOW: [], // Cannot change from no show
+        };
 
       // Type-safe status validation with proper type guard
       const currentStatus = appointment.status as AppointmentStatus;
       const newStatus = validated.status as AppointmentStatus;
-      
+
       if (!allowedTransitions[currentStatus].includes(newStatus)) {
         throw new ValidationError(
           `Cannot change status from ${currentStatus} to ${newStatus}`

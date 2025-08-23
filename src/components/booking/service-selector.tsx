@@ -13,12 +13,14 @@ interface Service {
 }
 
 interface ServiceSelectorProps {
-  selectedService?: {
-    id: string;
-    title: string;
-    duration: number;
-    price: number;
-  } | undefined;
+  selectedService?:
+    | {
+        id: string;
+        title: string;
+        duration: number;
+        price: number;
+      }
+    | undefined;
   onServiceSelect: (service: {
     id: string;
     title: string;
