@@ -49,29 +49,31 @@ This is a professional counseling practice website built with Next.js 15+ App Ro
 #### Before Writing ANY Code - Use These Patterns:
 
 **1. Optional Properties with exactOptionalPropertyTypes:**
+
 ```typescript
 interface FormData {
   name: string;
-  phone?: string;  // Optional
-  notes?: string;  // Optional
+  phone?: string; // Optional
+  notes?: string; // Optional
 }
 
 // ✅ CORRECT - Conditional inclusion for optional properties:
 const data = {
   name: "John",
-  ...(phone && { phone }),    // Only include if truthy
-  ...(notes && { notes })     // Only include if truthy
+  ...(phone && { phone }), // Only include if truthy
+  ...(notes && { notes }), // Only include if truthy
 };
 
 // ❌ NEVER DO THIS - Will cause TypeScript errors:
-const data = { 
+const data = {
   name: "John",
-  phone: maybePhone,  // ERROR: string | undefined not assignable to string
-  notes: maybeNotes   // ERROR: string | undefined not assignable to string  
+  phone: maybePhone, // ERROR: string | undefined not assignable to string
+  notes: maybeNotes, // ERROR: string | undefined not assignable to string
 };
 ```
 
 **2. Null Safety Patterns (MANDATORY):**
+
 ```typescript
 // ✅ ALWAYS check for undefined/null before property access:
 if (!result) return;
@@ -88,6 +90,7 @@ result.property; // ERROR if result might be undefined
 ```
 
 **3. Variable Naming (MANDATORY):**
+
 ```typescript
 // ✅ Unused variables MUST start with underscore:
 const _unusedVariable = someFunction();
@@ -100,9 +103,10 @@ const unusedVariable = someFunction(); // ERROR: no-unused-vars
 ### Jest/Testing Patterns (MANDATORY FOR ALL TESTS)
 
 **1. Prisma Mocking Pattern:**
+
 ```typescript
 // ✅ ALWAYS use this exact pattern for Prisma mocks:
-import { jest } from '@jest/globals';
+import { jest } from "@jest/globals";
 
 // Create properly typed mock:
 const mockPrisma = {
@@ -126,22 +130,24 @@ prisma.service.findUnique.mockResolvedValue(mockData); // ERROR: Property doesn'
 ```
 
 **2. DOM Element Testing:**
+
 ```typescript
 // ✅ ALWAYS check for null when querying DOM:
-const button = screen.queryByRole('button', { name: /submit/i });
-if (!button) throw new Error('Button not found');
+const button = screen.queryByRole("button", { name: /submit/i });
+if (!button) throw new Error("Button not found");
 await user.click(button);
 
 // OR use getBy (which throws if not found):
-const button = screen.getByRole('button', { name: /submit/i });
+const button = screen.getByRole("button", { name: /submit/i });
 await user.click(button);
 
 // ❌ NEVER assume elements exist:
-const button = screen.queryByRole('button');
+const button = screen.queryByRole("button");
 await user.click(button); // ERROR: button might be null
 ```
 
 **3. Zod Error Handling:**
+
 ```typescript
 // ✅ ALWAYS use 'issues' not 'errors':
 try {
@@ -158,12 +164,12 @@ try {
 
 ```typescript
 // ✅ ALWAYS use correct Playwright API methods:
-await page.getByLabel('Email'); // CORRECT
-await page.getByRole('button', { name: 'Submit' }); // CORRECT
+await page.getByLabel("Email"); // CORRECT
+await page.getByRole("button", { name: "Submit" }); // CORRECT
 await expect(locator).toHaveCount({ min: 1 }); // CORRECT
 
 // ❌ NEVER use these (don't exist):
-await page.getByLabelText('Email'); // ERROR: Method doesn't exist
+await page.getByLabelText("Email"); // ERROR: Method doesn't exist
 await expect(locator).toHaveCount().greaterThan(0); // ERROR: Chain doesn't exist
 ```
 
@@ -189,7 +195,7 @@ await expect(locator).toHaveCount().greaterThan(0); // ERROR: Chain doesn't exis
 # 1. Format code (fixes formatting issues)
 npm run format
 
-# 2. Verify formatting 
+# 2. Verify formatting
 npm run format:check
 
 # 3. Fix linting issues automatically
@@ -455,12 +461,14 @@ test("handles email availability checking", async () => {
 ## TESTING REQUIREMENTS (MANDATORY)
 
 ### Every Component Must Have:
+
 1. **Unit tests** with proper DOM null checks using patterns above
-2. **Accessibility tests** with ARIA validation  
+2. **Accessibility tests** with ARIA validation
 3. **TypeScript compliance** with strict mode patterns
 4. **Mock patterns** following established Jest standards
 
 ### Every API Route Must Have:
+
 1. **Unit tests** with proper Prisma mocking using patterns above
 2. **Validation tests** for all input scenarios
 3. **Error handling tests** for edge cases
@@ -577,8 +585,9 @@ export function NewComponent() {
 ## CONSEQUENCES OF NOT FOLLOWING PATTERNS
 
 **If code doesn't follow these mandatory patterns:**
+
 - ❌ CI/CD pipeline will fail
-- ❌ TypeScript errors will block development  
+- ❌ TypeScript errors will block development
 - ❌ Tests will be unreliable
 - ❌ Code review will be rejected
 - ❌ Professional healthcare technology standards compromised
@@ -590,8 +599,9 @@ export function NewComponent() {
 ## SUMMARY: Prevention > Fixing
 
 Instead of fixing recurring issues:
+
 1. **Follow these mandatory patterns from the start**
-2. **Run the checklist before every commit**  
+2. **Run the checklist before every commit**
 3. **Never skip TypeScript compliance**
 4. **Always test with proper mocking patterns**
 
