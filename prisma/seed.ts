@@ -7,6 +7,8 @@ async function main() {
 
   // Clear existing data
   await prisma.appointment.deleteMany();
+  await prisma.blockedSlot.deleteMany();
+  await prisma.availability.deleteMany();
   await prisma.service.deleteMany();
   await prisma.user.deleteMany();
 
@@ -109,6 +111,112 @@ async function main() {
   });
 
   console.log(`Created test user: ${user.email}`);
+
+  // Create default availability windows (Monday-Friday, 9 AM - 5 PM)
+  const availability = await prisma.availability.createMany({
+    data: [
+      // Monday
+      {
+        dayOfWeek: 1,
+        startTime: "09:00",
+        endTime: "12:00",
+        isActive: true,
+      },
+      {
+        dayOfWeek: 1,
+        startTime: "13:00",
+        endTime: "17:00",
+        isActive: true,
+      },
+      // Tuesday
+      {
+        dayOfWeek: 2,
+        startTime: "09:00",
+        endTime: "12:00",
+        isActive: true,
+      },
+      {
+        dayOfWeek: 2,
+        startTime: "13:00",
+        endTime: "17:00",
+        isActive: true,
+      },
+      // Wednesday
+      {
+        dayOfWeek: 3,
+        startTime: "09:00",
+        endTime: "12:00",
+        isActive: true,
+      },
+      {
+        dayOfWeek: 3,
+        startTime: "13:00",
+        endTime: "17:00",
+        isActive: true,
+      },
+      // Thursday
+      {
+        dayOfWeek: 4,
+        startTime: "09:00",
+        endTime: "12:00",
+        isActive: true,
+      },
+      {
+        dayOfWeek: 4,
+        startTime: "13:00",
+        endTime: "17:00",
+        isActive: true,
+      },
+      // Friday
+      {
+        dayOfWeek: 5,
+        startTime: "09:00",
+        endTime: "12:00",
+        isActive: true,
+      },
+      {
+        dayOfWeek: 5,
+        startTime: "13:00",
+        endTime: "17:00",
+        isActive: true,
+      },
+      // Saturday (limited hours)
+      {
+        dayOfWeek: 6,
+        startTime: "10:00",
+        endTime: "14:00",
+        isActive: true,
+      },
+    ],
+  });
+
+  console.log(`Created ${availability.count} availability windows`);
+
+  // Create some sample blocked slots for holidays/vacation
+  const blockedSlots = await prisma.blockedSlot.createMany({
+    data: [
+      // Example: Block Thanksgiving Day 2025
+      {
+        dateTime: new Date("2025-11-27T00:00:00Z"),
+        duration: 1440, // All day (24 hours * 60 minutes)
+        reason: "Thanksgiving Holiday",
+      },
+      // Example: Block Christmas Day 2025
+      {
+        dateTime: new Date("2025-12-25T00:00:00Z"),
+        duration: 1440,
+        reason: "Christmas Holiday",
+      },
+      // Example: Block New Year's Day 2025
+      {
+        dateTime: new Date("2025-01-01T00:00:00Z"),
+        duration: 1440,
+        reason: "New Year's Holiday",
+      },
+    ],
+  });
+
+  console.log(`Created ${blockedSlots.count} blocked time slots`);
 }
 
 main()

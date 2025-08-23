@@ -1,0 +1,308 @@
+/* React Day Picker Custom Styles for Healing Pathways Counseling */
+
+.rdp {
+  --rdp-cell-size: 40px;
+  --rdp-accent-color: #4a8b8c;
+  --rdp-background-color: #fefefe;
+  --rdp-accent-color-dark: #3a7273;
+  --rdp-background-color-dark: #2c2c2c;
+  --rdp-outline: 2px solid var(--rdp-accent-color);
+  --rdp-outline-selected: 2px solid var(--rdp-accent-color);
+  --rdp-selected-color: #b5a588;
+  margin: 0;
+  font-family: inherit;
+}
+
+/* Navigation */
+.rdp-nav {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.rdp-nav_button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.375rem;
+  background-color: transparent;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.rdp-nav_button:hover {
+  background-color: rgba(74, 139, 140, 0.1);
+  color: #4a8b8c;
+}
+
+.rdp-nav_button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #4a8b8c;
+}
+
+.rdp-nav_button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Month caption */
+.rdp-caption_label {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #2c2c2c;
+  font-family: "Playfair Display", serif;
+}
+
+/* Month grid */
+.rdp-months {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.rdp-month {
+  margin: 0;
+}
+
+/* Table */
+.rdp-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 2px;
+}
+
+.rdp-head_cell {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+  height: 2.5rem;
+  padding: 0;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+/* Day cells */
+.rdp-cell {
+  text-align: center;
+  position: relative;
+  padding: 0;
+}
+
+.rdp-button_reset {
+  appearance: none;
+  border: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.rdp-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--rdp-cell-size);
+  height: var(--rdp-cell-size);
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-color: transparent;
+  color: #2c2c2c;
+}
+
+.rdp-button:hover {
+  background-color: rgba(74, 139, 140, 0.1);
+  color: #4a8b8c;
+}
+
+.rdp-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #4a8b8c;
+  z-index: 1;
+}
+
+/* Today */
+.rdp-day_today {
+  font-weight: 700;
+  color: #4a8b8c;
+  position: relative;
+}
+
+.rdp-day_today::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #4a8b8c;
+}
+
+/* Selected date */
+.rdp-day_selected {
+  background-color: #b5a588 !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+.rdp-day_selected:hover {
+  background-color: #a39476 !important;
+  color: white !important;
+}
+
+/* Available dates */
+.rdp-day_available {
+  background-color: rgba(74, 139, 140, 0.05);
+  color: #4a8b8c;
+  font-weight: 500;
+  border: 1px solid rgba(74, 139, 140, 0.2);
+}
+
+.rdp-day_available:hover {
+  background-color: rgba(74, 139, 140, 0.1);
+  border-color: #4a8b8c;
+}
+
+/* Unavailable dates */
+.rdp-day_disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  color: #9ca3af;
+}
+
+.rdp-day_disabled:hover {
+  background-color: transparent;
+  color: #9ca3af;
+}
+
+/* Weekend styling */
+.rdp-day_weekend {
+  color: #ef4444;
+  opacity: 0.6;
+}
+
+/* Outside month */
+.rdp-day_outside {
+  opacity: 0.3;
+  color: #9ca3af;
+}
+
+.rdp-day_outside:hover {
+  background-color: transparent;
+  color: #9ca3af;
+}
+
+/* Focused state */
+.rdp-day_focused {
+  box-shadow: 0 0 0 2px #4a8b8c;
+}
+
+/* Range selection (for future enhancement) */
+.rdp-day_range_start,
+.rdp-day_range_end {
+  background-color: #4a8b8c;
+  color: white;
+}
+
+.rdp-day_range_middle {
+  background-color: rgba(74, 139, 140, 0.1);
+  color: #4a8b8c;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  .rdp {
+    --rdp-cell-size: 36px;
+  }
+
+  .rdp-months {
+    gap: 1rem;
+  }
+
+  .rdp-button {
+    font-size: 0.75rem;
+  }
+
+  .rdp-head_cell {
+    font-size: 0.75rem;
+  }
+
+  .rdp-caption_label {
+    font-size: 1rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .rdp-day_available {
+    border: 2px solid #4a8b8c;
+  }
+
+  .rdp-day_selected {
+    border: 2px solid #ffffff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .rdp-button {
+    transition: none;
+  }
+
+  .rdp-nav_button {
+    transition: none;
+  }
+}
+
+/* Legend for accessibility */
+.rdp-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.rdp-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.rdp-legend-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rdp-legend-dot--available {
+  background-color: rgba(74, 139, 140, 0.2);
+  border: 1px solid #4a8b8c;
+}
+
+.rdp-legend-dot--selected {
+  background-color: #b5a588;
+}
+
+.rdp-legend-dot--today {
+  background-color: #4a8b8c;
+}
+
+.rdp-legend-dot--unavailable {
+  background-color: #e5e7eb;
+  opacity: 0.6;
+}
