@@ -1099,6 +1099,7 @@ Run these commands and fix any issues before committing:
    - Ensures deployment readiness
 
 **Critical Notes**:
+
 - **Always format first**: Running `npm run format` before other checks prevents conflicts
 - **CI/CD Requirements**: All checks must pass locally to avoid pipeline failures
 - **Professional Standards**: Code quality is essential for healthcare technology compliance
@@ -1199,33 +1200,35 @@ The project uses Prettier with the following configuration optimized for profess
 
 ```json
 {
-  "semi": true,                 // Always use semicolons for statement termination
-  "trailingComma": "es5",      // Trailing commas where valid in ES5 (objects, arrays)
-  "singleQuote": false,        // Use double quotes for consistency with JSX attributes
-  "printWidth": 80,            // 80-character line length for optimal readability
-  "tabWidth": 2,               // 2-space indentation for compact, readable code
-  "useTabs": false,            // Use spaces for consistent cross-platform formatting
-  "bracketSpacing": true,      // Spaces inside object literal braces { foo: bar }
-  "bracketSameLine": false,    // JSX closing bracket on new line for readability
-  "arrowParens": "avoid",      // Omit parentheses around single arrow function parameters
-  "endOfLine": "lf"           // Unix-style line endings for cross-platform compatibility
+  "semi": true, // Always use semicolons for statement termination
+  "trailingComma": "es5", // Trailing commas where valid in ES5 (objects, arrays)
+  "singleQuote": false, // Use double quotes for consistency with JSX attributes
+  "printWidth": 80, // 80-character line length for optimal readability
+  "tabWidth": 2, // 2-space indentation for compact, readable code
+  "useTabs": false, // Use spaces for consistent cross-platform formatting
+  "bracketSpacing": true, // Spaces inside object literal braces { foo: bar }
+  "bracketSameLine": false, // JSX closing bracket on new line for readability
+  "arrowParens": "avoid", // Omit parentheses around single arrow function parameters
+  "endOfLine": "lf" // Unix-style line endings for cross-platform compatibility
 }
 ```
 
 #### Key Formatting Rules Applied
 
 **Semicolons**: Always required for statement termination
+
 ```typescript
 // Correct
 const user = { name: "John", email: "john@example.com" };
 const result = await fetchData();
 
 // Incorrect - Missing semicolons
-const user = { name: "John", email: "john@example.com" }
-const result = await fetchData()
+const user = { name: "John", email: "john@example.com" };
+const result = await fetchData();
 ```
 
 **Quotes**: Double quotes for strings, maintaining JSX attribute consistency
+
 ```typescript
 // Correct
 const message = "Welcome to Healing Pathways Counseling";
@@ -1237,19 +1240,23 @@ const message = 'Welcome to Healing Pathways Counseling';
 ```
 
 **Line Length**: 80 characters maximum for optimal readability
+
 ```typescript
 // Correct - Properly wrapped
+const longFunctionCall = someFunction(parameter1, parameter2, parameter3);
+
+// Incorrect - Exceeds line length
 const longFunctionCall = someFunction(
   parameter1,
   parameter2,
-  parameter3
+  parameter3,
+  parameter4,
+  parameter5
 );
-
-// Incorrect - Exceeds line length
-const longFunctionCall = someFunction(parameter1, parameter2, parameter3, parameter4, parameter5);
 ```
 
 **Indentation**: 2 spaces consistently throughout
+
 ```typescript
 // Correct
 if (user) {
@@ -1261,14 +1268,15 @@ if (user) {
 
 // Incorrect - Inconsistent indentation
 if (user) {
-    const appointments = await prisma.appointment.findMany({
-      where: { userId: user.id },
-        include: { service: true },
-    });
+  const appointments = await prisma.appointment.findMany({
+    where: { userId: user.id },
+    include: { service: true },
+  });
 }
 ```
 
 **Object and Array Formatting**: Consistent spacing and trailing commas
+
 ```typescript
 // Correct
 const config = {
@@ -1280,7 +1288,13 @@ const config = {
 };
 
 // Incorrect - No spacing, missing trailing comma
-const config = {database: process.env.DATABASE_URL,auth: {secret: process.env.NEXTAUTH_SECRET,providers: ["google", "credentials"]}};
+const config = {
+  database: process.env.DATABASE_URL,
+  auth: {
+    secret: process.env.NEXTAUTH_SECRET,
+    providers: ["google", "credentials"],
+  },
+};
 ```
 
 ### Command Usage
@@ -1288,17 +1302,19 @@ const config = {database: process.env.DATABASE_URL,auth: {secret: process.env.NE
 #### Formatting Commands
 
 **`npm run format`** - Automatically fix formatting issues across entire codebase
+
 ```bash
 # Formats all supported files in the project
 npm run format
 
 # Example output:
 # src/components/forms/contact-form.tsx 2ms
-# src/app/contact/page.tsx 1ms  
+# src/app/contact/page.tsx 1ms
 # src/lib/validations/index.ts 1ms
 ```
 
 **`npm run format:check`** - Verify formatting without making changes (used in CI/CD)
+
 ```bash
 # Check formatting compliance without modifications
 npm run format:check
@@ -1323,6 +1339,7 @@ npm run format:check
 #### Files Formatted by Prettier
 
 Prettier processes these file types throughout the project:
+
 - **TypeScript/JavaScript**: `.ts`, `.tsx`, `.js`, `.jsx`, `.mjs`
 - **JSON**: `package.json`, `tsconfig.json`, configuration files
 - **Markdown**: `README.md`, `CLAUDE.md`, documentation files
@@ -1377,7 +1394,7 @@ The project uses `eslint-config-prettier` to ensure no conflicts between ESLint 
 ```bash
 # Complete code quality check sequence
 npm run format        # Fix formatting issues
-npm run lint:fix      # Fix ESLint issues  
+npm run lint:fix      # Fix ESLint issues
 npm run typecheck     # Verify TypeScript types
 npm run test          # Run test suite
 npm run build         # Verify production build
@@ -1396,6 +1413,7 @@ The CI/CD pipeline includes a dedicated formatting check step:
 ```
 
 **Pipeline Behavior**:
+
 - **Success**: Pipeline continues if all files are properly formatted
 - **Failure**: Pipeline fails with specific files needing formatting
 - **Error Message**: Lists exactly which files need `npm run format` run locally
@@ -1403,6 +1421,7 @@ The CI/CD pipeline includes a dedicated formatting check step:
 #### Branch Protection
 
 Formatting checks are required for:
+
 - Pull request merges to main branch
 - Direct pushes to protected branches
 - Release deployments
@@ -1412,12 +1431,14 @@ Formatting checks are required for:
 #### Pre-Commit Formatting Requirements
 
 **Before Every Commit**:
+
 1. Run `npm run format` to fix any formatting issues
 2. Verify `npm run format:check` passes locally
 3. Ensure no conflicts between formatting and functionality
 4. Check that formatted code maintains all functionality
 
 **IDE Setup Recommendations**:
+
 - Install Prettier extension for your editor
 - Enable "format on save" for automatic formatting
 - Configure to use project's `.prettierrc` settings
@@ -1428,6 +1449,7 @@ Formatting checks are required for:
 #### React/JSX Formatting
 
 **Component Structure**: Consistent prop and element formatting
+
 ```jsx
 // Correct JSX formatting
 <input
@@ -1444,6 +1466,7 @@ Formatting checks are required for:
 ```
 
 **Function Declaration**: Consistent parameter and return formatting
+
 ```typescript
 // Correct function formatting
 export async function createContactSubmission(
@@ -1457,7 +1480,7 @@ export async function createContactSubmission(
       isRead: false,
     },
   });
-  
+
   return submission;
 }
 ```
@@ -1465,16 +1488,17 @@ export async function createContactSubmission(
 #### API Route Formatting
 
 **Consistent Error Handling**: Proper formatting for try-catch blocks
+
 ```typescript
 // Correct API route formatting
 export const POST = withErrorHandler(async (request: NextRequest) => {
   try {
     const data = await request.json();
     const validated = contactSchema.parse(data);
-    
+
     const result = await createContactSubmission(validated);
     logger.info("Contact submission created", { id: result.id });
-    
+
     return NextResponse.json({ success: true, data: result });
   } catch (error) {
     logger.error("Contact submission failed", error);
@@ -1489,6 +1513,7 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
 
 **Problem**: `format:check` fails in CI/CD pipeline
 **Solution**: Run `npm run format` locally and commit the changes
+
 ```bash
 # Fix formatting locally
 npm run format
@@ -1499,6 +1524,7 @@ git push
 
 **Problem**: Merge conflicts with formatting changes
 **Solution**: Format after resolving conflicts, before committing
+
 ```bash
 # After resolving conflicts
 npm run format
@@ -1508,12 +1534,14 @@ git commit -m "Resolve merge conflicts and fix formatting"
 
 **Problem**: IDE not using project Prettier configuration
 **Solution**: Ensure Prettier extension uses project settings
+
 - Check that `.prettierrc` exists in project root
 - Restart IDE after installing Prettier extension
 - Verify "Prettier: Require Config" is enabled in settings
 
 **Problem**: Formatting conflicts with custom editor settings
 **Solution**: Configure editor to use project Prettier settings
+
 - Disable competing formatters (like VS Code's built-in TypeScript formatter for formatting)
 - Set Prettier as default formatter for TypeScript/JavaScript files
 - Enable "Format on Save" specifically for Prettier
@@ -1521,6 +1549,7 @@ git commit -m "Resolve merge conflicts and fix formatting"
 #### Configuration Debugging
 
 **Verify Prettier Installation**:
+
 ```bash
 # Check Prettier version
 npx prettier --version
@@ -1533,6 +1562,7 @@ npx prettier src/app/page.tsx
 ```
 
 **Check Configuration Loading**:
+
 ```bash
 # Verify Prettier finds configuration
 npx prettier --find-config-path src/app/page.tsx
@@ -1551,6 +1581,7 @@ npx prettier --find-config-path src/app/page.tsx
 #### Healthcare Technology Standards
 
 As a professional counseling practice website, consistent formatting supports:
+
 - **Code Reliability**: Uniform formatting reduces bugs from inconsistent patterns
 - **Team Collaboration**: Multiple developers can work efficiently with consistent style
 - **Maintenance**: Easy code review and debugging with predictable formatting
