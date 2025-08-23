@@ -9,20 +9,24 @@ test.describe("Mobile Booking Experience", () => {
   });
 
   test.describe("Mobile-Responsive Booking Flow", () => {
-    test("should have touch-friendly booking interface on mobile", async ({ page }) => {
+    test("should have touch-friendly booking interface on mobile", async ({
+      page,
+    }) => {
       await page.goto("/book");
 
       // Check mobile layout
-      await expect(page.getByRole("heading", { name: /book.*appointment/i })).toBeVisible();
+      await expect(
+        page.getByRole("heading", { name: /book.*appointment/i })
+      ).toBeVisible();
 
       // Service cards should be full-width and touch-friendly
       await page.waitForSelector('[data-testid="service-card"]');
       const serviceCards = page.locator('[data-testid="service-card"]');
-      
-      for (let i = 0; i < await serviceCards.count(); i++) {
+
+      for (let i = 0; i < (await serviceCards.count()); i++) {
         const card = serviceCards.nth(i);
         const boundingBox = await card.boundingBox();
-        
+
         // Cards should be wide enough for mobile (minimum 300px)
         expect(boundingBox?.width).toBeGreaterThan(300);
         // Cards should have sufficient height for touch (minimum 100px)
@@ -30,7 +34,9 @@ test.describe("Mobile Booking Experience", () => {
       }
 
       // Buttons should be touch-friendly (minimum 44px height)
-      const selectButton = page.locator('[data-testid="service-card"] button').first();
+      const selectButton = page
+        .locator('[data-testid="service-card"] button')
+        .first();
       const buttonBox = await selectButton.boundingBox();
       expect(buttonBox?.height).toBeGreaterThanOrEqual(44);
     });
@@ -41,9 +47,11 @@ test.describe("Mobile Booking Experience", () => {
       // Step 1: Touch select service
       await page.waitForSelector('[data-testid="service-card"]');
       await page.locator('[data-testid="service-card"]').first().tap();
-      
+
       // Verify visual feedback for touch
-      await expect(page.locator('[data-testid="service-card"]').first()).toHaveClass(/border-primary/);
+      await expect(
+        page.locator('[data-testid="service-card"]').first()
+      ).toHaveClass(/border-primary/);
 
       // Touch continue button
       await page.locator('[data-testid="continue-to-date"]').tap();
@@ -56,13 +64,13 @@ test.describe("Mobile Booking Experience", () => {
       const calendar = page.getByRole("grid");
       const calendarBox = await calendar.boundingBox();
       const viewportSize = page.viewportSize();
-      
+
       // Calendar should fit mobile viewport
       expect(calendarBox?.width).toBeLessThanOrEqual(viewportSize!.width);
 
       // Touch select available date
-      await page.locator('.rdp-day_available').first().tap();
-      await expect(page.locator('.rdp-day_selected')).toBeVisible();
+      await page.locator(".rdp-day_available").first().tap();
+      await expect(page.locator(".rdp-day_selected")).toBeVisible();
 
       // Touch navigation buttons
       const nextButton = page.getByRole("button", { name: /next month/i });
@@ -74,12 +82,14 @@ test.describe("Mobile Booking Experience", () => {
 
       // Step 3: Touch time slot selection
       await page.waitForSelector('[data-testid="time-slot"]');
-      
+
       // Time slots should be touch-friendly
-      const timeSlots = page.locator('[data-testid="time-slot"]:not(.disabled)');
+      const timeSlots = page.locator(
+        '[data-testid="time-slot"]:not(.disabled)'
+      );
       const firstSlot = timeSlots.first();
       const slotBox = await firstSlot.boundingBox();
-      
+
       expect(slotBox?.height).toBeGreaterThanOrEqual(44);
       expect(slotBox?.width).toBeGreaterThan(100);
 
@@ -90,7 +100,7 @@ test.describe("Mobile Booking Experience", () => {
 
       // Step 4: Touch form interactions
       await expect(page.getByLabel(/name/i)).toBeVisible();
-      
+
       // Form inputs should be touch-friendly
       const nameInput = page.locator('[data-testid="booking-name"]');
       const inputBox = await nameInput.boundingBox();
@@ -99,10 +109,12 @@ test.describe("Mobile Booking Experience", () => {
       // Fill form with touch-friendly interactions
       await nameInput.tap();
       await nameInput.fill("Mobile Test User");
-      
+
       await page.locator('[data-testid="booking-email"]').tap();
-      await page.locator('[data-testid="booking-email"]').fill("mobile@test.com");
-      
+      await page
+        .locator('[data-testid="booking-email"]')
+        .fill("mobile@test.com");
+
       await page.locator('[data-testid="booking-phone"]').tap();
       await page.locator('[data-testid="booking-phone"]').fill("+1234567890");
 
@@ -114,7 +126,9 @@ test.describe("Mobile Booking Experience", () => {
       await submitButton.tap();
 
       // Step 5: Verify mobile-optimized confirmation
-      await expect(page.getByRole("heading", { name: /booking.*confirmed/i })).toBeVisible();
+      await expect(
+        page.getByRole("heading", { name: /booking.*confirmed/i })
+      ).toBeVisible();
       await expect(page.getByText("Mobile Test User")).toBeVisible();
     });
 
@@ -131,18 +145,18 @@ test.describe("Mobile Booking Experience", () => {
       // Test month navigation with touch
       const nextButton = page.getByRole("button", { name: /next month/i });
       await nextButton.tap();
-      
+
       // Calendar should update without layout issues
       await expect(page.getByRole("grid")).toBeVisible();
-      
+
       const prevButton = page.getByRole("button", { name: /previous month/i });
       await prevButton.tap();
-      
+
       await expect(page.getByRole("grid")).toBeVisible();
 
       // Test date selection after navigation
-      await page.locator('.rdp-day_available').first().tap();
-      await expect(page.locator('.rdp-day_selected')).toBeVisible();
+      await page.locator(".rdp-day_available").first().tap();
+      await expect(page.locator(".rdp-day_selected")).toBeVisible();
     });
 
     test("shows mobile-optimized error states", async ({ page }) => {
@@ -151,7 +165,7 @@ test.describe("Mobile Booking Experience", () => {
         route.fulfill({
           status: 500,
           contentType: "application/json",
-          body: JSON.stringify({ success: false, error: "Server error" })
+          body: JSON.stringify({ success: false, error: "Server error" }),
         });
       });
 
@@ -159,11 +173,11 @@ test.describe("Mobile Booking Experience", () => {
 
       // Error message should be readable on mobile
       await expect(page.getByText(/unable.*load.*services/i)).toBeVisible();
-      
+
       const errorMessage = page.getByText(/unable.*load.*services/i);
       const messageBox = await errorMessage.boundingBox();
       const viewportSize = page.viewportSize();
-      
+
       // Error text should fit within mobile viewport
       expect(messageBox?.width).toBeLessThan(viewportSize!.width);
 
@@ -173,20 +187,25 @@ test.describe("Mobile Booking Experience", () => {
       expect(retryBox?.height).toBeGreaterThanOrEqual(44);
     });
 
-    test("maintains mobile responsiveness during form validation", async ({ page }) => {
+    test("maintains mobile responsiveness during form validation", async ({
+      page,
+    }) => {
       await page.goto("/book");
 
       // Complete flow to booking form
       await page.waitForSelector('[data-testid="service-card"]');
       await page.locator('[data-testid="service-card"]').first().tap();
       await page.locator('[data-testid="continue-to-date"]').tap();
-      
+
       await page.waitForTimeout(2000);
-      await page.locator('.rdp-day_available').first().tap();
+      await page.locator(".rdp-day_available").first().tap();
       await page.locator('[data-testid="continue-to-time"]').tap();
-      
+
       await page.waitForSelector('[data-testid="time-slot"]');
-      await page.locator('[data-testid="time-slot"]:not(.disabled)').first().tap();
+      await page
+        .locator('[data-testid="time-slot"]:not(.disabled)')
+        .first()
+        .tap();
       await page.locator('[data-testid="continue-to-form"]').tap();
 
       // Try to submit empty form
@@ -200,20 +219,23 @@ test.describe("Mobile Booking Experience", () => {
       const errorText = page.getByText(/name.*required/i);
       const errorBox = await errorText.boundingBox();
       const viewportSize = page.viewportSize();
-      
+
       expect(errorBox?.width).toBeLessThan(viewportSize!.width);
 
       // Form should remain usable after validation errors
       const nameInput = page.locator('[data-testid="booking-name"]');
       await nameInput.tap();
       await nameInput.fill("Test User");
-      
+
       // Input should still be touch-friendly after error state
       const inputBox = await nameInput.boundingBox();
       expect(inputBox?.height).toBeGreaterThanOrEqual(44);
     });
 
-    test("handles mobile orientation changes gracefully", async ({ page, context: _context }) => {
+    test("handles mobile orientation changes gracefully", async ({
+      page,
+      context: _context,
+    }) => {
       // Start in portrait mode (default iPhone 12)
       await page.goto("/book");
 
@@ -228,7 +250,7 @@ test.describe("Mobile Booking Experience", () => {
 
       // Calendar should still be visible and functional
       await expect(page.getByRole("grid")).toBeVisible();
-      
+
       // Calendar should adapt to landscape layout
       const calendar = page.getByRole("grid");
       const calendarBox = await calendar.boundingBox();
@@ -236,27 +258,27 @@ test.describe("Mobile Booking Experience", () => {
 
       // Touch interactions should still work
       await page.waitForTimeout(2000);
-      await page.locator('.rdp-day_available').first().tap();
-      await expect(page.locator('.rdp-day_selected')).toBeVisible();
+      await page.locator(".rdp-day_available").first().tap();
+      await expect(page.locator(".rdp-day_selected")).toBeVisible();
 
       // Return to portrait
       await page.setViewportSize({ width: 390, height: 844 }); // iPhone 12 portrait
 
       // Should maintain functionality
       await expect(page.getByRole("grid")).toBeVisible();
-      await expect(page.locator('.rdp-day_selected')).toBeVisible();
+      await expect(page.locator(".rdp-day_selected")).toBeVisible();
     });
   });
 
   test.describe("Mobile Performance", () => {
     test("loads booking components quickly on mobile", async ({ page }) => {
       const startTime = Date.now();
-      
+
       await page.goto("/book");
       await page.waitForSelector('[data-testid="service-card"]');
-      
+
       const loadTime = Date.now() - startTime;
-      
+
       // Should load within reasonable time for mobile (5 seconds)
       expect(loadTime).toBeLessThan(5000);
 
@@ -267,19 +289,23 @@ test.describe("Mobile Booking Experience", () => {
 
     test("handles touch scroll performance", async ({ page }) => {
       await page.goto("/book");
-      
+
       await page.waitForSelector('[data-testid="service-card"]');
-      
+
       // Simulate touch scroll
       await page.touchscreen.tap(200, 400);
       await page.mouse.wheel(0, 500);
-      
+
       // Page should remain responsive after scroll
       await page.locator('[data-testid="service-card"]').first().tap();
-      await expect(page.locator('[data-testid="service-card"]').first()).toHaveClass(/border-primary/);
+      await expect(
+        page.locator('[data-testid="service-card"]').first()
+      ).toHaveClass(/border-primary/);
     });
 
-    test("maintains performance with multiple calendar interactions", async ({ page }) => {
+    test("maintains performance with multiple calendar interactions", async ({
+      page,
+    }) => {
       await page.goto("/book");
 
       await page.waitForSelector('[data-testid="service-card"]');
@@ -305,8 +331,8 @@ test.describe("Mobile Booking Experience", () => {
 
       // Calendar should still be responsive
       await expect(page.getByRole("grid")).toBeVisible();
-      await page.locator('.rdp-day_available').first().tap();
-      await expect(page.locator('.rdp-day_selected')).toBeVisible();
+      await page.locator(".rdp-day_available").first().tap();
+      await expect(page.locator(".rdp-day_selected")).toBeVisible();
     });
   });
 
@@ -317,16 +343,19 @@ test.describe("Mobile Booking Experience", () => {
       // Service selection should be accessible
       await page.waitForSelector('[data-testid="service-card"]');
       const serviceCard = page.locator('[data-testid="service-card"]').first();
-      
+
       // Should have proper ARIA labels for screen readers
-      await expect(serviceCard.locator('button')).toHaveAttribute("aria-label", /select.*service/i);
+      await expect(serviceCard.locator("button")).toHaveAttribute(
+        "aria-label",
+        /select.*service/i
+      );
 
       await serviceCard.tap();
       await page.locator('[data-testid="continue-to-date"]').tap();
 
       // Calendar should be screen reader accessible
       await expect(page.getByRole("grid")).toBeVisible();
-      
+
       const dayCells = page.getByRole("gridcell");
       await expect(dayCells.first()).toHaveAttribute("aria-label");
     });
@@ -335,13 +364,13 @@ test.describe("Mobile Booking Experience", () => {
       await page.goto("/book");
 
       await page.waitForSelector('[data-testid="service-card"]');
-      
+
       // Focus should be visible when using external keyboard with mobile device
       await page.keyboard.press("Tab");
-      
-      const focusedElement = page.locator(':focus');
+
+      const focusedElement = page.locator(":focus");
       await expect(focusedElement).toBeVisible();
-      
+
       // Focus indicator should be visible against mobile background
       const focusBox = await focusedElement.boundingBox();
       expect(focusBox).toBeTruthy();
@@ -351,14 +380,14 @@ test.describe("Mobile Booking Experience", () => {
       await page.goto("/book");
 
       await page.waitForSelector('[data-testid="service-card"]');
-      
+
       // Touch should provide visual feedback
       const serviceCard = page.locator('[data-testid="service-card"]').first();
-      
+
       // Tap and hold to verify touch feedback
       await page.touchscreen.tap(200, 300);
       await page.waitForTimeout(100);
-      
+
       // Should have appropriate visual state changes
       await serviceCard.tap();
       await expect(serviceCard).toHaveClass(/border-primary/);
@@ -373,37 +402,42 @@ test.describe("Mobile Booking Experience", () => {
       await page.waitForSelector('[data-testid="service-card"]');
       await page.locator('[data-testid="service-card"]').first().tap();
       await page.locator('[data-testid="continue-to-date"]').tap();
-      
+
       await page.waitForTimeout(2000);
-      await page.locator('.rdp-day_available').first().tap();
+      await page.locator(".rdp-day_available").first().tap();
       await page.locator('[data-testid="continue-to-time"]').tap();
-      
+
       await page.waitForSelector('[data-testid="time-slot"]');
-      await page.locator('[data-testid="time-slot"]:not(.disabled)').first().tap();
+      await page
+        .locator('[data-testid="time-slot"]:not(.disabled)')
+        .first()
+        .tap();
       await page.locator('[data-testid="continue-to-form"]').tap();
 
       // Mobile keyboard should appear for text inputs
       const nameInput = page.locator('[data-testid="booking-name"]');
       await nameInput.tap();
-      
+
       // Input should be focused and keyboard should trigger
       await expect(nameInput).toBeFocused();
-      
+
       await nameInput.fill("Mobile User");
-      
+
       // Email input should trigger email keyboard on mobile
       const emailInput = page.locator('[data-testid="booking-email"]');
       await emailInput.tap();
       await emailInput.fill("mobile@test.com");
-      
+
       // Phone input should trigger numeric keyboard
       const phoneInput = page.locator('[data-testid="booking-phone"]');
       await phoneInput.tap();
       await phoneInput.fill("+1234567890");
-      
+
       // Form should be submittable
       await page.locator('[data-testid="submit-booking"]').tap();
-      await expect(page.getByRole("heading", { name: /booking.*confirmed/i })).toBeVisible();
+      await expect(
+        page.getByRole("heading", { name: /booking.*confirmed/i })
+      ).toBeVisible();
     });
 
     test("handles mobile form validation feedback", async ({ page }) => {
@@ -413,22 +447,25 @@ test.describe("Mobile Booking Experience", () => {
       await page.waitForSelector('[data-testid="service-card"]');
       await page.locator('[data-testid="service-card"]').first().tap();
       await page.locator('[data-testid="continue-to-date"]').tap();
-      
+
       await page.waitForTimeout(2000);
-      await page.locator('.rdp-day_available').first().tap();
+      await page.locator(".rdp-day_available").first().tap();
       await page.locator('[data-testid="continue-to-time"]').tap();
-      
+
       await page.waitForSelector('[data-testid="time-slot"]');
-      await page.locator('[data-testid="time-slot"]:not(.disabled)').first().tap();
+      await page
+        .locator('[data-testid="time-slot"]:not(.disabled)')
+        .first()
+        .tap();
       await page.locator('[data-testid="continue-to-form"]').tap();
 
       // Enter invalid data
       await page.locator('[data-testid="booking-name"]').tap();
       await page.locator('[data-testid="booking-name"]').fill("A"); // Too short
-      
+
       await page.locator('[data-testid="booking-email"]').tap();
       await page.locator('[data-testid="booking-email"]').fill("invalid"); // Invalid email
-      
+
       await page.locator('[data-testid="submit-booking"]').tap();
 
       // Validation errors should be clearly visible on mobile
@@ -439,7 +476,7 @@ test.describe("Mobile Booking Experience", () => {
       const viewportSize = page.viewportSize();
       const errorMessage = page.getByText(/valid.*email/i);
       const errorBox = await errorMessage.boundingBox();
-      
+
       expect(errorBox?.width).toBeLessThan(viewportSize!.width);
       expect(errorBox?.x).toBeGreaterThanOrEqual(0);
     });

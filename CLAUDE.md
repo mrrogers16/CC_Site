@@ -42,6 +42,174 @@ This is a professional counseling practice website built with Next.js 15+ App Ro
 - `npm run db:studio` - Open Prisma Studio
 - `npm run db:seed` - Seed database with initial data
 
+## MANDATORY CODE QUALITY PREVENTION PATTERNS
+
+### TypeScript Strict Mode Compliance (REQUIRED FOR ALL CODE)
+
+#### Before Writing ANY Code - Use These Patterns:
+
+**1. Optional Properties with exactOptionalPropertyTypes:**
+```typescript
+interface FormData {
+  name: string;
+  phone?: string;  // Optional
+  notes?: string;  // Optional
+}
+
+// ✅ CORRECT - Conditional inclusion for optional properties:
+const data = {
+  name: "John",
+  ...(phone && { phone }),    // Only include if truthy
+  ...(notes && { notes })     // Only include if truthy
+};
+
+// ❌ NEVER DO THIS - Will cause TypeScript errors:
+const data = { 
+  name: "John",
+  phone: maybePhone,  // ERROR: string | undefined not assignable to string
+  notes: maybeNotes   // ERROR: string | undefined not assignable to string  
+};
+```
+
+**2. Null Safety Patterns (MANDATORY):**
+```typescript
+// ✅ ALWAYS check for undefined/null before property access:
+if (!result) return;
+if (!result?.property) return;
+
+// Use optional chaining:
+const value = object?.property?.subProperty;
+
+// Use nullish coalescing:
+const finalValue = value ?? defaultValue;
+
+// ❌ NEVER assume objects exist:
+result.property; // ERROR if result might be undefined
+```
+
+**3. Variable Naming (MANDATORY):**
+```typescript
+// ✅ Unused variables MUST start with underscore:
+const _unusedVariable = someFunction();
+const { data, error: _error } = useQuery(); // If error not used
+
+// ❌ NEVER leave unused variables without underscore:
+const unusedVariable = someFunction(); // ERROR: no-unused-vars
+```
+
+### Jest/Testing Patterns (MANDATORY FOR ALL TESTS)
+
+**1. Prisma Mocking Pattern:**
+```typescript
+// ✅ ALWAYS use this exact pattern for Prisma mocks:
+import { jest } from '@jest/globals';
+
+// Create properly typed mock:
+const mockPrisma = {
+  service: {
+    findUnique: jest.fn(),
+    create: jest.fn(),
+    findMany: jest.fn(),
+  },
+  appointment: {
+    findFirst: jest.fn(),
+    create: jest.fn(),
+    findMany: jest.fn(),
+  },
+} as jest.Mocked<typeof prisma>;
+
+// In tests:
+mockPrisma.service.findUnique.mockResolvedValue(mockData);
+
+// ❌ NEVER do this:
+prisma.service.findUnique.mockResolvedValue(mockData); // ERROR: Property doesn't exist
+```
+
+**2. DOM Element Testing:**
+```typescript
+// ✅ ALWAYS check for null when querying DOM:
+const button = screen.queryByRole('button', { name: /submit/i });
+if (!button) throw new Error('Button not found');
+await user.click(button);
+
+// OR use getBy (which throws if not found):
+const button = screen.getByRole('button', { name: /submit/i });
+await user.click(button);
+
+// ❌ NEVER assume elements exist:
+const button = screen.queryByRole('button');
+await user.click(button); // ERROR: button might be null
+```
+
+**3. Zod Error Handling:**
+```typescript
+// ✅ ALWAYS use 'issues' not 'errors':
+try {
+  schema.parse(data);
+} catch (error) {
+  if (error instanceof ZodError) {
+    const message = error.issues[0].message; // ✅ CORRECT
+    // ❌ NEVER: error.errors[0].message // Property doesn't exist
+  }
+}
+```
+
+### Playwright E2E Patterns (MANDATORY):
+
+```typescript
+// ✅ ALWAYS use correct Playwright API methods:
+await page.getByLabel('Email'); // CORRECT
+await page.getByRole('button', { name: 'Submit' }); // CORRECT
+await expect(locator).toHaveCount({ min: 1 }); // CORRECT
+
+// ❌ NEVER use these (don't exist):
+await page.getByLabelText('Email'); // ERROR: Method doesn't exist
+await expect(locator).toHaveCount().greaterThan(0); // ERROR: Chain doesn't exist
+```
+
+### DayPicker Configuration (MANDATORY):
+
+```typescript
+// ✅ ALWAYS use function props for labels:
+<DayPicker
+  labels={{
+    labelPrevious: () => "Previous month",
+    labelNext: () => "Next month"
+  }}
+  disabled={(date) => isWeekend(date)} // Function for disabled
+  // ❌ NEVER: disabled={disabledDates} // Array assigned to boolean
+/>
+```
+
+## BEFORE COMMITTING CHECKLIST (MANDATORY)
+
+**Run these commands in EXACT order and fix ALL issues before committing:**
+
+```bash
+# 1. Format code (fixes formatting issues)
+npm run format
+
+# 2. Verify formatting 
+npm run format:check
+
+# 3. Fix linting issues automatically
+npm run lint:fix
+
+# 4. Check remaining linting issues (should be 0 errors, warnings OK)
+npm run lint
+
+# 5. Type check (MUST be 0 errors)
+npm run typecheck
+
+# 6. Run tests (MUST pass)
+npm run test
+
+# 7. Build check (MUST succeed)
+npm run build
+```
+
+**⚠️ If ANY command fails, FIX the issues before proceeding. NO EXCEPTIONS.**
+
 ## Architecture
 
 ### Core Technologies
@@ -147,12 +315,12 @@ src/
     └── prisma/           # Generated Prisma client
 ```
 
-## Development Patterns
+## MANDATORY DEVELOPMENT PATTERNS
 
 ### Component Architecture
 
 ```typescript
-// Standard component structure
+// ✅ ALWAYS use this exact section structure:
 export function ComponentName() {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
@@ -167,40 +335,45 @@ export function ComponentName() {
 ### Form Handling
 
 ```typescript
-// Zod validation schema
+// ✅ ALWAYS use this exact pattern:
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
   email: z.string().email("Please enter a valid email address"),
 });
 
-// React Hook Form integration
+// React Hook Form integration with real-time validation:
 const form = useForm<FormData>({
   resolver: zodResolver(schema),
-  mode: "onChange",
+  mode: "onChange", // REQUIRED for real-time validation
 });
 ```
 
 ### API Routes
 
 ```typescript
-// Using error handler wrapper
+// ✅ ALWAYS follow this exact pattern:
 import { withErrorHandler } from "@/lib/api/error-handler";
 
 export const POST = withErrorHandler(async (request: NextRequest) => {
+  // 1. Parse and validate input
   const data = await request.json();
   const validated = schema.parse(data);
 
+  // 2. Business logic with proper error handling
   const result = await prisma.model.create({ data: validated });
   logger.info("Created resource", { id: result.id });
 
+  // 3. Return structured response
   return NextResponse.json({ success: true, data: result });
 });
+
+// ❌ NEVER create raw API routes without error handling
 ```
 
 ### Error Handling
 
 ```typescript
-// Custom error classes
+// ✅ Custom error classes
 import { AppError, ValidationError, NotFoundError } from "@/lib/errors";
 
 // Usage
@@ -213,7 +386,7 @@ throw new NotFoundError("Appointment");
 ```typescript
 import { prisma } from "@/lib/db";
 
-// Standard query pattern
+// ✅ Standard query pattern with proper includes
 const users = await prisma.user.findMany({
   include: { appointments: true },
 });
@@ -279,22 +452,26 @@ test("handles email availability checking", async () => {
 });
 ```
 
-## Code Quality Guidelines
+## TESTING REQUIREMENTS (MANDATORY)
 
-### Before Committing Checklist
+### Every Component Must Have:
+1. **Unit tests** with proper DOM null checks using patterns above
+2. **Accessibility tests** with ARIA validation  
+3. **TypeScript compliance** with strict mode patterns
+4. **Mock patterns** following established Jest standards
 
-1. **Format Code**: `npm run format`
-2. **Lint Code**: `npm run lint:fix`
-3. **Type Check**: `npm run typecheck`
-4. **Test**: `npm run test:coverage`
-5. **Build**: `npm run build`
+### Every API Route Must Have:
+1. **Unit tests** with proper Prisma mocking using patterns above
+2. **Validation tests** for all input scenarios
+3. **Error handling tests** for edge cases
+4. **Integration tests** with database
 
-### Key Rules
+## Key Rules
 
 - **Entity Escaping**: Use `&apos;`, `&quot;`, `&amp;` in JSX
 - **Self-Closing Tags**: `<div />` not `<div></div>` for empty elements
 - **Unused Variables**: Prefix with `_` or remove
-- **TypeScript**: Avoid `any` types, use proper typing
+- **TypeScript**: Follow strict mode patterns above, avoid `any` types
 - **React Hooks**: Include all dependencies in arrays
 
 ## Implementation Notes
@@ -352,7 +529,7 @@ EMAIL_SERVER_HOST="smtp.gmail.com"
 
 1. Update relevant documentation
 2. Add TODO comments for incomplete work
-3. Run full code quality checklist
+3. **RUN FULL CODE QUALITY CHECKLIST** (mandatory)
 4. Update PROJECT_STATUS.md if needed
 
 ### Communication Protocol
@@ -370,14 +547,14 @@ Follow this pattern:
 2. **Validation**: Create Zod schemas in `/lib/validations/`
 3. **Database**: Update Prisma schema, run `npm run db:generate`
 4. **API**: Create routes with `withErrorHandler`
-5. **Components**: Follow established patterns
-6. **Testing**: Add unit and E2E tests
+5. **Components**: Follow established patterns above
+6. **Testing**: Add unit and E2E tests using mandatory patterns
 7. **Documentation**: Update this file
 
 ### Component Creation Pattern
 
 ```typescript
-// Use consistent section structure
+// ✅ Use consistent section structure
 export function NewComponent() {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
@@ -397,29 +574,29 @@ export function NewComponent() {
 }
 ```
 
+## CONSEQUENCES OF NOT FOLLOWING PATTERNS
+
+**If code doesn't follow these mandatory patterns:**
+- ❌ CI/CD pipeline will fail
+- ❌ TypeScript errors will block development  
+- ❌ Tests will be unreliable
+- ❌ Code review will be rejected
+- ❌ Professional healthcare technology standards compromised
+
+**These patterns are NON-NEGOTIABLE for professional healthcare technology.**
+
+---
+
+## SUMMARY: Prevention > Fixing
+
+Instead of fixing recurring issues:
+1. **Follow these mandatory patterns from the start**
+2. **Run the checklist before every commit**  
+3. **Never skip TypeScript compliance**
+4. **Always test with proper mocking patterns**
+
+**Result: Clean, maintainable, professional-grade code from day one.**
+
 ---
 
 **Important**: This is a professional counseling practice website. Maintain healthcare technology standards, ensure accessibility compliance, and preserve the calming, trustworthy design aesthetic.
-
-### Before Committing Checklist
-
-Run these commands and fix any issues before committing:
-
-1. **Code Formatting**: `npm run format`
-   - Automatically fixes all formatting issues across the codebase
-   - MUST be run first to ensure clean diffs and avoid CI/CD pipeline failures
-2. **Verify Formatting**: `npm run format:check`
-   - Verify formatting compliance after running format command
-3. **Linting**: `npm run lint:fix`
-   - Should return **0 errors** (warnings are acceptable if properly justified)
-   - Handles code quality issues after formatting is complete
-4. **Type Checking**: `npm run typecheck`
-   - Must pass with no TypeScript errors
-   - Ensures strict mode compliance for professional healthcare standards
-5. **Testing**: `npm run test:coverage`
-   - All critical unit tests must pass (API routes, validations, utilities)
-   - Target: 60%+ coverage (realistic threshold based on project analysis)
-   - Integration test failures acceptable if non-critical functionality
-6. **Build Verification**: `npm run build`
-   - Production build must complete successfully (skip if Windows permission issues)
-   - Ensures deployment readiness

@@ -84,7 +84,9 @@ describe("Complete Booking Flow Integration", () => {
       expect(Array.isArray(availabilityData.slots)).toBe(true);
 
       // Find an available slot
-      const availableSlots = availabilityData.slots.filter((slot: any) => slot.available);
+      const availableSlots = availabilityData.slots.filter(
+        (slot: any) => slot.available
+      );
       expect(availableSlots.length).toBeGreaterThan(0);
 
       const selectedSlot = availableSlots[0];
@@ -101,13 +103,16 @@ describe("Complete Booking Flow Integration", () => {
         },
       };
 
-      const bookingRequest = new NextRequest("http://localhost:3000/api/appointments/book", {
-        method: "POST",
-        body: JSON.stringify(bookingData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const bookingRequest = new NextRequest(
+        "http://localhost:3000/api/appointments/book",
+        {
+          method: "POST",
+          body: JSON.stringify(bookingData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const bookingResponse = await BookingPost(bookingRequest);
       const bookingResult = await bookingResponse.json();
@@ -143,18 +148,25 @@ describe("Complete Booking Flow Integration", () => {
       expect(createdAppointment).toBeTruthy();
       expect(createdAppointment?.status).toBe("PENDING");
       expect(createdAppointment?.notes).toBe("Integration test booking");
-      expect(createdAppointment?.service.title).toBe("Integration Test Counseling");
+      expect(createdAppointment?.service.title).toBe(
+        "Integration Test Counseling"
+      );
 
       // Step 6: Verify that the slot is now unavailable
       const postBookingAvailabilityRequest = new NextRequest(
         `http://localhost:3000/api/appointments/available?date=${dateString}&serviceId=test-service-1`
       );
-      const postBookingAvailabilityResponse = await AvailableGet(postBookingAvailabilityRequest);
-      const postBookingAvailabilityData = await postBookingAvailabilityResponse.json();
-
-      const postBookingAvailableSlots = postBookingAvailabilityData.slots.filter(
-        (slot: any) => slot.available && slot.dateTime === selectedSlot.dateTime
+      const postBookingAvailabilityResponse = await AvailableGet(
+        postBookingAvailabilityRequest
       );
+      const postBookingAvailabilityData =
+        await postBookingAvailabilityResponse.json();
+
+      const postBookingAvailableSlots =
+        postBookingAvailabilityData.slots.filter(
+          (slot: any) =>
+            slot.available && slot.dateTime === selectedSlot.dateTime
+        );
 
       expect(postBookingAvailableSlots).toHaveLength(0);
     });
@@ -199,10 +211,13 @@ describe("Complete Booking Flow Integration", () => {
         },
       };
 
-      const bookingRequest = new NextRequest("http://localhost:3000/api/appointments/book", {
-        method: "POST",
-        body: JSON.stringify(bookingData),
-      });
+      const bookingRequest = new NextRequest(
+        "http://localhost:3000/api/appointments/book",
+        {
+          method: "POST",
+          body: JSON.stringify(bookingData),
+        }
+      );
 
       const bookingResponse = await BookingPost(bookingRequest);
       const bookingResult = await bookingResponse.json();
@@ -258,10 +273,13 @@ describe("Complete Booking Flow Integration", () => {
         },
       };
 
-      const firstBookingRequest = new NextRequest("http://localhost:3000/api/appointments/book", {
-        method: "POST",
-        body: JSON.stringify(firstBookingData),
-      });
+      const firstBookingRequest = new NextRequest(
+        "http://localhost:3000/api/appointments/book",
+        {
+          method: "POST",
+          body: JSON.stringify(firstBookingData),
+        }
+      );
 
       const firstBookingResponse = await BookingPost(firstBookingRequest);
       const firstBookingResult = await firstBookingResponse.json();
@@ -280,10 +298,13 @@ describe("Complete Booking Flow Integration", () => {
         },
       };
 
-      const secondBookingRequest = new NextRequest("http://localhost:3000/api/appointments/book", {
-        method: "POST",
-        body: JSON.stringify(secondBookingData),
-      });
+      const secondBookingRequest = new NextRequest(
+        "http://localhost:3000/api/appointments/book",
+        {
+          method: "POST",
+          body: JSON.stringify(secondBookingData),
+        }
+      );
 
       const secondBookingResponse = await BookingPost(secondBookingRequest);
       const secondBookingResult = await secondBookingResponse.json();
@@ -347,10 +368,13 @@ describe("Complete Booking Flow Integration", () => {
         },
       };
 
-      const bookingRequest = new NextRequest("http://localhost:3000/api/appointments/book", {
-        method: "POST",
-        body: JSON.stringify(bookingData),
-      });
+      const bookingRequest = new NextRequest(
+        "http://localhost:3000/api/appointments/book",
+        {
+          method: "POST",
+          body: JSON.stringify(bookingData),
+        }
+      );
 
       const bookingResponse = await BookingPost(bookingRequest);
       const bookingResult = await bookingResponse.json();
@@ -377,16 +401,16 @@ describe("Complete Booking Flow Integration", () => {
       // Step 2: Check availability outside business hours
       const testDate = new Date();
       testDate.setDate(testDate.getDate() + 2);
-      
+
       // Test very early morning (before business hours)
       const earlyMorning = new Date(testDate);
       earlyMorning.setHours(6, 0, 0, 0);
-      
+
       const earlyDateString = earlyMorning.toISOString().split("T")[0];
       const availabilityRequest = new NextRequest(
         `http://localhost:3000/api/appointments/available?date=${earlyDateString}&serviceId=test-service-hours`
       );
-      
+
       const availabilityResponse = await AvailableGet(availabilityRequest);
       const availabilityData = await availabilityResponse.json();
 
@@ -407,10 +431,13 @@ describe("Complete Booking Flow Integration", () => {
         },
       };
 
-      const bookingRequest = new NextRequest("http://localhost:3000/api/appointments/book", {
-        method: "POST",
-        body: JSON.stringify(bookingData),
-      });
+      const bookingRequest = new NextRequest(
+        "http://localhost:3000/api/appointments/book",
+        {
+          method: "POST",
+          body: JSON.stringify(bookingData),
+        }
+      );
 
       const bookingResponse = await BookingPost(bookingRequest);
       expect(bookingResponse.status).toBe(400);
@@ -436,7 +463,7 @@ describe("Complete Booking Flow Integration", () => {
 
       // Step 2: Create multiple concurrent booking requests
       const bookingPromises = [];
-      
+
       for (let i = 0; i < 3; i++) {
         const bookingData = {
           serviceId: "test-service-concurrent",
@@ -448,23 +475,26 @@ describe("Complete Booking Flow Integration", () => {
           },
         };
 
-        const bookingRequest = new NextRequest("http://localhost:3000/api/appointments/book", {
-          method: "POST",
-          body: JSON.stringify(bookingData),
-        });
+        const bookingRequest = new NextRequest(
+          "http://localhost:3000/api/appointments/book",
+          {
+            method: "POST",
+            body: JSON.stringify(bookingData),
+          }
+        );
 
         bookingPromises.push(BookingPost(bookingRequest));
       }
 
       // Step 3: Execute all requests simultaneously
       const responses = await Promise.all(bookingPromises);
-      
+
       // Step 4: Verify only one succeeded
       const successfulResponses = responses.filter(
-        async (response) => response.status === 201
+        async response => response.status === 201
       );
       const failedResponses = responses.filter(
-        async (response) => response.status !== 201
+        async response => response.status !== 201
       );
 
       expect(successfulResponses).toHaveLength(1);
@@ -513,10 +543,13 @@ describe("Complete Booking Flow Integration", () => {
         },
       };
 
-      const bookingRequest = new NextRequest("http://localhost:3000/api/appointments/book", {
-        method: "POST",
-        body: JSON.stringify(bookingData),
-      });
+      const bookingRequest = new NextRequest(
+        "http://localhost:3000/api/appointments/book",
+        {
+          method: "POST",
+          body: JSON.stringify(bookingData),
+        }
+      );
 
       const response = await BookingPost(bookingRequest);
       expect(response.status).toBe(201);

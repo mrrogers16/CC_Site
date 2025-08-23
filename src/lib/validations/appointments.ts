@@ -96,7 +96,12 @@ export const availabilitySchema = z
       const [startHour, startMinute] = data.startTime.split(":").map(Number);
       const [endHour, endMinute] = data.endTime.split(":").map(Number);
 
-      if (startHour === undefined || startMinute === undefined || endHour === undefined || endMinute === undefined) {
+      if (
+        startHour === undefined ||
+        startMinute === undefined ||
+        endHour === undefined ||
+        endMinute === undefined
+      ) {
         return false;
       }
 

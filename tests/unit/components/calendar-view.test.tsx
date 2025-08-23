@@ -24,21 +24,21 @@ global.fetch = jest.fn();
 jest.mock("react-day-picker", () => ({
   DayPicker: ({ onSelect, selected }: any) => (
     <div role="grid" data-testid="mocked-calendar">
-      <button 
+      <button
         onClick={() => onSelect && onSelect(new Date("2025-08-25"))}
         className="rdp-day_available"
         aria-label="Go to previous month"
       >
         Previous
       </button>
-      <button 
+      <button
         onClick={() => onSelect && onSelect(new Date("2025-08-25"))}
         className="rdp-day_available"
         aria-label="Go to next month"
       >
         Next
       </button>
-      <button 
+      <button
         role="gridcell"
         aria-label="25"
         onClick={() => onSelect && onSelect(new Date("2025-08-25"))}
@@ -104,7 +104,7 @@ describe("CalendarView", () => {
 
     expect(screen.getByText("Select a Date")).toBeInTheDocument();
     expect(screen.getByText("Loading available dates...")).toBeInTheDocument();
-    
+
     // Check for loading skeleton
     expect(screen.getByTestId("calendar-loading")).toBeInTheDocument();
   });
@@ -119,7 +119,9 @@ describe("CalendarView", () => {
     );
 
     await waitFor(() => {
-      expect(screen.queryByText("Loading available dates...")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Loading available dates...")
+      ).not.toBeInTheDocument();
     });
 
     // Calendar should be visible
@@ -145,7 +147,7 @@ describe("CalendarView", () => {
     expect(fetchCalls.length).toBeGreaterThan(0);
 
     // Verify API calls include service ID and exclude weekends
-    fetchCalls.forEach((call) => {
+    fetchCalls.forEach(call => {
       const url = call[0];
       expect(url).toContain(`serviceId=${mockService.id}`);
       expect(url).toMatch(/date=\d{4}-\d{2}-\d{2}/);
@@ -175,7 +177,7 @@ describe("CalendarView", () => {
 
   it("prevents selection of disabled dates", async () => {
     const user = userEvent.setup();
-    
+
     // Mock no available slots
     (fetch as jest.Mock).mockResolvedValue({
       ok: true,
@@ -204,7 +206,7 @@ describe("CalendarView", () => {
 
   it("shows selected date with proper styling", async () => {
     const selectedDate = new Date("2025-08-25");
-    
+
     render(
       <CalendarView
         selectedService={mockService}
@@ -239,14 +241,14 @@ describe("CalendarView", () => {
     // Check for navigation buttons with accessible labels
     const prevButton = screen.getByLabelText("Go to previous month");
     const nextButton = screen.getByLabelText("Go to next month");
-    
+
     expect(prevButton).toBeInTheDocument();
     expect(nextButton).toBeInTheDocument();
   });
 
   it("handles navigation button clicks", async () => {
     const user = userEvent.setup();
-    
+
     render(
       <CalendarView
         selectedService={mockService}
@@ -269,7 +271,7 @@ describe("CalendarView", () => {
 
   it("displays back button and handles click", async () => {
     const user = userEvent.setup();
-    
+
     render(
       <CalendarView
         selectedService={mockService}
@@ -278,7 +280,9 @@ describe("CalendarView", () => {
       />
     );
 
-    const backButton = screen.getByRole("button", { name: /Back to Services/i });
+    const backButton = screen.getByRole("button", {
+      name: /Back to Services/i,
+    });
     expect(backButton).toBeInTheDocument();
 
     await user.click(backButton);
@@ -300,13 +304,17 @@ describe("CalendarView", () => {
       expect(screen.getByText("Unable to Load Calendar")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("Failed to load available dates. Please try again.")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Try Again/i })).toBeInTheDocument();
+    expect(
+      screen.getByText("Failed to load available dates. Please try again.")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Try Again/i })
+    ).toBeInTheDocument();
   });
 
   it("handles retry after error", async () => {
     const user = userEvent.setup();
-    
+
     // Mock window.location.reload
     const mockReload = jest.fn();
     Object.defineProperty(window, "location", {
@@ -391,8 +399,12 @@ describe("CalendarView", () => {
     });
 
     // Check for business rules display
-    expect(screen.getByText(/Appointments must be booked at least/)).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(BUSINESS_RULES.MIN_ADVANCE_HOURS.toString()))).toBeInTheDocument();
+    expect(
+      screen.getByText(/Appointments must be booked at least/)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(new RegExp(BUSINESS_RULES.MIN_ADVANCE_HOURS.toString()))
+    ).toBeInTheDocument();
   });
 
   it("respects date boundaries", async () => {
@@ -410,8 +422,10 @@ describe("CalendarView", () => {
 
     // Calendar should not show dates outside the booking window
     const today = new Date();
-    const _maxDate = new Date(today.getTime() + BUSINESS_RULES.MAX_ADVANCE_DAYS * 24 * 60 * 60 * 1000);
-    
+    const _maxDate = new Date(
+      today.getTime() + BUSINESS_RULES.MAX_ADVANCE_DAYS * 24 * 60 * 60 * 1000
+    );
+
     // This test verifies the calendar respects fromDate and toDate props
     expect(screen.getByRole("grid")).toBeInTheDocument();
   });
@@ -431,18 +445,20 @@ describe("CalendarView", () => {
 
     // Check calendar has proper grid role
     expect(screen.getByRole("grid")).toBeInTheDocument();
-    
+
     // Check navigation buttons have labels
     expect(screen.getByLabelText("Go to previous month")).toBeInTheDocument();
     expect(screen.getByLabelText("Go to next month")).toBeInTheDocument();
-    
+
     // Check back button is accessible
-    expect(screen.getByRole("button", { name: /Back to Services/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Back to Services/i })
+    ).toBeInTheDocument();
   });
 
   it("handles keyboard navigation", async () => {
     const user = userEvent.setup();
-    
+
     render(
       <CalendarView
         selectedService={mockService}
@@ -458,11 +474,11 @@ describe("CalendarView", () => {
     // Test keyboard navigation on calendar
     const calendar = screen.getByRole("grid");
     calendar.focus();
-    
+
     // Use arrow keys to navigate
     await user.keyboard("{ArrowRight}");
     await user.keyboard("{Enter}");
-    
+
     // Should trigger date selection if date is available
     // Note: This test depends on the specific date and availability
   });
@@ -481,7 +497,9 @@ describe("CalendarView", () => {
     });
 
     // Check for theme classes
-    const backButton = screen.getByRole("button", { name: /Back to Services/i });
+    const backButton = screen.getByRole("button", {
+      name: /Back to Services/i,
+    });
     expect(backButton).toHaveClass("text-primary");
   });
 
@@ -495,6 +513,10 @@ describe("CalendarView", () => {
     );
 
     expect(screen.getByText("Select a Date")).toBeInTheDocument();
-    expect(screen.getByText(/Choose an available date for your Individual Counseling session/)).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Choose an available date for your Individual Counseling session/
+      )
+    ).toBeInTheDocument();
   });
 });

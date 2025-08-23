@@ -1,4 +1,4 @@
-import type { PrismaClient } from '@prisma/client';
+import type { PrismaClient } from "@prisma/client";
 
 /**
  * Create a properly typed mock Prisma client for testing
@@ -190,10 +190,12 @@ export const createMockPrisma = (): jest.Mocked<PrismaClient> => {
 /**
  * Reset all mock functions for clean test isolation
  */
-export const resetMockPrisma = (mockPrisma: jest.Mocked<PrismaClient>): void => {
-  Object.values(mockPrisma).forEach((model) => {
-    if (typeof model === 'object' && model !== null) {
-      Object.values(model).forEach((method) => {
+export const resetMockPrisma = (
+  mockPrisma: jest.Mocked<PrismaClient>
+): void => {
+  Object.values(mockPrisma).forEach(model => {
+    if (typeof model === "object" && model !== null) {
+      Object.values(model).forEach(method => {
         if (jest.isMockFunction(method)) {
           method.mockReset();
         }

@@ -167,7 +167,10 @@ export default function CalendarView({
             ← Back to Services
           </button>
         </div>
-        <div className="bg-background border border-border rounded-lg p-8" data-testid="calendar-loading">
+        <div
+          className="bg-background border border-border rounded-lg p-8"
+          data-testid="calendar-loading"
+        >
           <div className="animate-pulse space-y-4">
             <div className="h-8 bg-muted rounded w-48 mx-auto" />
             <div className="grid grid-cols-7 gap-2">
