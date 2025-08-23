@@ -86,7 +86,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe("Invalid service ID");
+        expect(result.error.issues[0]?.message).toBe("Invalid service ID");
       }
     });
 
@@ -100,7 +100,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           `Appointments must be booked at least ${BUSINESS_RULES.MIN_ADVANCE_HOURS} hours in advance`
         );
       }
@@ -116,7 +116,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           `Appointments cannot be booked more than ${BUSINESS_RULES.MAX_ADVANCE_DAYS} days in advance`
         );
       }
@@ -132,7 +132,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           "Notes cannot exceed 500 characters"
         );
       }
@@ -178,7 +178,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           "Date cannot be in the past"
         );
       }
@@ -266,7 +266,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           "Notes cannot exceed 500 characters"
         );
       }
@@ -281,7 +281,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           "Cancellation reason cannot exceed 200 characters"
         );
       }
@@ -333,7 +333,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe("Day of week must be 0-6");
+        expect(result.error.issues[0]?.message).toBe("Day of week must be 0-6");
       }
     });
 
@@ -347,7 +347,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           "Time must be in HH:MM format"
         );
       }
@@ -364,10 +364,10 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           "End time must be after start time"
         );
-        expect(result.error.errors[0].path).toEqual(["endTime"]);
+        expect(result.error.issues[0]?.path).toEqual(["endTime"]);
       }
     });
 
@@ -382,7 +382,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           "End time must be after start time"
         );
       }
@@ -431,7 +431,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           `Duration must be at least ${BUSINESS_RULES.MIN_DURATION} minutes`
         );
       }
@@ -447,7 +447,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           `Duration cannot exceed ${BUSINESS_RULES.MAX_DURATION} minutes`
         );
       }
@@ -463,7 +463,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           "Reason cannot exceed 200 characters"
         );
       }
@@ -525,7 +525,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           `Appointments must be booked at least ${BUSINESS_RULES.MIN_ADVANCE_HOURS} hours in advance`
         );
       }
@@ -541,7 +541,7 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0].message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           "Reason cannot exceed 200 characters"
         );
       }

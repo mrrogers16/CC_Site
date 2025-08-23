@@ -68,8 +68,8 @@ export default function BookingForm({
       const clientDetails = {
         name: data.name.trim(),
         email: data.email.trim(),
-        phone: data.phone?.trim() || undefined,
-        notes: data.notes?.trim() || undefined,
+        ...(data.phone?.trim() && { phone: data.phone.trim() }),
+        ...(data.notes?.trim() && { notes: data.notes.trim() }),
       };
 
       logger.info("Client details submitted for booking", {

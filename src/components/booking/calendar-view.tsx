@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { DayPicker } from "react-day-picker";
-import type { Modifiers } from "react-day-picker";
+// DateRange type not used in this component currently
 import { BUSINESS_RULES } from "@/lib/validations/appointments";
 import "react-day-picker/style.css";
 import "@/styles/calendar.css";
@@ -123,7 +123,7 @@ export default function CalendarView({
     }
   };
 
-  const modifiers: Modifiers = {
+  const modifiers = {
     available: availableDates,
     weekend: (date: Date) => date.getDay() === 0 || date.getDay() === 6,
   };

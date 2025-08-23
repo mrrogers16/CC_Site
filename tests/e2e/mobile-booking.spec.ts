@@ -89,7 +89,7 @@ test.describe("Mobile Booking Experience", () => {
       await page.locator('[data-testid="continue-to-form"]').tap();
 
       // Step 4: Touch form interactions
-      await expect(page.getByLabelText(/name/i)).toBeVisible();
+      await expect(page.getByLabel(/name/i)).toBeVisible();
       
       // Form inputs should be touch-friendly
       const nameInput = page.locator('[data-testid="booking-name"]');
@@ -213,7 +213,7 @@ test.describe("Mobile Booking Experience", () => {
       expect(inputBox?.height).toBeGreaterThanOrEqual(44);
     });
 
-    test("handles mobile orientation changes gracefully", async ({ page, context }) => {
+    test("handles mobile orientation changes gracefully", async ({ page, context: _context }) => {
       // Start in portrait mode (default iPhone 12)
       await page.goto("/book");
 
@@ -441,7 +441,7 @@ test.describe("Mobile Booking Experience", () => {
       const errorBox = await errorMessage.boundingBox();
       
       expect(errorBox?.width).toBeLessThan(viewportSize!.width);
-      expect(errorBox?.left).toBeGreaterThanOrEqual(0);
+      expect(errorBox?.x).toBeGreaterThanOrEqual(0);
     });
   });
 });

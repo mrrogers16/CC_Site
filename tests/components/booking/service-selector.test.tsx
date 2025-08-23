@@ -118,7 +118,8 @@ describe("ServiceSelector", () => {
     const serviceCard = screen
       .getByText("Individual Counseling")
       .closest("div");
-    await user.click(serviceCard!);
+    if (!serviceCard) throw new Error("Service card not found");
+    await user.click(serviceCard);
 
     expect(mockOnServiceSelect).toHaveBeenCalledWith({
       id: "service-1",
@@ -138,6 +139,7 @@ describe("ServiceSelector", () => {
 
     // Click on the select button
     const selectButton = screen.getAllByText("Select Service")[0];
+    if (!selectButton) throw new Error("Select button not found");
     await user.click(selectButton);
 
     expect(mockOnServiceSelect).toHaveBeenCalledWith({
@@ -170,14 +172,11 @@ describe("ServiceSelector", () => {
 
     // Check that the selected service has proper styling
     const selectedCard = screen.getByText("Couples Therapy").closest("div");
-    expect(selectedCard).toHaveClass(
-      "border-primary",
-      "ring-2",
-      "ring-primary/20"
-    );
+    if (!selectedCard) throw new Error("Selected card not found");
+    expect(selectedCard).toHaveClass("border-primary ring-2 ring-primary/20");
 
     // Check for checkmark icon
-    const checkmark = selectedCard?.querySelector("svg");
+    const checkmark = selectedCard.querySelector("svg");
     expect(checkmark).toBeInTheDocument();
 
     // Check button text changes to "Selected"
@@ -277,8 +276,9 @@ describe("ServiceSelector", () => {
     // Check for checkmark icons next to features
     const featureItems = screen
       .getAllByText("Personalized treatment plan")[0]
-      .closest("li");
-    const checkmarkIcon = featureItems?.querySelector("svg");
+      ?.closest("li");
+    if (!featureItems) throw new Error("Feature item not found");
+    const checkmarkIcon = featureItems.querySelector("svg");
     expect(checkmarkIcon).toBeInTheDocument();
   });
 
@@ -364,6 +364,7 @@ describe("ServiceSelector", () => {
     });
 
     const firstSelectButton = screen.getAllByText("Select Service")[0];
+    if (!firstSelectButton) throw new Error("First select button not found");
 
     // Focus and activate with keyboard
     firstSelectButton.focus();

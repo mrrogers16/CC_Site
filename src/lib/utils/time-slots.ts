@@ -19,6 +19,9 @@ export interface AvailabilityWindow {
  */
 function timeStringToMinutes(timeStr: string): number {
   const [hours, minutes] = timeStr.split(":").map(Number);
+  if (hours === undefined || minutes === undefined) {
+    throw new Error(`Invalid time format: ${timeStr}`);
+  }
   return hours * 60 + minutes;
 }
 
@@ -255,7 +258,7 @@ export async function generateTimeSlots(
         slots.push({
           dateTime: slotDateTime,
           available,
-          reason,
+          ...(reason && { reason }),
         });
       }
     }
@@ -306,7 +309,7 @@ export async function isTimeSlotAvailable(
       select: { duration: true },
     });
 
-    if (!service) {
+    if (!service || !service.duration) {
       return { available: false, reason: "Service not found or inactive" };
     }
 
@@ -326,7 +329,7 @@ export async function isTimeSlotAvailable(
     // Check for appointment conflicts
     const existingAppointments = await prisma.appointment.findMany({
       where: {
-        id: excludeAppointmentId ? { not: excludeAppointmentId } : undefined,
+        ...(excludeAppointmentId && { id: { not: excludeAppointmentId } }),
         status: {
           in: ["PENDING", "CONFIRMED"],
         },

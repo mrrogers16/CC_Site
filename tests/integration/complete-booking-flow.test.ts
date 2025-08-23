@@ -53,8 +53,7 @@ describe("Complete Booking Flow Integration", () => {
       });
 
       // Step 2: Get services (simulating service selector)
-      const servicesRequest = new NextRequest("http://localhost:3000/api/services");
-      const servicesResponse = await ServicesGet(servicesRequest);
+      const servicesResponse = await ServicesGet();
       const servicesData = await servicesResponse.json();
 
       expect(servicesResponse.status).toBe(200);
@@ -132,7 +131,7 @@ describe("Complete Booking Flow Integration", () => {
 
       const createdAppointment = await prisma.appointment.findFirst({
         where: {
-          userId: createdUser?.id,
+          ...(createdUser?.id && { userId: createdUser.id }),
           serviceId: "test-service-1",
         },
         include: {
@@ -319,8 +318,7 @@ describe("Complete Booking Flow Integration", () => {
       });
 
       // Step 2: Get services (service is active)
-      const servicesRequest = new NextRequest("http://localhost:3000/api/services");
-      const servicesResponse = await ServicesGet(servicesRequest);
+      const servicesResponse = await ServicesGet();
       const servicesData = await servicesResponse.json();
 
       const service = servicesData.services.find(

@@ -59,7 +59,7 @@ test.describe("Appointment Booking Journey", () => {
       
       // Select first available time slot
       const timeSlots = page.locator('[data-testid="time-slot"]:not(.disabled)');
-      await expect(timeSlots).toHaveCount.greaterThan(0);
+      await expect(timeSlots).not.toHaveCount(0);
       await timeSlots.first().click();
 
       // Verify time slot is selected
@@ -70,8 +70,8 @@ test.describe("Appointment Booking Journey", () => {
       
       // Verify booking form loads
       await expect(page.getByRole("heading", { name: /complete.*booking/i })).toBeVisible();
-      await expect(page.getByLabelText(/name/i)).toBeVisible();
-      await expect(page.getByLabelText(/email/i)).toBeVisible();
+      await expect(page.getByLabel(/name/i)).toBeVisible();
+      await expect(page.getByLabel(/email/i)).toBeVisible();
 
       // Step 8: Fill out booking form
       await page.fill('[data-testid="booking-name"]', "E2E Test User");
@@ -325,7 +325,7 @@ test.describe("Appointment Booking Journey", () => {
 
       // Check day cells have proper labels
       const dayCells = page.getByRole("gridcell");
-      await expect(dayCells).toHaveCount.greaterThan(0);
+      await expect(dayCells).not.toHaveCount(0);
     });
 
     test("maintains focus management during navigation", async ({ page }) => {

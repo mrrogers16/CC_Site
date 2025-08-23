@@ -145,11 +145,14 @@ export function useAvailableDates(
           try {
             const data = await response.json();
             if (data.slots && data.slots.some((slot: any) => slot.available)) {
-              availableDates.push(dates[i]);
+              const date = dates[i];
+              if (date) {
+                availableDates.push(date);
+              }
             }
           } catch (error) {
             logger.warn("Failed to parse available slots response", {
-              date: dates[i].toISOString().split("T")[0],
+              date: dates[i]?.toISOString().split("T")[0] || `index-${i}`,
               error: error instanceof Error ? error.message : String(error),
             });
           }

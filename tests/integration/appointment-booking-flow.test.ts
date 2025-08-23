@@ -161,7 +161,7 @@ describe("Appointment Booking Flow Integration", () => {
       );
       const getAppointmentResponse = await getAppointment(
         getAppointmentRequest,
-        { params: { id: appointmentId } }
+        { params: Promise.resolve({ id: appointmentId }) }
       );
       const appointmentData = await getAppointmentResponse.json();
 
@@ -181,7 +181,7 @@ describe("Appointment Booking Flow Integration", () => {
         updateData
       );
       const updateResponse = await updateAppointment(updateRequest, {
-        params: { id: appointmentId },
+        params: Promise.resolve({ id: appointmentId }),
       });
       const updateResponseData = await updateResponse.json();
 

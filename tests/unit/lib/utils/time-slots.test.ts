@@ -3,25 +3,13 @@ import {
   getAvailableSlots,
   isTimeSlotAvailable,
 } from "@/lib/utils/time-slots";
-import { prisma } from "@/lib/db";
 import { BUSINESS_RULES } from "@/lib/validations/appointments";
+import { createMockPrisma } from "../../../setup/prisma-mocks";
 
 // Mock Prisma
+const mockPrisma = createMockPrisma();
 jest.mock("@/lib/db", () => ({
-  prisma: {
-    service: {
-      findUnique: jest.fn(),
-    },
-    availability: {
-      findMany: jest.fn(),
-    },
-    appointment: {
-      findMany: jest.fn(),
-    },
-    blockedSlot: {
-      findMany: jest.fn(),
-    },
-  },
+  prisma: mockPrisma,
 }));
 
 // Mock logger
@@ -31,8 +19,6 @@ jest.mock("@/lib/logger", () => ({
     error: jest.fn(),
   },
 }));
-
-const mockPrisma = prisma as jest.Mocked<typeof prisma>;
 
 describe("Time Slot Utilities", () => {
   beforeEach(() => {
@@ -79,9 +65,9 @@ describe("Time Slot Utilities", () => {
       const slots = await generateTimeSlots(targetDate, serviceId);
 
       expect(slots).toHaveLength(28); // 12 slots (9-12) + 16 slots (13-17) = 28 slots
-      expect(slots[0].available).toBe(true);
-      expect(slots[0].dateTime.getHours()).toBe(9);
-      expect(slots[0].dateTime.getMinutes()).toBe(0);
+      expect(slots[0]?.available).toBe(true);
+      expect(slots[0]?.dateTime.getHours()).toBe(9);
+      expect(slots[0]?.dateTime.getMinutes()).toBe(0);
     });
 
     it("should mark slots as unavailable when they conflict with appointments", async () => {
@@ -248,8 +234,8 @@ describe("Time Slot Utilities", () => {
 
       expect(availableSlots).toHaveLength(8); // 9:00, 9:15, 9:30, 9:45, 10:00, 10:15, 10:30, 10:45
       expect(availableSlots[0]).toBeInstanceOf(Date);
-      expect(availableSlots[0].getHours()).toBe(9);
-      expect(availableSlots[0].getMinutes()).toBe(0);
+      expect(availableSlots[0]?.getHours()).toBe(9);
+      expect(availableSlots[0]?.getMinutes()).toBe(0);
     });
   });
 

@@ -37,6 +37,16 @@ interface UseBookingMutationOptions {
   onError?: (error: Error) => void;
 }
 
+interface UseCancelBookingMutationOptions {
+  onSuccess?: (data: CancelBookingResponse) => void;
+  onError?: (error: Error) => void;
+}
+
+interface UseRescheduleBookingMutationOptions {
+  onSuccess?: (data: RescheduleBookingResponse) => void;
+  onError?: (error: Error) => void;
+}
+
 export function useBookingMutation(options: UseBookingMutationOptions = {}) {
   const queryClient = useQueryClient();
   const { onSuccess, onError } = options;
@@ -138,7 +148,7 @@ interface CancelBookingResponse {
 }
 
 export function useCancelBookingMutation(
-  options: UseBookingMutationOptions = {}
+  options: UseCancelBookingMutationOptions = {}
 ) {
   const queryClient = useQueryClient();
   const { onSuccess, onError } = options;
@@ -244,7 +254,7 @@ interface RescheduleBookingResponse {
 }
 
 export function useRescheduleBookingMutation(
-  options: UseBookingMutationOptions = {}
+  options: UseRescheduleBookingMutationOptions = {}
 ) {
   const queryClient = useQueryClient();
   const { onSuccess, onError } = options;
