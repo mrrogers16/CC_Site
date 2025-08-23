@@ -2,7 +2,7 @@ import { POST as BookingPost } from "@/app/api/appointments/book/route";
 import { GET as ServicesGet } from "@/app/api/services/route";
 import { GET as AvailableGet } from "@/app/api/appointments/available/route";
 import { prisma } from "@/lib/db";
-import { logger } from "@/lib/logger";
+import { logger as _logger } from "@/lib/logger";
 import { NextRequest } from "next/server";
 
 // Mock external dependencies
@@ -40,7 +40,7 @@ describe("Complete Booking Flow Integration", () => {
   describe("End-to-End Booking Workflow", () => {
     it("completes full booking flow: services → availability → booking", async () => {
       // Step 1: Create test service
-      const testService = await prisma.service.create({
+      const _testService = await prisma.service.create({
         data: {
           id: "test-service-1",
           title: "Integration Test Counseling",
@@ -173,7 +173,7 @@ describe("Complete Booking Flow Integration", () => {
 
     it("handles existing user booking flow", async () => {
       // Step 1: Create test service and existing user
-      const testService = await prisma.service.create({
+      const _testService = await prisma.service.create({
         data: {
           id: "test-service-2",
           title: "Existing User Test Service",
@@ -246,7 +246,7 @@ describe("Complete Booking Flow Integration", () => {
 
     it("prevents double booking conflicts", async () => {
       // Step 1: Create test service
-      const testService = await prisma.service.create({
+      const _testService = await prisma.service.create({
         data: {
           id: "test-service-conflict",
           title: "Conflict Test Service",
@@ -326,7 +326,7 @@ describe("Complete Booking Flow Integration", () => {
 
     it("handles service deactivation during booking flow", async () => {
       // Step 1: Create active service
-      const testService = await prisma.service.create({
+      const _testService = await prisma.service.create({
         data: {
           id: "test-service-deactivation",
           title: "Deactivation Test Service",
