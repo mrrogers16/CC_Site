@@ -37,21 +37,15 @@ export function EnhancedRegisterForm() {
     useState<FieldValidationState>({ isValid: false });
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState,
-    watch,
-    trigger,
-  } = useForm<RegisterFormData>({
-    resolver: zodResolver(registerSchema),
-    mode: "onChange",
-  });
-  
+  const { register, handleSubmit, formState, watch, trigger } =
+    useForm<RegisterFormData>({
+      resolver: zodResolver(registerSchema),
+      mode: "onChange",
+    });
+
   const { errors, touchedFields } = formState;
 
   const watchedValues = watch();
-
 
   // Create stable debounced function using useRef
   const debouncedEmailCheckRef = useRef(

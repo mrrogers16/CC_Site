@@ -73,13 +73,13 @@ global.fetch = jest.fn();
 global.NextRequest = class MockNextRequest {
   constructor(input, options = {}) {
     // Extract URL from input if it's a string, otherwise use the url property
-    this.url = typeof input === 'string' ? input : input.url;
+    this.url = typeof input === "string" ? input : input.url;
     this.method = options?.method || "GET";
     this.headers = new Map(Object.entries(options?.headers || {}));
     this.body = options?.body;
-    this.nextUrl = { 
+    this.nextUrl = {
       pathname: new URL(this.url).pathname,
-      searchParams: new URLSearchParams(new URL(this.url).search)
+      searchParams: new URLSearchParams(new URL(this.url).search),
     };
   }
 
