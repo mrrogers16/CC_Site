@@ -106,11 +106,11 @@ Professional counseling practice website built with Next.js 14+, TypeScript, Tai
   - Improved test reliability: fixed all API route unit tests to pass consistently
 
 - [x] **Pipeline Verification**
-  -  Type checking (npm run typecheck): 0 errors
-  -  Linting (npm run lint): 0 errors, 40 warnings (acceptable)
-  -  Code formatting (npm run format:check): All files properly formatted
-  -  Unit tests: All critical API route tests now passing
-  -  Test coverage: 64.37% statements (exceeds minimum thresholds)
+  - Type checking (npm run typecheck): 0 errors
+  - Linting (npm run lint): 0 errors, 40 warnings (acceptable)
+  - Code formatting (npm run format:check): All files properly formatted
+  - Unit tests: All critical API route tests now passing
+  - Test coverage: 64.37% statements (exceeds minimum thresholds)
 
 **Result**: CI/CD pipeline now passes all critical checks required for deployment.
 
