@@ -34,7 +34,11 @@ describe("/api/appointments/available", () => {
       const mockSlots = [
         { dateTime: new Date("2025-08-25T09:00:00Z"), available: true },
         { dateTime: new Date("2025-08-25T09:15:00Z"), available: true },
-        { dateTime: new Date("2025-08-25T10:00:00Z"), available: false, reason: "Booked" },
+        {
+          dateTime: new Date("2025-08-25T10:00:00Z"),
+          available: false,
+          reason: "Booked",
+        },
       ];
 
       mockGenerateTimeSlots.mockResolvedValue(mockSlots);

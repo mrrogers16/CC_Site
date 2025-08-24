@@ -123,7 +123,7 @@ Professional counseling practice website built with Next.js 14+, TypeScript, Tai
 
 - [x] **Unauthenticated User Navigation**
   - **Login Button**: Direct access to `/auth/login` with professional styling
-  - **Register Button**: Easy access to `/auth/register` with secondary button styling  
+  - **Register Button**: Easy access to `/auth/register` with secondary button styling
   - **Smart Book Appointment**: Redirects to login with return URL (`/auth/login?callbackUrl=/book`)
 
 - [x] **Authenticated User Navigation**
