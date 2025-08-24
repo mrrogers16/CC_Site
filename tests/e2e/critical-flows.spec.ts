@@ -15,9 +15,10 @@ test.describe("Critical User Flows", () => {
     await expect(
       page.getByRole("heading", { name: /services/i })
     ).toBeVisible();
+    // Check that at least one service card exists
     await expect(
-      page.locator('[data-testid="service-card"]')
-    ).toHaveCountGreaterThan(0);
+      page.locator('[data-testid="service-card"]').first()
+    ).toBeVisible();
   });
 
   test("contact page loads correctly", async ({ page }) => {

@@ -50,24 +50,27 @@ describe("/api/appointments/available", () => {
 
       expect(response.status).toBe(200);
       expect(responseData.success).toBe(true);
-      expect(responseData.data.date).toBe("2025-08-25");
-      expect(responseData.data.totalAvailable).toBe(3);
-      expect(responseData.data.slots).toHaveLength(3);
+      expect(responseData.date).toBe("2025-08-25");
+      expect(responseData.availableSlots).toBe(2);
+      expect(responseData.totalSlots).toBe(3);
+      expect(responseData.slots).toHaveLength(3);
 
       // Check slot formatting
-      expect(responseData.data.slots[0]).toEqual({
+      expect(responseData.slots[0]).toEqual({
         dateTime: "2025-08-25T09:00:00.000Z",
+        available: true,
         displayTime: "9:00 AM",
       });
 
-      expect(responseData.data.slots[1]).toEqual({
+      expect(responseData.slots[1]).toEqual({
         dateTime: "2025-08-25T09:15:00.000Z",
+        available: true,
         displayTime: "9:15 AM",
       });
 
-      // Verify getAvailableSlots was called correctly
+      // Verify generateTimeSlots was called correctly with local date
       expect(mockGenerateTimeSlots).toHaveBeenCalledWith(
-        new Date("2025-08-25T00:00:00.000Z"),
+        new Date(2025, 7, 25), // Local date (month is 0-indexed)
         undefined
       );
     });
@@ -89,15 +92,15 @@ describe("/api/appointments/available", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(200);
-      expect(responseData.data.serviceId).toBe("clxxxxxxxxxxxxxxxxxxxxxxx");
-      expect(responseData.data.slots).toHaveLength(2);
+      expect(responseData.serviceId).toBe("clxxxxxxxxxxxxxxxxxxxxxxx");
+      expect(responseData.slots).toHaveLength(2);
 
       // Check PM time formatting
-      expect(responseData.data.slots[0].displayTime).toBe("2:00 PM");
-      expect(responseData.data.slots[1].displayTime).toBe("3:00 PM");
+      expect(responseData.slots[0].displayTime).toBe("2:00 PM");
+      expect(responseData.slots[1].displayTime).toBe("3:00 PM");
 
       expect(mockGenerateTimeSlots).toHaveBeenCalledWith(
-        new Date("2025-08-25T00:00:00.000Z"),
+        new Date(2025, 7, 25), // Local date (month is 0-indexed)
         "clxxxxxxxxxxxxxxxxxxxxxxx"
       );
     });
@@ -112,8 +115,8 @@ describe("/api/appointments/available", () => {
 
       expect(response.status).toBe(200);
       expect(responseData.success).toBe(true);
-      expect(responseData.data.totalAvailable).toBe(0);
-      expect(responseData.data.slots).toHaveLength(0);
+      expect(responseData.availableSlots).toBe(0);
+      expect(responseData.slots).toHaveLength(0);
     });
 
     it("should return 400 when date parameter is missing", async () => {
@@ -189,10 +192,10 @@ describe("/api/appointments/available", () => {
       const response = await GET(request);
       const responseData = await response.json();
 
-      expect(responseData.data.slots[0].displayTime).toBe("8:30 AM");
-      expect(responseData.data.slots[1].displayTime).toBe("12:00 PM");
-      expect(responseData.data.slots[2].displayTime).toBe("1:45 PM");
-      expect(responseData.data.slots[3].displayTime).toBe("12:00 AM");
+      expect(responseData.slots[0].displayTime).toBe("8:30 AM");
+      expect(responseData.slots[1].displayTime).toBe("12:00 PM");
+      expect(responseData.slots[2].displayTime).toBe("1:45 PM");
+      expect(responseData.slots[3].displayTime).toBe("12:00 AM");
     });
   });
 });
