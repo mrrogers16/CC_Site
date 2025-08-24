@@ -39,12 +39,16 @@ export default function CalendarView({
   );
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchAvailableDates = async () => {
       if (!selectedService?.id) return;
 
       try {
-        setLoading(true);
-        setError(null);
+        if (isMounted) {
+          setLoading(true);
+          setError(null);
+        }
 
         // Fetch available dates for the next 30 days
         const dates: Date[] = [];
@@ -96,16 +100,26 @@ export default function CalendarView({
           return dateStr && availableDatesSet.has(dateStr);
         });
 
-        setAvailableDates(availableDatesArray);
+        if (isMounted) {
+          setAvailableDates(availableDatesArray);
+        }
       } catch (error) {
-        setError("Failed to load available dates. Please try again.");
-        console.error("Error fetching available dates:", error);
+        if (isMounted) {
+          setError("Failed to load available dates. Please try again.");
+          console.error("Error fetching available dates:", error);
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchAvailableDates();
+
+    return () => {
+      isMounted = false;
+    };
   }, [selectedService?.id, today]);
 
   const handleDateSelect = (date: Date | undefined) => {

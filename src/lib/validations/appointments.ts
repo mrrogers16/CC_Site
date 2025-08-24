@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-// Time validation helpers
-const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
+// Time validation helpers - strict HH:MM format
+const timeRegex = /^([0-1][0-9]|2[0-3]):[0-5][0-9]$/;
 const timeString = z.string().regex(timeRegex, "Time must be in HH:MM format");
 
 // Business rules constants
