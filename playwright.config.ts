@@ -8,10 +8,10 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0, // Reduce retries from 2 to 1
   workers: process.env.CI ? 3 : 4, // Increase workers from 1 to 3
-  timeout: 15000, // Reduce timeout to 15 seconds
-  expect: { timeout: 5000 }, // Reduce expect timeout
+  timeout: 20000, // Increased timeout for database-dependent tests
+  expect: { timeout: 10000 }, // Increased expect timeout for slower CI
 
-  // Skip global setup for now to avoid complexity
+  globalSetup: require.resolve("./tests/setup/global-setup.ts"),
 
   reporter: process.env.CI
     ? [
