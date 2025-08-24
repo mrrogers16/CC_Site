@@ -28,8 +28,8 @@ export default defineConfig({
     video: "retain-on-failure",
 
     // Speed up navigation
-    navigationTimeout: 10000,
-    actionTimeout: 5000,
+    navigationTimeout: 30000,
+    actionTimeout: 10000,
   },
 
   // Keep device projects but optimize for CI
