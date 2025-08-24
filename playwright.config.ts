@@ -22,7 +22,7 @@ export default defineConfig({
 
   // CRITICAL: Optimize for speed
   use: {
-    baseURL: "http://localhost:3006",
+    baseURL: "http://localhost:3000",
     trace: process.env.CI ? "retain-on-failure" : "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
@@ -49,11 +49,10 @@ export default defineConfig({
       : [{ name: "Mobile Safari", use: { ...devices["iPhone 12"] } }]),
   ],
 
-  // Skip webServer for now - assume server is already running
-  // webServer: {
-  //   command: "npm run dev",
-  //   url: "http://localhost:3000",
-  //   reuseExistingServer: !process.env.CI,
-  //   timeout: 60000,
-  // },
+  webServer: {
+    command: "npm run dev",
+    url: "http://localhost:3000",
+    reuseExistingServer: !process.env.CI, // Reuse in dev, fresh server in CI
+    timeout: 120000, // Increased timeout for initial build
+  },
 });

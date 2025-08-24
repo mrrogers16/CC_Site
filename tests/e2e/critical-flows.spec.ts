@@ -22,20 +22,24 @@ test.describe("Critical User Flows", () => {
   });
 
   test("contact page loads correctly", async ({ page }) => {
-    await page.goto("/contact");
+    await page.goto("/contact", { waitUntil: "networkidle" });
 
-    await expect(page.getByRole("heading", { name: /contact/i })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /contact us/i })
+    ).toBeVisible();
     await expect(page.locator("form")).toBeVisible();
   });
 
   test("authentication pages exist", async ({ page }) => {
     // Test login page
-    await page.goto("/auth/login");
-    await expect(page.locator("h2")).toContainText("Sign In");
+    await page.goto("/auth/login", { waitUntil: "networkidle" });
+    await expect(page.getByRole("heading", { name: /sign in/i })).toBeVisible();
 
     // Test register page
-    await page.goto("/auth/register");
-    await expect(page.locator("h2")).toContainText("Register");
+    await page.goto("/auth/register", { waitUntil: "networkidle" });
+    await expect(
+      page.getByRole("heading", { name: /register/i })
+    ).toBeVisible();
   });
 
   test("booking page redirects to login when unauthenticated", async ({
