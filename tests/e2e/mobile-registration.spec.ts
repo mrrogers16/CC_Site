@@ -1,8 +1,6 @@
-import { test, expect, devices } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
-test.describe("Mobile Registration - iPhone 12", () => {
-  test.use(devices["iPhone 12"]);
-
+test.describe("Mobile Registration", () => {
   test("registration form is fully accessible on mobile", async ({ page }) => {
     await page.goto("/auth/register");
 
@@ -303,8 +301,6 @@ test.describe("Responsive Breakpoint Testing", () => {
 
 // Test accessibility on mobile
 test.describe("Mobile Accessibility", () => {
-  test.use(devices["iPhone 12"]);
-
   test("screen reader navigation works correctly", async ({ page }) => {
     await page.goto("/auth/register");
 
