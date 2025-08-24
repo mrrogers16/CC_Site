@@ -102,7 +102,7 @@ describe("/api/auth/check-email", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("AppError");
+      expect(responseData.error).toBe("ValidationError");
       expect(responseData.details).toBeDefined();
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
     });
@@ -116,7 +116,7 @@ describe("/api/auth/check-email", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("AppError");
+      expect(responseData.error).toBe("ValidationError");
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
     });
 
@@ -126,7 +126,7 @@ describe("/api/auth/check-email", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("AppError");
+      expect(responseData.error).toBe("ValidationError");
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
     });
 

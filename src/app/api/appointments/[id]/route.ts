@@ -170,8 +170,13 @@ export const PATCH = withErrorHandler(
     }
 
     // Update the appointment
-    const updateData: any = {};
-    if (validated.status !== undefined) updateData.status = validated.status;
+    const updateData: {
+      status?: AppointmentStatus;
+      notes?: string | null;
+      cancellationReason?: string | null;
+    } = {};
+    if (validated.status !== undefined)
+      updateData.status = validated.status as AppointmentStatus;
     if (validated.notes !== undefined) updateData.notes = validated.notes;
     if (validated.cancellationReason !== undefined)
       updateData.cancellationReason = validated.cancellationReason;
@@ -211,15 +216,19 @@ export const PATCH = withErrorHandler(
         status: updatedAppointment.status,
         notes: updatedAppointment.notes,
         cancellationReason: updatedAppointment.cancellationReason,
-        service: {
-          title: updatedAppointment.service.title,
-          duration: updatedAppointment.service.duration,
-          price: updatedAppointment.service.price.toString(),
-        },
-        user: {
-          name: updatedAppointment.user.name,
-          email: updatedAppointment.user.email,
-        },
+        service: updatedAppointment.service
+          ? {
+              title: updatedAppointment.service.title,
+              duration: updatedAppointment.service.duration,
+              price: updatedAppointment.service.price.toString(),
+            }
+          : null,
+        user: updatedAppointment.user
+          ? {
+              name: updatedAppointment.user.name,
+              email: updatedAppointment.user.email,
+            }
+          : null,
         updatedAt: updatedAppointment.updatedAt.toISOString(),
       },
     });

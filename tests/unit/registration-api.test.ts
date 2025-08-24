@@ -152,7 +152,7 @@ describe("/api/auth/register", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("AppError");
+      expect(responseData.error).toBe("ValidationError");
       expect(responseData.details).toBeDefined();
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
       expect(prisma.user.create).not.toHaveBeenCalled();
@@ -171,7 +171,7 @@ describe("/api/auth/register", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("AppError");
+      expect(responseData.error).toBe("ValidationError");
       expect(prisma.user.findUnique).not.toHaveBeenCalled();
     });
 
@@ -189,7 +189,7 @@ describe("/api/auth/register", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(409);
-      expect(responseData.error).toBe("AppError");
+      expect(responseData.error).toBe("ConflictError");
       expect(prisma.user.create).not.toHaveBeenCalled();
       expect(bcrypt.hash).not.toHaveBeenCalled();
     });

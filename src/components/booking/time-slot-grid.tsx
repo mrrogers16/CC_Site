@@ -57,10 +57,16 @@ export default function TimeSlotGrid({
 
       // Convert string dates back to Date objects
       const slots =
-        data.slots?.map((slot: any) => ({
-          ...slot,
-          dateTime: new Date(slot.dateTime),
-        })) || [];
+        data.slots?.map(
+          (slot: {
+            dateTime: string;
+            available: boolean;
+            reason?: string;
+          }) => ({
+            ...slot,
+            dateTime: new Date(slot.dateTime),
+          })
+        ) || [];
 
       return { slots };
     },

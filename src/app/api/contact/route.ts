@@ -144,7 +144,9 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
     const skip = (page - 1) * limit;
 
     // Build where clause
-    const where: any = {};
+    const where: {
+      isRead?: boolean;
+    } = {};
     if (isRead !== null) {
       where.isRead = isRead === "true";
     }

@@ -6,6 +6,7 @@ import { prisma } from "@/lib/db";
 import { logger } from "@/lib/logger";
 import { authOptions } from "@/lib/auth";
 import { ValidationError } from "@/lib/errors";
+import type { Availability } from "@/generated/prisma";
 
 // GET /api/availability - Get all availability windows
 export const GET = withErrorHandler(async (request: NextRequest) => {
@@ -14,7 +15,10 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
   const isActiveOnly = searchParams.get("activeOnly") === "true";
 
   // Build where clause
-  const where: any = {};
+  const where: {
+    dayOfWeek?: number;
+    isActive?: boolean;
+  } = {};
   if (dayOfWeek !== null) {
     const day = parseInt(dayOfWeek);
     if (!isNaN(day) && day >= 0 && day <= 6) {
@@ -67,7 +71,17 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
 
       return acc;
     },
-    {} as Record<string, any[]>
+    {} as Record<
+      string,
+      Array<{
+        id: string;
+        startTime: string;
+        endTime: string;
+        isActive: boolean;
+        createdAt: string;
+        updatedAt: string;
+      }>
+    >
   );
 
   logger.info("Availability windows retrieved", {
@@ -228,8 +242,8 @@ export const PUT = withErrorHandler(async (request: NextRequest) => {
     throw new ValidationError("Windows array is required for bulk update");
   }
 
-  const validatedWindows = data.windows.map((window: any) => {
-    if (window.id) {
+  const validatedWindows = data.windows.map((window: unknown) => {
+    if (window && typeof window === "object" && "id" in window && window.id) {
       // Updating existing window - validate against update schema
       return {
         id: window.id,
@@ -243,8 +257,8 @@ export const PUT = withErrorHandler(async (request: NextRequest) => {
 
   // Process updates and creates in a transaction
   const result = await prisma.$transaction(async tx => {
-    const updated: any[] = [];
-    const created: any[] = [];
+    const updated: Availability[] = [];
+    const created: Availability[] = [];
 
     for (const window of validatedWindows) {
       if (window.id) {

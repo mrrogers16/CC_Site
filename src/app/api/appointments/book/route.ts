@@ -68,7 +68,13 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   }
 
   // Create the appointment
-  const createData: any = {
+  const createData: {
+    userId: string;
+    serviceId: string;
+    dateTime: Date;
+    status: "PENDING";
+    notes?: string;
+  } = {
     userId,
     serviceId: validated.serviceId,
     dateTime: validated.dateTime,

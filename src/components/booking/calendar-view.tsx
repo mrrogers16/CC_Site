@@ -79,7 +79,7 @@ export default function CalendarView({
             if (data.slots && data.slots.length > 0) {
               // Check if any slots are available
               const hasAvailableSlots = data.slots.some(
-                (slot: any) => slot.available
+                (slot: { available: boolean }) => slot.available
               );
               if (hasAvailableSlots && dates[i]) {
                 const dateStr = dates[i]?.toISOString().split("T")[0];

@@ -57,10 +57,16 @@ export function useAvailableSlots(
 
       // Convert string dates back to Date objects
       const slots =
-        data.slots?.map((slot: any) => ({
-          ...slot,
-          dateTime: new Date(slot.dateTime),
-        })) || [];
+        data.slots?.map(
+          (slot: {
+            dateTime: string;
+            available: boolean;
+            reason?: string;
+          }) => ({
+            ...slot,
+            dateTime: new Date(slot.dateTime),
+          })
+        ) || [];
 
       logger.info("Available slots fetched successfully", {
         date: dateStr,
@@ -144,7 +150,10 @@ export function useAvailableDates(
         if (response && response.ok) {
           try {
             const data = await response.json();
-            if (data.slots && data.slots.some((slot: any) => slot.available)) {
+            if (
+              data.slots &&
+              data.slots.some((slot: { available: boolean }) => slot.available)
+            ) {
               const date = dates[i];
               if (date) {
                 availableDates.push(date);
