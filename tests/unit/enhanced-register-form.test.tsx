@@ -460,7 +460,7 @@ describe("EnhancedRegisterForm", () => {
       const user = userEvent.setup();
       // Mock email validation first
       (fetch as jest.Mock).mockImplementationOnce(
-        (url: string) =>
+        (_url: string) =>
           new Promise(resolve =>
             setTimeout(
               () =>
@@ -513,7 +513,7 @@ describe("EnhancedRegisterForm", () => {
       const user = userEvent.setup();
       // Mock email validation first
       (fetch as jest.Mock).mockImplementationOnce(
-        (url: string) =>
+        (_url: string) =>
           new Promise(resolve =>
             setTimeout(
               () =>
