@@ -4,6 +4,8 @@ import { Navigation } from "@/components/layout/navigation";
 import { Footer } from "@/components/layout/footer";
 import { prisma } from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "Our Services | Healing Pathways Counseling",
   description:
