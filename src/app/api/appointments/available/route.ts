@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { withErrorHandler } from "@/lib/api/error-handler";
 import { availableSlotsQuerySchema } from "@/lib/validations/appointments";
-import { getAvailableSlots } from "@/lib/utils/time-slots";
+import { generateTimeSlots } from "@/lib/utils/time-slots";
 import { logger } from "@/lib/logger";
 import { ValidationError } from "@/lib/errors";
 
@@ -27,16 +27,18 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
     serviceId: queryData.serviceId,
   });
 
-  // Get available time slots
-  const availableSlots = await getAvailableSlots(
+  // Get all time slots with availability status
+  const allTimeSlots = await generateTimeSlots(
     queryData.date,
     queryData.serviceId
   );
 
-  // Format response
-  const formattedSlots = availableSlots.map(dateTime => ({
-    dateTime: dateTime.toISOString(),
-    displayTime: dateTime.toLocaleTimeString("en-US", {
+  // Format response with availability status
+  const formattedSlots = allTimeSlots.map(slot => ({
+    dateTime: slot.dateTime.toISOString(),
+    available: slot.available,
+    ...(slot.reason && { reason: slot.reason }),
+    displayTime: slot.dateTime.toLocaleTimeString("en-US", {
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
@@ -44,19 +46,21 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
     }),
   }));
 
-  logger.info("Available slots retrieved", {
+  const availableCount = formattedSlots.filter(slot => slot.available).length;
+
+  logger.info("Time slots retrieved with availability status", {
     date: queryData.date.toISOString().split("T")[0],
     totalSlots: formattedSlots.length,
+    availableSlots: availableCount,
     serviceId: queryData.serviceId,
   });
 
   return NextResponse.json({
     success: true,
-    data: {
-      date: queryData.date.toISOString().split("T")[0],
-      serviceId: queryData.serviceId,
-      slots: formattedSlots,
-      totalAvailable: formattedSlots.length,
-    },
+    slots: formattedSlots,
+    totalSlots: formattedSlots.length,
+    availableSlots: availableCount,
+    date: queryData.date.toISOString().split("T")[0],
+    serviceId: queryData.serviceId,
   });
 });

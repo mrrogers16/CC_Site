@@ -52,16 +52,28 @@ export const bookAppointmentSchema = z.object({
     .transform(val => val?.trim() || undefined),
 });
 
-// Available slots query validation
+// Available slots query validation - ensure proper local date parsing
 export const availableSlotsQuerySchema = z.object({
-  date: z.coerce.date().refine(
-    date => {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      return date >= today;
-    },
-    { message: "Date cannot be in the past" }
-  ),
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format")
+    .transform(dateStr => {
+      // Parse date as local date, not UTC
+      const [year, month, day] = dateStr.split("-").map(Number);
+      if (!year || !month || !day) {
+        throw new Error("Invalid date format");
+      }
+      // Create date in local timezone (month is 0-indexed)
+      return new Date(year, month - 1, day);
+    })
+    .refine(
+      date => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return date >= today;
+      },
+      { message: "Date cannot be in the past" }
+    ),
   serviceId: z.string().cuid("Invalid service ID").optional(),
 });
 

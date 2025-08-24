@@ -142,7 +142,7 @@ describe("Appointment Validation Schemas", () => {
   describe("availableSlotsQuerySchema", () => {
     it("should accept valid query parameters", () => {
       const validQuery = {
-        date: new Date("2025-08-25T00:00:00Z"),
+        date: "2025-08-25",
         serviceId: "clxxxxxxxxxxxxxxxxxxxxxxx",
       };
 
@@ -150,14 +150,14 @@ describe("Appointment Validation Schemas", () => {
 
       expect(result.success).toBe(true);
       if (result.success) {
-        expect(result.data.date).toEqual(validQuery.date);
+        expect(result.data.date).toEqual(new Date(2025, 7, 25)); // Month is 0-indexed
         expect(result.data.serviceId).toBe(validQuery.serviceId);
       }
     });
 
     it("should accept query without serviceId", () => {
       const queryWithoutService = {
-        date: new Date("2025-08-25T00:00:00Z"),
+        date: "2025-08-25",
       };
 
       const result = availableSlotsQuerySchema.safeParse(queryWithoutService);
@@ -170,7 +170,7 @@ describe("Appointment Validation Schemas", () => {
 
     it("should reject dates in the past", () => {
       const pastDateQuery = {
-        date: new Date("2025-08-22T00:00:00Z"), // Yesterday
+        date: "2023-01-01", // Past date
         serviceId: "clxxxxxxxxxxxxxxxxxxxxxxx",
       };
 

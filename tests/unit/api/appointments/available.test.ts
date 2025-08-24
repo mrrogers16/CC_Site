@@ -1,10 +1,10 @@
 import { NextRequest } from "next/server";
 import { GET } from "@/app/api/appointments/available/route";
-import { getAvailableSlots } from "@/lib/utils/time-slots";
+import { generateTimeSlots } from "@/lib/utils/time-slots";
 
 // Mock dependencies
 jest.mock("@/lib/utils/time-slots", () => ({
-  getAvailableSlots: jest.fn(),
+  generateTimeSlots: jest.fn(),
 }));
 
 jest.mock("@/lib/logger", () => ({
@@ -14,8 +14,8 @@ jest.mock("@/lib/logger", () => ({
   },
 }));
 
-const mockGetAvailableSlots = getAvailableSlots as jest.MockedFunction<
-  typeof getAvailableSlots
+const mockGenerateTimeSlots = generateTimeSlots as jest.MockedFunction<
+  typeof generateTimeSlots
 >;
 
 describe("/api/appointments/available", () => {
@@ -32,12 +32,12 @@ describe("/api/appointments/available", () => {
   describe("GET /api/appointments/available", () => {
     it("should return available slots for a valid date", async () => {
       const mockSlots = [
-        new Date("2025-08-25T09:00:00Z"),
-        new Date("2025-08-25T09:15:00Z"),
-        new Date("2025-08-25T10:00:00Z"),
+        { dateTime: new Date("2025-08-25T09:00:00Z"), available: true },
+        { dateTime: new Date("2025-08-25T09:15:00Z"), available: true },
+        { dateTime: new Date("2025-08-25T10:00:00Z"), available: false, reason: "Booked" },
       ];
 
-      mockGetAvailableSlots.mockResolvedValue(mockSlots);
+      mockGenerateTimeSlots.mockResolvedValue(mockSlots);
 
       const searchParams = new URLSearchParams({ date: "2025-08-25" });
       const request = mockRequest(searchParams);
@@ -62,7 +62,7 @@ describe("/api/appointments/available", () => {
       });
 
       // Verify getAvailableSlots was called correctly
-      expect(mockGetAvailableSlots).toHaveBeenCalledWith(
+      expect(mockGenerateTimeSlots).toHaveBeenCalledWith(
         new Date("2025-08-25T00:00:00.000Z"),
         undefined
       );
@@ -70,11 +70,11 @@ describe("/api/appointments/available", () => {
 
     it("should return available slots with service ID", async () => {
       const mockSlots = [
-        new Date("2025-08-25T14:00:00Z"),
-        new Date("2025-08-25T15:00:00Z"),
+        { dateTime: new Date("2025-08-25T14:00:00Z"), available: true },
+        { dateTime: new Date("2025-08-25T15:00:00Z"), available: true },
       ];
 
-      mockGetAvailableSlots.mockResolvedValue(mockSlots);
+      mockGenerateTimeSlots.mockResolvedValue(mockSlots);
 
       const searchParams = new URLSearchParams({
         date: "2025-08-25",
@@ -92,14 +92,14 @@ describe("/api/appointments/available", () => {
       expect(responseData.data.slots[0].displayTime).toBe("2:00 PM");
       expect(responseData.data.slots[1].displayTime).toBe("3:00 PM");
 
-      expect(mockGetAvailableSlots).toHaveBeenCalledWith(
+      expect(mockGenerateTimeSlots).toHaveBeenCalledWith(
         new Date("2025-08-25T00:00:00.000Z"),
         "clxxxxxxxxxxxxxxxxxxxxxxx"
       );
     });
 
     it("should return empty slots array when no slots available", async () => {
-      mockGetAvailableSlots.mockResolvedValue([]);
+      mockGenerateTimeSlots.mockResolvedValue([]);
 
       const searchParams = new URLSearchParams({ date: "2025-08-24" }); // Sunday
       const request = mockRequest(searchParams);
@@ -157,7 +157,7 @@ describe("/api/appointments/available", () => {
     });
 
     it("should handle time slot utility errors gracefully", async () => {
-      mockGetAvailableSlots.mockRejectedValue(
+      mockGenerateTimeSlots.mockRejectedValue(
         new Error("Database connection failed")
       );
 
@@ -172,13 +172,13 @@ describe("/api/appointments/available", () => {
 
     it("should format display times correctly for different hours", async () => {
       const mockSlots = [
-        new Date("2025-08-25T08:30:00Z"), // 8:30 AM
-        new Date("2025-08-25T12:00:00Z"), // 12:00 PM
-        new Date("2025-08-25T13:45:00Z"), // 1:45 PM
-        new Date("2025-08-25T00:00:00Z"), // 12:00 AM
+        { dateTime: new Date("2025-08-25T08:30:00Z"), available: true }, // 8:30 AM
+        { dateTime: new Date("2025-08-25T12:00:00Z"), available: true }, // 12:00 PM
+        { dateTime: new Date("2025-08-25T13:45:00Z"), available: true }, // 1:45 PM
+        { dateTime: new Date("2025-08-25T00:00:00Z"), available: true }, // 12:00 AM
       ];
 
-      mockGetAvailableSlots.mockResolvedValue(mockSlots);
+      mockGenerateTimeSlots.mockResolvedValue(mockSlots);
 
       const searchParams = new URLSearchParams({ date: "2025-08-25" });
       const request = mockRequest(searchParams);

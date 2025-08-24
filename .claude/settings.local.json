@@ -25,7 +25,8 @@
       "Bash(del test-calendar.html)",
       "Bash(npm test:*)",
       "Bash(/dev/null)",
-      "Bash(npx next build:*)"
+      "Bash(npx next build:*)",
+      "Bash(CI=true npx playwright test --reporter=line --timeout=10000)"
     ],
     "deny": [],
     "ask": []
