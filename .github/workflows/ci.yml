@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main, develop]
 
+# Global permissions
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Test Suite
@@ -124,6 +128,12 @@ jobs:
   security:
     name: Security Scan
     runs-on: ubuntu-latest
+    
+    # Job-specific permissions for CodeQL
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
     steps:
       - name: Checkout code
@@ -144,10 +154,11 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: javascript-typescript
-
+          languages: javascript  
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript"  
