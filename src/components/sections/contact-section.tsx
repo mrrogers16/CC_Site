@@ -102,7 +102,7 @@ export function ContactSection() {
         <div className="text-center space-y-4">
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/appointments/book"
+              href="/book"
               className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-primary-foreground bg-primary rounded-lg hover:bg-primary/90 transition-colors duration-200"
             >
               Schedule Appointment

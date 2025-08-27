@@ -5,6 +5,7 @@ import { logger } from "@/lib/logger";
 import { withErrorHandler } from "@/lib/api/error-handler";
 import { registerSchema } from "@/lib/validations/auth";
 import { ValidationError, ConflictError } from "@/lib/errors";
+import { sendVerificationEmail } from "@/lib/email/verification";
 
 export const POST = withErrorHandler(async (request: NextRequest) => {
   const body = await request.json();
@@ -55,29 +56,36 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
       role: user.role,
     });
 
-    // TODO: Send verification email here
-    // This would typically involve:
-    // 1. Generate verification token
-    // 2. Store token in database with expiry
-    // 3. Send email with verification link
-    // For now, we'll just log that verification email should be sent
+    // Send verification email
+    const emailResult = await sendVerificationEmail(user.email, user.name);
 
-    logger.info("Verification email should be sent", {
-      userId: user.id,
-      email: user.email,
-    });
+    if (!emailResult.success) {
+      logger.error("Failed to send verification email", new Error(emailResult.error || "Unknown error"), {
+        userId: user.id,
+        email: user.email,
+      });
+      // Don't fail registration if email fails, just log it
+    } else {
+      logger.info("Verification email sent successfully", {
+        userId: user.id,
+        email: user.email,
+        messageId: emailResult.messageId,
+      });
+    }
 
     return NextResponse.json(
       {
         success: true,
-        message:
-          "Registration successful. Please check your email to verify your account.",
+        message: emailResult.success
+          ? "Registration successful. Please check your email to verify your account."
+          : "Registration successful, but verification email failed to send. Please contact support.",
         user: {
           id: user.id,
           name: user.name,
           email: user.email,
           role: user.role,
         },
+        emailSent: emailResult.success,
       },
       { status: 201 }
     );

@@ -15,7 +15,7 @@ const footerLinks = {
     { title: "Privacy Policy", href: "/privacy" },
   ],
   contact: [
-    { title: "Schedule Appointment", href: "/appointments/book" },
+    { title: "Schedule Appointment", href: "/book" },
     { title: "Contact Us", href: "/contact" },
     { title: "Location", href: "/location" },
     { title: "Emergency Resources", href: "/emergency" },

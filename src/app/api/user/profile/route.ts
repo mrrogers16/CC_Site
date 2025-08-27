@@ -187,7 +187,7 @@ export const PUT = withErrorHandler(async (request: NextRequest) => {
   } catch (error) {
     if (error instanceof z.ZodError) {
       const firstError = error.issues[0];
-      throw new ValidationError(firstError.message);
+      throw new ValidationError(firstError?.message || "Validation error");
     }
 
     logger.error(

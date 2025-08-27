@@ -1,4 +1,7 @@
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/lib/auth";
 import { Navigation } from "@/components/layout/navigation";
 import { Footer } from "@/components/layout/footer";
 import AppointmentBooking from "@/components/booking/appointment-booking";
@@ -9,7 +12,14 @@ export const metadata: Metadata = {
     "Schedule your appointment with our professional counseling services. Easy online booking with available time slots and instant confirmation.",
 };
 
-export default function BookingPage() {
+export default async function BookingPage() {
+  const session = await getServerSession(authOptions);
+
+  // Require authentication for booking
+  if (!session) {
+    redirect("/auth/login?callbackUrl=/book");
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
