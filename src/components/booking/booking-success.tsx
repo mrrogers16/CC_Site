@@ -49,7 +49,7 @@ export default function BookingSuccess({
         }
 
         const data = await response.json();
-        setAppointment(data.appointment);
+        setAppointment(data.data);
       } catch (error) {
         setError(
           error instanceof Error

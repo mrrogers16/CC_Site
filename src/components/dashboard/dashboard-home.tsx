@@ -33,6 +33,7 @@ export function DashboardHome() {
   const [loading, setLoading] = useState(true);
   const [statsLoading, setStatsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
   const fetchNextAppointment = useCallback(async () => {
     if (!session?.user?.id) return;
@@ -114,10 +115,17 @@ export function DashboardHome() {
     }
   }, [session?.user?.id]);
 
+  // Handle hydration - ensure consistent server/client rendering
   useEffect(() => {
-    fetchNextAppointment();
-    fetchDashboardStats();
-  }, [fetchNextAppointment, fetchDashboardStats]);
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      fetchNextAppointment();
+      fetchDashboardStats();
+    }
+  }, [fetchNextAppointment, fetchDashboardStats, isClient]);
 
   const formatAppointmentDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -180,7 +188,7 @@ export function DashboardHome() {
               <div>
                 <p className="text-sm text-muted-foreground">Total Sessions</p>
                 <p className="text-2xl font-light text-foreground">
-                  {statsLoading ? (
+                  {!isClient || statsLoading ? (
                     <div className="h-7 w-8 bg-muted rounded animate-pulse" />
                   ) : (
                     stats.totalAppointments
@@ -211,7 +219,7 @@ export function DashboardHome() {
               <div>
                 <p className="text-sm text-muted-foreground">Upcoming</p>
                 <p className="text-2xl font-light text-foreground">
-                  {statsLoading ? (
+                  {!isClient || statsLoading ? (
                     <div className="h-7 w-8 bg-muted rounded animate-pulse" />
                   ) : (
                     stats.upcomingCount
@@ -242,7 +250,7 @@ export function DashboardHome() {
               <div>
                 <p className="text-sm text-muted-foreground">Completed</p>
                 <p className="text-2xl font-light text-foreground">
-                  {statsLoading ? (
+                  {!isClient || statsLoading ? (
                     <div className="h-7 w-8 bg-muted rounded animate-pulse" />
                   ) : (
                     stats.completedCount
@@ -273,7 +281,7 @@ export function DashboardHome() {
               <div>
                 <p className="text-sm text-muted-foreground">Last Session</p>
                 <p className="text-sm font-light text-foreground">
-                  {statsLoading ? (
+                  {!isClient || statsLoading ? (
                     <div className="h-5 w-16 bg-muted rounded animate-pulse" />
                   ) : stats.lastAppointmentDate ? (
                     new Date(stats.lastAppointmentDate).toLocaleDateString(
@@ -314,7 +322,7 @@ export function DashboardHome() {
           Your Next Appointment
         </h2>
 
-        {loading ? (
+        {!isClient || loading ? (
           <div className="bg-muted/30 rounded-lg p-6 border border-border">
             <div className="animate-pulse">
               <div className="h-4 bg-muted rounded w-3/4 mb-3" />

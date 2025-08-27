@@ -75,7 +75,7 @@ export default function BookingSummary({
       const data = await response.json();
 
       logger.info("Appointment booking successful", {
-        appointmentId: data.appointment?.id,
+        appointmentId: data.data?.id,
       });
 
       onConfirm(data.data?.id || "unknown");

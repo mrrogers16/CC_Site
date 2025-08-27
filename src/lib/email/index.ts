@@ -3,6 +3,7 @@ import { render } from "@react-email/components";
 import { logger } from "@/lib/logger";
 import { ContactNotificationEmail } from "@/components/email/contact-notification";
 import { ContactResponseEmail } from "@/components/email/contact-response";
+import { AppointmentConfirmationEmail } from "@/components/email/appointment-confirmation";
 import type { ContactFormData } from "@/lib/validations";
 
 // Create reusable transporter
@@ -179,6 +180,90 @@ export async function sendAdminResponse(
       }
     );
     return { success: false, error: "Failed to send admin response" };
+  }
+}
+
+export async function sendAppointmentConfirmation(
+  clientEmail: string,
+  clientName: string,
+  appointmentDetails: {
+    id: string;
+    service: string;
+    dateTime: string;
+    duration: number;
+    price: string;
+  }
+): Promise<{ success: boolean; error?: string; messageId?: string }> {
+  try {
+    // Check if email configuration is available
+    if (!process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD) {
+      logger.warn("Email configuration not available, skipping appointment confirmation", {
+        clientEmail,
+        appointmentId: appointmentDetails.id,
+      });
+      return { success: false, error: "Email configuration not available" };
+    }
+
+    const html = await render(
+      AppointmentConfirmationEmail({
+        clientName,
+        appointmentDetails,
+      })
+    );
+
+    const appointmentDate = new Date(appointmentDetails.dateTime);
+    const formattedDate = appointmentDate.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    const formattedTime = appointmentDate.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+
+    const result = await sendEmail({
+      to: clientEmail,
+      subject: `Appointment Confirmed - ${formattedDate} at ${formattedTime}`,
+      html,
+      text: `Dear ${clientName},
+
+Your appointment has been confirmed!
+
+Service: ${appointmentDetails.service}
+Date: ${formattedDate}
+Time: ${formattedTime}
+Duration: ${appointmentDetails.duration} minutes
+Fee: $${appointmentDetails.price}
+
+Location:
+Healing Pathways Counseling
+123 Wellness Way, Suite 200
+Cityville, ST 12345
+Phone: (555) 123-4567
+
+Please arrive 10-15 minutes early for your first appointment.
+
+For cancellations or rescheduling, please provide 24-hour notice.
+
+Confirmation ID: ${appointmentDetails.id}
+
+We look forward to supporting you on your wellness journey.
+
+Best regards,
+Healing Pathways Counseling Team`,
+    });
+
+    return result;
+  } catch (error) {
+    logger.error(
+      "Failed to send appointment confirmation",
+      error instanceof Error ? error : new Error(String(error)),
+      { clientEmail, appointmentId: appointmentDetails.id }
+    );
+    return { success: false, error: "Failed to send appointment confirmation" };
   }
 }
 

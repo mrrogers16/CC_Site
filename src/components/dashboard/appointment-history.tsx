@@ -414,7 +414,7 @@ export function AppointmentHistory({
           <p className="text-muted-foreground mb-6">
             {searchTerm || statusFilter !== "all" || dateRangeFilter !== "all"
               ? "Try adjusting your search or filters."
-              : "You don&apos;t have any past appointments yet."}
+              : "You don't have any past appointments yet."}
           </p>
           {!searchTerm &&
             statusFilter === "all" &&
