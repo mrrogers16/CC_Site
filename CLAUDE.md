@@ -607,6 +607,23 @@ Instead of fixing recurring issues:
 
 **Result: Clean, maintainable, professional-grade code from day one.**
 
+## DATABASE SAFETY RULES
+
+### NEVER Use These Commands Without Permission:
+- `npx prisma db push --force-reset` - DELETES ALL DATA
+- `npx prisma migrate reset` - DELETES ALL DATA  
+- Any command with `--force` or `reset` flags
+
+### Safe Database Commands:
+- `npx prisma db push` - Updates schema only
+- `npx prisma generate` - Always safe
+- `npx prisma studio` - Read-only
+
+### Before Database Operations:
+1. Check existing data with `npx prisma studio`
+2. Use safe commands first
+3. Ask user before destructive operations
+
 ---
 
 **Important**: This is a professional counseling practice website. Maintain healthcare technology standards, ensure accessibility compliance, and preserve the calming, trustworthy design aesthetic.
