@@ -110,18 +110,14 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   });
 
   // Send appointment confirmation email (don't block response if email fails)
-  sendAppointmentConfirmation(
-    appointment.user.email,
-    appointment.user.name,
-    {
-      id: appointment.id,
-      service: appointment.service.title,
-      dateTime: appointment.dateTime.toISOString(),
-      duration: appointment.service.duration,
-      price: appointment.service.price.toString(),
-    }
-  )
-    .then((emailResult) => {
+  sendAppointmentConfirmation(appointment.user.email, appointment.user.name, {
+    id: appointment.id,
+    service: appointment.service.title,
+    dateTime: appointment.dateTime.toISOString(),
+    duration: appointment.service.duration,
+    price: appointment.service.price.toString(),
+  })
+    .then(emailResult => {
       if (emailResult.success) {
         logger.info("Appointment confirmation email sent", {
           appointmentId: appointment.id,
@@ -129,17 +125,25 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
           messageId: emailResult.messageId,
         });
       } else {
-        logger.error("Failed to send appointment confirmation email", new Error(emailResult.error || "Unknown error"), {
-          appointmentId: appointment.id,
-          email: appointment.user.email,
-        });
+        logger.error(
+          "Failed to send appointment confirmation email",
+          new Error(emailResult.error || "Unknown error"),
+          {
+            appointmentId: appointment.id,
+            email: appointment.user.email,
+          }
+        );
       }
     })
-    .catch((error) => {
-      logger.error("Appointment confirmation email error", error instanceof Error ? error : new Error(String(error)), {
-        appointmentId: appointment.id,
-        email: appointment.user.email,
-      });
+    .catch(error => {
+      logger.error(
+        "Appointment confirmation email error",
+        error instanceof Error ? error : new Error(String(error)),
+        {
+          appointmentId: appointment.id,
+          email: appointment.user.email,
+        }
+      );
     });
 
   // Format response

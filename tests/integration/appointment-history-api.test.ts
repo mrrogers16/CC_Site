@@ -66,7 +66,7 @@ describe("Appointments API - History Integration", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     mockGetServerSession.mockResolvedValue(mockSession);
     mockPrisma.appointment.findMany.mockResolvedValue(mockAppointments as any);
     mockPrisma.appointment.count.mockResolvedValue(2);

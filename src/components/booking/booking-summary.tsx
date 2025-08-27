@@ -12,7 +12,6 @@ interface BookingSummaryProps {
 }
 
 export default function BookingSummary({
-
   bookingState,
   onConfirm,
   onBack,

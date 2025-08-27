@@ -23,7 +23,7 @@ async function getServices() {
   return services.map(service => ({
     ...service,
     price: Number(service.price),
-    features: (service.features as string[]) || [], // Cast the Json field to string array
+    features: (service.features as string[]) || [], // Cast the Json fieawld to string array
   }));
 }
 

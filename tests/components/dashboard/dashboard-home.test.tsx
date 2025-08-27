@@ -8,7 +8,8 @@ jest.mock("next-auth/react", () => ({
   useSession: jest.fn(),
 }));
 
-const mockUseSession = require("next-auth/react").useSession as jest.MockedFunction<any>;
+const mockUseSession = require("next-auth/react")
+  .useSession as jest.MockedFunction<any>;
 
 // Mock fetch
 global.fetch = jest.fn();

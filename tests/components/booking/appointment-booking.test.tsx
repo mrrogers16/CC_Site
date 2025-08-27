@@ -7,7 +7,9 @@ import AppointmentBooking from "@/components/booking/appointment-booking";
 
 // Mock NextAuth
 jest.mock("next-auth");
-const mockGetServerSession = getServerSession as jest.MockedFunction<typeof getServerSession>;
+const mockGetServerSession = getServerSession as jest.MockedFunction<
+  typeof getServerSession
+>;
 
 // Mock session data
 const mockSession = {
@@ -146,7 +148,7 @@ describe("AppointmentBooking", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockGetServerSession.mockResolvedValue(mockSession);
-    
+
     queryClient = new QueryClient({
       defaultOptions: {
         queries: { retry: false },

@@ -15,7 +15,9 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export async function generateVerificationToken(email: string): Promise<string> {
+export async function generateVerificationToken(
+  email: string
+): Promise<string> {
   const token = crypto.randomBytes(32).toString("hex");
   const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
@@ -46,9 +48,12 @@ export async function sendVerificationEmail(
   try {
     // Check if email configuration is available
     if (!process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD) {
-      logger.warn("Email configuration not available, skipping verification email", {
-        email,
-      });
+      logger.warn(
+        "Email configuration not available, skipping verification email",
+        {
+          email,
+        }
+      );
       return { success: false, error: "Email configuration not available" };
     }
 

@@ -6,7 +6,9 @@ import ServiceSelector from "@/components/booking/service-selector";
 
 // Mock NextAuth
 jest.mock("next-auth");
-const mockGetServerSession = getServerSession as jest.MockedFunction<typeof getServerSession>;
+const mockGetServerSession = getServerSession as jest.MockedFunction<
+  typeof getServerSession
+>;
 
 // Mock session data
 const mockSession = {
@@ -83,9 +85,9 @@ describe("ServiceSelector", () => {
   });
 
   it("renders loading state initially", async () => {
-    // Don't mock fetch to trigger loading state  
-    (fetch as jest.Mock).mockImplementation(() => 
-      new Promise(() => {}) // Never resolves to keep loading
+    // Don't mock fetch to trigger loading state
+    (fetch as jest.Mock).mockImplementation(
+      () => new Promise(() => {}) // Never resolves to keep loading
     );
 
     await act(async () => {
@@ -146,7 +148,7 @@ describe("ServiceSelector", () => {
       .getByText("Individual Counseling")
       .closest("div");
     if (!serviceCard) throw new Error("Service card not found");
-    
+
     await act(async () => {
       await user.click(serviceCard);
     });
@@ -206,7 +208,7 @@ describe("ServiceSelector", () => {
 
     // Check that the selected service is displayed
     expect(screen.getByText("Couples Therapy")).toBeInTheDocument();
-    
+
     // Check button text changes to "Selected" - this is the important functional test
     expect(screen.getByText("Selected")).toBeInTheDocument();
   });
@@ -266,7 +268,7 @@ describe("ServiceSelector", () => {
     const mockReload = jest.fn();
     // Store original location
     const originalLocation = window.location;
-    
+
     // Delete and redefine location
     delete (window as any).location;
     (window as any).location = { ...originalLocation, reload: mockReload };
@@ -282,7 +284,7 @@ describe("ServiceSelector", () => {
     await user.click(retryButton);
 
     expect(mockReload).toHaveBeenCalled();
-    
+
     // Restore original location
     (window as any).location = originalLocation;
   });

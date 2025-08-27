@@ -45,7 +45,7 @@ const mockUser = {
 describe("/api/user/profile", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     // Setup Prisma mock
     (prisma as any).user = mockPrisma.user;
   });

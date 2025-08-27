@@ -77,7 +77,7 @@ describe("/api/appointments/book", () => {
   };
 
   const validBookingData = {
-    serviceId: "clxxxxxxxxxxxxxxxxxxxxxxx", 
+    serviceId: "clxxxxxxxxxxxxxxxxxxxxxxx",
     dateTime: "2025-09-15T10:00:00Z", // Use a future date
     notes: "Looking forward to the session",
   };
@@ -266,7 +266,7 @@ describe("/api/appointments/book", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("ValidationError"); // This is from custom ValidationError 
+      expect(responseData.error).toBe("ValidationError"); // This is from custom ValidationError
       expect(responseData.message).toBe(
         "You already have an appointment at this time"
       );

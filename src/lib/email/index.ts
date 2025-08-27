@@ -197,10 +197,13 @@ export async function sendAppointmentConfirmation(
   try {
     // Check if email configuration is available
     if (!process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD) {
-      logger.warn("Email configuration not available, skipping appointment confirmation", {
-        clientEmail,
-        appointmentId: appointmentDetails.id,
-      });
+      logger.warn(
+        "Email configuration not available, skipping appointment confirmation",
+        {
+          clientEmail,
+          appointmentId: appointmentDetails.id,
+        }
+      );
       return { success: false, error: "Email configuration not available" };
     }
 

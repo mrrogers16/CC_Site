@@ -28,7 +28,7 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
     if (user.emailVerified) {
       const duration = Date.now() - startTime;
       logger.api("POST", "/api/auth/resend-verification", 400, duration);
-      
+
       return NextResponse.json(
         {
           success: false,
@@ -39,14 +39,20 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
     }
 
     // Send verification email
-    const emailResult = await sendVerificationEmail(email.toLowerCase(), user.name);
+    const emailResult = await sendVerificationEmail(
+      email.toLowerCase(),
+      user.name
+    );
 
     if (!emailResult.success) {
-      logger.error("Failed to send verification email", new Error(emailResult.error || "Unknown error"));
-      
+      logger.error(
+        "Failed to send verification email",
+        new Error(emailResult.error || "Unknown error")
+      );
+
       const duration = Date.now() - startTime;
       logger.api("POST", "/api/auth/resend-verification", 500, duration);
-      
+
       return NextResponse.json(
         {
           success: false,
@@ -56,7 +62,10 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
       );
     }
 
-    logger.info("Verification email resent successfully", { email, messageId: emailResult.messageId });
+    logger.info("Verification email resent successfully", {
+      email,
+      messageId: emailResult.messageId,
+    });
 
     const duration = Date.now() - startTime;
     logger.api("POST", "/api/auth/resend-verification", 200, duration);

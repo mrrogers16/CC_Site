@@ -36,7 +36,8 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
 
     return NextResponse.json({
       success: true,
-      message: "Email verified successfully. You can now sign in to your account.",
+      message:
+        "Email verified successfully. You can now sign in to your account.",
     });
   } catch (error) {
     const duration = Date.now() - startTime;
@@ -57,7 +58,7 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
     if (!email || !token) {
       const duration = Date.now() - startTime;
       logger.api("GET", "/api/auth/verify-email", 400, duration);
-      
+
       // Redirect to error page
       return NextResponse.redirect(
         new URL("/auth/verify-email?error=missing-params", request.url)
@@ -70,9 +71,11 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
 
     if (!result.success) {
       logger.api("GET", "/api/auth/verify-email", 400, duration);
-      
+
       // Redirect to error page with specific error
-      const errorParam = result.error?.includes("expired") ? "expired" : "invalid";
+      const errorParam = result.error?.includes("expired")
+        ? "expired"
+        : "invalid";
       return NextResponse.redirect(
         new URL(`/auth/verify-email?error=${errorParam}`, request.url)
       );
@@ -88,7 +91,7 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
   } catch (error) {
     const duration = Date.now() - startTime;
     logger.api("GET", "/api/auth/verify-email", 500, duration);
-    
+
     // Redirect to error page
     return NextResponse.redirect(
       new URL("/auth/verify-email?error=server-error", request.url)

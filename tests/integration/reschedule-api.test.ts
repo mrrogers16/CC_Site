@@ -54,7 +54,7 @@ jest.setSystemTime(mockCurrentTime);
 describe("/api/appointments/[id]/reschedule", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     // Setup NextAuth mock
     mockGetServerSession.mockResolvedValue(mockSession);
 
@@ -104,7 +104,7 @@ describe("/api/appointments/[id]/reschedule", () => {
         console.log("Response status:", response.status);
         console.log("Response data:", data);
       }
-      
+
       expect(response.status).toBe(200);
       expect(data.success).toBe(true);
       expect(data.message).toBe("Appointment rescheduled successfully");
@@ -152,7 +152,6 @@ describe("/api/appointments/[id]/reschedule", () => {
     });
 
     it("should return 400 for invalid request data", async () => {
-
       const request = new NextRequest(
         "http://localhost:3000/api/appointments/appointment-123/reschedule",
         {
@@ -307,7 +306,7 @@ describe("/api/appointments/[id]/reschedule", () => {
       // Mock the appointment lookup (first call)
       mockPrisma.appointment.findFirst
         .mockResolvedValueOnce(mockAppointment)
-        // Mock the conflict check (second call should return null - no conflicts)  
+        // Mock the conflict check (second call should return null - no conflicts)
         .mockResolvedValueOnce(null);
 
       const request = new NextRequest(
@@ -327,7 +326,9 @@ describe("/api/appointments/[id]/reschedule", () => {
 
       expect(response.status).toBe(400);
       expect(data.error).toBe("ValidationError");
-      expect(data.message).toBe("Weekday appointments are only available from 9 AM to 5 PM");
+      expect(data.message).toBe(
+        "Weekday appointments are only available from 9 AM to 5 PM"
+      );
     });
 
     it("should prevent rescheduling to weekends", async () => {
@@ -389,7 +390,6 @@ describe("/api/appointments/[id]/reschedule", () => {
     });
 
     it("should validate required fields", async () => {
-
       const request = new NextRequest(
         "http://localhost:3000/api/appointments/appointment-123/reschedule",
         {

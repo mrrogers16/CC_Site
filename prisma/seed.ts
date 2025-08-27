@@ -1,4 +1,5 @@
 import { PrismaClient } from "../src/generated/prisma/index";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -111,6 +112,28 @@ async function main() {
   });
 
   console.log(`Created test user: ${user.email}`);
+
+  // Create admin user
+  const adminEmail = "admin@healingpathways.com";
+  const existingAdmin = await prisma.user.findUnique({
+    where: { email: adminEmail },
+  });
+
+  if (!existingAdmin) {
+    const hashedPassword = await bcrypt.hash("admin123", 12);
+    const adminUser = await prisma.user.create({
+      data: {
+        email: adminEmail,
+        name: "Admin User",
+        password: hashedPassword,
+        role: "ADMIN",
+        emailVerified: new Date(), // Skip email verification for admin
+      },
+    });
+    console.log(`Created admin user: ${adminUser.email}`);
+  } else {
+    console.log(`Admin user already exists: ${adminEmail}`);
+  }
 
   // Create default availability windows (Monday-Friday, 9 AM - 5 PM)
   const availability = await prisma.availability.createMany({

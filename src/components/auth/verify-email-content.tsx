@@ -8,7 +8,9 @@ export function VerifyEmailContent() {
   const [isResending, setIsResending] = useState(false);
   const [resendMessage, setResendMessage] = useState<string | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
-  const [verificationStatus, setVerificationStatus] = useState<"pending" | "success" | "error">("pending");
+  const [verificationStatus, setVerificationStatus] = useState<
+    "pending" | "success" | "error"
+  >("pending");
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get("email");
@@ -23,7 +25,7 @@ export function VerifyEmailContent() {
 
   const handleTokenVerification = async () => {
     setIsVerifying(true);
-    
+
     try {
       const response = await fetch("/api/auth/verify-email", {
         method: "POST",
@@ -38,18 +40,24 @@ export function VerifyEmailContent() {
       if (response.ok && data.success) {
         setVerificationStatus("success");
         logger.info("Email verification successful", { email });
-        
+
         // Redirect to login after a brief delay
         setTimeout(() => {
           router.push("/auth/login?verified=true");
         }, 3000);
       } else {
         setVerificationStatus("error");
-        logger.error("Email verification failed", new Error(data.error || "Unknown error"));
+        logger.error(
+          "Email verification failed",
+          new Error(data.error || "Unknown error")
+        );
       }
     } catch (error) {
       setVerificationStatus("error");
-      logger.error("Email verification error", error instanceof Error ? error : new Error(String(error)));
+      logger.error(
+        "Email verification error",
+        error instanceof Error ? error : new Error(String(error))
+      );
     } finally {
       setIsVerifying(false);
     }
@@ -79,15 +87,23 @@ export function VerifyEmailContent() {
         logger.info("Verification email resend successful", { email });
         setResendMessage("Verification email sent! Please check your inbox.");
       } else {
-        logger.error("Failed to resend verification email", new Error(data.error || "Unknown error"));
-        setResendMessage(data.error || "Failed to resend email. Please try again or contact support.");
+        logger.error(
+          "Failed to resend verification email",
+          new Error(data.error || "Unknown error")
+        );
+        setResendMessage(
+          data.error ||
+            "Failed to resend email. Please try again or contact support."
+        );
       }
     } catch (error) {
       logger.error(
         "Failed to resend verification email",
         error instanceof Error ? error : new Error(String(error))
       );
-      setResendMessage("Failed to resend email. Please try again or contact support.");
+      setResendMessage(
+        "Failed to resend email. Please try again or contact support."
+      );
     } finally {
       setIsResending(false);
     }
@@ -99,7 +115,7 @@ export function VerifyEmailContent() {
       return (
         <div className="max-w-2xl mx-auto">
           <div className="bg-card rounded-lg shadow-sm border border-border p-8 text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4" />
             <h2 className="font-serif text-2xl font-light text-foreground mb-4">
               Verifying Your Email...
             </h2>
@@ -116,8 +132,18 @@ export function VerifyEmailContent() {
         <div className="max-w-2xl mx-auto">
           <div className="bg-card rounded-lg shadow-sm border border-border p-8 text-center">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <svg
+                className="w-8 h-8 text-green-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
             </div>
             <h2 className="font-serif text-2xl font-light text-foreground mb-4">
@@ -143,16 +169,26 @@ export function VerifyEmailContent() {
         <div className="max-w-2xl mx-auto">
           <div className="bg-card rounded-lg shadow-sm border border-border p-8 text-center">
             <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-8 h-8 text-red-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </div>
             <h2 className="font-serif text-2xl font-light text-foreground mb-4">
               Verification Failed
             </h2>
             <p className="text-muted-foreground mb-6">
-              The verification link is invalid or has expired. 
-              Please request a new verification email.
+              The verification link is invalid or has expired. Please request a
+              new verification email.
             </p>
             <div className="space-y-4">
               <button

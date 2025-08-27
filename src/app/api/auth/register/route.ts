@@ -60,10 +60,14 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
     const emailResult = await sendVerificationEmail(user.email, user.name);
 
     if (!emailResult.success) {
-      logger.error("Failed to send verification email", new Error(emailResult.error || "Unknown error"), {
-        userId: user.id,
-        email: user.email,
-      });
+      logger.error(
+        "Failed to send verification email",
+        new Error(emailResult.error || "Unknown error"),
+        {
+          userId: user.id,
+          email: user.email,
+        }
+      );
       // Don't fail registration if email fails, just log it
     } else {
       logger.info("Verification email sent successfully", {
