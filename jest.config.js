@@ -30,6 +30,8 @@ const customJestConfig = {
     "<rootDir>/src/**/*.{test,spec}.{js,jsx,ts,tsx}",
     "<rootDir>/tests/unit/**/*.{js,jsx,ts,tsx}",
     "<rootDir>/tests/integration/**/*.{js,jsx,ts,tsx}",
+    "<rootDir>/tests/components/**/*.{js,jsx,ts,tsx}",
+    "<rootDir>/tests/app/**/*.{js,jsx,ts,tsx}",
   ],
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",

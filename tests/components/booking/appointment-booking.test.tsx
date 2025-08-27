@@ -2,7 +2,22 @@ import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { getServerSession } from "next-auth";
 import AppointmentBooking from "@/components/booking/appointment-booking";
+
+// Mock NextAuth
+jest.mock("next-auth");
+const mockGetServerSession = getServerSession as jest.MockedFunction<typeof getServerSession>;
+
+// Mock session data
+const mockSession = {
+  user: {
+    id: "test-user-id",
+    email: "test@example.com",
+    name: "Test User",
+  },
+  expires: "2024-12-31T23:59:59.999Z",
+};
 
 // Mock the booking components
 jest.mock("@/components/booking/service-selector", () => {
@@ -129,6 +144,9 @@ describe("AppointmentBooking", () => {
   let queryClient: QueryClient;
 
   beforeEach(() => {
+    jest.clearAllMocks();
+    mockGetServerSession.mockResolvedValue(mockSession);
+    
     queryClient = new QueryClient({
       defaultOptions: {
         queries: { retry: false },
@@ -330,7 +348,9 @@ describe("AppointmentBooking", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Individual Counseling")).toBeInTheDocument();
-      expect(screen.getByText("12/15/2024")).toBeInTheDocument();
+      // Check for the formatted date (depends on locale, but should contain date parts)
+      const expectedDate = new Date("2024-12-15").toLocaleDateString();
+      expect(screen.getByText(expectedDate)).toBeInTheDocument();
     });
 
     // Select time and navigate through remaining steps

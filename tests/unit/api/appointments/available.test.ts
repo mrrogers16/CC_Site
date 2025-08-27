@@ -31,11 +31,12 @@ describe("/api/appointments/available", () => {
 
   describe("GET /api/appointments/available", () => {
     it("should return available slots for a valid date", async () => {
+      const testDate = "2025-09-01"; // Use a future date
       const mockSlots = [
-        { dateTime: new Date("2025-08-25T09:00:00Z"), available: true },
-        { dateTime: new Date("2025-08-25T09:15:00Z"), available: true },
+        { dateTime: new Date("2025-09-01T09:00:00Z"), available: true },
+        { dateTime: new Date("2025-09-01T09:15:00Z"), available: true },
         {
-          dateTime: new Date("2025-08-25T10:00:00Z"),
+          dateTime: new Date("2025-09-01T10:00:00Z"),
           available: false,
           reason: "Booked",
         },
@@ -43,48 +44,49 @@ describe("/api/appointments/available", () => {
 
       mockGenerateTimeSlots.mockResolvedValue(mockSlots);
 
-      const searchParams = new URLSearchParams({ date: "2025-08-25" });
+      const searchParams = new URLSearchParams({ date: testDate });
       const request = mockRequest(searchParams);
       const response = await GET(request);
       const responseData = await response.json();
 
       expect(response.status).toBe(200);
       expect(responseData.success).toBe(true);
-      expect(responseData.date).toBe("2025-08-25");
+      expect(responseData.date).toBe(testDate);
       expect(responseData.availableSlots).toBe(2);
       expect(responseData.totalSlots).toBe(3);
       expect(responseData.slots).toHaveLength(3);
 
       // Check slot formatting
       expect(responseData.slots[0]).toEqual({
-        dateTime: "2025-08-25T09:00:00.000Z",
+        dateTime: "2025-09-01T09:00:00.000Z",
         available: true,
         displayTime: "9:00 AM",
       });
 
       expect(responseData.slots[1]).toEqual({
-        dateTime: "2025-08-25T09:15:00.000Z",
+        dateTime: "2025-09-01T09:15:00.000Z",
         available: true,
         displayTime: "9:15 AM",
       });
 
       // Verify generateTimeSlots was called correctly with local date
       expect(mockGenerateTimeSlots).toHaveBeenCalledWith(
-        new Date(2025, 7, 25), // Local date (month is 0-indexed)
+        new Date(2025, 8, 1), // Local date (month is 0-indexed, Sept = 8)
         undefined
       );
     });
 
     it("should return available slots with service ID", async () => {
+      const testDate = "2025-09-02"; // Use a future date
       const mockSlots = [
-        { dateTime: new Date("2025-08-25T14:00:00Z"), available: true },
-        { dateTime: new Date("2025-08-25T15:00:00Z"), available: true },
+        { dateTime: new Date("2025-09-02T14:00:00Z"), available: true },
+        { dateTime: new Date("2025-09-02T15:00:00Z"), available: true },
       ];
 
       mockGenerateTimeSlots.mockResolvedValue(mockSlots);
 
       const searchParams = new URLSearchParams({
-        date: "2025-08-25",
+        date: testDate,
         serviceId: "clxxxxxxxxxxxxxxxxxxxxxxx",
       });
       const request = mockRequest(searchParams);
@@ -100,7 +102,7 @@ describe("/api/appointments/available", () => {
       expect(responseData.slots[1].displayTime).toBe("3:00 PM");
 
       expect(mockGenerateTimeSlots).toHaveBeenCalledWith(
-        new Date(2025, 7, 25), // Local date (month is 0-indexed)
+        new Date(2025, 8, 2), // Local date (month is 0-indexed, Sept = 8)
         "clxxxxxxxxxxxxxxxxxxxxxxx"
       );
     });
@@ -108,7 +110,8 @@ describe("/api/appointments/available", () => {
     it("should return empty slots array when no slots available", async () => {
       mockGenerateTimeSlots.mockResolvedValue([]);
 
-      const searchParams = new URLSearchParams({ date: "2025-08-24" }); // Sunday
+      const testDate = "2025-09-03"; // Use a future date
+      const searchParams = new URLSearchParams({ date: testDate });
       const request = mockRequest(searchParams);
       const response = await GET(request);
       const responseData = await response.json();
@@ -141,7 +144,7 @@ describe("/api/appointments/available", () => {
     });
 
     it("should return 400 when date is in the past", async () => {
-      const searchParams = new URLSearchParams({ date: "2020-01-01" });
+      const searchParams = new URLSearchParams({ date: "2025-08-25" }); // Use a past date relative to today (2025-08-27)
       const request = mockRequest(searchParams);
       const response = await GET(request);
       const responseData = await response.json();
@@ -152,7 +155,7 @@ describe("/api/appointments/available", () => {
 
     it("should handle invalid service ID gracefully", async () => {
       const searchParams = new URLSearchParams({
-        date: "2025-08-25",
+        date: "2025-09-04", // Use a future date
         serviceId: "invalid-service-id",
       });
       const request = mockRequest(searchParams);
@@ -168,7 +171,7 @@ describe("/api/appointments/available", () => {
         new Error("Database connection failed")
       );
 
-      const searchParams = new URLSearchParams({ date: "2025-08-25" });
+      const searchParams = new URLSearchParams({ date: "2025-09-05" }); // Use a future date
       const request = mockRequest(searchParams);
       const response = await GET(request);
       const responseData = await response.json();
@@ -178,16 +181,17 @@ describe("/api/appointments/available", () => {
     });
 
     it("should format display times correctly for different hours", async () => {
+      const testDate = "2025-09-06"; // Use a future date
       const mockSlots = [
-        { dateTime: new Date("2025-08-25T08:30:00Z"), available: true }, // 8:30 AM
-        { dateTime: new Date("2025-08-25T12:00:00Z"), available: true }, // 12:00 PM
-        { dateTime: new Date("2025-08-25T13:45:00Z"), available: true }, // 1:45 PM
-        { dateTime: new Date("2025-08-25T00:00:00Z"), available: true }, // 12:00 AM
+        { dateTime: new Date("2025-09-06T08:30:00Z"), available: true }, // 8:30 AM
+        { dateTime: new Date("2025-09-06T12:00:00Z"), available: true }, // 12:00 PM
+        { dateTime: new Date("2025-09-06T13:45:00Z"), available: true }, // 1:45 PM
+        { dateTime: new Date("2025-09-06T00:00:00Z"), available: true }, // 12:00 AM
       ];
 
       mockGenerateTimeSlots.mockResolvedValue(mockSlots);
 
-      const searchParams = new URLSearchParams({ date: "2025-08-25" });
+      const searchParams = new URLSearchParams({ date: testDate });
       const request = mockRequest(searchParams);
       const response = await GET(request);
       const responseData = await response.json();

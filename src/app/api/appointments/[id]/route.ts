@@ -379,9 +379,16 @@ export const DELETE = withErrorHandler(
     const userId = session.user.id;
     const isAdmin = session.user.role === "ADMIN";
 
-    // Get cancellation reason from query params or body
-    const url = new URL(request.url);
-    const reason = url.searchParams.get("reason") || "Cancelled by user";
+    // Get cancellation reason from request body or query params
+    let reason = "Cancelled by user";
+    try {
+      const body = await request.json();
+      reason = body.reason || reason;
+    } catch {
+      // If no body, try query params
+      const url = new URL(request.url);
+      reason = url.searchParams.get("reason") || reason;
+    }
 
     // Find the appointment
     const appointment = await prisma.appointment.findUnique({

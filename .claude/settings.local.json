@@ -31,7 +31,8 @@
       "Bash(CI=true npx playwright test critical-flows.spec.ts --reporter=line --timeout=15000)",
       "Bash(CI=true npx playwright test --grep \"homepage loads correctly\" --reporter=line)",
       "Bash(CI=true npx playwright test critical-flows.spec.ts --reporter=line)",
-      "Bash(CI=true npx playwright test --grep \"homepage loads correctly\" --reporter=line --timeout=20000)"
+      "Bash(CI=true npx playwright test --grep \"homepage loads correctly\" --reporter=line --timeout=20000)",
+      "Bash(node:*)"
     ],
     "deny": [],
     "ask": []

@@ -77,8 +77,8 @@ describe("/api/appointments/book", () => {
   };
 
   const validBookingData = {
-    serviceId: "clxxxxxxxxxxxxxxxxxxxxxxx",
-    dateTime: "2025-08-25T10:00:00Z",
+    serviceId: "clxxxxxxxxxxxxxxxxxxxxxxx", 
+    dateTime: "2025-09-15T10:00:00Z", // Use a future date
     notes: "Looking forward to the session",
   };
 
@@ -120,7 +120,7 @@ describe("/api/appointments/book", () => {
         },
         {
           id: "appointment-123",
-          dateTime: new Date("2025-08-25T10:00:00Z"),
+          dateTime: new Date("2025-09-15T10:00:00Z"), // Use future date
           status: "PENDING" as AppointmentStatus,
           notes: "Looking forward to the session",
           userId: "user-123",
@@ -238,7 +238,7 @@ describe("/api/appointments/book", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("ValidationError");
+      expect(responseData.error).toBe("ValidationError"); // This is from custom ValidationError
       expect(responseData.message).toBe(
         "Time slot conflicts with existing appointment"
       );
@@ -251,7 +251,7 @@ describe("/api/appointments/book", () => {
         {
           id: "existing-appointment",
           userId: mockSession.user.id,
-          dateTime: new Date("2025-08-25T10:00:00Z"),
+          dateTime: new Date("2025-09-15T10:00:00Z"), // Use future date
           status: "CONFIRMED" as AppointmentStatus,
         }
       );
@@ -266,7 +266,7 @@ describe("/api/appointments/book", () => {
       const responseData = await response.json();
 
       expect(response.status).toBe(400);
-      expect(responseData.error).toBe("ValidationError");
+      expect(responseData.error).toBe("ValidationError"); // This is from custom ValidationError 
       expect(responseData.message).toBe(
         "You already have an appointment at this time"
       );
@@ -286,7 +286,7 @@ describe("/api/appointments/book", () => {
     it("should successfully book appointment without notes", async () => {
       const dataWithoutNotes = {
         serviceId: "clxxxxxxxxxxxxxxxxxxxxxxx",
-        dateTime: "2025-08-25T10:00:00Z",
+        dateTime: "2025-09-16T10:00:00Z", // Use future date
       };
 
       const mockAppointment = createMockAppointmentWithIncludes(
@@ -303,7 +303,7 @@ describe("/api/appointments/book", () => {
         },
         {
           id: "appointment-123",
-          dateTime: new Date("2025-08-25T10:00:00Z"),
+          dateTime: new Date("2025-09-15T10:00:00Z"), // Use future date
           status: "PENDING" as AppointmentStatus,
           notes: null,
           userId: "user-123",
@@ -398,7 +398,7 @@ describe("/api/appointments/book", () => {
         },
         {
           id: "appointment-123",
-          dateTime: new Date("2025-08-25T10:00:00Z"),
+          dateTime: new Date("2025-09-15T10:00:00Z"), // Use future date
           status: "PENDING" as AppointmentStatus,
           notes: "Looking forward to the session",
           userId: "user-123",

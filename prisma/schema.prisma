@@ -24,6 +24,14 @@ model User {
   emailVerified DateTime?
   image         String?
   role          UserRole @default(CLIENT)
+  
+  // Profile fields
+  emergencyContactName  String?
+  emergencyContactPhone String?
+  emailNotifications    Boolean? @default(true)
+  smsReminders         Boolean? @default(false)
+  reminderTime         String? @default("24") // "24", "2", "1", "0.5" (hours)
+  
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
