@@ -12,6 +12,7 @@ interface BookingSummaryProps {
 }
 
 export default function BookingSummary({
+
   bookingState,
   onConfirm,
   onBack,
@@ -77,7 +78,7 @@ export default function BookingSummary({
         appointmentId: data.appointment?.id,
       });
 
-      onConfirm(data.appointment?.id || "unknown");
+      onConfirm(data.data?.id || "unknown");
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Failed to book appointment";
