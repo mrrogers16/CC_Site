@@ -15,11 +15,22 @@ jest.mock("@/lib/db");
 jest.mock("@/lib/email");
 jest.mock("@/lib/logger");
 
-const mockGetServerSession = getServerSession as jest.MockedFunction<typeof getServerSession>;
+const mockGetServerSession = getServerSession as jest.MockedFunction<
+  typeof getServerSession
+>;
 const mockPrisma = prisma as jest.Mocked<typeof prisma>;
-const mockSendAppointmentConfirmation = sendAppointmentConfirmation as jest.MockedFunction<typeof sendAppointmentConfirmation>;
-const mockSendAppointmentReschedule = sendAppointmentReschedule as jest.MockedFunction<typeof sendAppointmentReschedule>;
-const mockSendAppointmentCancellation = sendAppointmentCancellation as jest.MockedFunction<typeof sendAppointmentCancellation>;
+const mockSendAppointmentConfirmation =
+  sendAppointmentConfirmation as jest.MockedFunction<
+    typeof sendAppointmentConfirmation
+  >;
+const mockSendAppointmentReschedule =
+  sendAppointmentReschedule as jest.MockedFunction<
+    typeof sendAppointmentReschedule
+  >;
+const mockSendAppointmentCancellation =
+  sendAppointmentCancellation as jest.MockedFunction<
+    typeof sendAppointmentCancellation
+  >;
 
 describe("/api/admin/appointments/[id]/notify", () => {
   const mockSession = {
@@ -76,10 +87,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
       mockPrisma.appointment.update.mockResolvedValue(mockAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -114,10 +128,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -151,10 +168,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -187,10 +207,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
       mockPrisma.appointment.update.mockResolvedValue(mockAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -222,10 +245,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
     it("requires admin authentication", async () => {
       mockGetServerSession.mockResolvedValue(null);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify({ type: "confirmation" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({ type: "confirmation" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -243,10 +269,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
 
       mockGetServerSession.mockResolvedValue(clientSession);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify({ type: "confirmation" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({ type: "confirmation" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -260,10 +289,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(null);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/nonexistent/notify", {
-        method: "POST",
-        body: JSON.stringify({ type: "confirmation" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/nonexistent/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({ type: "confirmation" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "nonexistent" });
       const response = await POST(request, { params });
@@ -276,10 +308,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
     it("validates notification type", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify({ type: "invalid-type" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({ type: "invalid-type" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -299,17 +334,22 @@ describe("/api/admin/appointments/[id]/notify", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
       const data = await response.json();
 
       expect(response.status).toBe(400);
-      expect(data.error).toBe("Old date/time is required for reschedule notifications");
+      expect(data.error).toBe(
+        "Old date/time is required for reschedule notifications"
+      );
     });
 
     it("validates custom message length", async () => {
@@ -317,13 +357,16 @@ describe("/api/admin/appointments/[id]/notify", () => {
 
       mockGetServerSession.mockResolvedValue(mockSession);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify({
-          type: "confirmation",
-          customMessage: longMessage,
-        }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            type: "confirmation",
+            customMessage: longMessage,
+          }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -341,10 +384,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
         error: "Email service unavailable",
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify({ type: "confirmation" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({ type: "confirmation" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -360,12 +406,17 @@ describe("/api/admin/appointments/[id]/notify", () => {
     it("handles email sending exceptions", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
-      mockSendAppointmentConfirmation.mockRejectedValue(new Error("Network error"));
+      mockSendAppointmentConfirmation.mockRejectedValue(
+        new Error("Network error")
+      );
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify({ type: "confirmation" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({ type: "confirmation" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -382,10 +433,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
       mockPrisma.appointment.update.mockResolvedValue(mockAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify({ type: "confirmation" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({ type: "confirmation" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       await POST(request, { params });
@@ -404,10 +458,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
         error: "Email failed",
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify({ type: "confirmation" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({ type: "confirmation" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       await POST(request, { params });
@@ -425,13 +482,20 @@ describe("/api/admin/appointments/[id]/notify", () => {
       };
 
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue(appointmentWithDecimalPrice);
-      mockPrisma.appointment.update.mockResolvedValue(appointmentWithDecimalPrice);
+      mockPrisma.appointment.findUnique.mockResolvedValue(
+        appointmentWithDecimalPrice
+      );
+      mockPrisma.appointment.update.mockResolvedValue(
+        appointmentWithDecimalPrice
+      );
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify({ type: "confirmation" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({ type: "confirmation" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       await POST(request, { params });
@@ -450,14 +514,17 @@ describe("/api/admin/appointments/[id]/notify", () => {
 
       mockGetServerSession.mockResolvedValue(mockSession);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify({
-          type: "reschedule",
-          oldDateTime: "2025-08-27T10:00:00Z",
-          reason: longReason,
-        }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            type: "reschedule",
+            oldDateTime: "2025-08-27T10:00:00Z",
+            reason: longReason,
+          }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -481,10 +548,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
       for (const testCase of testCases) {
         jest.clearAllMocks();
 
-        const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-          method: "POST",
-          body: JSON.stringify(testCase),
-        });
+        const request = new NextRequest(
+          "http://localhost/api/admin/appointments/appointment-1/notify",
+          {
+            method: "POST",
+            body: JSON.stringify(testCase),
+          }
+        );
 
         const params = Promise.resolve({ id: "appointment-1" });
         const response = await POST(request, { params });
@@ -505,10 +575,13 @@ describe("/api/admin/appointments/[id]/notify", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       await POST(request, { params });

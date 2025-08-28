@@ -16,6 +16,7 @@ const navigationItems = [
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const { data: session, status } = useSession();
   const userMenuRef = useRef<HTMLDivElement>(null);
 
@@ -37,7 +38,14 @@ export function Navigation() {
   }, []);
 
   const handleSignOut = async () => {
-    await signOut({ redirect: true, callbackUrl: "/" });
+    setIsSigningOut(true);
+    try {
+      // Regular users redirect to home page
+      await signOut({ redirect: true, callbackUrl: "/" });
+    } catch (error) {
+      console.error("Error signing out:", error);
+      setIsSigningOut(false);
+    }
   };
 
   return (
@@ -130,9 +138,17 @@ export function Navigation() {
                           setIsUserMenuOpen(false);
                           handleSignOut();
                         }}
-                        className="w-full text-left block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors duration-200"
+                        disabled={isSigningOut}
+                        className="w-full text-left flex items-center px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Sign Out
+                        {isSigningOut ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
+                            Signing Out...
+                          </>
+                        ) : (
+                          "Sign Out"
+                        )}
                       </button>
                     </div>
                   )}
@@ -260,9 +276,17 @@ export function Navigation() {
                         setIsMenuOpen(false);
                         handleSignOut();
                       }}
-                      className="block w-full text-left px-0 py-2 text-foreground hover:text-primary transition-colors duration-200 font-medium"
+                      disabled={isSigningOut}
+                      className="flex items-center w-full text-left px-0 py-2 text-foreground hover:text-primary transition-colors duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Sign Out
+                      {isSigningOut ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
+                          Signing Out...
+                        </>
+                      ) : (
+                        "Sign Out"
+                      )}
                     </button>
                   </div>
                 </>

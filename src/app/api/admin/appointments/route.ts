@@ -18,7 +18,12 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
   const serviceId = searchParams.get("serviceId");
   const clientId = searchParams.get("clientId");
 
-  const where: any = {};
+  const where: {
+    status?: string;
+    dateTime?: { gte: Date; lte: Date };
+    serviceId?: string;
+    userId?: string;
+  } = {};
 
   if (status && status !== "all") {
     where.status = status.toUpperCase();

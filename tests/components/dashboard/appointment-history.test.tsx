@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider as _SessionProvider } from "next-auth/react";
 import { AppointmentHistory } from "@/components/dashboard/appointment-history";
 import { jest } from "@jest/globals";
 

@@ -398,22 +398,62 @@ const users = await prisma.user.findMany({
 });
 ```
 
+### Service Management Patterns (Phase 2)
+
+```typescript
+// ✅ Service management with features array handling:
+const service = await prisma.service.create({
+  data: {
+    title: validatedData.title,
+    description: validatedData.description,
+    duration: validatedData.duration,
+    price: validatedData.price,
+    features: validatedData.features || [], // Always provide array default
+    isActive: validatedData.isActive,
+  },
+});
+
+// ✅ Service data transformation for frontend:
+const transformedService = {
+  id: service.id,
+  title: service.title,
+  description: service.description,
+  duration: service.duration,
+  price: Number(service.price), // Convert Decimal to number
+  features: Array.isArray(service.features)
+    ? (service.features as string[])
+    : [],
+  isActive: service.isActive,
+  appointmentCount: service._count?.appointments || 0,
+};
+
+// ✅ Safe service deletion with appointment protection:
+if (service._count.appointments > 0) {
+  throw new ValidationError(
+    `Cannot delete service "${service.title}" because it has ${service._count.appointments} associated appointments. Deactivate the service instead.`
+  );
+}
+```
+
 ### Windows Development Considerations
 
 #### Prisma Client Generation Issues
 
 **Common Problem**: Windows file locking prevents Prisma client regeneration
+
 ```
 Error: EPERM: operation not permitted, rename 'query_engine-windows.dll.node.tmp...'
 ```
 
 **Solution Steps**:
+
 1. Stop all Node.js processes (dev servers, Prisma Studio)
 2. Clear temporary files: `rm -f src/generated/prisma/query_engine-windows.dll.node.tmp*`
 3. Remove entire generated directory: `rm -rf src/generated`
 4. Regenerate client: `npx prisma generate`
 
 **Prevention**:
+
 - Avoid running multiple dev servers simultaneously
 - Close Prisma Studio before schema changes
 - Use dedicated terminal sessions for different operations
@@ -421,6 +461,7 @@ Error: EPERM: operation not permitted, rename 'query_engine-windows.dll.node.tmp
 #### TypeScript exactOptionalPropertyTypes Compliance
 
 **Pattern for Prisma Create Operations**:
+
 ```typescript
 // ✅ CORRECT - Conditional inclusion for optional fields
 const data = await prisma.appointmentHistory.create({
@@ -536,23 +577,27 @@ test("handles email availability checking", async () => {
 - Professional home page with sage green theme
 - Services page with database integration
 - Contact form with email notifications
-- Admin dashboard for contact management
+- **Complete Admin Dashboard System** (Phase 1A-2 Complete)
+- **Advanced Appointment Management** (Phase 1B-2 Complete)
+- **Service Administration Interface** (Phase 2 Complete)
 - User authentication with Google OAuth
 - Responsive navigation and footer
 - Real-time form validation
 
 ### Next Priority Features
 
-1. **Appointment Booking System**
-   - Calendar interface with time slots
-   - Booking confirmation workflow
-   - Email notifications
-2. **Blog System**
-   - MDX support for content
-   - SEO optimization
-3. **Enhanced User Dashboard**
-   - Appointment management
-   - Profile settings
+1. **Practice Analytics and Reporting** (Phase 3)
+   - Revenue analytics and financial reporting
+   - Appointment patterns and client insights
+   - Service performance metrics
+2. **Email Template Management** (Phase 3)
+   - Customizable email templates
+   - Template preview and testing
+   - Branding and personalization options
+3. **User Portal Enhancements**
+   - Enhanced appointment booking interface
+   - Client dashboard improvements
+   - Mobile app considerations
 
 ### Environment Configuration
 
@@ -654,6 +699,87 @@ Instead of fixing recurring issues:
 
 **Result: Clean, maintainable, professional-grade code from day one.**
 
+## JEST CONFIGURATION OPTIMIZATION PATTERNS
+
+### Large Test Suite Management (800+ Tests)
+
+When test suites grow beyond 500 tests, Jest worker configuration requires optimization:
+
+```javascript
+// jest.config.js optimization for large test suites
+const customJestConfig = {
+  // Worker management for stability
+  maxWorkers: "50%", // Reduce workers for stability
+  testTimeout: 15000, // Increase timeout for complex tests
+  workerIdleMemoryLimit: "1GB", // Limit worker memory usage
+
+  // Resource cleanup
+  detectOpenHandles: true, // Always detect open handles
+  forceExit: true, // Force exit to prevent hanging
+  clearMocks: true, // Clear mocks between tests
+  restoreMocks: true, // Restore original implementations
+  resetMocks: true, // Reset mock state between tests
+
+  // Performance optimization
+  cache: true,
+  cacheDirectory: "<rootDir>/.jest-cache",
+  verbose: false, // Reduce verbose output
+};
+```
+
+### Global Test Cleanup Patterns
+
+```javascript
+// jest.setup.js - Global cleanup for resource management
+beforeEach(() => {
+  jest.clearAllTimers();
+  jest.clearAllMocks();
+  if (global.fetch) global.fetch.mockClear();
+});
+
+afterEach(async () => {
+  jest.runOnlyPendingTimers();
+  jest.clearAllTimers();
+  jest.clearAllMocks();
+  jest.restoreAllMocks();
+  await Promise.resolve(); // Clean up pending operations
+});
+
+// Unhandled promise rejection handler
+process.on("unhandledRejection", (reason, promise) => {
+  console.warn("Unhandled Rejection at:", promise, "reason:", reason);
+});
+```
+
+### Analytics Test Resource Management
+
+```javascript
+// Analytics test cleanup pattern
+beforeEach(() => {
+  jest.clearAllMocks();
+  jest.clearAllTimers();
+  // Reset all Prisma mocks
+  Object.values(prisma.appointment).forEach(fn => {
+    if (typeof fn.mockReset === "function") fn.mockReset();
+  });
+});
+
+afterEach(async () => {
+  jest.clearAllMocks();
+  jest.clearAllTimers();
+  jest.useRealTimers(); // Clean up fake timers
+  await Promise.resolve(); // Clean up pending operations
+});
+```
+
+### Warning Signs Requiring Jest Optimization
+
+1. **"Jest worker exceeded 2 exceptions"** - Reduce maxWorkers to 50%
+2. **Development server won't start after tests** - Add forceExit: true
+3. **Tests hanging or timing out** - Increase testTimeout and add cleanup
+4. **Memory issues with large test suites** - Add workerIdleMemoryLimit
+5. **Open handles warnings** - Enable detectOpenHandles and add cleanup
+
 ## DATABASE SAFETY RULES
 
 ### NEVER Use These Commands Without Permission:
@@ -674,6 +800,467 @@ Instead of fixing recurring issues:
 2. Use safe commands first
 3. Ask user before destructive operations
 
+## HTML STRUCTURE AND HYDRATION BEST PRACTICES (MANDATORY)
+
+### React Hydration Error Prevention
+
+Following proper HTML structure is **CRITICAL** to prevent React hydration errors that cause console warnings and poor user experience.
+
+#### HTML Nesting Rules (MANDATORY)
+
+**✅ ALWAYS Follow These Patterns:**
+
+```tsx
+// ✅ CORRECT - Block elements in block containers
+<div className="text-2xl font-light text-foreground">
+  {loading ? (
+    <div className="h-7 w-8 bg-muted rounded animate-pulse" />
+  ) : (
+    value
+  )}
+</div>
+
+// ✅ CORRECT - Inline content in paragraph elements
+<p className="text-lg text-muted-foreground">
+  Welcome to your dashboard
+</p>
+```
+
+**❌ NEVER Do These Patterns:**
+
+```tsx
+// ❌ NEVER - Block elements inside paragraph elements
+<p className="text-2xl font-light text-foreground">
+  {loading ? (
+    <div className="h-7 w-8 bg-muted rounded animate-pulse" /> // ERROR: div inside p
+  ) : (
+    value
+  )}
+</p>
+
+// ❌ NEVER - Section/div nesting inside inline elements
+<span className="container">
+  <div className="content">Content</div> // ERROR: block inside inline
+</span>
+```
+
+#### Loading Skeleton Structure (MANDATORY)
+
+**✅ Always Use Block Containers for Loading States:**
+
+```tsx
+// ✅ CORRECT - Loading skeletons in div containers
+<div className="text-2xl font-light text-foreground">
+  {loading ? (
+    <div className="h-7 w-8 bg-muted rounded animate-pulse" />
+  ) : (
+    <span>{value}</span> // Wrap actual content in inline element if needed
+  )}
+</div>
+```
+
+#### Component Structure Standards
+
+**✅ Standard Dashboard Component Structure:**
+
+```tsx
+export function DashboardComponent() {
+  return (
+    <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="font-serif text-3xl font-light text-foreground mb-4">
+          Section Title
+        </h2>
+
+        {/* Metrics/Content Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-card border border-border rounded-lg p-6">
+            <p className="text-sm text-muted-foreground">Label</p>
+            <div className="text-2xl font-light text-foreground">
+              {loading ? (
+                <div className="h-7 w-8 bg-muted rounded animate-pulse" />
+              ) : (
+                value
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+### Hydration Error Testing
+
+**Before Committing HTML Changes:**
+
+1. **Check Browser Console**: Ensure no React hydration warnings
+2. **Server-Client Consistency**: Verify server-rendered HTML matches client-rendered HTML
+3. **DOM Structure Validation**: Use browser dev tools to inspect element nesting
+4. **TypeScript Compilation**: Run `npm run typecheck` to catch structural issues
+
+### Common HTML Structure Mistakes to Avoid
+
+1. **Paragraph Nesting**: Never put block elements (div, section, article) inside `<p>` tags
+2. **Loading State Structure**: Always use block containers for skeleton animations
+3. **Mixed Content Models**: Don't mix inline and block content improperly
+4. **Form Nesting**: Never nest forms inside other forms or invalid container elements
+
+### Consequences of HTML Structure Violations
+
+**❌ If HTML structure rules are violated:**
+
+- React hydration errors in browser console
+- Poor accessibility and SEO performance
+- Inconsistent rendering between server and client
+- Failed CI/CD pipeline checks
+- Professional healthcare technology standards compromised
+
+**These HTML structure patterns are NON-NEGOTIABLE for professional healthcare technology.**
+
+## NEXTAUTH SIGNOUT AND REDIRECT PATTERNS (MANDATORY)
+
+### Role-Based Signout Redirects
+
+NextAuth signout should be handled with role-based redirect logic for optimal UX.
+
+#### Signout Implementation Patterns (MANDATORY)
+
+**✅ ALWAYS Use Component-Level Redirects:**
+
+```tsx
+// ✅ CORRECT - Regular users signout with loading state
+const [isSigningOut, setIsSigningOut] = useState(false);
+
+const handleSignOut = async () => {
+  setIsSigningOut(true);
+  try {
+    // Regular users redirect to home page
+    await signOut({ redirect: true, callbackUrl: "/" });
+  } catch (error) {
+    console.error("Error signing out:", error);
+    setIsSigningOut(false);
+  }
+};
+
+// ✅ CORRECT - Admin users signout with loading state
+const handleAdminSignOut = async () => {
+  setIsSigningOut(true);
+  try {
+    // Admin users redirect to admin login page
+    await signOut({ redirect: true, callbackUrl: "/admin/login" });
+  } catch (error) {
+    console.error("Error signing out:", error);
+    setIsSigningOut(false);
+  }
+};
+```
+
+**✅ ALWAYS Add Loading States to Signout Buttons:**
+
+```tsx
+// ✅ CORRECT - Signout button with loading state
+<button
+  onClick={handleSignOut}
+  disabled={isSigningOut}
+  className="flex items-center px-4 py-2 text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+>
+  {isSigningOut ? (
+    <>
+      <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
+      Signing Out...
+    </>
+  ) : (
+    "Sign Out"
+  )}
+</button>
+```
+
+**❌ NEVER Do These Patterns:**
+
+```tsx
+// ❌ NEVER - No loading state feedback
+const handleSignOut = async () => {
+  await signOut({ redirect: true, callbackUrl: "/" });
+};
+
+// ❌ NEVER - No error handling
+const handleSignOut = async () => {
+  setIsSigningOut(true);
+  await signOut({ redirect: true, callbackUrl: "/" }); // No try-catch
+};
+
+// ❌ NEVER - Same redirect for all user types
+await signOut({ redirect: true, callbackUrl: "/" }); // Admin should go to admin login
+```
+
+#### NextAuth Configuration Patterns
+
+**✅ CORRECT - Allow component-level control:**
+
+```tsx
+// lib/auth.ts
+export const authOptions: NextAuthOptions = {
+  // ... other config
+  pages: {
+    signIn: "/auth/login",
+    // Don't set signOut here - handle redirects in components
+  },
+  // ... rest of config
+};
+```
+
+**❌ NEVER - Global signout redirect prevents role-based routing:**
+
+```tsx
+// ❌ NEVER - Global redirect prevents custom component logic
+pages: {
+  signIn: "/auth/login",
+  signOut: "/auth/login", // This overrides component callbackUrl
+},
+```
+
+### Signout UX Requirements (MANDATORY)
+
+**Before Implementing Signout:**
+
+1. **Loading States**: Always show visual feedback during signout process
+2. **Error Handling**: Implement proper try-catch with loading state reset
+3. **Role-Based Redirects**: Different redirect URLs for regular users vs admins
+4. **Button States**: Disable buttons during signout to prevent double-clicks
+5. **Accessibility**: Ensure screen readers can detect loading/disabled states
+
+**Testing Signout Implementation:**
+
+1. **Visual Feedback**: Verify loading spinners appear during signout
+2. **Redirect Behavior**: Test both user and admin signout redirect targets
+3. **Error Recovery**: Test loading state resets when signout fails
+4. **Double-Click Prevention**: Verify buttons disabled during process
+5. **Mobile Compatibility**: Test signout on mobile navigation components
+
+### Common Signout Mistakes to Avoid
+
+1. **No Loading Feedback**: Users don't know signout is happening
+2. **Wrong Redirects**: Admin users going to home page instead of admin login
+3. **No Error Handling**: Failed signout leaves UI in broken state
+4. **Global Redirects**: NextAuth global signOut page prevents custom logic
+5. **Button States**: Users can click signout multiple times causing issues
+
+### Consequences of Poor Signout UX
+
+**❌ If signout UX patterns are not followed:**
+
+- Users confused about signout status
+- Poor professional healthcare technology experience
+- Admin workflow disruption with wrong redirects
+- Potential security issues with unclear session status
+- Failed accessibility standards for disabled users
+
+**These signout UX patterns are NON-NEGOTIABLE for professional healthcare technology.**
+
+## NEXTAUTH ROLE-BASED LOGIN REDIRECT PATTERNS (MANDATORY)
+
+### Admin Login Redirect Configuration
+
+NextAuth login should automatically redirect users based on their role for optimal UX.
+
+#### NextAuth Redirect Callback Patterns (MANDATORY)
+
+**✅ ALWAYS Use Role-Based Redirect Callback:**
+
+```tsx
+// lib/auth.ts - NextAuth Configuration
+export const authOptions: NextAuthOptions = {
+  // ... other config
+  callbacks: {
+    async redirect({ url, baseUrl, token }) {
+      // Handle role-based redirects after successful login
+      if (token?.role === "ADMIN") {
+        // Admin users should go to admin dashboard
+        return `${baseUrl}/admin/dashboard`;
+      } else if (token?.role === "CLIENT") {
+        // Regular users can go to intended page or default to home
+        if (url.startsWith(baseUrl)) {
+          return url;
+        }
+        return baseUrl;
+      }
+
+      // Default redirect behavior
+      if (url.startsWith(baseUrl)) {
+        return url;
+      }
+      return baseUrl;
+    },
+    // ... other callbacks
+  },
+};
+```
+
+**✅ ALWAYS Enhance Login Pages with Proper Redirects:**
+
+```tsx
+// Admin Login Page Pattern
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsLoading(true);
+
+  try {
+    const result = await signIn("credentials", {
+      email,
+      password,
+      callbackUrl: "/admin/dashboard", // Admin users should go to dashboard
+      redirect: false,
+    });
+
+    if (result?.error) {
+      setError("Invalid email or password");
+    } else if (result?.url) {
+      // Let NextAuth handle the redirect based on user role
+      window.location.href = result.url;
+    } else {
+      // Fallback: check session and redirect manually
+      const session = await getSession();
+      if (session?.user?.role === "ADMIN") {
+        router.push("/admin/dashboard");
+      } else {
+        router.push("/");
+      }
+    }
+  } catch (error) {
+    setError("An error occurred during login");
+  } finally {
+    setIsLoading(false);
+  }
+};
+```
+
+#### Admin Route Protection Middleware (MANDATORY)
+
+**✅ ALWAYS Create Middleware for Route Protection:**
+
+```tsx
+// src/middleware.ts
+import { withAuth } from "next-auth/middleware";
+import { NextResponse } from "next/server";
+
+export default withAuth(
+  function middleware(request) {
+    const { pathname } = request.nextUrl;
+    const token = request.nextauth?.token;
+
+    // Handle admin login page - redirect logged-in admin users to dashboard
+    if (pathname === "/admin/login") {
+      if (token?.role === "ADMIN") {
+        return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+      }
+    }
+
+    // Protect admin routes - require ADMIN role
+    if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
+      if (!token) {
+        return NextResponse.redirect(new URL("/admin/login", request.url));
+      }
+
+      if (token.role !== "ADMIN") {
+        const homeUrl = new URL("/", request.url);
+        homeUrl.searchParams.set("error", "unauthorized");
+        return NextResponse.redirect(homeUrl);
+      }
+    }
+
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      authorized: ({ token, req }) => {
+        const { pathname } = req.nextUrl;
+
+        // Allow public routes
+        if (!pathname.startsWith("/admin")) {
+          return true;
+        }
+
+        // Allow admin login page for everyone
+        if (pathname === "/admin/login") {
+          return true;
+        }
+
+        // Require authentication for all other admin routes
+        return !!token;
+      },
+    },
+  }
+);
+
+export const config = {
+  matcher: ["/admin/:path*"],
+};
+```
+
+**❌ NEVER Do These Patterns:**
+
+```tsx
+// ❌ NEVER - No redirect callback (users go to default page)
+export const authOptions: NextAuthOptions = {
+  callbacks: {
+    // Missing redirect callback - all users go to same place
+  },
+};
+
+// ❌ NEVER - Hardcoded redirects without role checking
+const result = await signIn("credentials", {
+  email,
+  password,
+  redirect: false,
+});
+if (!result?.error) {
+  router.push("/admin/contact"); // Wrong page for admin users!
+}
+
+// ❌ NEVER - No route protection middleware
+// Admin routes accessible to anyone without authentication
+```
+
+### Login Redirect Requirements (MANDATORY)
+
+**Before Implementing Login Redirects:**
+
+1. **NextAuth Redirect Callback**: Always implement role-based redirect logic
+2. **Login Page Enhancement**: Update login forms to use proper callbackUrl
+3. **Middleware Protection**: Create middleware for route authentication
+4. **Fallback Handling**: Implement manual redirect fallbacks for edge cases
+5. **Error States**: Handle unauthorized access with clear messaging
+
+**Testing Login Implementation:**
+
+1. **Admin Login Flow**: Verify admin users redirect to `/admin/dashboard`
+2. **Regular User Flow**: Test regular users redirect appropriately
+3. **Route Protection**: Ensure admin routes block unauthorized access
+4. **Already Authenticated**: Test logged-in users redirect from login pages
+5. **Error Handling**: Verify error messages for unauthorized access
+
+### Common Login Redirect Mistakes to Avoid
+
+1. **No Role-Based Redirects**: All users go to same page after login
+2. **Hardcoded Redirects**: Login pages redirect to wrong destinations
+3. **Missing Route Protection**: Admin routes accessible without authentication
+4. **No Middleware**: Relying only on client-side route protection
+5. **Poor Error Handling**: Users confused when blocked from admin routes
+
+### Consequences of Poor Login Redirect UX
+
+**❌ If login redirect patterns are not followed:**
+
+- Admin users sent to wrong pages after login
+- Security vulnerabilities with unprotected admin routes
+- Poor professional healthcare technology experience
+- Admin workflow disruption requiring manual navigation
+- Potential data access issues with improper authentication
+
+**These login redirect patterns are NON-NEGOTIABLE for professional healthcare technology.**
+
 ---
 
-**Important**: This is a professional counseling practice website. Maintain healthcare technology standards, ensure accessibility compliance, and preserve the calming, trustworthy design aesthetic.
+**Important**: This is a professional counseling practice website. Maintain healthcare technology standards, ensure accessibility compliance, preserve the calming trustworthy design aesthetic, follow proper HTML semantic structure to prevent hydration errors, implement proper NextAuth signout UX with role-based redirects and loading states, and ensure secure admin login flows with proper role-based redirects.

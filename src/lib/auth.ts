@@ -85,9 +85,24 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+    updateAge: 24 * 60 * 60, // 24 hours
+  },
+  // Add proper CORS and response handling
+  cookies: {
+    sessionToken: {
+      name: "next-auth.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
   },
   pages: {
     signIn: "/auth/login",
+    // Don't set signOut here - we'll handle role-based redirects in components
   },
   callbacks: {
     async jwt({ token, user, account }) {
@@ -137,9 +152,17 @@ export const authOptions: NextAuthOptions = {
         isNewUser,
       });
     },
+    async signOut({ token, session }) {
+      logger.info("User signed out", {
+        userId: token?.id || session?.user?.id,
+      });
+    },
     async createUser({ user }) {
       logger.info("New user created", { userId: user.id, email: user.email });
     },
   },
   secret: process.env.NEXTAUTH_SECRET!,
+  debug: process.env.NODE_ENV === "development",
+  // Ensure proper JSON responses
+  useSecureCookies: process.env.NODE_ENV === "production",
 };

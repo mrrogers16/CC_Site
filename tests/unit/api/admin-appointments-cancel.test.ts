@@ -11,9 +11,14 @@ jest.mock("@/lib/db");
 jest.mock("@/lib/email");
 jest.mock("@/lib/logger");
 
-const mockGetServerSession = getServerSession as jest.MockedFunction<typeof getServerSession>;
+const mockGetServerSession = getServerSession as jest.MockedFunction<
+  typeof getServerSession
+>;
 const mockPrisma = prisma as jest.Mocked<typeof prisma>;
-const mockSendAppointmentCancellation = sendAppointmentCancellation as jest.MockedFunction<typeof sendAppointmentCancellation>;
+const mockSendAppointmentCancellation =
+  sendAppointmentCancellation as jest.MockedFunction<
+    typeof sendAppointmentCancellation
+  >;
 
 describe("/api/admin/appointments/[id]/cancel", () => {
   const mockSession = {
@@ -89,10 +94,13 @@ describe("/api/admin/appointments/[id]/cancel", () => {
         cancelledAppointment: mockCancelledAppointment,
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -126,10 +134,13 @@ describe("/api/admin/appointments/[id]/cancel", () => {
         cancelledAppointment: mockCancelledAppointment,
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -144,10 +155,13 @@ describe("/api/admin/appointments/[id]/cancel", () => {
     it("requires admin authentication", async () => {
       mockGetServerSession.mockResolvedValue(null);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({ reason: "test" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({ reason: "test" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -165,10 +179,13 @@ describe("/api/admin/appointments/[id]/cancel", () => {
 
       mockGetServerSession.mockResolvedValue(clientSession);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({ reason: "test" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({ reason: "test" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -182,10 +199,13 @@ describe("/api/admin/appointments/[id]/cancel", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(null);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/nonexistent/cancel", {
-        method: "POST",
-        body: JSON.stringify({ reason: "test" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/nonexistent/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({ reason: "test" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "nonexistent" });
       const response = await POST(request, { params });
@@ -204,10 +224,13 @@ describe("/api/admin/appointments/[id]/cancel", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(cancelledAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({ reason: "test" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({ reason: "test" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -226,17 +249,22 @@ describe("/api/admin/appointments/[id]/cancel", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(completedAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({ reason: "test" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({ reason: "test" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
       const data = await response.json();
 
       expect(response.status).toBe(400);
-      expect(data.error).toBe("Cannot cancel completed or no-show appointments");
+      expect(data.error).toBe(
+        "Cannot cancel completed or no-show appointments"
+      );
     });
 
     it("prevents cancelling no-show appointments", async () => {
@@ -248,17 +276,22 @@ describe("/api/admin/appointments/[id]/cancel", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(noShowAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({ reason: "test" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({ reason: "test" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
       const data = await response.json();
 
       expect(response.status).toBe(400);
-      expect(data.error).toBe("Cannot cancel completed or no-show appointments");
+      expect(data.error).toBe(
+        "Cannot cancel completed or no-show appointments"
+      );
     });
 
     it("validates reason length", async () => {
@@ -266,10 +299,13 @@ describe("/api/admin/appointments/[id]/cancel", () => {
 
       mockGetServerSession.mockResolvedValue(mockSession);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({ reason: longReason }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({ reason: longReason }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -299,13 +335,16 @@ describe("/api/admin/appointments/[id]/cancel", () => {
         cancelledAppointment: mockCancelledAppointment,
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({
-          reason: reasonWithSpaces,
-          sendNotification: false,
-        }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            reason: reasonWithSpaces,
+            sendNotification: false,
+          }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -334,13 +373,16 @@ describe("/api/admin/appointments/[id]/cancel", () => {
         error: "Email service unavailable",
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({
-          reason: "test",
-          sendNotification: true,
-        }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            reason: "test",
+            sendNotification: true,
+          }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -366,15 +408,20 @@ describe("/api/admin/appointments/[id]/cancel", () => {
         cancelledAppointment: mockCancelledAppointment,
       });
 
-      mockSendAppointmentCancellation.mockRejectedValue(new Error("Network error"));
+      mockSendAppointmentCancellation.mockRejectedValue(
+        new Error("Network error")
+      );
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({
-          reason: "test",
-          sendNotification: true,
-        }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            reason: "test",
+            sendNotification: true,
+          }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -405,10 +452,13 @@ describe("/api/admin/appointments/[id]/cancel", () => {
         cancelledAppointment: mockCancelledAppointment,
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       await POST(request, { params });
@@ -441,10 +491,13 @@ describe("/api/admin/appointments/[id]/cancel", () => {
         cancelledAppointment: mockCancelledAppointment,
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({ sendNotification: false }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({ sendNotification: false }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -468,14 +521,17 @@ describe("/api/admin/appointments/[id]/cancel", () => {
         cancelledAppointment: mockCancelledAppointment,
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({ reason: "test" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({ reason: "test" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
-      const data = await response.json();
+      const _data = await response.json();
 
       expect(response.status).toBe(200);
       expect(mockSendAppointmentCancellation).toHaveBeenCalled();
@@ -491,7 +547,9 @@ describe("/api/admin/appointments/[id]/cancel", () => {
       };
 
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue(appointmentWithDecimalPrice);
+      mockPrisma.appointment.findUnique.mockResolvedValue(
+        appointmentWithDecimalPrice
+      );
 
       const mockCancelledAppointment = {
         ...appointmentWithDecimalPrice,
@@ -503,13 +561,16 @@ describe("/api/admin/appointments/[id]/cancel", () => {
         cancelledAppointment: mockCancelledAppointment,
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({
-          reason: "test",
-          sendNotification: true,
-        }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            reason: "test",
+            sendNotification: true,
+          }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       await POST(request, { params });
@@ -529,12 +590,17 @@ describe("/api/admin/appointments/[id]/cancel", () => {
     it("handles database transaction errors", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
-      (mockPrisma.$transaction as jest.Mock).mockRejectedValue(new Error("Database error"));
+      (mockPrisma.$transaction as jest.Mock).mockRejectedValue(
+        new Error("Database error")
+      );
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({ reason: "test" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({ reason: "test" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });

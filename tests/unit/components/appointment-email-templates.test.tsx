@@ -14,7 +14,9 @@ describe("Email Templates", () => {
     };
 
     it("renders reschedule email with required content", () => {
-      const { container } = render(<AppointmentRescheduleEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("Healing Pathways Counseling");
@@ -26,7 +28,9 @@ describe("Email Templates", () => {
     });
 
     it("displays previous appointment section with cancelled label", () => {
-      const { container } = render(<AppointmentRescheduleEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("Previous Appointment");
@@ -36,7 +40,9 @@ describe("Email Templates", () => {
     });
 
     it("displays new appointment section with confirmed label", () => {
-      const { container } = render(<AppointmentRescheduleEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("New Appointment");
@@ -46,7 +52,9 @@ describe("Email Templates", () => {
     });
 
     it("formats time correctly in 12-hour format", () => {
-      const { container } = render(<AppointmentRescheduleEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       // Old time: 10:00 AM UTC
@@ -61,7 +69,9 @@ describe("Email Templates", () => {
         reason: "Client requested different time",
       };
 
-      const { container } = render(<AppointmentRescheduleEmail {...propsWithReason} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail {...propsWithReason} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("Reason for rescheduling:");
@@ -69,14 +79,18 @@ describe("Email Templates", () => {
     });
 
     it("does not display reason section when not provided", () => {
-      const { container } = render(<AppointmentRescheduleEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).not.toContain("Reason for rescheduling:");
     });
 
     it("includes contact information and location", () => {
-      const { container } = render(<AppointmentRescheduleEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("123 Wellness Way, Suite 200");
@@ -85,7 +99,9 @@ describe("Email Templates", () => {
     });
 
     it("includes important reminders section", () => {
-      const { container } = render(<AppointmentRescheduleEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("Important Reminders");
@@ -95,7 +111,9 @@ describe("Email Templates", () => {
     });
 
     it("includes professional signature", () => {
-      const { container } = render(<AppointmentRescheduleEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("Warm regards");
@@ -103,7 +121,9 @@ describe("Email Templates", () => {
     });
 
     it("includes footer with automated message disclaimer", () => {
-      const { container } = render(<AppointmentRescheduleEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("automated message");
@@ -111,10 +131,14 @@ describe("Email Templates", () => {
     });
 
     it("has proper email preview text", () => {
-      const { container } = render(<AppointmentRescheduleEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
-      expect(html).toContain("Your appointment has been rescheduled - New date confirmed");
+      expect(html).toContain(
+        "Your appointment has been rescheduled - New date confirmed"
+      );
     });
   });
 
@@ -128,7 +152,9 @@ describe("Email Templates", () => {
     };
 
     it("renders cancellation email with required content", () => {
-      const { container } = render(<AppointmentCancellationEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentCancellationEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("Healing Pathways Counseling");
@@ -140,7 +166,9 @@ describe("Email Templates", () => {
     });
 
     it("displays cancelled appointment details with proper formatting", () => {
-      const { container } = render(<AppointmentCancellationEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentCancellationEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("Cancelled Appointment Details");
@@ -157,7 +185,9 @@ describe("Email Templates", () => {
         reason: "Emergency cancellation",
       };
 
-      const { container } = render(<AppointmentCancellationEmail {...propsWithReason} />);
+      const { container } = render(
+        <AppointmentCancellationEmail {...propsWithReason} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("Cancellation reason:");
@@ -165,7 +195,9 @@ describe("Email Templates", () => {
     });
 
     it("does not display reason section when not provided", () => {
-      const { container } = render(<AppointmentCancellationEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentCancellationEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).not.toContain("Cancellation reason:");
@@ -174,25 +206,34 @@ describe("Email Templates", () => {
     it("displays cancellation policy when provided", () => {
       const propsWithPolicy = {
         ...defaultProps,
-        cancellationPolicy: "24-hour cancellation notice required for full refund",
+        cancellationPolicy:
+          "24-hour cancellation notice required for full refund",
       };
 
-      const { container } = render(<AppointmentCancellationEmail {...propsWithPolicy} />);
+      const { container } = render(
+        <AppointmentCancellationEmail {...propsWithPolicy} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("Cancellation Policy");
-      expect(html).toContain("24-hour cancellation notice required for full refund");
+      expect(html).toContain(
+        "24-hour cancellation notice required for full refund"
+      );
     });
 
     it("does not display policy section when not provided", () => {
-      const { container } = render(<AppointmentCancellationEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentCancellationEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).not.toContain("Cancellation Policy");
     });
 
     it("includes next steps section", () => {
-      const { container } = render(<AppointmentCancellationEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentCancellationEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("What's Next?");
@@ -203,7 +244,9 @@ describe("Email Templates", () => {
     });
 
     it("includes support resources section", () => {
-      const { container } = render(<AppointmentCancellationEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentCancellationEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("Support Resources");
@@ -214,7 +257,9 @@ describe("Email Templates", () => {
     });
 
     it("includes professional signature and closing", () => {
-      const { container } = render(<AppointmentCancellationEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentCancellationEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("appointments need to be cancelled");
@@ -224,7 +269,9 @@ describe("Email Templates", () => {
     });
 
     it("includes comprehensive footer with contact details", () => {
-      const { container } = render(<AppointmentCancellationEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentCancellationEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
       expect(html).toContain("123 Wellness Way, Suite 200");
@@ -235,10 +282,14 @@ describe("Email Templates", () => {
     });
 
     it("has proper email preview text", () => {
-      const { container } = render(<AppointmentCancellationEmail {...defaultProps} />);
+      const { container } = render(
+        <AppointmentCancellationEmail {...defaultProps} />
+      );
       const html = container.innerHTML;
 
-      expect(html).toContain("Appointment Cancellation Confirmation - Couples Therapy");
+      expect(html).toContain(
+        "Appointment Cancellation Confirmation - Couples Therapy"
+      );
     });
   });
 
@@ -304,7 +355,9 @@ describe("Email Templates", () => {
           price: "100.00",
         };
 
-        const { container } = render(<AppointmentCancellationEmail {...props} />);
+        const { container } = render(
+          <AppointmentCancellationEmail {...props} />
+        );
         const html = container.innerHTML;
 
         expect(html).toContain(expectedDate);
@@ -315,14 +368,18 @@ describe("Email Templates", () => {
 
   describe("Email Styling and Structure", () => {
     it("includes proper HTML structure in reschedule email", () => {
-      const { container } = render(<AppointmentRescheduleEmail {...{
-        clientName: "Test",
-        oldDateTime: "2025-08-28T10:00:00Z",
-        newDateTime: "2025-08-29T14:00:00Z",
-        service: "Test",
-        duration: 60,
-        price: "100",
-      }} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail
+          {...{
+            clientName: "Test",
+            oldDateTime: "2025-08-28T10:00:00Z",
+            newDateTime: "2025-08-29T14:00:00Z",
+            service: "Test",
+            duration: 60,
+            price: "100",
+          }}
+        />
+      );
 
       const html = container.innerHTML;
       expect(html).toContain("<html");
@@ -332,13 +389,17 @@ describe("Email Templates", () => {
     });
 
     it("includes proper HTML structure in cancellation email", () => {
-      const { container } = render(<AppointmentCancellationEmail {...{
-        clientName: "Test",
-        appointmentDateTime: "2025-08-28T10:00:00Z",
-        service: "Test",
-        duration: 60,
-        price: "100",
-      }} />);
+      const { container } = render(
+        <AppointmentCancellationEmail
+          {...{
+            clientName: "Test",
+            appointmentDateTime: "2025-08-28T10:00:00Z",
+            service: "Test",
+            duration: 60,
+            price: "100",
+          }}
+        />
+      );
 
       const html = container.innerHTML;
       expect(html).toContain("<html");
@@ -365,8 +426,12 @@ describe("Email Templates", () => {
         price: "100",
       };
 
-      const rescheduleHtml = render(<AppointmentRescheduleEmail {...rescheduleProps} />).container.innerHTML;
-      const cancellationHtml = render(<AppointmentCancellationEmail {...cancellationProps} />).container.innerHTML;
+      const rescheduleHtml = render(
+        <AppointmentRescheduleEmail {...rescheduleProps} />
+      ).container.innerHTML;
+      const cancellationHtml = render(
+        <AppointmentCancellationEmail {...cancellationProps} />
+      ).container.innerHTML;
 
       // Check for sage green primary color (#4a8b8c)
       expect(rescheduleHtml).toContain("#4a8b8c");
@@ -380,37 +445,45 @@ describe("Email Templates", () => {
 
   describe("Accessibility and Best Practices", () => {
     it("includes alt text and proper semantic structure", () => {
-      const { container } = render(<AppointmentRescheduleEmail {...{
-        clientName: "Test",
-        oldDateTime: "2025-08-28T10:00:00Z",
-        newDateTime: "2025-08-29T14:00:00Z",
-        service: "Test",
-        duration: 60,
-        price: "100",
-      }} />);
+      const { container } = render(
+        <AppointmentRescheduleEmail
+          {...{
+            clientName: "Test",
+            oldDateTime: "2025-08-28T10:00:00Z",
+            newDateTime: "2025-08-29T14:00:00Z",
+            service: "Test",
+            duration: 60,
+            price: "100",
+          }}
+        />
+      );
 
       const html = container.innerHTML;
-      
+
       // Check for proper heading hierarchy
       expect(html).toContain("Healing Pathways Counseling");
       expect(html).toContain("Appointment Rescheduled");
     });
 
     it("uses appropriate contrast and readable fonts", () => {
-      const { container } = render(<AppointmentCancellationEmail {...{
-        clientName: "Test",
-        appointmentDateTime: "2025-08-28T10:00:00Z",
-        service: "Test",
-        duration: 60,
-        price: "100",
-      }} />);
+      const { container } = render(
+        <AppointmentCancellationEmail
+          {...{
+            clientName: "Test",
+            appointmentDateTime: "2025-08-28T10:00:00Z",
+            service: "Test",
+            duration: 60,
+            price: "100",
+          }}
+        />
+      );
 
       const html = container.innerHTML;
-      
+
       // Check for readable font families
       expect(html).toContain("Segoe UI");
       expect(html).toContain("Roboto");
-      
+
       // Check for appropriate text colors (high contrast)
       expect(html).toContain("#2c2c2c"); // Dark text
       expect(html).toContain("#ffffff"); // White text on dark backgrounds

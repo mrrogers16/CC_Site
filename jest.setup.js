@@ -166,4 +166,55 @@ global.prisma = {
   $disconnect: jest.fn(),
 };
 
+// Global test cleanup and resource management
+beforeEach(() => {
+  // Clear all timers before each test
+  jest.clearAllTimers();
+  // Clear all mocks before each test
+  jest.clearAllMocks();
+  // Reset fetch mock
+  if (global.fetch) {
+    global.fetch.mockClear();
+  }
+});
+
+afterEach(async () => {
+  // Clean up any pending timers
+  jest.runOnlyPendingTimers();
+  jest.clearAllTimers();
+
+  // Clean up any open handles
+  if (global.prisma && global.prisma.$disconnect) {
+    try {
+      await global.prisma.$disconnect();
+    } catch (error) {
+      // Ignore disconnect errors in tests
+    }
+  }
+
+  // Clear any remaining mocks
+  jest.clearAllMocks();
+  jest.restoreAllMocks();
+});
+
+// Global error handler to prevent unhandled promise rejections
+process.on("unhandledRejection", (reason, promise) => {
+  console.warn("Unhandled Rejection at:", promise, "reason:", reason);
+});
+
+// Suppress console errors for cleaner test output
+const originalConsoleError = console.error;
+console.error = (...args) => {
+  // Only log actual errors, not expected test errors
+  if (
+    typeof args[0] === "string" &&
+    (args[0].includes("Failed to fetch") ||
+      args[0].includes("Network error") ||
+      args[0].includes("Failed to check for conflicts"))
+  ) {
+    return; // Suppress expected test errors
+  }
+  originalConsoleError.apply(console, args);
+};
+
 // Note: nodemailer is mocked per-test-file to avoid conflicts

@@ -187,13 +187,13 @@ export function DashboardHome() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Total Sessions</p>
-                <p className="text-2xl font-light text-foreground">
+                <div className="text-2xl font-light text-foreground">
                   {!isClient || statsLoading ? (
                     <div className="h-7 w-8 bg-muted rounded animate-pulse" />
                   ) : (
                     stats.totalAppointments
                   )}
-                </p>
+                </div>
               </div>
               <div className="bg-primary/10 p-3 rounded-lg">
                 <svg
@@ -218,13 +218,13 @@ export function DashboardHome() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Upcoming</p>
-                <p className="text-2xl font-light text-foreground">
+                <div className="text-2xl font-light text-foreground">
                   {!isClient || statsLoading ? (
                     <div className="h-7 w-8 bg-muted rounded animate-pulse" />
                   ) : (
                     stats.upcomingCount
                   )}
-                </p>
+                </div>
               </div>
               <div className="bg-green-100 p-3 rounded-lg">
                 <svg
@@ -249,13 +249,13 @@ export function DashboardHome() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Completed</p>
-                <p className="text-2xl font-light text-foreground">
+                <div className="text-2xl font-light text-foreground">
                   {!isClient || statsLoading ? (
                     <div className="h-7 w-8 bg-muted rounded animate-pulse" />
                   ) : (
                     stats.completedCount
                   )}
-                </p>
+                </div>
               </div>
               <div className="bg-blue-100 p-3 rounded-lg">
                 <svg
@@ -280,7 +280,7 @@ export function DashboardHome() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Last Session</p>
-                <p className="text-sm font-light text-foreground">
+                <div className="text-sm font-light text-foreground">
                   {!isClient || statsLoading ? (
                     <div className="h-5 w-16 bg-muted rounded animate-pulse" />
                   ) : stats.lastAppointmentDate ? (
@@ -294,7 +294,7 @@ export function DashboardHome() {
                   ) : (
                     "None yet"
                   )}
-                </p>
+                </div>
               </div>
               <div className="bg-purple-100 p-3 rounded-lg">
                 <svg

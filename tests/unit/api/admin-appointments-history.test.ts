@@ -9,7 +9,9 @@ jest.mock("next-auth");
 jest.mock("@/lib/db");
 jest.mock("@/lib/logger");
 
-const mockGetServerSession = getServerSession as jest.MockedFunction<typeof getServerSession>;
+const mockGetServerSession = getServerSession as jest.MockedFunction<
+  typeof getServerSession
+>;
 const mockPrisma = prisma as jest.Mocked<typeof prisma>;
 
 describe("/api/admin/appointments/[id]/history", () => {
@@ -76,10 +78,16 @@ describe("/api/admin/appointments/[id]/history", () => {
   describe("GET", () => {
     it("successfully retrieves appointment history", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue({ id: "appointment-1" });
-      mockPrisma.appointmentHistory.findMany.mockResolvedValue(mockHistoryRecords);
+      mockPrisma.appointment.findUnique.mockResolvedValue({
+        id: "appointment-1",
+      });
+      mockPrisma.appointmentHistory.findMany.mockResolvedValue(
+        mockHistoryRecords
+      );
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await GET(request, { params });
       const data = await response.json();
@@ -100,10 +108,16 @@ describe("/api/admin/appointments/[id]/history", () => {
 
     it("returns history ordered by creation date descending", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue({ id: "appointment-1" });
-      mockPrisma.appointmentHistory.findMany.mockResolvedValue(mockHistoryRecords);
+      mockPrisma.appointment.findUnique.mockResolvedValue({
+        id: "appointment-1",
+      });
+      mockPrisma.appointmentHistory.findMany.mockResolvedValue(
+        mockHistoryRecords
+      );
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const params = Promise.resolve({ id: "appointment-1" });
       await GET(request, { params });
 
@@ -126,10 +140,14 @@ describe("/api/admin/appointments/[id]/history", () => {
 
     it("returns empty history when no records exist", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue({ id: "appointment-1" });
+      mockPrisma.appointment.findUnique.mockResolvedValue({
+        id: "appointment-1",
+      });
       mockPrisma.appointmentHistory.findMany.mockResolvedValue([]);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await GET(request, { params });
       const data = await response.json();
@@ -142,7 +160,9 @@ describe("/api/admin/appointments/[id]/history", () => {
     it("requires admin authentication", async () => {
       mockGetServerSession.mockResolvedValue(null);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await GET(request, { params });
       const data = await response.json();
@@ -159,7 +179,9 @@ describe("/api/admin/appointments/[id]/history", () => {
 
       mockGetServerSession.mockResolvedValue(clientSession);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await GET(request, { params });
       const data = await response.json();
@@ -172,7 +194,9 @@ describe("/api/admin/appointments/[id]/history", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(null);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/nonexistent/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/nonexistent/history"
+      );
       const params = Promise.resolve({ id: "nonexistent" });
       const response = await GET(request, { params });
       const data = await response.json();
@@ -195,10 +219,16 @@ describe("/api/admin/appointments/[id]/history", () => {
       };
 
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue({ id: "appointment-1" });
-      mockPrisma.appointmentHistory.findMany.mockResolvedValue([completeHistoryRecord]);
+      mockPrisma.appointment.findUnique.mockResolvedValue({
+        id: "appointment-1",
+      });
+      mockPrisma.appointmentHistory.findMany.mockResolvedValue([
+        completeHistoryRecord,
+      ]);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await GET(request, { params });
       const data = await response.json();
@@ -314,10 +344,14 @@ describe("/api/admin/appointments/[id]/history", () => {
       ];
 
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue({ id: "appointment-1" });
+      mockPrisma.appointment.findUnique.mockResolvedValue({
+        id: "appointment-1",
+      });
       mockPrisma.appointmentHistory.findMany.mockResolvedValue(allActionTypes);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await GET(request, { params });
       const data = await response.json();
@@ -338,10 +372,16 @@ describe("/api/admin/appointments/[id]/history", () => {
 
     it("handles database errors gracefully", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue({ id: "appointment-1" });
-      mockPrisma.appointmentHistory.findMany.mockRejectedValue(new Error("Database error"));
+      mockPrisma.appointment.findUnique.mockResolvedValue({
+        id: "appointment-1",
+      });
+      mockPrisma.appointmentHistory.findMany.mockRejectedValue(
+        new Error("Database error")
+      );
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await GET(request, { params });
       const data = await response.json();
@@ -352,9 +392,13 @@ describe("/api/admin/appointments/[id]/history", () => {
 
     it("handles appointment existence check database error", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mkRejectedValue(new Error("Database error"));
+      mockPrisma.appointment.findUnique.mkRejectedValue(
+        new Error("Database error")
+      );
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await GET(request, { params });
       const data = await response.json();
@@ -365,10 +409,14 @@ describe("/api/admin/appointments/[id]/history", () => {
 
     it("queries only necessary appointment fields for existence check", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue({ id: "appointment-1" });
+      mockPrisma.appointment.findUnique.mockResolvedValue({
+        id: "appointment-1",
+      });
       mockPrisma.appointmentHistory.findMany.mockResolvedValue([]);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const params = Promise.resolve({ id: "appointment-1" });
       await GET(request, { params });
 
@@ -380,10 +428,14 @@ describe("/api/admin/appointments/[id]/history", () => {
 
     it("queries history with correct appointmentId filter", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue({ id: "different-id" });
+      mockPrisma.appointment.findUnique.mockResolvedValue({
+        id: "different-id",
+      });
       mockPrisma.appointmentHistory.findMany.mockResolvedValue([]);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/different-id/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/different-id/history"
+      );
       const params = Promise.resolve({ id: "different-id" });
       await GET(request, { params });
 
@@ -408,10 +460,16 @@ describe("/api/admin/appointments/[id]/history", () => {
       };
 
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue({ id: "appointment-1" });
-      mockPrisma.appointmentHistory.findMany.mockResolvedValue([recordWithNulls]);
+      mockPrisma.appointment.findUnique.mockResolvedValue({
+        id: "appointment-1",
+      });
+      mockPrisma.appointmentHistory.findMany.mockResolvedValue([
+        recordWithNulls,
+      ]);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await GET(request, { params });
       const data = await response.json();
@@ -438,10 +496,16 @@ describe("/api/admin/appointments/[id]/history", () => {
       };
 
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue({ id: "appointment-1" });
-      mockPrisma.appointmentHistory.findMany.mockResolvedValue([recordWithDates]);
+      mockPrisma.appointment.findUnique.mockResolvedValue({
+        id: "appointment-1",
+      });
+      mockPrisma.appointmentHistory.findMany.mockResolvedValue([
+        recordWithDates,
+      ]);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await GET(request, { params });
       const data = await response.json();

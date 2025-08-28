@@ -1,4 +1,4 @@
-import { render } from "@react-email/components";
+import { render as _render } from "@react-email/components";
 import { prisma } from "@/lib/db";
 import { logger } from "@/lib/logger";
 import nodemailer from "nodemailer";

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
@@ -88,8 +89,8 @@ const navigationItems = [
     ),
   },
   {
-    title: "Communication",
-    href: "/admin/contact",
+    title: "Communications",
+    href: "/admin/communications",
     icon: (
       <svg
         className="w-5 h-5"
@@ -102,6 +103,25 @@ const navigationItems = [
           strokeLinejoin="round"
           strokeWidth={2}
           d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Analytics",
+    href: "/admin/analytics",
+    icon: (
+      <svg
+        className="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
         />
       </svg>
     ),
@@ -159,9 +179,38 @@ interface AdminSidebarProps {
 
 export function AdminSidebar({ isOpen, onToggle }: AdminSidebarProps) {
   const pathname = usePathname();
+  const [isSigningOut, setIsSigningOut] = useState(false);
+  const [unreadMessages, setUnreadMessages] = useState(0);
+
+  // Fetch unread message count
+  useEffect(() => {
+    async function fetchUnreadMessages() {
+      try {
+        const response = await fetch("/api/admin/dashboard-metrics");
+        if (response.ok) {
+          const data = await response.json();
+          setUnreadMessages(data.metrics?.unreadMessages || 0);
+        }
+      } catch (error) {
+        console.error("Failed to fetch unread messages:", error);
+      }
+    }
+
+    fetchUnreadMessages();
+    // Refresh every 30 seconds
+    const interval = setInterval(fetchUnreadMessages, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSignOut = async () => {
-    await signOut({ redirect: true, callbackUrl: "/" });
+    setIsSigningOut(true);
+    try {
+      // Admin users redirect to admin login page
+      await signOut({ redirect: true, callbackUrl: "/admin/login" });
+    } catch (error) {
+      console.error("Error signing out:", error);
+      setIsSigningOut(false);
+    }
   };
 
   return (
@@ -186,6 +235,9 @@ export function AdminSidebar({ isOpen, onToggle }: AdminSidebarProps) {
             <div className="space-y-1 px-3">
               {navigationItems.map(item => {
                 const isActive = pathname === item.href;
+                const isCommunications = item.href === "/admin/communications";
+                const shouldShowBadge = isCommunications && unreadMessages > 0;
+
                 return (
                   <Link
                     key={item.href}
@@ -199,7 +251,19 @@ export function AdminSidebar({ isOpen, onToggle }: AdminSidebarProps) {
                   >
                     <span className="flex-shrink-0">{item.icon}</span>
                     {isOpen && (
-                      <span className="ml-3 truncate">{item.title}</span>
+                      <span className="ml-3 truncate flex items-center justify-between w-full">
+                        <span>{item.title}</span>
+                        {shouldShowBadge && (
+                          <span className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                            {unreadMessages}
+                          </span>
+                        )}
+                      </span>
+                    )}
+                    {!isOpen && shouldShowBadge && (
+                      <span className="absolute left-8 top-1 inline-flex items-center justify-center w-4 h-4 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                        {unreadMessages > 9 ? "9+" : unreadMessages}
+                      </span>
                     )}
                   </Link>
                 );
@@ -211,23 +275,32 @@ export function AdminSidebar({ isOpen, onToggle }: AdminSidebarProps) {
           <div className="border-t border-border p-3">
             <button
               onClick={handleSignOut}
-              className="flex items-center w-full px-3 py-2 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+              disabled={isSigningOut}
+              className="flex items-center w-full px-3 py-2 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               title={!isOpen ? "Sign Out" : undefined}
             >
-              <svg
-                className="w-5 h-5 flex-shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                />
-              </svg>
-              {isOpen && <span className="ml-3">Sign Out</span>}
+              {isSigningOut ? (
+                <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin flex-shrink-0" />
+              ) : (
+                <svg
+                  className="w-5 h-5 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  />
+                </svg>
+              )}
+              {isOpen && (
+                <span className="ml-3">
+                  {isSigningOut ? "Signing Out..." : "Sign Out"}
+                </span>
+              )}
             </button>
           </div>
         </div>

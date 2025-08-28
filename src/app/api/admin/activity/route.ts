@@ -56,7 +56,7 @@ export const GET = withErrorHandler(async (_request: NextRequest) => {
       title: `New contact: ${contact.subject}`,
       description: `${contact.name} sent a message`,
       timestamp: contact.createdAt.toISOString(),
-      href: `/admin/contact?id=${contact.id}`,
+      href: `/admin/communications`,
     });
   });
 

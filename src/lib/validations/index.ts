@@ -29,7 +29,14 @@ export const serviceSchema = z.object({
   description: z.string().min(20, "Description must be at least 20 characters"),
   duration: z.number().min(15, "Duration must be at least 15 minutes").max(480),
   price: z.number().min(0, "Price must be non-negative"),
+  features: z.array(z.string().min(1, "Feature cannot be empty")).optional(),
   isActive: z.boolean().default(true),
+});
+
+export const serviceUpdateSchema = serviceSchema.partial();
+
+export const featureSchema = z.object({
+  feature: z.string().min(1, "Feature cannot be empty").max(200),
 });
 
 export const blogPostSchema = z.object({
@@ -45,4 +52,6 @@ export type ContactFormData = z.infer<typeof contactFormSchema>;
 export type AppointmentData = z.infer<typeof appointmentSchema>;
 export type UserData = z.infer<typeof userSchema>;
 export type ServiceData = z.infer<typeof serviceSchema>;
+export type ServiceUpdateData = z.infer<typeof serviceUpdateSchema>;
+export type FeatureData = z.infer<typeof featureSchema>;
 export type BlogPostData = z.infer<typeof blogPostSchema>;

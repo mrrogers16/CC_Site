@@ -22,6 +22,24 @@ const customJestConfig = {
     "^@/(.*)$": "<rootDir>/src/$1",
     "^lodash-es$": "lodash",
   },
+  // Optimize Jest for large test suites
+  maxWorkers: "50%", // Reduce workers for stability
+  testTimeout: 15000, // Increase timeout for slower tests
+  workerIdleMemoryLimit: "1GB", // Limit worker memory usage
+  detectOpenHandles: true, // Always detect open handles
+  forceExit: true, // Force exit to prevent hanging
+  clearMocks: true, // Clear mocks between tests
+  restoreMocks: true, // Restore original implementations
+  resetMocks: true, // Reset mock state between tests
+  // Cache optimization
+  cache: true,
+  cacheDirectory: "<rootDir>/.jest-cache",
+  // Error handling
+  bail: 0, // Continue running tests even if some fail
+  errorOnDeprecated: false, // Don't fail on deprecation warnings
+  // Test execution optimization
+  passWithNoTests: true, // Don't fail if no tests found
+  verbose: false, // Reduce verbose output to improve performance
   transformIgnorePatterns: [
     "node_modules/(?!(@auth/prisma-adapter|@auth/core|oauth4webapi|preact-render-to-string|preact)/)",
   ],

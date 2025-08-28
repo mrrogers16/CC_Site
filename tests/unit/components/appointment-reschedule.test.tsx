@@ -1,11 +1,11 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent as _fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { jest } from "@jest/globals";
 import { AppointmentReschedule } from "@/components/admin/appointments/appointment-reschedule";
 
 // Mock fetch globally
-global.fetch = jest.fn();
-const mockFetch = global.fetch as jest.MockedFunction<typeof fetch>;
+const mockFetch = jest.fn() as jest.MockedFunction<typeof fetch>;
+global.fetch = mockFetch;
 
 describe("AppointmentReschedule", () => {
   const mockAppointment = {
@@ -22,8 +22,8 @@ describe("AppointmentReschedule", () => {
     },
   };
 
-  const mockOnReschedule = jest.fn();
-  const mockOnCancel = jest.fn();
+  const mockOnReschedule = jest.fn() as jest.MockedFunction<(appointmentId: string, newDateTime: string) => Promise<void>>;
+  const mockOnCancel = jest.fn() as jest.MockedFunction<(appointmentId: string) => Promise<void>>;
 
   const defaultProps = {
     appointment: mockAppointment,
@@ -55,7 +55,7 @@ describe("AppointmentReschedule", () => {
   });
 
   it("allows date selection within valid range", async () => {
-    const user = userEvent.setup();
+    const _user = userEvent.setup();
     render(<AppointmentReschedule {...defaultProps} />);
 
     const dateInput = screen.getByDisplayValue("");
@@ -97,7 +97,7 @@ describe("AppointmentReschedule", () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ 
+      json: async () => ({
         slots: mockSlots,
         availableSlots: 2,
       }),
@@ -110,7 +110,7 @@ describe("AppointmentReschedule", () => {
 
     // Wait for the loading spinner to appear and then disappear
     expect(screen.getByText("Checking for conflicts...")).toBeInTheDocument();
-    
+
     await waitFor(() => {
       expect(screen.getByText("9:00 AM")).toBeInTheDocument();
       expect(screen.getByText("10:00 AM")).toBeInTheDocument();
@@ -128,7 +128,7 @@ describe("AppointmentReschedule", () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ 
+      json: async () => ({
         slots: [],
         availableSlots: 0,
       }),
@@ -140,8 +140,12 @@ describe("AppointmentReschedule", () => {
     await user.type(dateInput, "2025-08-29");
 
     await waitFor(() => {
-      expect(screen.getByText("No available time slots for this date")).toBeInTheDocument();
-      expect(screen.getByText("No available time slots for this date.")).toBeInTheDocument();
+      expect(
+        screen.getByText("No available time slots for this date")
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText("No available time slots for this date.")
+      ).toBeInTheDocument();
     });
   });
 
@@ -156,7 +160,9 @@ describe("AppointmentReschedule", () => {
     await user.type(dateInput, "2025-08-29");
 
     await waitFor(() => {
-      expect(screen.getByText("Failed to load available times. Please try again.")).toBeInTheDocument();
+      expect(
+        screen.getByText("Failed to load available times. Please try again.")
+      ).toBeInTheDocument();
     });
   });
 
@@ -177,7 +183,7 @@ describe("AppointmentReschedule", () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ 
+      json: async () => ({
         slots: mockSlots,
         availableSlots: 2,
       }),
@@ -214,7 +220,7 @@ describe("AppointmentReschedule", () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ 
+      json: async () => ({
         slots: mockSlots,
         availableSlots: 0,
       }),
@@ -240,7 +246,9 @@ describe("AppointmentReschedule", () => {
     });
 
     // Confirm button should remain disabled
-    const confirmButton = screen.getByRole("button", { name: /confirm reschedule/i });
+    const confirmButton = screen.getByRole("button", {
+      name: /confirm reschedule/i,
+    });
     expect(confirmButton).toBeDisabled();
   });
 
@@ -248,7 +256,9 @@ describe("AppointmentReschedule", () => {
     const user = userEvent.setup();
     render(<AppointmentReschedule {...defaultProps} />);
 
-    const reasonTextarea = screen.getByPlaceholderText("Enter reason for rescheduling...");
+    const reasonTextarea = screen.getByPlaceholderText(
+      "Enter reason for rescheduling..."
+    );
     expect(reasonTextarea).toBeInTheDocument();
     expect(reasonTextarea).toHaveAttribute("maxLength", "200");
 
@@ -271,7 +281,7 @@ describe("AppointmentReschedule", () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ 
+      json: async () => ({
         slots: mockSlots,
         availableSlots: 1,
       }),
@@ -292,11 +302,15 @@ describe("AppointmentReschedule", () => {
     await user.click(timeSlot);
 
     // Add reason
-    const reasonTextarea = screen.getByPlaceholderText("Enter reason for rescheduling...");
+    const reasonTextarea = screen.getByPlaceholderText(
+      "Enter reason for rescheduling..."
+    );
     await user.type(reasonTextarea, "Client requested");
 
     // Click confirm
-    const confirmButton = screen.getByRole("button", { name: /confirm reschedule/i });
+    const confirmButton = screen.getByRole("button", {
+      name: /confirm reschedule/i,
+    });
     expect(confirmButton).not.toBeDisabled();
     await user.click(confirmButton);
 
@@ -321,7 +335,7 @@ describe("AppointmentReschedule", () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ 
+      json: async () => ({
         slots: mockSlots,
         availableSlots: 1,
       }),
@@ -340,7 +354,9 @@ describe("AppointmentReschedule", () => {
     const timeSlot = screen.getByText("9:00 AM");
     await user.click(timeSlot);
 
-    const confirmButton = screen.getByRole("button", { name: /confirm reschedule/i });
+    const confirmButton = screen.getByRole("button", {
+      name: /confirm reschedule/i,
+    });
     await user.click(confirmButton);
 
     // Should call onReschedule with undefined reason
@@ -364,7 +380,7 @@ describe("AppointmentReschedule", () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ 
+      json: async () => ({
         slots: mockSlots,
         availableSlots: 1,
       }),
@@ -372,7 +388,7 @@ describe("AppointmentReschedule", () => {
 
     // Make onReschedule return a pending promise to test loading state
     let resolveReschedule: () => void;
-    const reschedulePromise = new Promise<void>((resolve) => {
+    const reschedulePromise = new Promise<void>(resolve => {
       resolveReschedule = resolve;
     });
     mockOnReschedule.mockReturnValueOnce(reschedulePromise);
@@ -390,7 +406,9 @@ describe("AppointmentReschedule", () => {
     const timeSlot = screen.getByText("9:00 AM");
     await user.click(timeSlot);
 
-    const confirmButton = screen.getByRole("button", { name: /confirm reschedule/i });
+    const confirmButton = screen.getByRole("button", {
+      name: /confirm reschedule/i,
+    });
     await user.click(confirmButton);
 
     // Should show loading state
@@ -418,13 +436,15 @@ describe("AppointmentReschedule", () => {
   it("disables confirm button when no time slot is selected", () => {
     render(<AppointmentReschedule {...defaultProps} />);
 
-    const confirmButton = screen.getByRole("button", { name: /confirm reschedule/i });
+    const confirmButton = screen.getByRole("button", {
+      name: /confirm reschedule/i,
+    });
     expect(confirmButton).toBeDisabled();
   });
 
   it("handles onReschedule error gracefully", async () => {
     const user = userEvent.setup();
-    const consoleSpy = jest.spyOn(console, "error").mockImplementation();
+    const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
     const mockSlots = [
       {
         dateTime: "2025-08-29T09:00:00Z",
@@ -435,7 +455,7 @@ describe("AppointmentReschedule", () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ 
+      json: async () => ({
         slots: mockSlots,
         availableSlots: 1,
       }),
@@ -457,12 +477,17 @@ describe("AppointmentReschedule", () => {
     const timeSlot = screen.getByText("9:00 AM");
     await user.click(timeSlot);
 
-    const confirmButton = screen.getByRole("button", { name: /confirm reschedule/i });
+    const confirmButton = screen.getByRole("button", {
+      name: /confirm reschedule/i,
+    });
     await user.click(confirmButton);
 
     // Should log error and return to normal state
     await waitFor(() => {
-      expect(consoleSpy).toHaveBeenCalledWith("Failed to reschedule appointment:", expect.any(Error));
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Failed to reschedule appointment:",
+        expect.any(Error)
+      );
       expect(screen.getByText("Confirm Reschedule")).toBeInTheDocument();
     });
 
@@ -471,7 +496,7 @@ describe("AppointmentReschedule", () => {
 
   it("maintains selected date display when switching between dates", async () => {
     const user = userEvent.setup();
-    
+
     mockFetch
       .mockResolvedValueOnce({
         ok: true,
@@ -485,19 +510,23 @@ describe("AppointmentReschedule", () => {
     render(<AppointmentReschedule {...defaultProps} />);
 
     const dateInput = screen.getByDisplayValue("");
-    
+
     // Select first date
     await user.type(dateInput, "2025-08-29");
     await waitFor(() => {
-      expect(screen.getByText("Selected: Thursday, August 29, 2025")).toBeInTheDocument();
+      expect(
+        screen.getByText("Selected: Thursday, August 29, 2025")
+      ).toBeInTheDocument();
     });
 
     // Clear and select different date
     await user.clear(dateInput);
     await user.type(dateInput, "2025-08-30");
-    
+
     await waitFor(() => {
-      expect(screen.getByText("Selected: Friday, August 30, 2025")).toBeInTheDocument();
+      expect(
+        screen.getByText("Selected: Friday, August 30, 2025")
+      ).toBeInTheDocument();
     });
   });
 });

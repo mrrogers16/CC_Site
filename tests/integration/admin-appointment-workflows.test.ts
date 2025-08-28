@@ -2,7 +2,10 @@ import { NextRequest } from "next/server";
 import { getServerSession } from "next-auth";
 import { jest } from "@jest/globals";
 import { prisma } from "@/lib/db";
-import { sendAppointmentReschedule, sendAppointmentCancellation } from "@/lib/email";
+import {
+  sendAppointmentReschedule,
+  sendAppointmentCancellation,
+} from "@/lib/email";
 import { isTimeSlotAvailable } from "@/lib/utils/time-slots";
 
 // Import API handlers
@@ -19,11 +22,21 @@ jest.mock("@/lib/email");
 jest.mock("@/lib/utils/time-slots");
 jest.mock("@/lib/logger");
 
-const mockGetServerSession = getServerSession as jest.MockedFunction<typeof getServerSession>;
+const mockGetServerSession = getServerSession as jest.MockedFunction<
+  typeof getServerSession
+>;
 const mockPrisma = prisma as jest.Mocked<typeof prisma>;
-const mockSendAppointmentReschedule = sendAppointmentReschedule as jest.MockedFunction<typeof sendAppointmentReschedule>;
-const mockSendAppointmentCancellation = sendAppointmentCancellation as jest.MockedFunction<typeof sendAppointmentCancellation>;
-const mockIsTimeSlotAvailable = isTimeSlotAvailable as jest.MockedFunction<typeof isTimeSlotAvailable>;
+const mockSendAppointmentReschedule =
+  sendAppointmentReschedule as jest.MockedFunction<
+    typeof sendAppointmentReschedule
+  >;
+const mockSendAppointmentCancellation =
+  sendAppointmentCancellation as jest.MockedFunction<
+    typeof sendAppointmentCancellation
+  >;
+const mockIsTimeSlotAvailable = isTimeSlotAvailable as jest.MockedFunction<
+  typeof isTimeSlotAvailable
+>;
 
 describe("Admin Appointment Workflows Integration Tests", () => {
   const mockSession = {
@@ -76,7 +89,10 @@ describe("Admin Appointment Workflows Integration Tests", () => {
 
       // Setup mocks
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
-      mockIsTimeSlotAvailable.mockResolvedValue({ available: true, reason: null });
+      mockIsTimeSlotAvailable.mockResolvedValue({
+        available: true,
+        reason: null,
+      });
 
       const mockHistoryRecord = {
         id: "history-1",
@@ -103,13 +119,18 @@ describe("Admin Appointment Workflows Integration Tests", () => {
       });
 
       // Execute reschedule
-      const rescheduleRequest = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime, reason }),
-      });
+      const rescheduleRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime, reason }),
+        }
+      );
 
       const rescheduleParams = Promise.resolve({ id: "appointment-1" });
-      const rescheduleResponse = await rescheduleHandler(rescheduleRequest, { params: rescheduleParams });
+      const rescheduleResponse = await rescheduleHandler(rescheduleRequest, {
+        params: rescheduleParams,
+      });
       const rescheduleData = await rescheduleResponse.json();
 
       // Verify reschedule response
@@ -120,7 +141,8 @@ describe("Admin Appointment Workflows Integration Tests", () => {
 
       // Verify database transaction was called with correct data
       expect(mockPrisma.$transaction).toHaveBeenCalled();
-      const transactionCallback = (mockPrisma.$transaction as jest.Mock).mock.calls[0][0];
+      const transactionCallback = (mockPrisma.$transaction as jest.Mock).mock
+        .calls[0][0];
       expect(transactionCallback).toBeDefined();
 
       // Verify availability check was performed
@@ -142,28 +164,38 @@ describe("Admin Appointment Workflows Integration Tests", () => {
       });
 
       // Test reschedule attempt
-      const rescheduleRequest = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: conflictDateTime }),
-      });
+      const rescheduleRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: conflictDateTime }),
+        }
+      );
 
       const rescheduleParams = Promise.resolve({ id: "appointment-1" });
-      const rescheduleResponse = await rescheduleHandler(rescheduleRequest, { params: rescheduleParams });
+      const rescheduleResponse = await rescheduleHandler(rescheduleRequest, {
+        params: rescheduleParams,
+      });
       const rescheduleData = await rescheduleResponse.json();
 
       expect(rescheduleResponse.status).toBe(409);
-      expect(rescheduleData.error).toBe("New time slot is not available: Time slot conflicts with another appointment");
+      expect(rescheduleData.error).toBe(
+        "New time slot is not available: Time slot conflicts with another appointment"
+      );
 
       // Test conflict detection API for alternatives
-      const conflictRequest = new NextRequest("http://localhost/api/admin/appointments/conflicts", {
-        method: "POST",
-        body: JSON.stringify({
-          dateTime: conflictDateTime,
-          serviceId: "service-1",
-          serviceDuration: 60,
-          excludeAppointmentId: "appointment-1",
-        }),
-      });
+      const conflictRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/conflicts",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            dateTime: conflictDateTime,
+            serviceId: "service-1",
+            serviceDuration: 60,
+            excludeAppointmentId: "appointment-1",
+          }),
+        }
+      );
 
       // Mock conflict detection response
       const conflictingAppointments = [
@@ -176,7 +208,9 @@ describe("Admin Appointment Workflows Integration Tests", () => {
         },
       ];
 
-      mockPrisma.appointment.findMany.mockResolvedValue(conflictingAppointments);
+      mockPrisma.appointment.findMany.mockResolvedValue(
+        conflictingAppointments
+      );
 
       const conflictResponse = await conflictsHandler(conflictRequest);
       const conflictData = await conflictResponse.json();
@@ -220,17 +254,22 @@ describe("Admin Appointment Workflows Integration Tests", () => {
       });
 
       // Execute cancellation
-      const cancelRequest = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({
-          reason: cancellationReason,
-          sendNotification: true,
-          cancellationPolicy: cancellationPolicy,
-        }),
-      });
+      const cancelRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            reason: cancellationReason,
+            sendNotification: true,
+            cancellationPolicy: cancellationPolicy,
+          }),
+        }
+      );
 
       const cancelParams = Promise.resolve({ id: "appointment-1" });
-      const cancelResponse = await cancelHandler(cancelRequest, { params: cancelParams });
+      const cancelResponse = await cancelHandler(cancelRequest, {
+        params: cancelParams,
+      });
       const cancelData = await cancelResponse.json();
 
       // Verify cancellation response
@@ -268,16 +307,21 @@ describe("Admin Appointment Workflows Integration Tests", () => {
         cancelledAppointment: mockCancelledAppointment,
       });
 
-      const cancelRequest = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({
-          reason: "Internal cancellation",
-          sendNotification: false,
-        }),
-      });
+      const cancelRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            reason: "Internal cancellation",
+            sendNotification: false,
+          }),
+        }
+      );
 
       const cancelParams = Promise.resolve({ id: "appointment-1" });
-      const cancelResponse = await cancelHandler(cancelRequest, { params: cancelParams });
+      const cancelResponse = await cancelHandler(cancelRequest, {
+        params: cancelParams,
+      });
       const cancelData = await cancelResponse.json();
 
       expect(cancelResponse.status).toBe(200);
@@ -325,12 +369,18 @@ describe("Admin Appointment Workflows Integration Tests", () => {
       ];
 
       // Setup history retrieval
-      mockPrisma.appointment.findUnique.mockResolvedValue({ id: "appointment-1" });
+      mockPrisma.appointment.findUnique.mockResolvedValue({
+        id: "appointment-1",
+      });
       mockPrisma.appointmentHistory.findMany.mockResolvedValue(historyRecords);
 
-      const historyRequest = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const historyRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const historyParams = Promise.resolve({ id: "appointment-1" });
-      const historyResponse = await historyHandler(historyRequest, { params: historyParams });
+      const historyResponse = await historyHandler(historyRequest, {
+        params: historyParams,
+      });
       const historyData = await historyResponse.json();
 
       expect(historyResponse.status).toBe(200);
@@ -343,8 +393,12 @@ describe("Admin Appointment Workflows Integration Tests", () => {
       expect(historyData.history[2].action).toBe("CREATED");
 
       // Verify date formatting
-      expect(historyData.history[1].oldDateTime).toBe("2025-08-28T10:00:00.000Z");
-      expect(historyData.history[1].newDateTime).toBe("2025-08-29T14:00:00.000Z");
+      expect(historyData.history[1].oldDateTime).toBe(
+        "2025-08-28T10:00:00.000Z"
+      );
+      expect(historyData.history[1].newDateTime).toBe(
+        "2025-08-29T14:00:00.000Z"
+      );
     });
   });
 
@@ -354,13 +408,18 @@ describe("Admin Appointment Workflows Integration Tests", () => {
       mockPrisma.appointment.update.mockResolvedValue(mockAppointment);
 
       // Test confirmation notification
-      const confirmationRequest = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify({ type: "confirmation" }),
-      });
+      const confirmationRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({ type: "confirmation" }),
+        }
+      );
 
       const notifyParams = Promise.resolve({ id: "appointment-1" });
-      const confirmationResponse = await notifyHandler(confirmationRequest, { params: notifyParams });
+      const confirmationResponse = await notifyHandler(confirmationRequest, {
+        params: notifyParams,
+      });
       const confirmationData = await confirmationResponse.json();
 
       expect(confirmationResponse.status).toBe(200);
@@ -377,18 +436,25 @@ describe("Admin Appointment Workflows Integration Tests", () => {
     it("handles reschedule notification with old date/time", async () => {
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
 
-      const rescheduleNotificationRequest = new NextRequest("http://localhost/api/admin/appointments/appointment-1/notify", {
-        method: "POST",
-        body: JSON.stringify({
-          type: "reschedule",
-          oldDateTime: "2025-08-27T10:00:00Z",
-          reason: "Schedule change",
-        }),
-      });
+      const rescheduleNotificationRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/notify",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            type: "reschedule",
+            oldDateTime: "2025-08-27T10:00:00Z",
+            reason: "Schedule change",
+          }),
+        }
+      );
 
       const notifyParams = Promise.resolve({ id: "appointment-1" });
-      const rescheduleNotificationResponse = await notifyHandler(rescheduleNotificationRequest, { params: notifyParams });
-      const rescheduleNotificationData = await rescheduleNotificationResponse.json();
+      const rescheduleNotificationResponse = await notifyHandler(
+        rescheduleNotificationRequest,
+        { params: notifyParams }
+      );
+      const rescheduleNotificationData =
+        await rescheduleNotificationResponse.json();
 
       expect(rescheduleNotificationResponse.status).toBe(200);
       expect(rescheduleNotificationData.success).toBe(true);
@@ -411,16 +477,26 @@ describe("Admin Appointment Workflows Integration Tests", () => {
   describe("Error Handling and Edge Cases", () => {
     it("handles database transaction failures gracefully", async () => {
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
-      mockIsTimeSlotAvailable.mockResolvedValue({ available: true, reason: null });
-      (mockPrisma.$transaction as jest.Mock).mockRejectedValue(new Error("Database transaction failed"));
-
-      const rescheduleRequest = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+      mockIsTimeSlotAvailable.mockResolvedValue({
+        available: true,
+        reason: null,
       });
+      (mockPrisma.$transaction as jest.Mock).mockRejectedValue(
+        new Error("Database transaction failed")
+      );
+
+      const rescheduleRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const rescheduleParams = Promise.resolve({ id: "appointment-1" });
-      const rescheduleResponse = await rescheduleHandler(rescheduleRequest, { params: rescheduleParams });
+      const rescheduleResponse = await rescheduleHandler(rescheduleRequest, {
+        params: rescheduleParams,
+      });
       const rescheduleData = await rescheduleResponse.json();
 
       expect(rescheduleResponse.status).toBe(500);
@@ -429,7 +505,7 @@ describe("Admin Appointment Workflows Integration Tests", () => {
 
     it("handles email notification failures without affecting core operations", async () => {
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
-      
+
       const mockCancelledAppointment = {
         ...mockAppointment,
         status: "CANCELLED",
@@ -446,16 +522,21 @@ describe("Admin Appointment Workflows Integration Tests", () => {
         error: "Email service unavailable",
       });
 
-      const cancelRequest = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({
-          reason: "Emergency",
-          sendNotification: true,
-        }),
-      });
+      const cancelRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            reason: "Emergency",
+            sendNotification: true,
+          }),
+        }
+      );
 
       const cancelParams = Promise.resolve({ id: "appointment-1" });
-      const cancelResponse = await cancelHandler(cancelRequest, { params: cancelParams });
+      const cancelResponse = await cancelHandler(cancelRequest, {
+        params: cancelParams,
+      });
       const cancelData = await cancelResponse.json();
 
       // Core operation should succeed despite email failure
@@ -475,17 +556,24 @@ describe("Admin Appointment Workflows Integration Tests", () => {
 
       mockPrisma.appointment.findUnique.mockResolvedValue(completedAppointment);
 
-      const rescheduleRequest = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
-      });
+      const rescheduleRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const rescheduleParams = Promise.resolve({ id: "appointment-1" });
-      const rescheduleResponse = await rescheduleHandler(rescheduleRequest, { params: rescheduleParams });
+      const rescheduleResponse = await rescheduleHandler(rescheduleRequest, {
+        params: rescheduleParams,
+      });
       const rescheduleData = await rescheduleResponse.json();
 
       expect(rescheduleResponse.status).toBe(400);
-      expect(rescheduleData.error).toBe("Cannot reschedule completed, cancelled, or no-show appointments");
+      expect(rescheduleData.error).toBe(
+        "Cannot reschedule completed, cancelled, or no-show appointments"
+      );
     });
   });
 
@@ -496,7 +584,10 @@ describe("Admin Appointment Workflows Integration Tests", () => {
 
       // 1. First reschedule
       mockPrisma.appointment.findUnique.mockResolvedValue(currentAppointment);
-      mockIsTimeSlotAvailable.mockResolvedValue({ available: true, reason: null });
+      mockIsTimeSlotAvailable.mockResolvedValue({
+        available: true,
+        reason: null,
+      });
 
       const newDateTime1 = "2025-08-29T14:00:00Z";
       const rescheduledAppointment1 = {
@@ -510,17 +601,27 @@ describe("Admin Appointment Workflows Integration Tests", () => {
         updatedAppointment: rescheduledAppointment1,
       });
 
-      const reschedule1Request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: newDateTime1, reason: "First reschedule" }),
-      });
+      const reschedule1Request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            newDateTime: newDateTime1,
+            reason: "First reschedule",
+          }),
+        }
+      );
 
       const reschedule1Params = Promise.resolve({ id: "appointment-1" });
-      const reschedule1Response = await rescheduleHandler(reschedule1Request, { params: reschedule1Params });
+      const reschedule1Response = await rescheduleHandler(reschedule1Request, {
+        params: reschedule1Params,
+      });
       const reschedule1Data = await reschedule1Response.json();
 
       expect(reschedule1Response.status).toBe(200);
-      expect(reschedule1Data.appointment.dateTime).toBe("2025-08-29T14:00:00.000Z");
+      expect(reschedule1Data.appointment.dateTime).toBe(
+        "2025-08-29T14:00:00.000Z"
+      );
       expect(reschedule1Data.appointment.status).toBe("PENDING");
 
       // 2. Update current appointment for second operation
@@ -539,16 +640,21 @@ describe("Admin Appointment Workflows Integration Tests", () => {
         cancelledAppointment: cancelledAppointment,
       });
 
-      const cancelRequest = new NextRequest("http://localhost/api/admin/appointments/appointment-1/cancel", {
-        method: "POST",
-        body: JSON.stringify({
-          reason: "Client request",
-          sendNotification: false,
-        }),
-      });
+      const cancelRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/cancel",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            reason: "Client request",
+            sendNotification: false,
+          }),
+        }
+      );
 
       const cancelParams = Promise.resolve({ id: "appointment-1" });
-      const cancelResponse = await cancelHandler(cancelRequest, { params: cancelParams });
+      const cancelResponse = await cancelHandler(cancelRequest, {
+        params: cancelParams,
+      });
       const cancelData = await cancelResponse.json();
 
       expect(cancelResponse.status).toBe(200);
@@ -576,12 +682,18 @@ describe("Admin Appointment Workflows Integration Tests", () => {
         },
       ];
 
-      mockPrisma.appointment.findUnique.mockResolvedValue({ id: "appointment-1" });
+      mockPrisma.appointment.findUnique.mockResolvedValue({
+        id: "appointment-1",
+      });
       mockPrisma.appointmentHistory.findMany.mockResolvedValue(historyRecords);
 
-      const historyRequest = new NextRequest("http://localhost/api/admin/appointments/appointment-1/history");
+      const historyRequest = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/history"
+      );
       const historyParams = Promise.resolve({ id: "appointment-1" });
-      const historyResponse = await historyHandler(historyRequest, { params: historyParams });
+      const historyResponse = await historyHandler(historyRequest, {
+        params: historyParams,
+      });
       const historyData = await historyResponse.json();
 
       expect(historyResponse.status).toBe(200);

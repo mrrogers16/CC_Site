@@ -1,6 +1,6 @@
 import { render, screen, waitFor, act, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useSession } from "next-auth/react";
+import { useSession as _useSession } from "next-auth/react";
 import { DashboardHome } from "@/components/dashboard/dashboard-home";
 
 // Mock NextAuth - fix hoisting issue
@@ -8,8 +8,8 @@ jest.mock("next-auth/react", () => ({
   useSession: jest.fn(),
 }));
 
-const mockUseSession = require("next-auth/react")
-  .useSession as jest.MockedFunction<any>;
+import { useSession } from "next-auth/react";
+const mockUseSession = useSession as jest.MockedFunction<any>;
 
 // Mock fetch
 global.fetch = jest.fn();

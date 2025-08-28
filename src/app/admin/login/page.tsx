@@ -11,32 +11,54 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const router = useRouter();
+  const _router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
 
+    // Set a timeout to reset loading state if redirect doesn't happen
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000); // 5 second timeout
+
     try {
+      // Use redirect: false to get better control over the flow
       const result = await signIn("credentials", {
         email,
         password,
+        callbackUrl: "/admin/dashboard",
         redirect: false,
       });
 
       if (result?.error) {
         setError("Invalid email or password");
-      } else {
-        // Check if login was successful
+        clearTimeout(loadingTimeout);
+        setIsLoading(false);
+      } else if (result?.ok) {
+        // Get session to check user role and redirect appropriately
         const session = await getSession();
-        if (session) {
-          router.push("/admin/contact");
+
+        if (session?.user?.role === "ADMIN") {
+          clearTimeout(loadingTimeout);
+          // Use window.location.href for full page redirect (more reliable)
+          window.location.href = "/admin/dashboard";
+        } else if (session?.user?.role === "CLIENT") {
+          clearTimeout(loadingTimeout);
+          window.location.href = "/";
+        } else {
+          clearTimeout(loadingTimeout);
+          window.location.href = "/";
         }
+      } else {
+        setError("Login failed - please try again");
+        clearTimeout(loadingTimeout);
+        setIsLoading(false);
       }
     } catch (_error) {
       setError("An error occurred during login");
-    } finally {
+      clearTimeout(loadingTimeout);
       setIsLoading(false);
     }
   };

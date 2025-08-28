@@ -12,7 +12,7 @@ jest.mock("@/lib/logger");
 const mockGetServerSession = getServerSession as jest.MockedFunction<
   typeof getServerSession
 >;
-const mockLogger = logger as jest.Mocked<typeof logger>;
+const _mockLogger = logger as jest.Mocked<typeof logger>;
 
 // Create properly typed mock Prisma
 const mockPrisma = {

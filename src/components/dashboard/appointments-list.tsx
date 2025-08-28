@@ -231,7 +231,7 @@ export function AppointmentsList({
             No upcoming appointments
           </h3>
           <p className="text-muted-foreground mb-6">
-            You don't have any scheduled appointments yet.
+            You don&apos;t have any scheduled appointments yet.
           </p>
           <a
             href="/book"

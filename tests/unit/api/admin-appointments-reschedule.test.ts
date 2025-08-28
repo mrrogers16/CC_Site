@@ -11,9 +11,13 @@ jest.mock("@/lib/db");
 jest.mock("@/lib/utils/time-slots");
 jest.mock("@/lib/logger");
 
-const mockGetServerSession = getServerSession as jest.MockedFunction<typeof getServerSession>;
+const mockGetServerSession = getServerSession as jest.MockedFunction<
+  typeof getServerSession
+>;
 const mockPrisma = prisma as jest.Mocked<typeof prisma>;
-const mockIsTimeSlotAvailable = isTimeSlotAvailable as jest.MockedFunction<typeof isTimeSlotAvailable>;
+const mockIsTimeSlotAvailable = isTimeSlotAvailable as jest.MockedFunction<
+  typeof isTimeSlotAvailable
+>;
 
 describe("/api/admin/appointments/[id]/reschedule", () => {
   const mockSession = {
@@ -88,10 +92,13 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
         updatedAppointment: mockUpdatedAppointment,
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -107,10 +114,13 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
     it("requires admin authentication", async () => {
       mockGetServerSession.mockResolvedValue(null);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -128,10 +138,13 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
 
       mockGetServerSession.mockResolvedValue(clientSession);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -145,10 +158,13 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(null);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/nonexistent/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/nonexistent/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "nonexistent" });
       const response = await POST(request, { params });
@@ -167,17 +183,22 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(completedAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
       const data = await response.json();
 
       expect(response.status).toBe(400);
-      expect(data.error).toBe("Cannot reschedule completed, cancelled, or no-show appointments");
+      expect(data.error).toBe(
+        "Cannot reschedule completed, cancelled, or no-show appointments"
+      );
     });
 
     it("prevents rescheduling cancelled appointments", async () => {
@@ -189,17 +210,22 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(cancelledAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
       const data = await response.json();
 
       expect(response.status).toBe(400);
-      expect(data.error).toBe("Cannot reschedule completed, cancelled, or no-show appointments");
+      expect(data.error).toBe(
+        "Cannot reschedule completed, cancelled, or no-show appointments"
+      );
     });
 
     it("prevents rescheduling no-show appointments", async () => {
@@ -211,17 +237,22 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(noShowAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
       const data = await response.json();
 
       expect(response.status).toBe(400);
-      expect(data.error).toBe("Cannot reschedule completed, cancelled, or no-show appointments");
+      expect(data.error).toBe(
+        "Cannot reschedule completed, cancelled, or no-show appointments"
+      );
     });
 
     it("rejects unavailable time slots", async () => {
@@ -232,26 +263,34 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
         reason: "Time slot conflicts with another appointment",
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
       const data = await response.json();
 
       expect(response.status).toBe(409);
-      expect(data.error).toBe("New time slot is not available: Time slot conflicts with another appointment");
+      expect(data.error).toBe(
+        "New time slot is not available: Time slot conflicts with another appointment"
+      );
     });
 
     it("validates request body schema", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ invalidField: "invalid" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ invalidField: "invalid" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -265,10 +304,13 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
     it("validates newDateTime format", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "invalid-date" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "invalid-date" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -286,7 +328,10 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
 
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
-      mockIsTimeSlotAvailable.mockResolvedValue({ available: true, reason: null });
+      mockIsTimeSlotAvailable.mockResolvedValue({
+        available: true,
+        reason: null,
+      });
 
       const mockHistoryRecord = {
         id: "history-1",
@@ -310,10 +355,13 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
         updatedAppointment: mockUpdatedAppointment,
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -328,13 +376,16 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
 
       mockGetServerSession.mockResolvedValue(mockSession);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({
-          newDateTime: "2025-08-29T14:00:00Z",
-          reason: longReason,
-        }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            newDateTime: "2025-08-29T14:00:00Z",
+            reason: longReason,
+          }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -347,13 +398,21 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
     it("handles database transaction errors", async () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
-      mockIsTimeSlotAvailable.mockResolvedValue({ available: true, reason: null });
-      (mockPrisma.$transaction as jest.Mock).mockRejectedValue(new Error("Database error"));
-
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+      mockIsTimeSlotAvailable.mockResolvedValue({
+        available: true,
+        reason: null,
       });
+      (mockPrisma.$transaction as jest.Mock).mockRejectedValue(
+        new Error("Database error")
+      );
+
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -371,7 +430,10 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
 
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(confirmedAppointment);
-      mockIsTimeSlotAvailable.mockResolvedValue({ available: true, reason: null });
+      mockIsTimeSlotAvailable.mockResolvedValue({
+        available: true,
+        reason: null,
+      });
 
       const mockUpdatedAppointment = {
         ...confirmedAppointment,
@@ -384,10 +446,13 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
         updatedAppointment: mockUpdatedAppointment,
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });
@@ -401,10 +466,13 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
       mockGetServerSession.mockResolvedValue(mockSession);
       mockPrisma.appointment.findUnique.mockResolvedValue(mockAppointment);
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       await POST(request, { params });
@@ -422,23 +490,31 @@ describe("/api/admin/appointments/[id]/reschedule", () => {
         ...mockAppointment,
         service: {
           ...mockAppointment.service,
-          price: 150.50, // Decimal price
+          price: 150.5, // Decimal price
         },
       };
 
       mockGetServerSession.mockResolvedValue(mockSession);
-      mockPrisma.appointment.findUnique.mockResolvedValue(appointmentWithDecimalPrice);
-      mockIsTimeSlotAvailable.mockResolvedValue({ available: true, reason: null });
+      mockPrisma.appointment.findUnique.mockResolvedValue(
+        appointmentWithDecimalPrice
+      );
+      mockIsTimeSlotAvailable.mockResolvedValue({
+        available: true,
+        reason: null,
+      });
 
       (mockPrisma.$transaction as jest.Mock).mockResolvedValue({
         historyRecord: { id: "history-1" },
         updatedAppointment: appointmentWithDecimalPrice,
       });
 
-      const request = new NextRequest("http://localhost/api/admin/appointments/appointment-1/reschedule", {
-        method: "POST",
-        body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
-      });
+      const request = new NextRequest(
+        "http://localhost/api/admin/appointments/appointment-1/reschedule",
+        {
+          method: "POST",
+          body: JSON.stringify({ newDateTime: "2025-08-29T14:00:00Z" }),
+        }
+      );
 
       const params = Promise.resolve({ id: "appointment-1" });
       const response = await POST(request, { params });

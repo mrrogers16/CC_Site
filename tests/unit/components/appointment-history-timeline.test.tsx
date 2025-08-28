@@ -55,7 +55,9 @@ describe("AppointmentHistoryTimeline", () => {
     render(<AppointmentHistoryTimeline appointmentId="appointment-1" />);
 
     expect(screen.getByText("Appointment History")).toBeInTheDocument();
-    expect(screen.getByRole("progressbar", { hidden: true })).toBeInTheDocument();
+    expect(
+      screen.getByRole("progressbar", { hidden: true })
+    ).toBeInTheDocument();
   });
 
   it("fetches and displays appointment history", async () => {
@@ -69,11 +71,15 @@ describe("AppointmentHistoryTimeline", () => {
     await waitFor(() => {
       expect(screen.getByText("Appointment Created")).toBeInTheDocument();
       expect(screen.getByText("Appointment Rescheduled")).toBeInTheDocument();
-      expect(screen.getByText("Status Changed: pending → confirmed")).toBeInTheDocument();
+      expect(
+        screen.getByText("Status Changed: pending → confirmed")
+      ).toBeInTheDocument();
       expect(screen.getByText("Appointment Cancelled")).toBeInTheDocument();
     });
 
-    expect(mockFetch).toHaveBeenCalledWith("/api/admin/appointments/appointment-1/history");
+    expect(mockFetch).toHaveBeenCalledWith(
+      "/api/admin/appointments/appointment-1/history"
+    );
   });
 
   it("displays correct action icons for different history types", async () => {
@@ -114,8 +120,12 @@ describe("AppointmentHistoryTimeline", () => {
     await waitFor(() => {
       expect(screen.getByText("Appointment Rescheduled")).toBeInTheDocument();
       // Check that the reschedule description includes both dates
-      expect(screen.getByText(/Moved from.*8\/28\/2025.*to.*8\/29\/2025/)).toBeInTheDocument();
-      expect(screen.getByText("Reason: Client requested different time")).toBeInTheDocument();
+      expect(
+        screen.getByText(/Moved from.*8\/28\/2025.*to.*8\/29\/2025/)
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText("Reason: Client requested different time")
+      ).toBeInTheDocument();
     });
   });
 
@@ -142,8 +152,16 @@ describe("AppointmentHistoryTimeline", () => {
       const pendingStatus = screen.getByText("pending");
       const confirmedStatus = screen.getByText("confirmed");
 
-      expect(pendingStatus).toHaveClass("text-yellow-700", "bg-yellow-50", "border-yellow-200");
-      expect(confirmedStatus).toHaveClass("text-green-700", "bg-green-50", "border-green-200");
+      expect(pendingStatus).toHaveClass(
+        "text-yellow-700",
+        "bg-yellow-50",
+        "border-yellow-200"
+      );
+      expect(confirmedStatus).toHaveClass(
+        "text-green-700",
+        "bg-green-50",
+        "border-green-200"
+      );
     });
   });
 
@@ -231,7 +249,9 @@ describe("AppointmentHistoryTimeline", () => {
     render(<AppointmentHistoryTimeline appointmentId="appointment-1" />);
 
     await waitFor(() => {
-      expect(screen.getByText("Failed to load appointment history")).toBeInTheDocument();
+      expect(
+        screen.getByText("Failed to load appointment history")
+      ).toBeInTheDocument();
       expect(screen.getByText("Try Again")).toBeInTheDocument();
     });
   });
@@ -245,7 +265,9 @@ describe("AppointmentHistoryTimeline", () => {
     render(<AppointmentHistoryTimeline appointmentId="appointment-1" />);
 
     await waitFor(() => {
-      expect(screen.getByText("Failed to load appointment history")).toBeInTheDocument();
+      expect(
+        screen.getByText("Failed to load appointment history")
+      ).toBeInTheDocument();
     });
   });
 
@@ -377,7 +399,9 @@ describe("AppointmentHistoryTimeline", () => {
   });
 
   it("refetches history when appointmentId changes", async () => {
-    const { rerender } = render(<AppointmentHistoryTimeline appointmentId="appointment-1" />);
+    const { rerender } = render(
+      <AppointmentHistoryTimeline appointmentId="appointment-1" />
+    );
 
     mockFetch.mockResolvedValue({
       ok: true,
@@ -386,7 +410,9 @@ describe("AppointmentHistoryTimeline", () => {
 
     await waitFor(() => {
       expect(mockFetch).toHaveBeenCalledTimes(1);
-      expect(mockFetch).toHaveBeenCalledWith("/api/admin/appointments/appointment-1/history");
+      expect(mockFetch).toHaveBeenCalledWith(
+        "/api/admin/appointments/appointment-1/history"
+      );
     });
 
     // Change appointmentId
@@ -394,7 +420,9 @@ describe("AppointmentHistoryTimeline", () => {
 
     await waitFor(() => {
       expect(mockFetch).toHaveBeenCalledTimes(2);
-      expect(mockFetch).toHaveBeenLastCalledWith("/api/admin/appointments/appointment-2/history");
+      expect(mockFetch).toHaveBeenLastCalledWith(
+        "/api/admin/appointments/appointment-2/history"
+      );
     });
   });
 
@@ -428,15 +456,27 @@ describe("AppointmentHistoryTimeline", () => {
     await waitFor(() => {
       // Check for cancelled status
       const cancelledStatus = screen.getByText("cancelled");
-      expect(cancelledStatus).toHaveClass("text-red-700", "bg-red-50", "border-red-200");
+      expect(cancelledStatus).toHaveClass(
+        "text-red-700",
+        "bg-red-50",
+        "border-red-200"
+      );
 
       // Check for completed status
       const completedStatus = screen.getByText("completed");
-      expect(completedStatus).toHaveClass("text-blue-700", "bg-blue-50", "border-blue-200");
+      expect(completedStatus).toHaveClass(
+        "text-blue-700",
+        "bg-blue-50",
+        "border-blue-200"
+      );
 
       // Check for no show status
       const noShowStatus = screen.getByText("no show");
-      expect(noShowStatus).toHaveClass("text-gray-700", "bg-gray-50", "border-gray-200");
+      expect(noShowStatus).toHaveClass(
+        "text-gray-700",
+        "bg-gray-50",
+        "border-gray-200"
+      );
     });
   });
 });

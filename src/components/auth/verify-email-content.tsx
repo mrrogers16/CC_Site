@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { logger } from "@/lib/logger";
 
@@ -16,14 +16,7 @@ export function VerifyEmailContent() {
   const email = searchParams.get("email");
   const token = searchParams.get("token");
 
-  // Handle automatic verification if token is present
-  useEffect(() => {
-    if (token && email) {
-      handleTokenVerification();
-    }
-  }, [token, email]);
-
-  const handleTokenVerification = async () => {
+  const handleTokenVerification = useCallback(async () => {
     setIsVerifying(true);
 
     try {
@@ -61,7 +54,14 @@ export function VerifyEmailContent() {
     } finally {
       setIsVerifying(false);
     }
-  };
+  }, [token, email, router]);
+
+  // Handle automatic verification if token is present
+  useEffect(() => {
+    if (token && email) {
+      handleTokenVerification();
+    }
+  }, [token, email, handleTokenVerification]);
 
   const handleResendVerification = async () => {
     if (!email) {

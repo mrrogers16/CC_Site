@@ -65,9 +65,9 @@ const quickActions = [
     color: "bg-card border border-border text-foreground hover:bg-muted/50",
   },
   {
-    title: "Messages",
-    description: "Review unread contact submissions",
-    href: "/admin/contact",
+    title: "Communications",
+    description: "Review contact submissions and messages",
+    href: "/admin/communications",
     icon: (
       <svg
         className="w-6 h-6"

@@ -39,7 +39,9 @@ describe("AppointmentConflictDetector", () => {
     render(<AppointmentConflictDetector {...defaultProps} />);
 
     expect(screen.getByText("Checking for conflicts...")).toBeInTheDocument();
-    expect(screen.getByRole("progressbar", { hidden: true })).toBeInTheDocument();
+    expect(
+      screen.getByRole("progressbar", { hidden: true })
+    ).toBeInTheDocument();
   });
 
   it("displays no conflicts message when no conflicts exist", async () => {
@@ -59,7 +61,9 @@ describe("AppointmentConflictDetector", () => {
     render(<AppointmentConflictDetector {...defaultProps} />);
 
     await waitFor(() => {
-      expect(screen.getByText("No conflicts detected. Time slot is available.")).toBeInTheDocument();
+      expect(
+        screen.getByText("No conflicts detected. Time slot is available.")
+      ).toBeInTheDocument();
     });
 
     expect(mockOnConflictDetected).toHaveBeenCalledWith(noConflictResponse);
@@ -105,7 +109,11 @@ describe("AppointmentConflictDetector", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Conflict Detected")).toBeInTheDocument();
-      expect(screen.getByText("There is already an appointment scheduled at this time")).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          "There is already an appointment scheduled at this time"
+        )
+      ).toBeInTheDocument();
       expect(screen.getByText("Conflicting Appointments:")).toBeInTheDocument();
       expect(screen.getByText("John Doe")).toBeInTheDocument();
       expect(screen.getByText("Individual Therapy")).toBeInTheDocument();
@@ -145,7 +153,9 @@ describe("AppointmentConflictDetector", () => {
     render(<AppointmentConflictDetector {...defaultProps} />);
 
     await waitFor(() => {
-      expect(screen.getByText("Suggested Alternative Times:")).toBeInTheDocument();
+      expect(
+        screen.getByText("Suggested Alternative Times:")
+      ).toBeInTheDocument();
       expect(screen.getByText("11:00 AM")).toBeInTheDocument();
       expect(screen.getByText("2:00 PM")).toBeInTheDocument();
       expect(screen.getByText("3:00 PM")).toBeInTheDocument();
@@ -174,7 +184,9 @@ describe("AppointmentConflictDetector", () => {
     render(<AppointmentConflictDetector {...defaultProps} />);
 
     await waitFor(() => {
-      expect(screen.getByText("Suggested Alternative Times:")).toBeInTheDocument();
+      expect(
+        screen.getByText("Suggested Alternative Times:")
+      ).toBeInTheDocument();
     });
 
     // Should only show first 6 alternatives
@@ -229,7 +241,9 @@ describe("AppointmentConflictDetector", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Conflict Detected")).toBeInTheDocument();
-      expect(screen.getByText("Failed to check for conflicts. Please try again.")).toBeInTheDocument();
+      expect(
+        screen.getByText("Failed to check for conflicts. Please try again.")
+      ).toBeInTheDocument();
     });
 
     const expectedErrorConflict = {
@@ -252,12 +266,16 @@ describe("AppointmentConflictDetector", () => {
     render(<AppointmentConflictDetector {...defaultProps} />);
 
     await waitFor(() => {
-      expect(screen.getByText("Failed to check for conflicts. Please try again.")).toBeInTheDocument();
+      expect(
+        screen.getByText("Failed to check for conflicts. Please try again.")
+      ).toBeInTheDocument();
     });
   });
 
   it("re-checks conflicts when props change", async () => {
-    const { rerender } = render(<AppointmentConflictDetector {...defaultProps} />);
+    const { rerender } = render(
+      <AppointmentConflictDetector {...defaultProps} />
+    );
 
     mockFetch.mockResolvedValue({
       ok: true,
@@ -277,10 +295,7 @@ describe("AppointmentConflictDetector", () => {
     // Change dateTime prop
     const newDateTime = new Date("2025-08-29T11:00:00Z");
     rerender(
-      <AppointmentConflictDetector
-        {...defaultProps}
-        dateTime={newDateTime}
-      />
+      <AppointmentConflictDetector {...defaultProps} dateTime={newDateTime} />
     );
 
     await waitFor(() => {
@@ -308,18 +323,21 @@ describe("AppointmentConflictDetector", () => {
     );
 
     await waitFor(() => {
-      expect(mockFetch).toHaveBeenCalledWith("/api/admin/appointments/conflicts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          dateTime: testDateTime.toISOString(),
-          serviceId: "service-1",
-          serviceDuration: 60,
-          excludeAppointmentId: "exclude-123",
-        }),
-      });
+      expect(mockFetch).toHaveBeenCalledWith(
+        "/api/admin/appointments/conflicts",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            dateTime: testDateTime.toISOString(),
+            serviceId: "service-1",
+            serviceDuration: 60,
+            excludeAppointmentId: "exclude-123",
+          }),
+        }
+      );
     });
   });
 
@@ -428,11 +446,15 @@ describe("AppointmentConflictDetector", () => {
     await waitFor(() => {
       expect(screen.getByText("Conflict Detected")).toBeInTheDocument();
       // Check for warning icon and red styling
-      const conflictContainer = screen.getByText("Conflict Detected").closest("div");
+      const conflictContainer = screen
+        .getByText("Conflict Detected")
+        .closest("div");
       expect(conflictContainer).toHaveClass("bg-red-50", "border-red-200");
-      
+
       // Check for alert triangle icon
-      const alertIcon = screen.getByTestId("alert-triangle") || document.querySelector('svg[data-icon="alert-triangle"]');
+      const alertIcon =
+        screen.getByTestId("alert-triangle") ||
+        document.querySelector('svg[data-icon="alert-triangle"]');
       expect(alertIcon).toBeInTheDocument();
     });
   });
