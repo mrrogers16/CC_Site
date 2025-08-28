@@ -4,6 +4,8 @@ import { logger } from "@/lib/logger";
 import { ContactNotificationEmail } from "@/components/email/contact-notification";
 import { ContactResponseEmail } from "@/components/email/contact-response";
 import { AppointmentConfirmationEmail } from "@/components/email/appointment-confirmation";
+import { AppointmentRescheduleEmail } from "@/components/email/appointment-reschedule";
+import { AppointmentCancellationEmail } from "@/components/email/appointment-cancellation";
 import type { ContactFormData } from "@/lib/validations";
 
 // Create reusable transporter
@@ -267,6 +269,184 @@ Healing Pathways Counseling Team`,
       { clientEmail, appointmentId: appointmentDetails.id }
     );
     return { success: false, error: "Failed to send appointment confirmation" };
+  }
+}
+
+export async function sendAppointmentReschedule(
+  clientEmail: string,
+  clientName: string,
+  oldDateTime: string,
+  newDateTime: string,
+  appointmentDetails: {
+    service: string;
+    duration: number;
+    price: string;
+  },
+  reason?: string
+): Promise<{ success: boolean; error?: string; messageId?: string }> {
+  try {
+    // Check if email configuration is available
+    if (!process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD) {
+      logger.warn(
+        "Email configuration not available, skipping reschedule notification",
+        {
+          clientEmail,
+          oldDateTime,
+          newDateTime,
+        }
+      );
+      return { success: false, error: "Email configuration not available" };
+    }
+
+    const html = await render(
+      AppointmentRescheduleEmail({
+        clientName,
+        oldDateTime,
+        newDateTime,
+        service: appointmentDetails.service,
+        duration: appointmentDetails.duration,
+        price: appointmentDetails.price,
+        ...(reason && { reason }),
+      })
+    );
+
+    const newDate = new Date(newDateTime);
+    const formattedDate = newDate.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    const formattedTime = newDate.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+
+    const result = await sendEmail({
+      to: clientEmail,
+      subject: `Appointment Rescheduled - New Date: ${formattedDate} at ${formattedTime}`,
+      html,
+      text: `Dear ${clientName},
+
+Your appointment has been rescheduled.
+
+Previous appointment: ${new Date(oldDateTime).toLocaleString("en-US")}
+New appointment: ${newDate.toLocaleString("en-US")}
+
+Service: ${appointmentDetails.service}
+Duration: ${appointmentDetails.duration} minutes
+Fee: $${appointmentDetails.price}
+
+${reason ? `Reason: ${reason}` : ""}
+
+Location:
+Healing Pathways Counseling
+123 Wellness Way, Suite 200
+Cityville, ST 12345
+Phone: (555) 123-4567
+
+Please arrive 10-15 minutes early for your appointment.
+
+Best regards,
+Healing Pathways Counseling Team`,
+    });
+
+    return result;
+  } catch (error) {
+    logger.error(
+      "Failed to send appointment reschedule notification",
+      error instanceof Error ? error : new Error(String(error)),
+      { clientEmail, oldDateTime, newDateTime }
+    );
+    return { success: false, error: "Failed to send reschedule notification" };
+  }
+}
+
+export async function sendAppointmentCancellation(
+  clientEmail: string,
+  clientName: string,
+  appointmentDateTime: string,
+  appointmentDetails: {
+    service: string;
+    duration: number;
+    price: string;
+  },
+  reason?: string,
+  cancellationPolicy?: string
+): Promise<{ success: boolean; error?: string; messageId?: string }> {
+  try {
+    // Check if email configuration is available
+    if (!process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD) {
+      logger.warn(
+        "Email configuration not available, skipping cancellation notification",
+        {
+          clientEmail,
+          appointmentDateTime,
+        }
+      );
+      return { success: false, error: "Email configuration not available" };
+    }
+
+    const html = await render(
+      AppointmentCancellationEmail({
+        clientName,
+        appointmentDateTime,
+        service: appointmentDetails.service,
+        duration: appointmentDetails.duration,
+        price: appointmentDetails.price,
+        ...(reason && { reason }),
+        ...(cancellationPolicy && { cancellationPolicy }),
+      })
+    );
+
+    const appointmentDate = new Date(appointmentDateTime);
+    const formattedDate = appointmentDate.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    const formattedTime = appointmentDate.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+
+    const result = await sendEmail({
+      to: clientEmail,
+      subject: `Appointment Cancelled - ${formattedDate} at ${formattedTime}`,
+      html,
+      text: `Dear ${clientName},
+
+Your appointment has been cancelled.
+
+Cancelled appointment details:
+Date: ${formattedDate}
+Time: ${formattedTime}
+Service: ${appointmentDetails.service}
+Duration: ${appointmentDetails.duration} minutes
+Fee: $${appointmentDetails.price}
+
+${reason ? `Reason: ${reason}` : ""}
+
+If you'd like to reschedule, please call us at (555) 123-4567.
+
+Best regards,
+Healing Pathways Counseling Team`,
+    });
+
+    return result;
+  } catch (error) {
+    logger.error(
+      "Failed to send appointment cancellation notification",
+      error instanceof Error ? error : new Error(String(error)),
+      { clientEmail, appointmentDateTime }
+    );
+    return {
+      success: false,
+      error: "Failed to send cancellation notification",
+    };
   }
 }
 

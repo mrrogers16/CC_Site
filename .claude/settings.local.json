@@ -33,7 +33,9 @@
       "Bash(CI=true npx playwright test critical-flows.spec.ts --reporter=line)",
       "Bash(CI=true npx playwright test --grep \"homepage loads correctly\" --reporter=line --timeout=20000)",
       "Bash(node:*)",
-      "Bash(del test-email.js)"
+      "Bash(del test-email.js)",
+      "Bash(wmic process where \"name='node.exe'\" get processid,commandline:*)",
+      "Bash(del /Q \"src\\generated\\prisma\\query_engine-windows.dll.node.tmp*\")"
     ],
     "deny": [],
     "ask": []

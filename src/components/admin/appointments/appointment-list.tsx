@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 interface Appointment {
   id: string;
@@ -246,12 +247,12 @@ export function AppointmentList({ filter }: AppointmentListProps) {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex gap-2">
-                        <button
-                          onClick={() => setSelectedAppointment(appointment)}
+                        <Link
+                          href={`/admin/appointments/${appointment.id}`}
                           className="text-primary hover:text-primary/80 text-sm font-medium"
                         >
                           View
-                        </button>
+                        </Link>
                         {appointment.status === "PENDING" && (
                           <button
                             onClick={() =>

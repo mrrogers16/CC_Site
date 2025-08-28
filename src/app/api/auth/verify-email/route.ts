@@ -88,7 +88,7 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
     return NextResponse.redirect(
       new URL("/auth/verify-email?success=true", request.url)
     );
-  } catch (error) {
+  } catch (_error) {
     const duration = Date.now() - startTime;
     logger.api("GET", "/api/auth/verify-email", 500, duration);
 

@@ -398,6 +398,53 @@ const users = await prisma.user.findMany({
 });
 ```
 
+### Windows Development Considerations
+
+#### Prisma Client Generation Issues
+
+**Common Problem**: Windows file locking prevents Prisma client regeneration
+```
+Error: EPERM: operation not permitted, rename 'query_engine-windows.dll.node.tmp...'
+```
+
+**Solution Steps**:
+1. Stop all Node.js processes (dev servers, Prisma Studio)
+2. Clear temporary files: `rm -f src/generated/prisma/query_engine-windows.dll.node.tmp*`
+3. Remove entire generated directory: `rm -rf src/generated`
+4. Regenerate client: `npx prisma generate`
+
+**Prevention**:
+- Avoid running multiple dev servers simultaneously
+- Close Prisma Studio before schema changes
+- Use dedicated terminal sessions for different operations
+
+#### TypeScript exactOptionalPropertyTypes Compliance
+
+**Pattern for Prisma Create Operations**:
+```typescript
+// ✅ CORRECT - Conditional inclusion for optional fields
+const data = await prisma.appointmentHistory.create({
+  data: {
+    appointmentId: id,
+    action: "CANCELLED",
+    oldStatus: existingStatus,
+    newStatus: "CANCELLED",
+    ...(reason && { reason }), // Only include if truthy
+    adminId: session.user.id,
+    adminName: session.user.name || "Admin",
+  },
+});
+
+// ❌ NEVER DO THIS - Will cause TypeScript errors with exactOptionalPropertyTypes
+const data = await prisma.appointmentHistory.create({
+  data: {
+    appointmentId: id,
+    action: "CANCELLED",
+    reason: maybeReason, // ERROR: string | undefined not assignable to string
+  },
+});
+```
+
 ## Authentication System
 
 Fully implemented with NextAuth.js:
