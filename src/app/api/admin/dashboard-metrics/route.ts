@@ -150,6 +150,54 @@ export const GET = withErrorHandler(async (_request: NextRequest) => {
           ? 100
           : 0;
 
+    // Client-specific metrics for client management dashboard integration
+    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+    
+    const newClientsLast30Days = await prisma.user.count({
+      where: {
+        role: "CLIENT",
+        createdAt: {
+          gte: thirtyDaysAgo,
+        },
+      },
+    });
+
+    const activeClients = await prisma.user.count({
+      where: {
+        role: "CLIENT",
+        appointments: {
+          some: {
+            status: { not: "CANCELLED" },
+            dateTime: {
+              gte: thirtyDaysAgo,
+            },
+          },
+        },
+      },
+    });
+
+    const inactiveClients = totalClients - activeClients;
+
+    // Recent client registrations for activity feed
+    const recentClientRegistrations = await prisma.user.findMany({
+      where: {
+        role: "CLIENT",
+        createdAt: {
+          gte: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000), // Last 7 days
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 5,
+    });
+
     const metrics = {
       // Existing metrics
       totalClients,
@@ -168,6 +216,12 @@ export const GET = withErrorHandler(async (_request: NextRequest) => {
       newClientsThisMonth,
       returningClientsThisMonth,
       clientRatio: Math.round(clientRatio * 100) / 100,
+
+      // Client management metrics
+      newClientsLast30Days,
+      activeClients,
+      inactiveClients,
+      recentClientRegistrations,
     };
 
     return NextResponse.json({ success: true, metrics });

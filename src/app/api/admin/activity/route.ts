@@ -74,7 +74,7 @@ export const GET = withErrorHandler(async (_request: NextRequest) => {
       title: `New client registration`,
       description: `${user.name} joined as a new client`,
       timestamp: user.createdAt.toISOString(),
-      href: `/admin/clients?id=${user.id}`,
+      href: `/admin/clients/${user.id}`,
     });
   });
 

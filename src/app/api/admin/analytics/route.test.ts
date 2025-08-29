@@ -115,7 +115,7 @@ describe("/api/admin/analytics", () => {
       it("should calculate current revenue correctly", async () => {
         mockPrisma.appointment.findMany
           .mockResolvedValueOnce(mockAppointments as any) // Current period
-          .mockResolvedValueOnce([]); // Previous period
+          .mockResolvedValueOnce([] as any); // Previous period
 
         const request = new NextRequest(
           "http://localhost/api/admin/analytics?startDate=2024-01-01&endDate=2024-01-31"
@@ -140,7 +140,7 @@ describe("/api/admin/analytics", () => {
 
         mockPrisma.appointment.findMany
           .mockResolvedValueOnce(mockAppointments as any) // Current: 350
-          .mockResolvedValueOnce(previousPeriodAppointments); // Previous: 100
+          .mockResolvedValueOnce(previousPeriodAppointments as any); // Previous: 100
 
         const request = new NextRequest(
           "http://localhost/api/admin/analytics?startDate=2024-01-01&endDate=2024-01-31"
@@ -154,7 +154,7 @@ describe("/api/admin/analytics", () => {
       it("should handle zero previous revenue", async () => {
         mockPrisma.appointment.findMany
           .mockResolvedValueOnce(mockAppointments as any) // Current: 350
-          .mockResolvedValueOnce([]); // Previous: 0
+          .mockResolvedValueOnce([] as any); // Previous: 0
 
         const request = new NextRequest(
           "http://localhost/api/admin/analytics?startDate=2024-01-01&endDate=2024-01-31"
@@ -174,7 +174,7 @@ describe("/api/admin/analytics", () => {
           { id: "3", status: "CANCELLED", dateTime: new Date("2024-01-17") },
         ];
 
-        mockPrisma.appointment.findMany.mockResolvedValueOnce(allAppointments);
+        mockPrisma.appointment.findMany.mockResolvedValueOnce(allAppointments as any);
 
         const request = new NextRequest(
           "http://localhost/api/admin/analytics?startDate=2024-01-01&endDate=2024-01-31"
@@ -196,7 +196,7 @@ describe("/api/admin/analytics", () => {
           { id: "4", status: "CONFIRMED" },
         ];
 
-        mockPrisma.appointment.findMany.mockResolvedValueOnce(allAppointments);
+        mockPrisma.appointment.findMany.mockResolvedValueOnce(allAppointments as any);
 
         const request = new NextRequest(
           "http://localhost/api/admin/analytics?startDate=2024-01-01&endDate=2024-01-31"
@@ -229,7 +229,7 @@ describe("/api/admin/analytics", () => {
         ];
 
         mockPrisma.appointment.findMany.mockResolvedValueOnce(
-          appointmentsWithUsers
+          appointmentsWithUsers as any
         );
 
         const request = new NextRequest(
@@ -261,7 +261,7 @@ describe("/api/admin/analytics", () => {
         ];
 
         mockPrisma.appointment.findMany.mockResolvedValueOnce(
-          appointmentsWithUsers
+          appointmentsWithUsers as any
         );
 
         const request = new NextRequest(
@@ -331,7 +331,7 @@ describe("/api/admin/analytics", () => {
         user: { id: "admin", role: "ADMIN" },
         expires: "",
       });
-      mockPrisma.appointment.findMany.mockResolvedValue([]);
+      mockPrisma.appointment.findMany.mockResolvedValue([] as any);
     });
 
     it("should use default date range if none provided", async () => {

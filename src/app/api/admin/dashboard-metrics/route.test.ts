@@ -33,18 +33,21 @@ const mockGetServerSession = getServerSession as jest.MockedFunction<
 >;
 import { prisma } from "@/lib/db";
 
+// Create typed Prisma mock
+const mockPrisma = prisma as jest.Mocked<typeof prisma>;
+
 describe("/api/admin/dashboard-metrics", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.clearAllTimers();
     // Reset all prisma mocks
-    Object.values(prisma.user).forEach(fn => {
+    Object.values(mockPrisma.user).forEach(fn => {
       if (typeof fn.mockReset === "function") fn.mockReset();
     });
-    Object.values(prisma.appointment).forEach(fn => {
+    Object.values(mockPrisma.appointment).forEach(fn => {
       if (typeof fn.mockReset === "function") fn.mockReset();
     });
-    Object.values(prisma.contactSubmission).forEach(fn => {
+    Object.values(mockPrisma.contactSubmission).forEach(fn => {
       if (typeof fn.mockReset === "function") fn.mockReset();
     });
     // Set up default mocks
@@ -101,13 +104,13 @@ describe("/api/admin/dashboard-metrics", () => {
       jest.setSystemTime(mockDate);
 
       // Setup default mock responses
-      prisma.user.count.mockResolvedValue(50);
-      prisma.appointment.count
+      mockPrisma.user.count.mockResolvedValue(50);
+      mockPrisma.appointment.count
         .mockResolvedValueOnce(5) // appointmentsToday
         .mockResolvedValueOnce(8) // pendingAppointments
         .mockResolvedValueOnce(12) // thisWeekAppointments
         .mockResolvedValueOnce(45); // completedAppointments
-      prisma.contactSubmission.count.mockResolvedValue(3);
+      mockPrisma.contactSubmission.count.mockResolvedValue(3);
     });
 
     afterEach(() => {
@@ -121,10 +124,10 @@ describe("/api/admin/dashboard-metrics", () => {
       ];
       const lastMonthAppointments = [{ service: { price: 100 } }];
 
-      prisma.appointment.findMany
-        .mockResolvedValueOnce(thisMonthAppointments)
-        .mockResolvedValueOnce(lastMonthAppointments)
-        .mockResolvedValueOnce([]); // thisMonthAppointments for client analysis
+      mockPrisma.appointment.findMany
+        .mockResolvedValueOnce(thisMonthAppointments as any)
+        .mockResolvedValueOnce(lastMonthAppointments as any)
+        .mockResolvedValueOnce([] as any); // thisMonthAppointments for client analysis
 
       const request = new NextRequest(
         "http://localhost/api/admin/dashboard-metrics"
@@ -153,7 +156,7 @@ describe("/api/admin/dashboard-metrics", () => {
       const monday = new Date("2024-01-15T10:00:00Z"); // This is a Monday
       jest.setSystemTime(monday);
 
-      prisma.appointment.findMany.mockResolvedValue([]);
+      mockPrisma.appointment.findMany.mockResolvedValue([] as any);
 
       const request = new NextRequest(
         "http://localhost/api/admin/dashboard-metrics"
@@ -191,10 +194,10 @@ describe("/api/admin/dashboard-metrics", () => {
         },
       ];
 
-      prisma.appointment.findMany
+      mockPrisma.appointment.findMany
         .mockResolvedValueOnce(thisMonthAppointments)
         .mockResolvedValueOnce(lastMonthAppointments)
-        .mockResolvedValueOnce(appointmentsWithUsers);
+        .mockResolvedValueOnce(appointmentsWithUsers as any);
 
       const request = new NextRequest(
         "http://localhost/api/admin/dashboard-metrics"
@@ -208,7 +211,7 @@ describe("/api/admin/dashboard-metrics", () => {
     });
 
     it("should handle zero revenue scenario", async () => {
-      prisma.appointment.findMany
+      mockPrisma.appointment.findMany
         .mockResolvedValueOnce([]) // thisMonthAppointments
         .mockResolvedValueOnce([]) // lastMonthAppointments
         .mockResolvedValueOnce([]); // client analysis
@@ -227,7 +230,7 @@ describe("/api/admin/dashboard-metrics", () => {
     it("should handle division by zero in revenue calculations", async () => {
       const thisMonthAppointments = [{ service: { price: 150 } }];
 
-      prisma.appointment.findMany
+      mockPrisma.appointment.findMany
         .mockResolvedValueOnce(thisMonthAppointments) // Current month: 150
         .mockResolvedValueOnce([]) // Last month: 0
         .mockResolvedValueOnce([]);
@@ -257,10 +260,10 @@ describe("/api/admin/dashboard-metrics", () => {
         },
       ];
 
-      prisma.appointment.findMany
+      mockPrisma.appointment.findMany
         .mockResolvedValueOnce(thisMonthAppointments)
         .mockResolvedValueOnce(lastMonthAppointments)
-        .mockResolvedValueOnce(allNewClientsAppointments);
+        .mockResolvedValueOnce(allNewClientsAppointments as any);
 
       const request = new NextRequest(
         "http://localhost/api/admin/dashboard-metrics"
@@ -280,8 +283,8 @@ describe("/api/admin/dashboard-metrics", () => {
       jest.useFakeTimers();
       jest.setSystemTime(fixedDate);
 
-      prisma.appointment.findMany.mockResolvedValue([]);
-      prisma.appointment.count.mockResolvedValue(0);
+      mockPrisma.appointment.findMany.mockResolvedValue([] as any);
+      mockPrisma.appointment.count.mockResolvedValue(0);
 
       const request = new NextRequest(
         "http://localhost/api/admin/dashboard-metrics"
@@ -289,7 +292,7 @@ describe("/api/admin/dashboard-metrics", () => {
       await GET(request);
 
       // Verify that the correct date ranges are used in queries
-      expect(prisma.appointment.findMany).toHaveBeenCalledWith(
+      expect(mockPrisma.appointment.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
           where: expect.objectContaining({
             dateTime: expect.objectContaining({
@@ -306,7 +309,7 @@ describe("/api/admin/dashboard-metrics", () => {
 
   describe("Error Handling", () => {
     it("should handle database errors gracefully", async () => {
-      prisma.user.count.mockRejectedValue(
+      mockPrisma.user.count.mockRejectedValue(
         new Error("Database connection failed")
       );
 
@@ -322,8 +325,8 @@ describe("/api/admin/dashboard-metrics", () => {
 
     it("should handle partial data failures", async () => {
       // Setup some successful calls and one failure
-      prisma.user.count.mockResolvedValue(50);
-      prisma.appointment.count.mockRejectedValue(
+      mockPrisma.user.count.mockResolvedValue(50);
+      mockPrisma.appointment.count.mockRejectedValue(
         new Error("Appointment query failed")
       );
 
@@ -340,8 +343,8 @@ describe("/api/admin/dashboard-metrics", () => {
 
   describe("Performance Considerations", () => {
     it("should make expected number of database calls", async () => {
-      prisma.appointment.findMany.mockResolvedValue([]);
-      prisma.appointment.count.mockResolvedValue(0);
+      mockPrisma.appointment.findMany.mockResolvedValue([] as any);
+      mockPrisma.appointment.count.mockResolvedValue(0);
 
       const request = new NextRequest(
         "http://localhost/api/admin/dashboard-metrics"
@@ -349,12 +352,12 @@ describe("/api/admin/dashboard-metrics", () => {
       await GET(request);
 
       // Verify we're not making excessive database calls
-      expect(prisma.user.count).toHaveBeenCalledTimes(1);
-      expect(prisma.contactSubmission.count).toHaveBeenCalledTimes(1);
+      expect(mockPrisma.user.count).toHaveBeenCalledTimes(1);
+      expect(mockPrisma.contactSubmission.count).toHaveBeenCalledTimes(1);
       // appointment.count is called multiple times for different metrics
-      expect(prisma.appointment.count).toHaveBeenCalledTimes(4);
+      expect(mockPrisma.appointment.count).toHaveBeenCalledTimes(4);
       // appointment.findMany is called for revenue and client calculations
-      expect(prisma.appointment.findMany).toHaveBeenCalledTimes(3);
+      expect(mockPrisma.appointment.findMany).toHaveBeenCalledTimes(3);
     });
   });
 });

@@ -19,6 +19,16 @@ interface MetricsData {
   newClientsThisMonth: number;
   returningClientsThisMonth: number;
   clientRatio: number;
+  // Client management metrics
+  newClientsLast30Days: number;
+  activeClients: number;
+  inactiveClients: number;
+  recentClientRegistrations: Array<{
+    id: string;
+    name: string;
+    email: string;
+    createdAt: string;
+  }>;
 }
 
 export function MetricsWidgets() {
@@ -207,6 +217,32 @@ export function MetricsWidgets() {
       isAnalytics: true,
     },
     {
+      title: "Client Activity",
+      subtitle: "Last 30 Days",
+      value: `${metrics?.activeClients ?? 0}/${metrics?.totalClients ?? 0}`,
+      formatValue: (value: string) => value,
+      description: `${metrics?.newClientsLast30Days ?? 0} new clients, ${metrics?.inactiveClients ?? 0} inactive`,
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+          />
+        </svg>
+      ),
+      color: "text-indigo-600",
+      bgColor: "bg-indigo-100",
+      isAnalytics: true,
+      href: "/admin/clients",
+    },
+    {
       title: "Completed Sessions",
       value: metrics?.completedAppointments ?? 0,
       icon: (
@@ -280,49 +316,61 @@ export function MetricsWidgets() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {metricCards.map((card, _index) => (
-          <div
-            key={card.title}
-            className={`bg-card border border-border rounded-lg p-6 hover:shadow-sm transition-shadow ${
-              (card as any).isAnalytics ? "ring-1 ring-primary/20" : ""
-            }`}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {card.title}
+        {metricCards.map((card, _index) => {
+          const CardWrapper = (card as any).href ? Link : 'div';
+          const cardProps = (card as any).href 
+            ? { href: (card as any).href }
+            : {};
+          
+          return (
+            <CardWrapper
+              key={card.title}
+              {...cardProps}
+              className={`bg-card border border-border rounded-lg p-6 transition-all ${
+                (card as any).href 
+                  ? "hover:shadow-md hover:border-primary/30 cursor-pointer" 
+                  : "hover:shadow-sm"
+              } ${
+                (card as any).isAnalytics ? "ring-1 ring-primary/20" : ""
+              }`}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-sm font-medium text-muted-foreground">
+                      {card.title}
+                    </p>
+                    {(card as any).subtitle && (
+                      <span className="text-xs bg-muted px-2 py-1 rounded-full">
+                        {(card as any).subtitle}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-2xl font-semibold text-foreground">
+                    {loading ? (
+                      <span className="animate-pulse bg-muted h-8 w-16 rounded inline-block" />
+                    ) : (
+                      (card.formatValue?.(card.value) ??
+                      card.value.toLocaleString())
+                    )}
                   </p>
-                  {(card as any).subtitle && (
-                    <span className="text-xs bg-muted px-2 py-1 rounded-full">
-                      {(card as any).subtitle}
-                    </span>
+
+                  {(card as any).changeValue !== undefined &&
+                    renderChangeIndicator((card as any).changeValue)}
+
+                  {(card as any).description && (
+                    <p className="text-xs text-muted-foreground mt-2">
+                      {(card as any).description}
+                    </p>
                   )}
                 </div>
-                <p className="text-2xl font-semibold text-foreground">
-                  {loading ? (
-                    <span className="animate-pulse bg-muted h-8 w-16 rounded inline-block" />
-                  ) : (
-                    (card.formatValue?.(card.value) ??
-                    card.value.toLocaleString())
-                  )}
-                </p>
-
-                {(card as any).changeValue !== undefined &&
-                  renderChangeIndicator((card as any).changeValue)}
-
-                {(card as any).description && (
-                  <p className="text-xs text-muted-foreground mt-2">
-                    {(card as any).description}
-                  </p>
-                )}
+                <div className={`p-3 rounded-lg ${card.bgColor} flex-shrink-0`}>
+                  <div className={card.color}>{card.icon}</div>
+                </div>
               </div>
-              <div className={`p-3 rounded-lg ${card.bgColor} flex-shrink-0`}>
-                <div className={card.color}>{card.icon}</div>
-              </div>
-            </div>
-          </div>
-        ))}
+            </CardWrapper>
+          );
+        })}
       </div>
     </section>
   );
