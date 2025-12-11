@@ -327,7 +327,7 @@ export function ClientDetailView({ client }: ClientDetailViewProps) {
             <h3 className="text-lg font-medium text-foreground mb-4">Activity Timeline</h3>
             {client.activityTimeline.length > 0 ? (
               <div className="space-y-4">
-                {client.activityTimeline.map((activity, index) => (
+                {client.activityTimeline.map((activity, _index) => (
                   <div key={activity.id} className="flex gap-4">
                     <div className="flex-shrink-0 w-8 h-8 bg-muted rounded-full flex items-center justify-center">
                       {activity.type === "contact_submission" ? (

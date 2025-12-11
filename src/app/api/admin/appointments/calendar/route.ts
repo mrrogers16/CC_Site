@@ -43,12 +43,13 @@ export const GET = withErrorHandler(async (_request: NextRequest) => {
 
   appointments.forEach(appointment => {
     const date = appointment.dateTime.toISOString().split("T")[0];
+    if (!date) return;
 
     if (!appointmentsByDate[date]) {
       appointmentsByDate[date] = [];
     }
 
-    appointmentsByDate[date]?.push({
+    appointmentsByDate[date].push({
       id: appointment.id,
       dateTime: appointment.dateTime.toISOString(),
       status: appointment.status,

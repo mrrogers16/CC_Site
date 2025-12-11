@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { AdminLayout } from "@/components/admin/layout/admin-layout";
@@ -67,11 +67,11 @@ export default function AdminClientsPage() {
   }, [session, status, router]);
 
   // Fetch clients data
-  const fetchClients = async () => {
+  const fetchClients = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const params = new URLSearchParams({
         page: currentPage.toString(),
         limit: limit.toString(),
@@ -84,17 +84,17 @@ export default function AdminClientsPage() {
       });
 
       const response = await fetch(`/api/admin/clients?${params}`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const result = await response.json();
-      
+
       if (!result.success) {
         throw new Error(result.error || "Failed to fetch clients");
       }
-      
+
       setClientsData(result.data);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred";
@@ -103,24 +103,14 @@ export default function AdminClientsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, limit, sortBy, sortOrder, search, statusFilter, dateFrom, dateTo]);
 
   // Fetch clients when filters change
   useEffect(() => {
     if (status === "authenticated" && session?.user?.role === "ADMIN") {
       fetchClients();
     }
-  }, [
-    status,
-    session,
-    currentPage,
-    search,
-    sortBy,
-    sortOrder,
-    statusFilter,
-    dateFrom,
-    dateTo,
-  ]);
+  }, [status, session, fetchClients]);
 
   // Handle search with debouncing
   useEffect(() => {

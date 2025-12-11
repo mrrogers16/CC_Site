@@ -317,58 +317,78 @@ export function MetricsWidgets() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {metricCards.map((card, _index) => {
-          const CardWrapper = (card as any).href ? Link : 'div';
-          const cardProps = (card as any).href 
-            ? { href: (card as any).href }
-            : {};
-          
-          return (
-            <CardWrapper
-              key={card.title}
-              {...cardProps}
-              className={`bg-card border border-border rounded-lg p-6 transition-all ${
-                (card as any).href 
-                  ? "hover:shadow-md hover:border-primary/30 cursor-pointer" 
-                  : "hover:shadow-sm"
-              } ${
-                (card as any).isAnalytics ? "ring-1 ring-primary/20" : ""
-              }`}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <p className="text-sm font-medium text-muted-foreground">
-                      {card.title}
-                    </p>
-                    {(card as any).subtitle && (
-                      <span className="text-xs bg-muted px-2 py-1 rounded-full">
-                        {(card as any).subtitle}
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-2xl font-semibold text-foreground">
-                    {loading ? (
-                      <span className="animate-pulse bg-muted h-8 w-16 rounded inline-block" />
-                    ) : (
-                      (card.formatValue?.(card.value) ??
-                      card.value.toLocaleString())
-                    )}
+          const cardContent = (
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    {card.title}
                   </p>
-
-                  {(card as any).changeValue !== undefined &&
-                    renderChangeIndicator((card as any).changeValue)}
-
-                  {(card as any).description && (
-                    <p className="text-xs text-muted-foreground mt-2">
-                      {(card as any).description}
-                    </p>
+                  {(card as { subtitle?: string }).subtitle && (
+                    <span className="text-xs bg-muted px-2 py-1 rounded-full">
+                      {(card as { subtitle?: string }).subtitle}
+                    </span>
                   )}
                 </div>
-                <div className={`p-3 rounded-lg ${card.bgColor} flex-shrink-0`}>
-                  <div className={card.color}>{card.icon}</div>
-                </div>
+                <p className="text-2xl font-semibold text-foreground">
+                  {loading ? (
+                    <span className="animate-pulse bg-muted h-8 w-16 rounded inline-block" />
+                  ) : (
+                    (() => {
+                      if (card.formatValue) {
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        return (card.formatValue as (v: any) => string)(
+                          card.value
+                        );
+                      }
+                      return typeof card.value === "number"
+                        ? card.value.toLocaleString()
+                        : String(card.value);
+                    })()
+                  )}
+                </p>
+
+                {(card as { changeValue?: number }).changeValue !== undefined &&
+                  renderChangeIndicator(
+                    (card as { changeValue: number }).changeValue
+                  )}
+
+                {(card as { description?: string }).description && (
+                  <p className="text-xs text-muted-foreground mt-2">
+                    {(card as { description?: string }).description}
+                  </p>
+                )}
               </div>
-            </CardWrapper>
+              <div className={`p-3 rounded-lg ${card.bgColor} flex-shrink-0`}>
+                <div className={card.color}>{card.icon}</div>
+              </div>
+            </div>
+          );
+
+          const baseClassName = `bg-card border border-border rounded-lg p-6 transition-all ${
+            (card as { isAnalytics?: boolean }).isAnalytics
+              ? "ring-1 ring-primary/20"
+              : ""
+          }`;
+
+          const cardHref = (card as { href?: string }).href;
+
+          if (cardHref) {
+            return (
+              <Link
+                key={card.title}
+                href={cardHref}
+                className={`${baseClassName} hover:shadow-md hover:border-primary/30 cursor-pointer`}
+              >
+                {cardContent}
+              </Link>
+            );
+          }
+
+          return (
+            <div key={card.title} className={`${baseClassName} hover:shadow-sm`}>
+              {cardContent}
+            </div>
           );
         })}
       </div>

@@ -8,15 +8,15 @@ import { AppError, NotFoundError } from "@/lib/errors";
 
 export const GET = withErrorHandler(async (
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
   const session = await getServerSession(authOptions);
-  
+
   if (!session?.user || session.user.role !== "ADMIN") {
     throw new AppError("Unauthorized access", 401);
   }
 
-  const { id } = params;
+  const { id } = await params;
 
   try {
     // Get comprehensive client information

@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { withErrorHandler } from "@/lib/api/error-handler";
+import { AppointmentStatus, Prisma } from "@/generated/prisma";
 
 export const GET = withErrorHandler(async (request: NextRequest) => {
   const session = await getServerSession(authOptions);
@@ -18,15 +19,13 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
   const serviceId = searchParams.get("serviceId");
   const clientId = searchParams.get("clientId");
 
-  const where: {
-    status?: string;
-    dateTime?: { gte: Date; lte: Date };
-    serviceId?: string;
-    userId?: string;
-  } = {};
+  const where: Prisma.AppointmentWhereInput = {};
 
   if (status && status !== "all") {
-    where.status = status.toUpperCase();
+    const upperStatus = status.toUpperCase();
+    if (Object.values(AppointmentStatus).includes(upperStatus as AppointmentStatus)) {
+      where.status = upperStatus as AppointmentStatus;
+    }
   }
 
   if (startDate && endDate) {

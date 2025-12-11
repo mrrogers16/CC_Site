@@ -56,8 +56,10 @@ export function AppointmentCalendar({
     setSelectedDate(date);
     if (date && onDateSelect) {
       const dateKey = date.toISOString().split("T")[0];
-      const dayAppointments = appointments[dateKey] || [];
-      onDateSelect(date, dayAppointments);
+      if (dateKey) {
+        const dayAppointments = appointments[dateKey] || [];
+        onDateSelect(date, dayAppointments);
+      }
     }
   };
 
@@ -65,9 +67,10 @@ export function AppointmentCalendar({
     return Object.keys(appointments).map(dateStr => new Date(dateStr));
   };
 
-  const getSelectedDateAppointments = () => {
+  const getSelectedDateAppointments = (): Appointment[] => {
     if (!selectedDate) return [];
     const dateKey = selectedDate.toISOString().split("T")[0];
+    if (!dateKey) return [];
     return appointments[dateKey] || [];
   };
 
@@ -158,11 +161,11 @@ export function AppointmentCalendar({
           ) : (
             getSelectedDateAppointments()
               .sort(
-                (a, b) =>
+                (a: Appointment, b: Appointment) =>
                   new Date(a.dateTime).getTime() -
                   new Date(b.dateTime).getTime()
               )
-              .map(appointment => (
+              .map((appointment: Appointment) => (
                 <div
                   key={appointment.id}
                   className="flex items-center justify-between p-3 bg-muted/30 rounded-lg"
