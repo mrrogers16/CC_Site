@@ -152,7 +152,7 @@ export const GET = withErrorHandler(async (_request: NextRequest) => {
 
     // Client-specific metrics for client management dashboard integration
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-    
+
     const newClientsLast30Days = await prisma.user.count({
       where: {
         role: "CLIENT",

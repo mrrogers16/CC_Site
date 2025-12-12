@@ -386,7 +386,10 @@ export function MetricsWidgets() {
           }
 
           return (
-            <div key={card.title} className={`${baseClassName} hover:shadow-sm`}>
+            <div
+              key={card.title}
+              className={`${baseClassName} hover:shadow-sm`}
+            >
               {cardContent}
             </div>
           );

@@ -23,7 +23,11 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
 
   if (status && status !== "all") {
     const upperStatus = status.toUpperCase();
-    if (Object.values(AppointmentStatus).includes(upperStatus as AppointmentStatus)) {
+    if (
+      Object.values(AppointmentStatus).includes(
+        upperStatus as AppointmentStatus
+      )
+    ) {
       where.status = upperStatus as AppointmentStatus;
     }
   }

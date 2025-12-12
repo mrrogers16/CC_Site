@@ -24,7 +24,9 @@ jest.mock("@/lib/db", () => ({
 }));
 
 // Create properly typed mocks
-const mockGetServerSession = getServerSession as jest.MockedFunction<typeof getServerSession>;
+const mockGetServerSession = getServerSession as jest.MockedFunction<
+  typeof getServerSession
+>;
 import { prisma } from "@/lib/db";
 
 // Create typed Prisma mock
@@ -174,7 +176,9 @@ describe("/api/admin/analytics", () => {
           { id: "3", status: "CANCELLED", dateTime: new Date("2024-01-17") },
         ];
 
-        mockPrisma.appointment.findMany.mockResolvedValueOnce(allAppointments as any);
+        mockPrisma.appointment.findMany.mockResolvedValueOnce(
+          allAppointments as any
+        );
 
         const request = new NextRequest(
           "http://localhost/api/admin/analytics?startDate=2024-01-01&endDate=2024-01-31"
@@ -196,7 +200,9 @@ describe("/api/admin/analytics", () => {
           { id: "4", status: "CONFIRMED" },
         ];
 
-        mockPrisma.appointment.findMany.mockResolvedValueOnce(allAppointments as any);
+        mockPrisma.appointment.findMany.mockResolvedValueOnce(
+          allAppointments as any
+        );
 
         const request = new NextRequest(
           "http://localhost/api/admin/analytics?startDate=2024-01-01&endDate=2024-01-31"
@@ -305,7 +311,9 @@ describe("/api/admin/analytics", () => {
           },
         ];
 
-        mockPrisma.appointment.findMany.mockResolvedValueOnce(serviceAppointments);
+        mockPrisma.appointment.findMany.mockResolvedValueOnce(
+          serviceAppointments
+        );
 
         const request = new NextRequest(
           "http://localhost/api/admin/analytics?startDate=2024-01-01&endDate=2024-01-31"

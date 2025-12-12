@@ -33,13 +33,16 @@ export const GET = withErrorHandler(async (_request: NextRequest) => {
   });
 
   // Group appointments by date
-  const appointmentsByDate: Record<string, Array<{
-    id: string;
-    dateTime: string;
-    status: string;
-    service: { title: string; duration: number };
-    user: { name: string | null; email: string };
-  }>> = {};
+  const appointmentsByDate: Record<
+    string,
+    Array<{
+      id: string;
+      dateTime: string;
+      status: string;
+      service: { title: string; duration: number };
+      user: { name: string | null; email: string };
+    }>
+  > = {};
 
   appointments.forEach(appointment => {
     const date = appointment.dateTime.toISOString().split("T")[0];

@@ -167,12 +167,12 @@ describe("AdminAnalyticsPage", () => {
     beforeEach(() => {
       mockUseSession.mockReturnValue({
         data: {
-          user: { 
-            id: "admin", 
+          user: {
+            id: "admin",
             role: "ADMIN",
             email: "admin@example.com",
             name: "Admin User",
-            emailVerified: new Date()
+            emailVerified: new Date(),
           },
           expires: "",
         },
@@ -239,12 +239,12 @@ describe("AdminAnalyticsPage", () => {
     beforeEach(() => {
       mockUseSession.mockReturnValue({
         data: {
-          user: { 
-            id: "admin", 
+          user: {
+            id: "admin",
             role: "ADMIN",
             email: "admin@example.com",
             name: "Admin User",
-            emailVerified: new Date()
+            emailVerified: new Date(),
           },
           expires: "",
         },
@@ -317,12 +317,12 @@ describe("AdminAnalyticsPage", () => {
     beforeEach(() => {
       mockUseSession.mockReturnValue({
         data: {
-          user: { 
-            id: "admin", 
+          user: {
+            id: "admin",
             role: "ADMIN",
             email: "admin@example.com",
             name: "Admin User",
-            emailVerified: new Date()
+            emailVerified: new Date(),
           },
           expires: "",
         },
@@ -488,12 +488,12 @@ describe("AdminAnalyticsPage", () => {
     beforeEach(() => {
       mockUseSession.mockReturnValue({
         data: {
-          user: { 
-            id: "admin", 
+          user: {
+            id: "admin",
             role: "ADMIN",
             email: "admin@example.com",
             name: "Admin User",
-            emailVerified: new Date()
+            emailVerified: new Date(),
           },
           expires: "",
         },
@@ -534,12 +534,12 @@ describe("AdminAnalyticsPage", () => {
     beforeEach(() => {
       mockUseSession.mockReturnValue({
         data: {
-          user: { 
-            id: "admin", 
+          user: {
+            id: "admin",
             role: "ADMIN",
             email: "admin@example.com",
             name: "Admin User",
-            emailVerified: new Date()
+            emailVerified: new Date(),
           },
           expires: "",
         },
@@ -593,12 +593,12 @@ describe("AdminAnalyticsPage", () => {
     beforeEach(() => {
       mockUseSession.mockReturnValue({
         data: {
-          user: { 
-            id: "admin", 
+          user: {
+            id: "admin",
             role: "ADMIN",
             email: "admin@example.com",
             name: "Admin User",
-            emailVerified: new Date()
+            emailVerified: new Date(),
           },
           expires: "",
         },

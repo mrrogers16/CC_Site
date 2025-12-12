@@ -1,4 +1,9 @@
-import { render, screen, fireEvent as _fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent as _fireEvent,
+  waitFor,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { jest } from "@jest/globals";
 import { AppointmentReschedule } from "@/components/admin/appointments/appointment-reschedule";
@@ -22,8 +27,12 @@ describe("AppointmentReschedule", () => {
     },
   };
 
-  const mockOnReschedule = jest.fn() as jest.MockedFunction<(appointmentId: string, newDateTime: string) => Promise<void>>;
-  const mockOnCancel = jest.fn() as jest.MockedFunction<(appointmentId: string) => Promise<void>>;
+  const mockOnReschedule = jest.fn() as jest.MockedFunction<
+    (appointmentId: string, newDateTime: string) => Promise<void>
+  >;
+  const mockOnCancel = jest.fn() as jest.MockedFunction<
+    (appointmentId: string) => Promise<void>
+  >;
 
   const defaultProps = {
     appointment: mockAppointment,
@@ -444,7 +453,9 @@ describe("AppointmentReschedule", () => {
 
   it("handles onReschedule error gracefully", async () => {
     const user = userEvent.setup();
-    const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
     const mockSlots = [
       {
         dateTime: "2025-08-29T09:00:00Z",

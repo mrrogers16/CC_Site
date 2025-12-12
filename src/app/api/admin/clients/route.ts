@@ -8,25 +8,34 @@ import { AppError, ValidationError } from "@/lib/errors";
 
 export const GET = withErrorHandler(async (request: NextRequest) => {
   const session = await getServerSession(authOptions);
-  
+
   if (!session?.user || session.user.role !== "ADMIN") {
     throw new AppError("Unauthorized access", 401);
   }
 
   const { searchParams } = new URL(request.url);
-  
+
   // Parse query parameters
   const search = searchParams.get("search") || "";
   const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
-  const limit = Math.min(50, Math.max(1, parseInt(searchParams.get("limit") || "10")));
+  const limit = Math.min(
+    50,
+    Math.max(1, parseInt(searchParams.get("limit") || "10"))
+  );
   const sortBy = searchParams.get("sortBy") || "createdAt";
   const sortOrder = searchParams.get("sortOrder") === "asc" ? "asc" : "desc";
   const dateFrom = searchParams.get("dateFrom");
   const dateTo = searchParams.get("dateTo");
   const status = searchParams.get("status"); // active, inactive, new
-  
+
   // Validate sort field
-  const allowedSortFields = ["createdAt", "name", "email", "lastAppointment", "appointmentCount"];
+  const allowedSortFields = [
+    "createdAt",
+    "name",
+    "email",
+    "lastAppointment",
+    "appointmentCount",
+  ];
   if (!allowedSortFields.includes(sortBy)) {
     throw new ValidationError("Invalid sort field");
   }
@@ -116,28 +125,35 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
       },
       skip: offset,
       take: limit,
-      orderBy: sortBy === "lastAppointment" 
-        ? { appointments: { _count: "desc" } }
-        : sortBy === "appointmentCount"
-        ? { appointments: { _count: sortOrder as any } }
-        : { [sortBy]: sortOrder },
+      orderBy:
+        sortBy === "lastAppointment"
+          ? { appointments: { _count: "desc" } }
+          : sortBy === "appointmentCount"
+            ? { appointments: { _count: sortOrder as any } }
+            : { [sortBy]: sortOrder },
     });
 
     // Apply status filter after fetching (for complex logic)
     if (status) {
       const now = new Date();
       const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-      
+
       clients = clients.filter(client => {
         const appointmentCount = client._count.appointments;
         const lastAppointment = client.appointments[0]?.dateTime;
         const isNewClient = new Date(client.createdAt) > thirtyDaysAgo;
-        
+
         switch (status) {
           case "active":
-            return appointmentCount > 0 && (!lastAppointment || new Date(lastAppointment) > thirtyDaysAgo);
+            return (
+              appointmentCount > 0 &&
+              (!lastAppointment || new Date(lastAppointment) > thirtyDaysAgo)
+            );
           case "inactive":
-            return appointmentCount === 0 || (lastAppointment && new Date(lastAppointment) <= thirtyDaysAgo);
+            return (
+              appointmentCount === 0 ||
+              (lastAppointment && new Date(lastAppointment) <= thirtyDaysAgo)
+            );
           case "new":
             return isNewClient;
           default:
@@ -188,7 +204,10 @@ export const GET = withErrorHandler(async (request: NextRequest) => {
       },
     });
   } catch (error) {
-    logger.error("Failed to fetch client list", error instanceof Error ? error : new Error("Unknown error"));
+    logger.error(
+      "Failed to fetch client list",
+      error instanceof Error ? error : new Error("Unknown error")
+    );
     throw error;
   }
 });

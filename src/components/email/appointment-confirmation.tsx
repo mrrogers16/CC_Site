@@ -85,8 +85,8 @@ export function AppointmentConfirmationEmail({
             }}
           >
             Thank you for scheduling your appointment with Healing Pathways
-            Counseling. We&apos;re committed to supporting you on your journey to
-            better mental health and well-being.
+            Counseling. We&apos;re committed to supporting you on your journey
+            to better mental health and well-being.
           </p>
 
           {/* Appointment Details Card */}
@@ -237,8 +237,8 @@ export function AppointmentConfirmationEmail({
                   </li>
                   <li>Bring a valid ID and insurance card (if applicable)</li>
                   <li>
-                    We&apos;ll discuss your goals and create a personalized treatment
-                    plan
+                    We&apos;ll discuss your goals and create a personalized
+                    treatment plan
                   </li>
                 </ul>
               </div>
@@ -337,7 +337,8 @@ export function AppointmentConfirmationEmail({
           }}
         >
           <p style={{ margin: "0 0 10px 0" }}>
-            We&apos;re here to support you on your journey to better mental health.
+            We&apos;re here to support you on your journey to better mental
+            health.
           </p>
           <p style={{ margin: "0" }}>
             Healing Pathways Counseling | Licensed Professional Counselor #12345

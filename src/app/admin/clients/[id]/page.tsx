@@ -39,7 +39,7 @@ export default function AdminClientDetailPage() {
   const router = useRouter();
   const params = useParams();
   const clientId = params?.id as string;
-  
+
   const [client, setClient] = useState<ClientData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -47,12 +47,12 @@ export default function AdminClientDetailPage() {
   // Redirect if not admin
   useEffect(() => {
     if (status === "loading") return;
-    
+
     if (!session) {
       router.push("/admin/login");
       return;
     }
-    
+
     if (session.user?.role !== "ADMIN") {
       router.push("/");
       return;
@@ -62,32 +62,37 @@ export default function AdminClientDetailPage() {
   // Fetch client data
   useEffect(() => {
     async function fetchClient() {
-      if (!clientId || status !== "authenticated" || session?.user?.role !== "ADMIN") {
+      if (
+        !clientId ||
+        status !== "authenticated" ||
+        session?.user?.role !== "ADMIN"
+      ) {
         return;
       }
 
       try {
         setLoading(true);
         setError(null);
-        
+
         const response = await fetch(`/api/admin/clients/${clientId}`);
-        
+
         if (!response.ok) {
           if (response.status === 404) {
             throw new Error("Client not found");
           }
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const result = await response.json();
-        
+
         if (!result.success) {
           throw new Error(result.error || "Failed to fetch client");
         }
-        
+
         setClient(result.data);
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred";
+        const errorMessage =
+          err instanceof Error ? err.message : "An unexpected error occurred";
         setError(errorMessage);
         console.error("Failed to fetch client:", err);
       } finally {
@@ -148,7 +153,7 @@ export default function AdminClientDetailPage() {
               </p>
             )}
           </div>
-          
+
           {client && (
             <div className="flex gap-2">
               <Link
@@ -188,7 +193,9 @@ export default function AdminClientDetailPage() {
                   d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              {error === "Client not found" ? "Client Not Found" : "Error loading client"}
+              {error === "Client not found"
+                ? "Client Not Found"
+                : "Error loading client"}
             </div>
             <p className="text-muted-foreground mb-4">{error}</p>
             <div className="flex gap-2 justify-center">

@@ -18,7 +18,9 @@ interface ClientContactHistoryProps {
   contactSubmissions: ContactSubmission[];
 }
 
-export function ClientContactHistory({ contactSubmissions }: ClientContactHistoryProps) {
+export function ClientContactHistory({
+  contactSubmissions,
+}: ClientContactHistoryProps) {
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
 
   const toggleExpanded = (id: string) => {
@@ -53,7 +55,9 @@ export function ClientContactHistory({ contactSubmissions }: ClientContactHistor
               d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2 2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
             />
           </svg>
-          <h3 className="text-lg font-medium text-foreground mb-2">No contact inquiries</h3>
+          <h3 className="text-lg font-medium text-foreground mb-2">
+            No contact inquiries
+          </h3>
           <p className="text-muted-foreground">
             This client has not submitted any contact inquiries yet.
           </p>
@@ -72,14 +76,17 @@ export function ClientContactHistory({ contactSubmissions }: ClientContactHistor
           All contact form submissions from this client
         </p>
       </div>
-      
+
       <div className="divide-y divide-border">
-        {contactSubmissions.map((submission) => {
+        {contactSubmissions.map(submission => {
           const isExpanded = expandedItems.has(submission.id);
           const shouldShowExpand = submission.message.length > 150;
-          
+
           return (
-            <div key={submission.id} className="p-6 hover:bg-muted/30 transition-colors">
+            <div
+              key={submission.id}
+              className="p-6 hover:bg-muted/30 transition-colors"
+            >
               <div className="flex items-start justify-between gap-4 mb-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
@@ -92,14 +99,14 @@ export function ClientContactHistory({ contactSubmissions }: ClientContactHistor
                       </span>
                     )}
                   </div>
-                  
+
                   <div className="text-sm text-muted-foreground">
                     <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
                       <span>📧 {submission.email}</span>
-                      {submission.phone && (
-                        <span>📞 {submission.phone}</span>
-                      )}
-                      <span>📅 {new Date(submission.createdAt).toLocaleString()}</span>
+                      {submission.phone && <span>📞 {submission.phone}</span>}
+                      <span>
+                        📅 {new Date(submission.createdAt).toLocaleString()}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -110,10 +117,9 @@ export function ClientContactHistory({ contactSubmissions }: ClientContactHistor
                 <div className="text-sm text-foreground whitespace-pre-wrap">
                   {isExpanded || !shouldShowExpand
                     ? submission.message
-                    : truncateMessage(submission.message)
-                  }
+                    : truncateMessage(submission.message)}
                 </div>
-                
+
                 {shouldShowExpand && (
                   <button
                     onClick={() => toggleExpanded(submission.id)}
@@ -132,7 +138,7 @@ export function ClientContactHistory({ contactSubmissions }: ClientContactHistor
                 >
                   Reply via Email
                 </a>
-                
+
                 {submission.phone && (
                   <a
                     href={`tel:${submission.phone}`}
@@ -141,24 +147,36 @@ export function ClientContactHistory({ contactSubmissions }: ClientContactHistor
                     Call Client
                   </a>
                 )}
-                
+
                 <button
                   onClick={() => {
                     // Copy message to clipboard
-                    navigator.clipboard.writeText(`
+                    navigator.clipboard.writeText(
+                      `
 Subject: ${submission.subject}
 From: ${submission.name} (${submission.email})
-${submission.phone ? `Phone: ${submission.phone}` : ''}
+${submission.phone ? `Phone: ${submission.phone}` : ""}
 Date: ${new Date(submission.createdAt).toLocaleString()}
 
 ${submission.message}
-                    `.trim());
+                    `.trim()
+                    );
                   }}
                   className="px-3 py-1 text-sm border border-border text-muted-foreground hover:text-foreground hover:border-foreground rounded-md transition-colors"
                   title="Copy to clipboard"
                 >
-                  <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  <svg
+                    className="w-4 h-4 inline-block mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                    />
                   </svg>
                   Copy
                 </button>

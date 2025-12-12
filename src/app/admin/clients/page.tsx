@@ -36,11 +36,11 @@ interface ClientsData {
 export default function AdminClientsPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  
+
   const [clientsData, setClientsData] = useState<ClientsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   // Search and filter state
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("createdAt");
@@ -54,12 +54,12 @@ export default function AdminClientsPage() {
   // Redirect if not admin
   useEffect(() => {
     if (status === "loading") return;
-    
+
     if (!session) {
       router.push("/admin/login");
       return;
     }
-    
+
     if (session.user?.role !== "ADMIN") {
       router.push("/");
       return;
@@ -97,13 +97,23 @@ export default function AdminClientsPage() {
 
       setClientsData(result.data);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred";
+      const errorMessage =
+        err instanceof Error ? err.message : "An unexpected error occurred";
       setError(errorMessage);
       console.error("Failed to fetch clients:", err);
     } finally {
       setLoading(false);
     }
-  }, [currentPage, limit, sortBy, sortOrder, search, statusFilter, dateFrom, dateTo]);
+  }, [
+    currentPage,
+    limit,
+    sortBy,
+    sortOrder,
+    search,
+    statusFilter,
+    dateFrom,
+    dateTo,
+  ]);
 
   // Fetch clients when filters change
   useEffect(() => {
@@ -188,15 +198,13 @@ export default function AdminClientsPage() {
               View and manage all client profiles and their activity
             </p>
           </div>
-          
+
           {clientsData && (
             <div className="text-right">
               <div className="text-2xl font-light text-foreground">
                 {clientsData.pagination.total}
               </div>
-              <div className="text-sm text-muted-foreground">
-                Total Clients
-              </div>
+              <div className="text-sm text-muted-foreground">Total Clients</div>
             </div>
           )}
         </div>

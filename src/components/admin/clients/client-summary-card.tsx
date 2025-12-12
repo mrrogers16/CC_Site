@@ -20,10 +20,14 @@ interface ClientSummaryCardProps {
 export function ClientSummaryCard({ client }: ClientSummaryCardProps) {
   const now = new Date();
   const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-  const lastAppointmentDate = client.lastAppointment ? new Date(client.lastAppointment) : null;
+  const lastAppointmentDate = client.lastAppointment
+    ? new Date(client.lastAppointment)
+    : null;
   const isNewClient = new Date(client.createdAt) > thirtyDaysAgo;
-  const isActiveClient = client.appointmentCount > 0 && (!lastAppointmentDate || lastAppointmentDate > thirtyDaysAgo);
-  
+  const isActiveClient =
+    client.appointmentCount > 0 &&
+    (!lastAppointmentDate || lastAppointmentDate > thirtyDaysAgo);
+
   const getStatusBadge = () => {
     if (isNewClient) {
       return (
@@ -62,9 +66,7 @@ export function ClientSummaryCard({ client }: ClientSummaryCardProps) {
             <p className="text-sm text-muted-foreground">{client.phone}</p>
           )}
         </div>
-        <div className="ml-4">
-          {getStatusBadge()}
-        </div>
+        <div className="ml-4">{getStatusBadge()}</div>
       </div>
 
       <div className="grid grid-cols-2 gap-4 mb-4">
@@ -111,7 +113,12 @@ export function ClientSummaryCard({ client }: ClientSummaryCardProps) {
           className="px-3 py-2 border border-border text-muted-foreground text-sm font-medium rounded-md hover:text-foreground hover:border-foreground transition-colors"
           title="View appointments"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
