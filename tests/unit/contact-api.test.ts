@@ -1,18 +1,11 @@
 import { NextRequest } from "next/server";
-import { POST, GET } from "@/app/api/contact/route";
+import { POST } from "@/app/api/contact/route";
 
 // Mock the dependencies
 jest.mock("@/lib/db", () => ({
   prisma: {
-    user: {
-      findUnique: jest.fn(),
-      create: jest.fn(),
-      update: jest.fn(),
-    },
     contactSubmission: {
       create: jest.fn(),
-      findMany: jest.fn(),
-      count: jest.fn(),
     },
   },
 }));
@@ -47,24 +40,14 @@ describe("/api/contact", () => {
       message: "This is a test message.",
     };
 
-    it("creates new user and contact submission for new email", async () => {
-      const mockUser = {
-        id: "user-123",
-        email: "john@example.com",
-        name: "John Doe",
-        phone: "555-123-4567",
-      };
-
+    it("creates a contact submission from validated form data", async () => {
       const mockSubmission = {
         id: "submission-123",
         ...validContactData,
-        userId: "user-123",
         isRead: false,
         createdAt: new Date(),
       };
 
-      (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
-      (prisma.user.create as jest.Mock).mockResolvedValue(mockUser);
       (prisma.contactSubmission.create as jest.Mock).mockResolvedValue(
         mockSubmission
       );
@@ -92,19 +75,8 @@ describe("/api/contact", () => {
       expect(data.success).toBe(true);
       expect(data.submissionId).toBe("submission-123");
 
-      expect(prisma.user.findUnique).toHaveBeenCalledWith({
-        where: { email: "john@example.com" },
-      });
-      expect(prisma.user.create).toHaveBeenCalledWith({
-        data: {
-          email: "john@example.com",
-          name: "John Doe",
-          phone: "555-123-4567",
-        },
-      });
       expect(prisma.contactSubmission.create).toHaveBeenCalledWith({
         data: {
-          userId: "user-123",
           name: "John Doe",
           email: "john@example.com",
           phone: "555-123-4567",
@@ -115,33 +87,16 @@ describe("/api/contact", () => {
       });
     });
 
-    it("updates existing user and creates contact submission for existing email", async () => {
-      const existingUser = {
-        id: "user-123",
-        email: "john@example.com",
-        name: "Old Name",
+    it("stores a null phone when none is provided", async () => {
+      const { phone: _phone, ...noPhoneData } = validContactData;
+
+      (prisma.contactSubmission.create as jest.Mock).mockResolvedValue({
+        id: "submission-456",
+        ...noPhoneData,
         phone: null,
-      };
-
-      const updatedUser = {
-        ...existingUser,
-        name: "John Doe",
-        phone: "555-123-4567",
-      };
-
-      const mockSubmission = {
-        id: "submission-123",
-        ...validContactData,
-        userId: "user-123",
         isRead: false,
         createdAt: new Date(),
-      };
-
-      (prisma.user.findUnique as jest.Mock).mockResolvedValue(existingUser);
-      (prisma.user.update as jest.Mock).mockResolvedValue(updatedUser);
-      (prisma.contactSubmission.create as jest.Mock).mockResolvedValue(
-        mockSubmission
-      );
+      });
       (sendContactNotification as jest.Mock).mockResolvedValue({
         success: true,
       });
@@ -149,7 +104,7 @@ describe("/api/contact", () => {
 
       const request = new NextRequest("http://localhost:3000/api/contact", {
         method: "POST",
-        body: JSON.stringify(validContactData),
+        body: JSON.stringify(noPhoneData),
         headers: {
           "Content-Type": "application/json",
         },
@@ -161,11 +116,14 @@ describe("/api/contact", () => {
       expect(response.status).toBe(200);
       expect(data.success).toBe(true);
 
-      expect(prisma.user.update).toHaveBeenCalledWith({
-        where: { id: "user-123" },
+      expect(prisma.contactSubmission.create).toHaveBeenCalledWith({
         data: {
           name: "John Doe",
-          phone: "555-123-4567",
+          email: "john@example.com",
+          phone: null,
+          subject: "Test Subject",
+          message: "This is a test message.",
+          isRead: false,
         },
       });
     });
@@ -195,7 +153,7 @@ describe("/api/contact", () => {
     });
 
     it("handles database errors gracefully", async () => {
-      (prisma.user.findUnique as jest.Mock).mockRejectedValue(
+      (prisma.contactSubmission.create as jest.Mock).mockRejectedValue(
         new Error("Database error")
       );
 
@@ -212,135 +170,6 @@ describe("/api/contact", () => {
 
       expect(response.status).toBe(500);
       expect(data.error).toBe("Internal Server Error");
-    });
-  });
-
-  describe("GET", () => {
-    it("returns paginated contact submissions", async () => {
-      const mockSubmissions = [
-        {
-          id: "sub-1",
-          name: "John Doe",
-          email: "john@example.com",
-          subject: "Test 1",
-          message: "Message 1",
-          isRead: false,
-          createdAt: "2025-08-23T01:34:26.933Z",
-          user: {
-            id: "user-1",
-            name: "John Doe",
-            email: "john@example.com",
-            phone: null,
-          },
-        },
-        {
-          id: "sub-2",
-          name: "Jane Smith",
-          email: "jane@example.com",
-          subject: "Test 2",
-          message: "Message 2",
-          isRead: true,
-          createdAt: "2025-08-23T01:34:26.933Z",
-          user: {
-            id: "user-2",
-            name: "Jane Smith",
-            email: "jane@example.com",
-            phone: null,
-          },
-        },
-      ];
-
-      (prisma.contactSubmission.findMany as jest.Mock).mockResolvedValue(
-        mockSubmissions
-      );
-      (prisma.contactSubmission.count as jest.Mock).mockResolvedValue(2);
-
-      const request = new NextRequest(
-        "http://localhost:3000/api/contact?page=1&limit=10"
-      );
-
-      const response = await GET(request);
-      const data = await response.json();
-
-      expect(response.status).toBe(200);
-      expect(data.success).toBe(true);
-      expect(data.data.submissions).toEqual(mockSubmissions);
-      expect(data.data.pagination).toEqual({
-        page: 1,
-        limit: 10,
-        total: 2,
-        totalPages: 1,
-        hasNext: false,
-        hasPrev: false,
-      });
-    });
-
-    it("filters submissions by read status", async () => {
-      const mockSubmissions = [
-        {
-          id: "sub-1",
-          isRead: false,
-          // ... other fields
-        },
-      ];
-
-      (prisma.contactSubmission.findMany as jest.Mock).mockResolvedValue(
-        mockSubmissions
-      );
-      (prisma.contactSubmission.count as jest.Mock).mockResolvedValue(1);
-
-      const request = new NextRequest(
-        "http://localhost:3000/api/contact?isRead=false"
-      );
-
-      await GET(request);
-
-      expect(prisma.contactSubmission.findMany).toHaveBeenCalledWith({
-        where: { isRead: false },
-        include: {
-          user: {
-            select: {
-              id: true,
-              name: true,
-              email: true,
-              phone: true,
-            },
-          },
-        },
-        orderBy: {
-          createdAt: "desc",
-        },
-        skip: 0,
-        take: 10,
-      });
-    });
-
-    it("handles pagination correctly", async () => {
-      (prisma.contactSubmission.findMany as jest.Mock).mockResolvedValue([]);
-      (prisma.contactSubmission.count as jest.Mock).mockResolvedValue(25);
-
-      const request = new NextRequest(
-        "http://localhost:3000/api/contact?page=2&limit=10"
-      );
-
-      const response = await GET(request);
-      const data = await response.json();
-
-      expect(data.data.pagination).toEqual({
-        page: 2,
-        limit: 10,
-        total: 25,
-        totalPages: 3,
-        hasNext: true,
-        hasPrev: true,
-      });
-
-      expect(prisma.contactSubmission.findMany).toHaveBeenCalledWith(
-        expect.objectContaining({
-          skip: 10,
-          take: 10,
-        })
-      );
     });
   });
 });

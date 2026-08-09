@@ -3,10 +3,15 @@
 **Project**: Healing Pathways Counseling Website  
 **Last Updated**: 2026-08-09  
 **Current Phase**: Zero-PHI teardown (see MIGRATION.md)  
-**Next Milestone**: MIGRATION.md Phase 2 - remove auth and user accounts  
-**Latest Update**: Phase 1 booking teardown complete: booking system deleted,
-/book is a config-flag PracticeQ placeholder, fabricated street address
-removed site-wide, Phase 3 contact decision recorded (Option A, email-only).
+**Next Milestone**: MIGRATION.md Phase 3 - contact form to email-only (Option A)  
+**Latest Update**: Phase 2 auth teardown complete: NextAuth, all auth pages/
+routes/forms, and the admin dashboard + admin login deleted (Option A means
+there is nothing to administer). User/Account/Session/VerificationToken
+models removed entirely - the contact POST no longer upserts users and the
+unauthenticated /api/contact GET list endpoint is gone. Navigation is static
+links + Book Appointment. Deps next-auth, @auth/prisma-adapter, bcryptjs
+removed. Previously: Phase 1 booking teardown, /book PracticeQ placeholder,
+fabricated street address removed, Phase 3 decision recorded (Option A).
 Historical feature notes below predate the migration pivot and describe
 DELETED functionality - do not trust them; MIGRATION.md is authoritative.
 

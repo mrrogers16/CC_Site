@@ -7,7 +7,6 @@ async function main() {
 
   // Clear existing data
   await prisma.service.deleteMany();
-  await prisma.user.deleteMany();
 
   // Create services
   const services = await prisma.service.createMany({
@@ -97,17 +96,6 @@ async function main() {
   });
 
   console.log(`Created ${services.count} services`);
-
-  // Create a test user
-  const user = await prisma.user.create({
-    data: {
-      email: "test@example.com",
-      name: "Test Client",
-      phone: "555-0100",
-    },
-  });
-
-  console.log(`Created test user: ${user.email}`);
 }
 
 main()

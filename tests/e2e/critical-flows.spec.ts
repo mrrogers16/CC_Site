@@ -28,16 +28,4 @@ test.describe("Critical User Flows", () => {
     ).toBeVisible();
     await expect(page.locator("form")).toBeVisible();
   });
-
-  test("authentication pages exist", async ({ page }) => {
-    // Test login page - use domcontentloaded for speed
-    await page.goto("/auth/login", { waitUntil: "domcontentloaded" });
-    await expect(page.getByRole("heading", { name: /sign in/i })).toBeVisible();
-
-    // Test register page
-    await page.goto("/auth/register", { waitUntil: "domcontentloaded" });
-    await expect(
-      page.getByRole("heading", { name: /register/i })
-    ).toBeVisible();
-  });
 });
