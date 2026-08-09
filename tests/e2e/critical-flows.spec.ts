@@ -40,12 +40,4 @@ test.describe("Critical User Flows", () => {
       page.getByRole("heading", { name: /register/i })
     ).toBeVisible();
   });
-
-  test("booking page loads and shows booking interface", async ({ page }) => {
-    await page.goto("/book", { waitUntil: "domcontentloaded" });
-
-    // Booking page should load (authentication happens within the booking flow)
-    await expect(page.getByRole("navigation")).toBeVisible();
-    await expect(page.locator("main")).toBeVisible();
-  });
 });

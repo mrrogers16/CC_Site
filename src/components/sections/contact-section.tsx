@@ -75,26 +75,16 @@ export function ContactSection() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={1.5}
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
                 />
               </svg>
             </div>
             <h3 className="text-xl font-semibold text-foreground mb-2">
-              Visit Us
+              Telehealth
             </h3>
-            <p className="text-muted-foreground mb-2">Our office location</p>
+            <p className="text-muted-foreground mb-2">Virtual sessions only</p>
             <p className="text-primary font-medium">
-              123 Wellness Way
-              <br />
-              Suite 200
-              <br />
-              Cityville, ST 12345
+              Serving clients across Texas
             </p>
           </div>
         </div>
@@ -102,7 +92,7 @@ export function ContactSection() {
         <div className="text-center space-y-4">
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/appointments/book"
+              href="/book"
               className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-primary-foreground bg-primary rounded-lg hover:bg-primary/90 transition-colors duration-200"
             >
               Schedule Appointment
@@ -117,8 +107,8 @@ export function ContactSection() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Office Hours: Monday - Friday, 9AM - 6PM | Emergency services
-            available 24/7
+            Hours: Monday - Friday, 9AM - 6PM | Emergency services available
+            24/7
           </p>
         </div>
       </div>

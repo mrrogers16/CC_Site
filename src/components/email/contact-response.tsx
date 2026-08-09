@@ -96,9 +96,7 @@ export function ContactResponseEmail({ name }: ContactResponseEmailProps) {
           <Section style={footer}>
             <Text style={footerTitle}>Healing Pathways Counseling</Text>
             <Text style={footerText}>
-              123 Wellness Way, Suite 200
-              <br />
-              Your City, ST 12345
+              Telehealth across Texas
               <br />
               <Link href="tel:+15551234567" style={footerLink}>
                 (555) 123-4567

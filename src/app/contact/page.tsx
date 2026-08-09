@@ -89,9 +89,9 @@ export default function ContactPage() {
                         </svg>
                         contact@healingpathways.com
                       </p>
-                      <p className="flex items-start">
+                      <p className="flex items-center">
                         <svg
-                          className="w-5 h-5 mr-3 mt-0.5 text-primary"
+                          className="w-5 h-5 mr-3 text-primary"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -100,20 +100,10 @@ export default function ContactPage() {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={2}
-                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                            d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
                           />
                         </svg>
-                        123 Wellness Way
-                        <br />
-                        Suite 200
-                        <br />
-                        Your City, ST 12345
+                        Telehealth across Texas
                       </p>
                     </div>
                   </div>
@@ -128,7 +118,7 @@ export default function ContactPage() {
                         business days.
                       </p>
                       <p className="mt-2">
-                        For urgent matters, please call our office directly.
+                        For urgent matters, please call us directly.
                       </p>
                     </div>
                   </div>

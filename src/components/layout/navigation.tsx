@@ -65,6 +65,14 @@ export function Navigation() {
               </Link>
             ))}
 
+            {/* Booking is a PracticeQ handoff and needs no account with us */}
+            <Link
+              href="/book"
+              className="bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors duration-200 font-medium"
+            >
+              Book Appointment
+            </Link>
+
             {/* Authentication-based navigation */}
             {status === "loading" ? (
               <div className="flex items-center space-x-4">
@@ -73,14 +81,6 @@ export function Navigation() {
               </div>
             ) : session ? (
               <>
-                {/* Book Appointment for authenticated users */}
-                <Link
-                  href="/book"
-                  className="bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors duration-200 font-medium"
-                >
-                  Book Appointment
-                </Link>
-
                 {/* User Menu Dropdown */}
                 <div className="relative" ref={userMenuRef}>
                   <button
@@ -140,14 +140,6 @@ export function Navigation() {
               </>
             ) : (
               <>
-                {/* Book Appointment for unauthenticated users - redirects to login */}
-                <Link
-                  href="/auth/login?callbackUrl=/book"
-                  className="bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors duration-200 font-medium"
-                >
-                  Book Appointment
-                </Link>
-
                 {/* Login and Register buttons */}
                 <Link
                   href="/auth/login"
@@ -213,6 +205,14 @@ export function Navigation() {
                 </Link>
               ))}
 
+              <Link
+                href="/book"
+                className="block mx-3 mt-2 bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors duration-200 font-medium text-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Book Appointment
+              </Link>
+
               {/* Mobile Authentication-based navigation */}
               {status === "loading" ? (
                 <div className="px-3 py-2">
@@ -240,14 +240,6 @@ export function Navigation() {
                     </div>
 
                     <Link
-                      href="/book"
-                      className="block w-full bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors duration-200 font-medium text-center mb-3"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Book Appointment
-                    </Link>
-
-                    <Link
                       href="/account"
                       className="block px-0 py-2 text-foreground hover:text-primary transition-colors duration-200 font-medium"
                       onClick={() => setIsMenuOpen(false)}
@@ -268,15 +260,6 @@ export function Navigation() {
                 </>
               ) : (
                 <>
-                  {/* Book Appointment for unauthenticated mobile users */}
-                  <Link
-                    href="/auth/login?callbackUrl=/book"
-                    className="block mx-3 mt-4 bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors duration-200 font-medium text-center"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Book Appointment
-                  </Link>
-
                   {/* Login and Register for mobile */}
                   <div className="border-t border-border mt-4 pt-2">
                     <Link

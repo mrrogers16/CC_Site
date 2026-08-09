@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -27,7 +26,6 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  appointments       Appointment[]
   contactSubmissions ContactSubmission[]
   accounts           Account[]
   sessions           Session[]
@@ -46,53 +44,7 @@ model Service {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  appointments Appointment[]
-
   @@map("services")
-}
-
-model Appointment {
-  id                String            @id @default(cuid())
-  userId            String
-  serviceId         String
-  dateTime          DateTime
-  status            AppointmentStatus @default(PENDING)
-  notes             String?
-  cancellationReason String?
-  reminderSent      DateTime?
-  confirmationSent  DateTime?
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
-
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-
-  @@index([dateTime, status])
-  @@map("appointments")
-}
-
-model Availability {
-  id        String  @id @default(cuid())
-  dayOfWeek Int     // 0 = Sunday, 1 = Monday, etc.
-  startTime String  // Format: "09:00"
-  endTime   String  // Format: "17:00"
-  isActive  Boolean @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("availability")
-}
-
-model BlockedSlot {
-  id        String   @id @default(cuid())
-  dateTime  DateTime
-  duration  Int      // Duration in minutes
-  reason    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([dateTime])
-  @@map("blocked_slots")
 }
 
 model ContactSubmission {
@@ -146,14 +98,6 @@ model BlogTag {
 
   @@id([blogPostId, tagId])
   @@map("blog_tags")
-}
-
-enum AppointmentStatus {
-  PENDING
-  CONFIRMED
-  CANCELLED
-  COMPLETED
-  NO_SHOW
 }
 
 enum UserRole {
