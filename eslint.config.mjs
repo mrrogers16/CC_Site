@@ -19,6 +19,7 @@ const eslintConfig = [
       "build/**",
       "dist/**",
       "src/generated/**/*",
+      "archive/**",
       "*.config.js",
       "*.config.mjs",
       "jest.setup.js",
