@@ -40,42 +40,60 @@ test data only, which is why deletion is safe.
       **Still open** — requires Supabase console access, which is deliberately
       outside this repo.
 
-## Phase 1 — Remove the booking system
+## Phase 1 — Remove the booking system — DONE (2026-08-09)
 
 Delete (paths approximate — verify with a repo search first):
 
-- [ ] `src/app/book/page.tsx`
-- [ ] `src/app/api/appointments/` (`book/`, `available/`, `[id]/`)
-- [ ] `src/app/api/availability/route.ts` and `src/app/api/availability/[id]/route.ts`
+- [x] `src/app/book/page.tsx`
+- [x] `src/app/api/appointments/` (`book/`, `available/`, `[id]/`)
+- [x] `src/app/api/availability/route.ts` and `src/app/api/availability/[id]/route.ts`
       — admin CRUD for availability windows and blocked slots
-- [ ] All 7 files in `src/components/booking/` (calendar-view, time-slot-grid,
+- [x] All 7 files in `src/components/booking/` (calendar-view, time-slot-grid,
       service-selector, booking-form, booking-summary, booking-success,
       appointment-booking) and `src/styles/calendar.css`
-- [ ] `src/hooks/use-available-slots.ts`, `src/hooks/use-booking-mutation.ts`
-- [ ] Slot-generation logic: `src/lib/utils/time-slots.ts` (`generateTimeSlots`,
+- [x] `src/hooks/use-available-slots.ts`, `src/hooks/use-booking-mutation.ts`
+      (`src/hooks/` is now gone entirely)
+- [x] Slot-generation logic: `src/lib/utils/time-slots.ts` (`generateTimeSlots`,
       `isTimeSlotAvailable`) and `src/lib/validations/appointments.ts`
       (`BUSINESS_RULES`)
-- [ ] Models `Appointment`, `Availability`, `BlockedSlot` → and `Service` ONLY
-      if the services page stays DB-backed through Phase 4; otherwise it goes
-      here too
-- [ ] All booking unit/integration/E2E tests. Note `tests/e2e/critical-flows.spec.ts`
-      is EDITED, not deleted — it is the only spec Playwright runs and it also
-      covers non-booking routes
-- [ ] Deps `react-day-picker` and `@tanstack/react-query` (booking-only)
-- [ ] Edit `src/components/layout/navigation.tsx` (two `/book` links) and the
-      nav link list in `src/lib/config/site.ts`
-- [ ] `.claude/skills/daypicker-config/` once DayPicker is gone
+- [x] Models `Appointment`, `Availability`, `BlockedSlot` (and the
+      `AppointmentStatus` enum). `Service` KEPT — services page stays DB-backed
+      through Phase 4. `prisma/seed.ts` trimmed to services + test user.
+- [x] All booking unit/integration/E2E tests. `tests/e2e/critical-flows.spec.ts`
+      EDITED (booking test block removed, 4 non-booking tests remain). Also
+      deleted the never-run `tests/components/` tree (2 booking tests outside
+      Jest's `testMatch`) and the dead `tests/e2e-full/booking-journey.spec.ts` + `mobile-booking.spec.ts`.
+- [x] Deps `react-day-picker` and `@tanstack/react-query` (booking-only) — plus
+      `date-fns`, which turned out to be imported only by booking components
+- [x] Edit `src/components/layout/navigation.tsx` — FOUR `/book` link sites
+      (desktop + mobile, authed + unauthed), now a single unconditional
+      "Book Appointment" link per menu; booking no longer requires auth. The
+      nav link list in `src/lib/config/site.ts` had no booking entry.
+- [x] `.claude/skills/daypicker-config/` once DayPicker is gone
 
 `tests/setup/global-setup.ts` instantiates a real `PrismaClient` and seeds
 services + availability for Playwright. It breaks the moment booking data goes
-away, so neutralize it here rather than waiting for Phase 5.
+away, so neutralize it here rather than waiting for Phase 5. **Done — now a
+no-op; remaining E2E specs assert static content only.**
+
+Pulled forward from Phase 5 because they are typechecked (`tsconfig` includes
+`tests/**`) and reference the dropped models: `tests/utils/mock-factories.ts`
+and `tests/setup/prisma-mocks.ts` (both had zero importers). The `appointment`
+block was also removed from the `global.prisma` mock in `jest.setup.js`.
+
+Also fixed in this phase: three CTAs (`footer.tsx`, `hero-section.tsx`,
+`contact-section.tsx`) pointed at `/appointments/book`, a route that never
+existed — repointed to `/book`. The footer's dead "Location" link (`/location`,
+physical-office implication) was removed.
 
 Replace with:
 
-- [ ] A `/book` route that renders PracticeQ's embedded booking widget
+- [x] A `/book` route that renders PracticeQ's embedded booking widget
       (preferred) or redirects to the PracticeQ booking URL. Until the
       PracticeQ account is configured, a config flag drives a "Booking coming
-      soon" state.
+      soon" state. **Implemented as `src/lib/config/booking.ts`
+      (`enabled: false`, `url: ""`); set both to activate the iframe embed in
+      `src/app/book/page.tsx`.**
 
 ## Phase 2 — Remove auth and user accounts
 
@@ -113,6 +131,8 @@ abandoned `feature/user-portal` branch.
 
 ## Phase 3 — Contact form decision, then execute
 
+**Decision (2026-08-09): Option A — email-only, no storage.**
+
 Decide ONE:
 
 - **Option A — email-only (recommended):** form posts to an API route that
@@ -149,12 +169,18 @@ Only after Phases 1–4 leave zero Prisma call sites:
 
 - [ ] Delete the dead `BlogPost`, `Tag`, `BlogTag` models — they have zero code
       references and belong to no feature
-- [ ] Delete `prisma/`, `src/lib/db/`, and `src/generated/prisma/`. The last is
-      gitignored, so it is an `rm -rf` on disk with nothing to `git rm` — and it
-      must actually be deleted or the Phase-5 grep below keeps hitting it
-- [ ] Delete `tests/setup/prisma-mocks.ts`, `tests/utils/mock-factories.ts`,
-      `tests/setup/global-setup.ts`, and the `global.prisma` mock in
-      `jest.setup.js`
+- [ ] Delete `prisma/` and `src/lib/db/`. `src/generated/prisma/` no longer
+      exists: Phase 1 moved the generated client back to Prisma's default
+      `node_modules` output, because bundling the generated runtime made
+      `next build` fail on Windows (Next's file tracer statically evaluates the
+      runtime's `os.homedir()` and dies with EPERM on the `Application Data`
+      junction; the default `@prisma/client` location is externalized by Next
+      and never traced). Imports now use `@prisma/client`.
+- [ ] Delete `tests/setup/global-setup.ts` (already a no-op since Phase 1) and
+      the `global.prisma` mock in `jest.setup.js`.
+      `tests/setup/prisma-mocks.ts` and `tests/utils/mock-factories.ts` were
+      already deleted in Phase 1 (orphaned, and they broke typecheck once the
+      booking models dropped).
 - [ ] Drop the `tsx` devDependency (only `db:seed` used it)
 - [ ] Remove `@prisma/client`, `prisma` from package.json; drop `db:*` scripts
       from package.json and CLAUDE.md
@@ -182,13 +208,14 @@ Only after Phases 1–4 leave zero Prisma call sites:
 - [ ] Site copy audit for telehealth-only: no street address, no map, no
       office imagery, no LocalBusiness schema; footer/contact show email,
       phone, and state served.
-      **Known offenders, already located** — all three render a fabricated
-      postal address ("123 Wellness Way, Suite 200"):
-      `src/app/contact/page.tsx:112-116`,
-      `src/components/sections/contact-section.tsx:93-97`,
-      `src/components/email/contact-response.tsx:99-101`.
-      For a telehealth-only practice a placeholder address is the same
-      misleading-advertising risk as a real one.
+      **Fabricated postal address: REMOVED in Phase 1 (2026-08-09).** Four
+      render sites, not the three originally located: `src/app/contact/page.tsx`,
+      `src/components/sections/contact-section.tsx` (the whole "Visit Us /
+      Our office location" card), `src/components/email/contact-response.tsx`,
+      and a fourth this list missed — the hardcoded HTML email footer in
+      `src/lib/email/index.ts`. All now render "Telehealth across Texas" with
+      email/phone only. The audit for map embeds, office imagery, and
+      LocalBusiness schema remains for this phase.
 - [ ] The footer's fabricated "LPC #12345" license line was already removed
       (commit `edc419c`) ahead of this phase. What remains is the positive
       requirement: the clinician's name must render WITH "Supervised by

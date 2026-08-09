@@ -141,13 +141,13 @@ export async function sendAdminResponse(
           </div>
           <div style="margin-top: 30px; padding: 20px; background-color: #f0f7f7; border-left: 4px solid #4a8b8c;">
             <p style="margin: 0; font-size: 14px; color: #666;">
-              This message was sent in response to your inquiry. If you have additional questions, 
-              please reply to this email or call our office at (555) 123-4567.
+              This message was sent in response to your inquiry. If you have additional questions,
+              please reply to this email or call us at (555) 123-4567.
             </p>
           </div>
         </div>
         <div style="background-color: #2c2c2c; color: white; padding: 20px; text-align: center; font-size: 12px;">
-          <p style="margin: 0;">Healing Pathways Counseling | 123 Wellness Way, Suite 200 | contact@healingpathways.com</p>
+          <p style="margin: 0;">Healing Pathways Counseling | Telehealth across Texas | contact@healingpathways.com</p>
         </div>
       </div>
     `;

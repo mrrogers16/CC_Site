@@ -45,10 +45,7 @@ export interface Testimonial {
   date?: Date;
 }
 
-export interface CalendarSlot {
-  id: string;
-  start: Date;
-  end: Date;
-  isAvailable: boolean;
-  serviceId?: string;
+export interface BookingConfig {
+  enabled: boolean;
+  url: string;
 }

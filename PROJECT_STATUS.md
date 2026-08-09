@@ -1,10 +1,14 @@
 # PROJECT STATUS
 
 **Project**: Healing Pathways Counseling Website  
-**Last Updated**: 2025-08-23  
-**Current Phase**: Core Features Implementation  
-**Next Milestone**: Appointment Booking System  
-**Latest Update**: E2E Test Failures Fixed - All 25 Tests Passing (28.6s execution) ✅
+**Last Updated**: 2026-08-09  
+**Current Phase**: Zero-PHI teardown (see MIGRATION.md)  
+**Next Milestone**: MIGRATION.md Phase 2 - remove auth and user accounts  
+**Latest Update**: Phase 1 booking teardown complete: booking system deleted,
+/book is a config-flag PracticeQ placeholder, fabricated street address
+removed site-wide, Phase 3 contact decision recorded (Option A, email-only).
+Historical feature notes below predate the migration pivot and describe
+DELETED functionality - do not trust them; MIGRATION.md is authoritative.
 
 ## Project Overview
 
@@ -148,7 +152,7 @@ Professional counseling practice website built with Next.js 14+, TypeScript, Tai
 
 **RESULT**: **COMPLETE NAVIGATION SYSTEM** - Users can now seamlessly access authentication and booking features without typing URLs directly!
 
-###  PLAYWRIGHT E2E TESTS MASSIVELY OPTIMIZED - 2+ HOURS TO <1 MINUTE! ✅
+### PLAYWRIGHT E2E TESTS MASSIVELY OPTIMIZED - 2+ HOURS TO <1 MINUTE! ✅
 
 **PERFORMANCE BREAKTHROUGH**: E2E tests optimized from 2+ hours with 605 tests down to under 1 minute with critical user flows only!
 
