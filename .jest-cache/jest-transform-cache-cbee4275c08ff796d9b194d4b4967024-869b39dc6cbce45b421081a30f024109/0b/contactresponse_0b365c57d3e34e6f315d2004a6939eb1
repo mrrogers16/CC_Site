@@ -1,0 +1,300 @@
+e7f57f90daa6aa454f0df67a2773c42e
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "ContactResponseEmail", {
+    enumerable: true,
+    get: function() {
+        return ContactResponseEmail;
+    }
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _components = require("@react-email/components");
+function ContactResponseEmail({ name }) {
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Html, {
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Head, {}),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Body, {
+                style: main,
+                children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Container, {
+                    style: container,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Section, {
+                            style: header,
+                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Heading, {
+                                style: headerTitle,
+                                children: "Healing Pathways Counseling"
+                            })
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                            style: content,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Text, {
+                                    style: greeting,
+                                    children: [
+                                        "Dear ",
+                                        name,
+                                        ","
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                    style: paragraph,
+                                    children: "Thank you for reaching out to Healing Pathways Counseling. We've received your message and truly appreciate you taking this important step."
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                    style: paragraph,
+                                    children: "We understand that reaching out can take courage, and we want you to know that we're here to support you on your journey to better mental health and wellbeing."
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                    style: responseInfo,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: responseTitle,
+                                            children: "What happens next?"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Text, {
+                                            style: responseText,
+                                            children: [
+                                                "• We'll review your message carefully",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                "• A member of our team will respond within 24 hours during business days",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                "• We'll answer any questions and help you take the next steps",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                "• All communications are kept strictly confidential"
+                                            ]
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Hr, {
+                                    style: hr
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                    style: contactInfo,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: contactTitle,
+                                            children: "Need immediate support?"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: contactText,
+                                            children: "If you're experiencing a crisis or need immediate support, please don't wait for our response:"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Text, {
+                                            style: contactText,
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Call our office:"
+                                                }),
+                                                " ",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Link, {
+                                                    href: "tel:+15551234567",
+                                                    style: link,
+                                                    children: "(555) 123-4567"
+                                                }),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "National Crisis Line:"
+                                                }),
+                                                " ",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Link, {
+                                                    href: "tel:988",
+                                                    style: link,
+                                                    children: "988"
+                                                }),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Crisis Text Line:"
+                                                }),
+                                                " Text HOME to 741741",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Emergency:"
+                                                }),
+                                                " Call 911"
+                                            ]
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Hr, {
+                                    style: hr
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                    style: paragraph,
+                                    children: "We look forward to connecting with you soon and helping you on your path to healing."
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Text, {
+                                    style: signature,
+                                    children: [
+                                        "Warm regards,",
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                        "The Team at Healing Pathways Counseling"
+                                    ]
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                            style: footer,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                    style: footerTitle,
+                                    children: "Healing Pathways Counseling"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Text, {
+                                    style: footerText,
+                                    children: [
+                                        "123 Wellness Way, Suite 200",
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                        "Your City, ST 12345",
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Link, {
+                                            href: "tel:+15551234567",
+                                            style: footerLink,
+                                            children: "(555) 123-4567"
+                                        }),
+                                        " ",
+                                        "|",
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Link, {
+                                            href: "mailto:contact@healingpathways.com",
+                                            style: footerLink,
+                                            children: [
+                                                " ",
+                                                "contact@healingpathways.com"
+                                            ]
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                    style: footerText,
+                                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Link, {
+                                        href: `${process.env.NEXTAUTH_URL}`,
+                                        style: footerLink,
+                                        children: "Visit our website"
+                                    })
+                                })
+                            ]
+                        })
+                    ]
+                })
+            })
+        ]
+    });
+}
+const main = {
+    backgroundColor: "#f6f9fc",
+    fontFamily: "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+};
+const container = {
+    margin: "0 auto",
+    padding: "20px 0 48px",
+    maxWidth: "600px"
+};
+const header = {
+    backgroundColor: "#4a8b8c",
+    borderRadius: "8px 8px 0 0",
+    padding: "32px 24px",
+    textAlign: "center"
+};
+const headerTitle = {
+    color: "#ffffff",
+    fontSize: "28px",
+    fontWeight: "300",
+    margin: "0",
+    fontFamily: "Georgia, serif"
+};
+const content = {
+    backgroundColor: "#ffffff",
+    padding: "32px 24px",
+    borderRadius: "0 0 8px 8px",
+    border: "1px solid #e5e7eb"
+};
+const greeting = {
+    color: "#2c2c2c",
+    fontSize: "18px",
+    margin: "0 0 20px 0"
+};
+const paragraph = {
+    color: "#2c2c2c",
+    fontSize: "16px",
+    lineHeight: "1.6",
+    margin: "0 0 16px 0"
+};
+const responseInfo = {
+    backgroundColor: "#f0f7f7",
+    border: "1px solid #b5d5d5",
+    borderRadius: "6px",
+    padding: "20px",
+    margin: "24px 0"
+};
+const responseTitle = {
+    color: "#2c2c2c",
+    fontSize: "16px",
+    fontWeight: "600",
+    margin: "0 0 12px 0"
+};
+const responseText = {
+    color: "#2c2c2c",
+    fontSize: "14px",
+    lineHeight: "1.6",
+    margin: "0"
+};
+const contactInfo = {
+    backgroundColor: "#fef7f0",
+    border: "1px solid #f3d5b7",
+    borderRadius: "6px",
+    padding: "20px",
+    margin: "24px 0"
+};
+const contactTitle = {
+    color: "#b45309",
+    fontSize: "16px",
+    fontWeight: "600",
+    margin: "0 0 8px 0"
+};
+const contactText = {
+    color: "#92400e",
+    fontSize: "14px",
+    lineHeight: "1.6",
+    margin: "0 0 8px 0"
+};
+const link = {
+    color: "#4a8b8c",
+    textDecoration: "none"
+};
+const hr = {
+    borderColor: "#e5e7eb",
+    margin: "24px 0"
+};
+const signature = {
+    color: "#2c2c2c",
+    fontSize: "16px",
+    lineHeight: "1.6",
+    margin: "24px 0 0 0"
+};
+const footer = {
+    backgroundColor: "#2c2c2c",
+    borderRadius: "6px",
+    padding: "24px",
+    margin: "20px 0 0 0",
+    textAlign: "center"
+};
+const footerTitle = {
+    color: "#ffffff",
+    fontSize: "18px",
+    fontWeight: "300",
+    margin: "0 0 8px 0",
+    fontFamily: "Georgia, serif"
+};
+const footerText = {
+    color: "#d1d5db",
+    fontSize: "12px",
+    lineHeight: "1.5",
+    margin: "4px 0"
+};
+const footerLink = {
+    color: "#7a9e9f",
+    textDecoration: "none"
+};
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkQ6XFxnaXRodWJcXENDX1NpdGVcXHNyY1xcY29tcG9uZW50c1xcZW1haWxcXGNvbnRhY3QtcmVzcG9uc2UudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7XG4gIEh0bWwsXG4gIEhlYWQsXG4gIEJvZHksXG4gIENvbnRhaW5lcixcbiAgU2VjdGlvbixcbiAgVGV4dCxcbiAgSGVhZGluZyxcbiAgSHIsXG4gIExpbmssXG59IGZyb20gXCJAcmVhY3QtZW1haWwvY29tcG9uZW50c1wiO1xuXG5pbnRlcmZhY2UgQ29udGFjdFJlc3BvbnNlRW1haWxQcm9wcyB7XG4gIG5hbWU6IHN0cmluZztcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIENvbnRhY3RSZXNwb25zZUVtYWlsKHsgbmFtZSB9OiBDb250YWN0UmVzcG9uc2VFbWFpbFByb3BzKSB7XG4gIHJldHVybiAoXG4gICAgPEh0bWw+XG4gICAgICA8SGVhZCAvPlxuICAgICAgPEJvZHkgc3R5bGU9e21haW59PlxuICAgICAgICA8Q29udGFpbmVyIHN0eWxlPXtjb250YWluZXJ9PlxuICAgICAgICAgIDxTZWN0aW9uIHN0eWxlPXtoZWFkZXJ9PlxuICAgICAgICAgICAgPEhlYWRpbmcgc3R5bGU9e2hlYWRlclRpdGxlfT5IZWFsaW5nIFBhdGh3YXlzIENvdW5zZWxpbmc8L0hlYWRpbmc+XG4gICAgICAgICAgPC9TZWN0aW9uPlxuXG4gICAgICAgICAgPFNlY3Rpb24gc3R5bGU9e2NvbnRlbnR9PlxuICAgICAgICAgICAgPFRleHQgc3R5bGU9e2dyZWV0aW5nfT5EZWFyIHtuYW1lfSw8L1RleHQ+XG5cbiAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtwYXJhZ3JhcGh9PlxuICAgICAgICAgICAgICBUaGFuayB5b3UgZm9yIHJlYWNoaW5nIG91dCB0byBIZWFsaW5nIFBhdGh3YXlzIENvdW5zZWxpbmcuXG4gICAgICAgICAgICAgIFdlJmFwb3M7dmUgcmVjZWl2ZWQgeW91ciBtZXNzYWdlIGFuZCB0cnVseSBhcHByZWNpYXRlIHlvdSB0YWtpbmdcbiAgICAgICAgICAgICAgdGhpcyBpbXBvcnRhbnQgc3RlcC5cbiAgICAgICAgICAgIDwvVGV4dD5cblxuICAgICAgICAgICAgPFRleHQgc3R5bGU9e3BhcmFncmFwaH0+XG4gICAgICAgICAgICAgIFdlIHVuZGVyc3RhbmQgdGhhdCByZWFjaGluZyBvdXQgY2FuIHRha2UgY291cmFnZSwgYW5kIHdlIHdhbnQgeW91XG4gICAgICAgICAgICAgIHRvIGtub3cgdGhhdCB3ZSZhcG9zO3JlIGhlcmUgdG8gc3VwcG9ydCB5b3Ugb24geW91ciBqb3VybmV5IHRvXG4gICAgICAgICAgICAgIGJldHRlciBtZW50YWwgaGVhbHRoIGFuZCB3ZWxsYmVpbmcuXG4gICAgICAgICAgICA8L1RleHQ+XG5cbiAgICAgICAgICAgIDxTZWN0aW9uIHN0eWxlPXtyZXNwb25zZUluZm99PlxuICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17cmVzcG9uc2VUaXRsZX0+V2hhdCBoYXBwZW5zIG5leHQ/PC9UZXh0PlxuICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17cmVzcG9uc2VUZXh0fT5cbiAgICAgICAgICAgICAgICAmYnVsbDsgV2UmYXBvcztsbCByZXZpZXcgeW91ciBtZXNzYWdlIGNhcmVmdWxseVxuICAgICAgICAgICAgICAgIDxiciAvPlxuICAgICAgICAgICAgICAgICZidWxsOyBBIG1lbWJlciBvZiBvdXIgdGVhbSB3aWxsIHJlc3BvbmQgd2l0aGluIDI0IGhvdXJzIGR1cmluZ1xuICAgICAgICAgICAgICAgIGJ1c2luZXNzIGRheXNcbiAgICAgICAgICAgICAgICA8YnIgLz5cbiAgICAgICAgICAgICAgICAmYnVsbDsgV2UmYXBvcztsbCBhbnN3ZXIgYW55IHF1ZXN0aW9ucyBhbmQgaGVscCB5b3UgdGFrZSB0aGVcbiAgICAgICAgICAgICAgICBuZXh0IHN0ZXBzXG4gICAgICAgICAgICAgICAgPGJyIC8+XG4gICAgICAgICAgICAgICAgJmJ1bGw7IEFsbCBjb21tdW5pY2F0aW9ucyBhcmUga2VwdCBzdHJpY3RseSBjb25maWRlbnRpYWxcbiAgICAgICAgICAgICAgPC9UZXh0PlxuICAgICAgICAgICAgPC9TZWN0aW9uPlxuXG4gICAgICAgICAgICA8SHIgc3R5bGU9e2hyfSAvPlxuXG4gICAgICAgICAgICA8U2VjdGlvbiBzdHlsZT17Y29udGFjdEluZm99PlxuICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17Y29udGFjdFRpdGxlfT5OZWVkIGltbWVkaWF0ZSBzdXBwb3J0PzwvVGV4dD5cbiAgICAgICAgICAgICAgPFRleHQgc3R5bGU9e2NvbnRhY3RUZXh0fT5cbiAgICAgICAgICAgICAgICBJZiB5b3UmYXBvcztyZSBleHBlcmllbmNpbmcgYSBjcmlzaXMgb3IgbmVlZCBpbW1lZGlhdGUgc3VwcG9ydCxcbiAgICAgICAgICAgICAgICBwbGVhc2UgZG9uJmFwb3M7dCB3YWl0IGZvciBvdXIgcmVzcG9uc2U6XG4gICAgICAgICAgICAgIDwvVGV4dD5cbiAgICAgICAgICAgICAgPFRleHQgc3R5bGU9e2NvbnRhY3RUZXh0fT5cbiAgICAgICAgICAgICAgICA8c3Ryb25nPkNhbGwgb3VyIG9mZmljZTo8L3N0cm9uZz57XCIgXCJ9XG4gICAgICAgICAgICAgICAgPExpbmsgaHJlZj1cInRlbDorMTU1NTEyMzQ1NjdcIiBzdHlsZT17bGlua30+XG4gICAgICAgICAgICAgICAgICAoNTU1KSAxMjMtNDU2N1xuICAgICAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICAgICAgICA8YnIgLz5cbiAgICAgICAgICAgICAgICA8c3Ryb25nPk5hdGlvbmFsIENyaXNpcyBMaW5lOjwvc3Ryb25nPntcIiBcIn1cbiAgICAgICAgICAgICAgICA8TGluayBocmVmPVwidGVsOjk4OFwiIHN0eWxlPXtsaW5rfT5cbiAgICAgICAgICAgICAgICAgIDk4OFxuICAgICAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICAgICAgICA8YnIgLz5cbiAgICAgICAgICAgICAgICA8c3Ryb25nPkNyaXNpcyBUZXh0IExpbmU6PC9zdHJvbmc+IFRleHQgSE9NRSB0byA3NDE3NDFcbiAgICAgICAgICAgICAgICA8YnIgLz5cbiAgICAgICAgICAgICAgICA8c3Ryb25nPkVtZXJnZW5jeTo8L3N0cm9uZz4gQ2FsbCA5MTFcbiAgICAgICAgICAgICAgPC9UZXh0PlxuICAgICAgICAgICAgPC9TZWN0aW9uPlxuXG4gICAgICAgICAgICA8SHIgc3R5bGU9e2hyfSAvPlxuXG4gICAgICAgICAgICA8VGV4dCBzdHlsZT17cGFyYWdyYXBofT5cbiAgICAgICAgICAgICAgV2UgbG9vayBmb3J3YXJkIHRvIGNvbm5lY3Rpbmcgd2l0aCB5b3Ugc29vbiBhbmQgaGVscGluZyB5b3Ugb25cbiAgICAgICAgICAgICAgeW91ciBwYXRoIHRvIGhlYWxpbmcuXG4gICAgICAgICAgICA8L1RleHQ+XG5cbiAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtzaWduYXR1cmV9PlxuICAgICAgICAgICAgICBXYXJtIHJlZ2FyZHMsXG4gICAgICAgICAgICAgIDxiciAvPlxuICAgICAgICAgICAgICBUaGUgVGVhbSBhdCBIZWFsaW5nIFBhdGh3YXlzIENvdW5zZWxpbmdcbiAgICAgICAgICAgIDwvVGV4dD5cbiAgICAgICAgICA8L1NlY3Rpb24+XG5cbiAgICAgICAgICA8U2VjdGlvbiBzdHlsZT17Zm9vdGVyfT5cbiAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtmb290ZXJUaXRsZX0+SGVhbGluZyBQYXRod2F5cyBDb3Vuc2VsaW5nPC9UZXh0PlxuICAgICAgICAgICAgPFRleHQgc3R5bGU9e2Zvb3RlclRleHR9PlxuICAgICAgICAgICAgICAxMjMgV2VsbG5lc3MgV2F5LCBTdWl0ZSAyMDBcbiAgICAgICAgICAgICAgPGJyIC8+XG4gICAgICAgICAgICAgIFlvdXIgQ2l0eSwgU1QgMTIzNDVcbiAgICAgICAgICAgICAgPGJyIC8+XG4gICAgICAgICAgICAgIDxMaW5rIGhyZWY9XCJ0ZWw6KzE1NTUxMjM0NTY3XCIgc3R5bGU9e2Zvb3Rlckxpbmt9PlxuICAgICAgICAgICAgICAgICg1NTUpIDEyMy00NTY3XG4gICAgICAgICAgICAgIDwvTGluaz57XCIgXCJ9XG4gICAgICAgICAgICAgIHxcbiAgICAgICAgICAgICAgPExpbmtcbiAgICAgICAgICAgICAgICBocmVmPVwibWFpbHRvOmNvbnRhY3RAaGVhbGluZ3BhdGh3YXlzLmNvbVwiXG4gICAgICAgICAgICAgICAgc3R5bGU9e2Zvb3Rlckxpbmt9XG4gICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICB7XCIgXCJ9XG4gICAgICAgICAgICAgICAgY29udGFjdEBoZWFsaW5ncGF0aHdheXMuY29tXG4gICAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICAgIDwvVGV4dD5cbiAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtmb290ZXJUZXh0fT5cbiAgICAgICAgICAgICAgPExpbmsgaHJlZj17YCR7cHJvY2Vzcy5lbnYuTkVYVEFVVEhfVVJMfWB9IHN0eWxlPXtmb290ZXJMaW5rfT5cbiAgICAgICAgICAgICAgICBWaXNpdCBvdXIgd2Vic2l0ZVxuICAgICAgICAgICAgICA8L0xpbms+XG4gICAgICAgICAgICA8L1RleHQ+XG4gICAgICAgICAgPC9TZWN0aW9uPlxuICAgICAgICA8L0NvbnRhaW5lcj5cbiAgICAgIDwvQm9keT5cbiAgICA8L0h0bWw+XG4gICk7XG59XG5cbmNvbnN0IG1haW4gPSB7XG4gIGJhY2tncm91bmRDb2xvcjogXCIjZjZmOWZjXCIsXG4gIGZvbnRGYW1pbHk6IFwiSW50ZXIsIC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgc2Fucy1zZXJpZlwiLFxufTtcblxuY29uc3QgY29udGFpbmVyID0ge1xuICBtYXJnaW46IFwiMCBhdXRvXCIsXG4gIHBhZGRpbmc6IFwiMjBweCAwIDQ4cHhcIixcbiAgbWF4V2lkdGg6IFwiNjAwcHhcIixcbn07XG5cbmNvbnN0IGhlYWRlciA9IHtcbiAgYmFja2dyb3VuZENvbG9yOiBcIiM0YThiOGNcIixcbiAgYm9yZGVyUmFkaXVzOiBcIjhweCA4cHggMCAwXCIsXG4gIHBhZGRpbmc6IFwiMzJweCAyNHB4XCIsXG4gIHRleHRBbGlnbjogXCJjZW50ZXJcIiBhcyBjb25zdCxcbn07XG5cbmNvbnN0IGhlYWRlclRpdGxlID0ge1xuICBjb2xvcjogXCIjZmZmZmZmXCIsXG4gIGZvbnRTaXplOiBcIjI4cHhcIixcbiAgZm9udFdlaWdodDogXCIzMDBcIixcbiAgbWFyZ2luOiBcIjBcIixcbiAgZm9udEZhbWlseTogXCJHZW9yZ2lhLCBzZXJpZlwiLFxufTtcblxuY29uc3QgY29udGVudCA9IHtcbiAgYmFja2dyb3VuZENvbG9yOiBcIiNmZmZmZmZcIixcbiAgcGFkZGluZzogXCIzMnB4IDI0cHhcIixcbiAgYm9yZGVyUmFkaXVzOiBcIjAgMCA4cHggOHB4XCIsXG4gIGJvcmRlcjogXCIxcHggc29saWQgI2U1ZTdlYlwiLFxufTtcblxuY29uc3QgZ3JlZXRpbmcgPSB7XG4gIGNvbG9yOiBcIiMyYzJjMmNcIixcbiAgZm9udFNpemU6IFwiMThweFwiLFxuICBtYXJnaW46IFwiMCAwIDIwcHggMFwiLFxufTtcblxuY29uc3QgcGFyYWdyYXBoID0ge1xuICBjb2xvcjogXCIjMmMyYzJjXCIsXG4gIGZvbnRTaXplOiBcIjE2cHhcIixcbiAgbGluZUhlaWdodDogXCIxLjZcIixcbiAgbWFyZ2luOiBcIjAgMCAxNnB4IDBcIixcbn07XG5cbmNvbnN0IHJlc3BvbnNlSW5mbyA9IHtcbiAgYmFja2dyb3VuZENvbG9yOiBcIiNmMGY3ZjdcIixcbiAgYm9yZGVyOiBcIjFweCBzb2xpZCAjYjVkNWQ1XCIsXG4gIGJvcmRlclJhZGl1czogXCI2cHhcIixcbiAgcGFkZGluZzogXCIyMHB4XCIsXG4gIG1hcmdpbjogXCIyNHB4IDBcIixcbn07XG5cbmNvbnN0IHJlc3BvbnNlVGl0bGUgPSB7XG4gIGNvbG9yOiBcIiMyYzJjMmNcIixcbiAgZm9udFNpemU6IFwiMTZweFwiLFxuICBmb250V2VpZ2h0OiBcIjYwMFwiLFxuICBtYXJnaW46IFwiMCAwIDEycHggMFwiLFxufTtcblxuY29uc3QgcmVzcG9uc2VUZXh0ID0ge1xuICBjb2xvcjogXCIjMmMyYzJjXCIsXG4gIGZvbnRTaXplOiBcIjE0cHhcIixcbiAgbGluZUhlaWdodDogXCIxLjZcIixcbiAgbWFyZ2luOiBcIjBcIixcbn07XG5cbmNvbnN0IGNvbnRhY3RJbmZvID0ge1xuICBiYWNrZ3JvdW5kQ29sb3I6IFwiI2ZlZjdmMFwiLFxuICBib3JkZXI6IFwiMXB4IHNvbGlkICNmM2Q1YjdcIixcbiAgYm9yZGVyUmFkaXVzOiBcIjZweFwiLFxuICBwYWRkaW5nOiBcIjIwcHhcIixcbiAgbWFyZ2luOiBcIjI0cHggMFwiLFxufTtcblxuY29uc3QgY29udGFjdFRpdGxlID0ge1xuICBjb2xvcjogXCIjYjQ1MzA5XCIsXG4gIGZvbnRTaXplOiBcIjE2cHhcIixcbiAgZm9udFdlaWdodDogXCI2MDBcIixcbiAgbWFyZ2luOiBcIjAgMCA4cHggMFwiLFxufTtcblxuY29uc3QgY29udGFjdFRleHQgPSB7XG4gIGNvbG9yOiBcIiM5MjQwMGVcIixcbiAgZm9udFNpemU6IFwiMTRweFwiLFxuICBsaW5lSGVpZ2h0OiBcIjEuNlwiLFxuICBtYXJnaW46IFwiMCAwIDhweCAwXCIsXG59O1xuXG5jb25zdCBsaW5rID0ge1xuICBjb2xvcjogXCIjNGE4YjhjXCIsXG4gIHRleHREZWNvcmF0aW9uOiBcIm5vbmVcIixcbn07XG5cbmNvbnN0IGhyID0ge1xuICBib3JkZXJDb2xvcjogXCIjZTVlN2ViXCIsXG4gIG1hcmdpbjogXCIyNHB4IDBcIixcbn07XG5cbmNvbnN0IHNpZ25hdHVyZSA9IHtcbiAgY29sb3I6IFwiIzJjMmMyY1wiLFxuICBmb250U2l6ZTogXCIxNnB4XCIsXG4gIGxpbmVIZWlnaHQ6IFwiMS42XCIsXG4gIG1hcmdpbjogXCIyNHB4IDAgMCAwXCIsXG59O1xuXG5jb25zdCBmb290ZXIgPSB7XG4gIGJhY2tncm91bmRDb2xvcjogXCIjMmMyYzJjXCIsXG4gIGJvcmRlclJhZGl1czogXCI2cHhcIixcbiAgcGFkZGluZzogXCIyNHB4XCIsXG4gIG1hcmdpbjogXCIyMHB4IDAgMCAwXCIsXG4gIHRleHRBbGlnbjogXCJjZW50ZXJcIiBhcyBjb25zdCxcbn07XG5cbmNvbnN0IGZvb3RlclRpdGxlID0ge1xuICBjb2xvcjogXCIjZmZmZmZmXCIsXG4gIGZvbnRTaXplOiBcIjE4cHhcIixcbiAgZm9udFdlaWdodDogXCIzMDBcIixcbiAgbWFyZ2luOiBcIjAgMCA4cHggMFwiLFxuICBmb250RmFtaWx5OiBcIkdlb3JnaWEsIHNlcmlmXCIsXG59O1xuXG5jb25zdCBmb290ZXJUZXh0ID0ge1xuICBjb2xvcjogXCIjZDFkNWRiXCIsXG4gIGZvbnRTaXplOiBcIjEycHhcIixcbiAgbGluZUhlaWdodDogXCIxLjVcIixcbiAgbWFyZ2luOiBcIjRweCAwXCIsXG59O1xuXG5jb25zdCBmb290ZXJMaW5rID0ge1xuICBjb2xvcjogXCIjN2E5ZTlmXCIsXG4gIHRleHREZWNvcmF0aW9uOiBcIm5vbmVcIixcbn07XG4iXSwibmFtZXMiOlsiQ29udGFjdFJlc3BvbnNlRW1haWwiLCJuYW1lIiwiSHRtbCIsIkhlYWQiLCJCb2R5Iiwic3R5bGUiLCJtYWluIiwiQ29udGFpbmVyIiwiY29udGFpbmVyIiwiU2VjdGlvbiIsImhlYWRlciIsIkhlYWRpbmciLCJoZWFkZXJUaXRsZSIsImNvbnRlbnQiLCJUZXh0IiwiZ3JlZXRpbmciLCJwYXJhZ3JhcGgiLCJyZXNwb25zZUluZm8iLCJyZXNwb25zZVRpdGxlIiwicmVzcG9uc2VUZXh0IiwiYnIiLCJIciIsImhyIiwiY29udGFjdEluZm8iLCJjb250YWN0VGl0bGUiLCJjb250YWN0VGV4dCIsInN0cm9uZyIsIkxpbmsiLCJocmVmIiwibGluayIsInNpZ25hdHVyZSIsImZvb3RlciIsImZvb3RlclRpdGxlIiwiZm9vdGVyVGV4dCIsImZvb3RlckxpbmsiLCJwcm9jZXNzIiwiZW52IiwiTkVYVEFVVEhfVVJMIiwiYmFja2dyb3VuZENvbG9yIiwiZm9udEZhbWlseSIsIm1hcmdpbiIsInBhZGRpbmciLCJtYXhXaWR0aCIsImJvcmRlclJhZGl1cyIsInRleHRBbGlnbiIsImNvbG9yIiwiZm9udFNpemUiLCJmb250V2VpZ2h0IiwiYm9yZGVyIiwibGluZUhlaWdodCIsInRleHREZWNvcmF0aW9uIiwiYm9yZGVyQ29sb3IiXSwibWFwcGluZ3MiOiI7Ozs7K0JBZ0JnQkE7OztlQUFBQTs7Ozs0QkFOVDtBQU1BLFNBQVNBLHFCQUFxQixFQUFFQyxJQUFJLEVBQTZCO0lBQ3RFLHFCQUNFLHNCQUFDQyxnQkFBSTs7MEJBQ0gscUJBQUNDLGdCQUFJOzBCQUNMLHFCQUFDQyxnQkFBSTtnQkFBQ0MsT0FBT0M7MEJBQ1gsY0FBQSxzQkFBQ0MscUJBQVM7b0JBQUNGLE9BQU9HOztzQ0FDaEIscUJBQUNDLG1CQUFPOzRCQUFDSixPQUFPSztzQ0FDZCxjQUFBLHFCQUFDQyxtQkFBTztnQ0FBQ04sT0FBT087MENBQWE7OztzQ0FHL0Isc0JBQUNILG1CQUFPOzRCQUFDSixPQUFPUTs7OENBQ2Qsc0JBQUNDLGdCQUFJO29DQUFDVCxPQUFPVTs7d0NBQVU7d0NBQU1kO3dDQUFLOzs7OENBRWxDLHFCQUFDYSxnQkFBSTtvQ0FBQ1QsT0FBT1c7OENBQVc7OzhDQU14QixxQkFBQ0YsZ0JBQUk7b0NBQUNULE9BQU9XOzhDQUFXOzs4Q0FNeEIsc0JBQUNQLG1CQUFPO29DQUFDSixPQUFPWTs7c0RBQ2QscUJBQUNILGdCQUFJOzRDQUFDVCxPQUFPYTtzREFBZTs7c0RBQzVCLHNCQUFDSixnQkFBSTs0Q0FBQ1QsT0FBT2M7O2dEQUFjOzhEQUV6QixxQkFBQ0M7Z0RBQUs7OERBR04scUJBQUNBO2dEQUFLOzhEQUdOLHFCQUFDQTtnREFBSzs7Ozs7OENBS1YscUJBQUNDLGNBQUU7b0NBQUNoQixPQUFPaUI7OzhDQUVYLHNCQUFDYixtQkFBTztvQ0FBQ0osT0FBT2tCOztzREFDZCxxQkFBQ1QsZ0JBQUk7NENBQUNULE9BQU9tQjtzREFBYzs7c0RBQzNCLHFCQUFDVixnQkFBSTs0Q0FBQ1QsT0FBT29CO3NEQUFh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

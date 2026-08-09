@@ -1,0 +1,580 @@
+be047f52ba43a1fe3ee3e00449a52eb4
+"use strict";
+
+/* istanbul ignore next */
+function cov_xfikp9ufw() {
+  var path = "D:\\github\\CC_Site\\src\\components\\email\\appointment-confirmation.tsx";
+  var hash = "97faf9e9a96beb9092979070530e5e1fde43b01f";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\github\\CC_Site\\src\\components\\email\\appointment-confirmation.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 4,
+          column: 3
+        }
+      },
+      "1": {
+        start: {
+          line: 5,
+          column: 0
+        },
+        end: {
+          line: 10,
+          column: 3
+        }
+      },
+      "2": {
+        start: {
+          line: 8,
+          column: 8
+        },
+        end: {
+          line: 8,
+          column: 44
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 20
+        },
+        end: {
+          line: 11,
+          column: 48
+        }
+      },
+      "4": {
+        start: {
+          line: 13,
+          column: 28
+        },
+        end: {
+          line: 13,
+          column: 65
+        }
+      },
+      "5": {
+        start: {
+          line: 14,
+          column: 26
+        },
+        end: {
+          line: 19,
+          column: 6
+        }
+      },
+      "6": {
+        start: {
+          line: 20,
+          column: 26
+        },
+        end: {
+          line: 24,
+          column: 6
+        }
+      },
+      "7": {
+        start: {
+          line: 25,
+          column: 4
+        },
+        end: {
+          line: 494,
+          column: 7
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 7,
+            column: 9
+          },
+          end: {
+            line: 7,
+            column: 10
+          }
+        },
+        loc: {
+          start: {
+            line: 7,
+            column: 20
+          },
+          end: {
+            line: 9,
+            column: 5
+          }
+        },
+        line: 7
+      },
+      "1": {
+        name: "AppointmentConfirmationEmail",
+        decl: {
+          start: {
+            line: 12,
+            column: 9
+          },
+          end: {
+            line: 12,
+            column: 37
+          }
+        },
+        loc: {
+          start: {
+            line: 12,
+            column: 74
+          },
+          end: {
+            line: 495,
+            column: 1
+          }
+        },
+        line: 12
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {},
+    inputSourceMap: {
+      version: 3,
+      sources: ["D:\\github\\CC_Site\\src\\components\\email\\appointment-confirmation.tsx"],
+      sourcesContent: ["interface AppointmentConfirmationEmailProps {\n  clientName: string;\n  appointmentDetails: {\n    id: string;\n    service: string;\n    dateTime: string;\n    duration: number;\n    price: string;\n  };\n}\n\nexport function AppointmentConfirmationEmail({\n  clientName,\n  appointmentDetails,\n}: AppointmentConfirmationEmailProps) {\n  const appointmentDate = new Date(appointmentDetails.dateTime);\n  const formattedDate = appointmentDate.toLocaleDateString(\"en-US\", {\n    weekday: \"long\",\n    year: \"numeric\",\n    month: \"long\",\n    day: \"numeric\",\n  });\n  const formattedTime = appointmentDate.toLocaleTimeString(\"en-US\", {\n    hour: \"numeric\",\n    minute: \"2-digit\",\n    hour12: true,\n  });\n\n  return (\n    <div\n      style={{\n        fontFamily: \"Arial, sans-serif\",\n        margin: 0,\n        padding: 0,\n        backgroundColor: \"#f9f9f9\",\n      }}\n    >\n      <div\n        style={{\n          maxWidth: \"600px\",\n          margin: \"0 auto\",\n          backgroundColor: \"#ffffff\",\n        }}\n      >\n        {/* Header */}\n        <div\n          style={{\n            backgroundColor: \"#4a8b8c\",\n            color: \"white\",\n            padding: \"30px 20px\",\n            textAlign: \"center\",\n          }}\n        >\n          <h1\n            style={{\n              margin: 0,\n              fontSize: \"28px\",\n              fontWeight: 300,\n              fontFamily: \"Playfair Display, serif\",\n            }}\n          >\n            Healing Pathways Counseling\n          </h1>\n        </div>\n\n        {/* Main Content */}\n        <div style={{ padding: \"40px 30px\" }}>\n          <h2\n            style={{\n              color: \"#2c2c2c\",\n              fontSize: \"24px\",\n              marginBottom: \"20px\",\n              fontWeight: 300,\n            }}\n          >\n            Appointment Confirmed, {clientName}!\n          </h2>\n\n          <p\n            style={{\n              color: \"#555\",\n              lineHeight: 1.6,\n              marginBottom: \"30px\",\n              fontSize: \"16px\",\n            }}\n          >\n            Thank you for scheduling your appointment with Healing Pathways\n            Counseling. We&apos;re committed to supporting you on your journey\n            to better mental health and well-being.\n          </p>\n\n          {/* Appointment Details Card */}\n          <div\n            style={{\n              backgroundColor: \"#f0f7f7\",\n              border: \"1px solid #e0e9e9\",\n              borderRadius: \"8px\",\n              padding: \"25px\",\n              marginBottom: \"30px\",\n            }}\n          >\n            <h3\n              style={{\n                color: \"#4a8b8c\",\n                fontSize: \"18px\",\n                fontWeight: 600,\n                marginBottom: \"15px\",\n                marginTop: 0,\n              }}\n            >\n              Your Appointment Details\n            </h3>\n\n            <div style={{ color: \"#333\" }}>\n              <div\n                style={{\n                  display: \"flex\",\n                  justifyContent: \"space-between\",\n                  marginBottom: \"12px\",\n                  borderBottom: \"1px solid #e0e9e9\",\n                  paddingBottom: \"8px\",\n                }}\n              >\n                <span style={{ fontWeight: 600 }}>Service:</span>\n                <span>{appointmentDetails.service}</span>\n              </div>\n\n              <div\n                style={{\n                  display: \"flex\",\n                  justifyContent: \"space-between\",\n                  marginBottom: \"12px\",\n                  borderBottom: \"1px solid #e0e9e9\",\n                  paddingBottom: \"8px\",\n                }}\n              >\n                <span style={{ fontWeight: 600 }}>Date:</span>\n                <span>{formattedDate}</span>\n              </div>\n\n              <div\n                style={{\n                  display: \"flex\",\n                  justifyContent: \"space-between\",\n                  marginBottom: \"12px\",\n                  borderBottom: \"1px solid #e0e9e9\",\n                  paddingBottom: \"8px\",\n                }}\n              >\n                <span style={{ fontWeight: 600 }}>Time:</span>\n                <span>{formattedTime}</span>\n              </div>\n\n              <div\n                style={{\n                  display: \"flex\",\n                  justifyContent: \"space-between\",\n                  marginBottom: \"12px\",\n                  borderBottom: \"1px solid #e0e9e9\",\n                  paddingBottom: \"8px\",\n                }}\n              >\n                <span style={{ fontWeight: 600 }}>Duration:</span>\n                <span>{appointmentDetails.duration} minutes</span>\n              </div>\n\n              <div\n                style={{\n                  display: \"flex\",\n                  justifyContent: \"space-between\",\n                  marginBottom: \"0\",\n                }}\n              >\n                <span style={{ fontWeight: 600 }}>Session Fee:</span>\n                <span style={{ fontWeight: 600, color: \"#4a8b8c\" }}>\n                  ${appointmentDetails.price}\n                </span>\n              </div>\n            </div>\n          </div>\n\n          {/* Location Information */}\n          <div\n            style={{\n              backgroundColor: \"#fff\",\n              border: \"1px solid #e0e0e0\",\n              borderRadius: \"8px\",\n              padding: \"20px\",\n              marginBottom: \"30px\",\n            }}\n          >\n            <h3\n              style={{\n                color: \"#4a8b8c\",\n                fontSize: \"18px\",\n                fontWeight: 600,\n                marginBottom: \"15px\",\n                marginTop: 0,\n              }}\n            >\n              Office Location\n            </h3>\n            <div style={{ color: \"#555\", lineHeight: 1.6 }}>\n              <p style={{ margin: \"0 0 8px 0\" }}>\n                <strong>Healing Pathways Counseling</strong>\n                <br />\n                123 Wellness Way, Suite 200\n                <br />\n                Cityville, ST 12345\n              </p>\n              <p style={{ margin: \"8px 0 0 0\" }}>\n                <strong>Phone:</strong> (555) 123-4567\n                <br />\n                <strong>Email:</strong> appointments@healingpathways.com\n              </p>\n            </div>\n          </div>\n\n          {/* What to Expect */}\n          <div style={{ marginBottom: \"30px\" }}>\n            <h3\n              style={{\n                color: \"#4a8b8c\",\n                fontSize: \"18px\",\n                fontWeight: 600,\n                marginBottom: \"15px\",\n              }}\n            >\n              What to Expect\n            </h3>\n            <div style={{ color: \"#555\", lineHeight: 1.6 }}>\n              <div style={{ marginBottom: \"12px\" }}>\n                <strong>For First-Time Clients:</strong>\n                <ul style={{ marginTop: \"5px\", paddingLeft: \"20px\" }}>\n                  <li>\n                    Please arrive 10-15 minutes early to complete intake forms\n                  </li>\n                  <li>Bring a valid ID and insurance card (if applicable)</li>\n                  <li>\n                    We&apos;ll discuss your goals and create a personalized\n                    treatment plan\n                  </li>\n                </ul>\n              </div>\n              <div>\n                <strong>Parking:</strong> Free parking is available in our\n                building lot\n              </div>\n            </div>\n          </div>\n\n          {/* Important Policies */}\n          <div\n            style={{\n              backgroundColor: \"#fef9e7\",\n              border: \"1px solid #f7e98e\",\n              borderRadius: \"8px\",\n              padding: \"20px\",\n              marginBottom: \"25px\",\n            }}\n          >\n            <h3\n              style={{\n                color: \"#8b5a00\",\n                fontSize: \"16px\",\n                fontWeight: 600,\n                marginBottom: \"12px\",\n                marginTop: 0,\n              }}\n            >\n              Important Information\n            </h3>\n            <div\n              style={{ color: \"#8b5a00\", fontSize: \"14px\", lineHeight: 1.5 }}\n            >\n              <p style={{ margin: \"0 0 10px 0\" }}>\n                <strong>Cancellation Policy:</strong> Please provide 24-hour\n                notice for cancellations to avoid fees.\n              </p>\n              <p style={{ margin: \"0 0 10px 0\" }}>\n                <strong>Rescheduling:</strong> You can reschedule through your\n                patient portal or by calling our office.\n              </p>\n              <p style={{ margin: \"0\" }}>\n                <strong>Confirmation ID:</strong> {appointmentDetails.id}\n              </p>\n            </div>\n          </div>\n        </div>\n\n        {/* Crisis Support Section */}\n        <div\n          style={{\n            backgroundColor: \"#f8f4f4\",\n            padding: \"25px 30px\",\n            borderTop: \"1px solid #e0e0e0\",\n          }}\n        >\n          <h3\n            style={{\n              color: \"#8b0000\",\n              fontSize: \"16px\",\n              fontWeight: 600,\n              marginBottom: \"12px\",\n              marginTop: 0,\n            }}\n          >\n            Crisis Support Available 24/7\n          </h3>\n          <div style={{ color: \"#555\", fontSize: \"14px\", lineHeight: 1.5 }}>\n            <p style={{ margin: \"0 0 8px 0\" }}>\n              If you&apos;re experiencing a mental health crisis before your\n              appointment:\n            </p>\n            <ul style={{ margin: \"0\", paddingLeft: \"20px\" }}>\n              <li>\n                <strong>National Crisis Lifeline:</strong> 988\n              </li>\n              <li>\n                <strong>Crisis Text Line:</strong> Text HOME to 741741\n              </li>\n              <li>\n                <strong>Emergency Services:</strong> Call 911\n              </li>\n            </ul>\n          </div>\n        </div>\n\n        {/* Footer */}\n        <div\n          style={{\n            backgroundColor: \"#2c2c2c\",\n            color: \"white\",\n            padding: \"20px 30px\",\n            textAlign: \"center\",\n            fontSize: \"12px\",\n          }}\n        >\n          <p style={{ margin: \"0 0 10px 0\" }}>\n            We&apos;re here to support you on your journey to better mental\n            health.\n          </p>\n          <p style={{ margin: \"0\" }}>\n            Healing Pathways Counseling | Licensed Professional Counselor #12345\n          </p>\n        </div>\n      </div>\n    </div>\n  );\n}\n"],
+      names: ["AppointmentConfirmationEmail", "clientName", "appointmentDetails", "appointmentDate", "Date", "dateTime", "formattedDate", "toLocaleDateString", "weekday", "year", "month", "day", "formattedTime", "toLocaleTimeString", "hour", "minute", "hour12", "div", "style", "fontFamily", "margin", "padding", "backgroundColor", "maxWidth", "color", "textAlign", "h1", "fontSize", "fontWeight", "h2", "marginBottom", "p", "lineHeight", "border", "borderRadius", "h3", "marginTop", "display", "justifyContent", "borderBottom", "paddingBottom", "span", "service", "duration", "price", "strong", "br", "ul", "paddingLeft", "li", "id", "borderTop"],
+      mappings: "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"
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "97faf9e9a96beb9092979070530e5e1fde43b01f"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_xfikp9ufw = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_xfikp9ufw();
+cov_xfikp9ufw().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* istanbul ignore next */
+cov_xfikp9ufw().s[1]++;
+Object.defineProperty(exports, "AppointmentConfirmationEmail", {
+  enumerable: true,
+  get: function () {
+    /* istanbul ignore next */
+    cov_xfikp9ufw().f[0]++;
+    cov_xfikp9ufw().s[2]++;
+    return AppointmentConfirmationEmail;
+  }
+});
+const _jsxruntime =
+/* istanbul ignore next */
+(cov_xfikp9ufw().s[3]++, require("react/jsx-runtime"));
+function AppointmentConfirmationEmail({
+  clientName,
+  appointmentDetails
+}) {
+  /* istanbul ignore next */
+  cov_xfikp9ufw().f[1]++;
+  const appointmentDate =
+  /* istanbul ignore next */
+  (cov_xfikp9ufw().s[4]++, new Date(appointmentDetails.dateTime));
+  const formattedDate =
+  /* istanbul ignore next */
+  (cov_xfikp9ufw().s[5]++, appointmentDate.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  }));
+  const formattedTime =
+  /* istanbul ignore next */
+  (cov_xfikp9ufw().s[6]++, appointmentDate.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true
+  }));
+  /* istanbul ignore next */
+  cov_xfikp9ufw().s[7]++;
+  return /*#__PURE__*/(0, _jsxruntime.jsx)("div", {
+    style: {
+      fontFamily: "Arial, sans-serif",
+      margin: 0,
+      padding: 0,
+      backgroundColor: "#f9f9f9"
+    },
+    children: /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+      style: {
+        maxWidth: "600px",
+        margin: "0 auto",
+        backgroundColor: "#ffffff"
+      },
+      children: [/*#__PURE__*/(0, _jsxruntime.jsx)("div", {
+        style: {
+          backgroundColor: "#4a8b8c",
+          color: "white",
+          padding: "30px 20px",
+          textAlign: "center"
+        },
+        children: /*#__PURE__*/(0, _jsxruntime.jsx)("h1", {
+          style: {
+            margin: 0,
+            fontSize: "28px",
+            fontWeight: 300,
+            fontFamily: "Playfair Display, serif"
+          },
+          children: "Healing Pathways Counseling"
+        })
+      }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+        style: {
+          padding: "40px 30px"
+        },
+        children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("h2", {
+          style: {
+            color: "#2c2c2c",
+            fontSize: "24px",
+            marginBottom: "20px",
+            fontWeight: 300
+          },
+          children: ["Appointment Confirmed, ", clientName, "!"]
+        }), /*#__PURE__*/(0, _jsxruntime.jsx)("p", {
+          style: {
+            color: "#555",
+            lineHeight: 1.6,
+            marginBottom: "30px",
+            fontSize: "16px"
+          },
+          children: "Thank you for scheduling your appointment with Healing Pathways Counseling. We're committed to supporting you on your journey to better mental health and well-being."
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+          style: {
+            backgroundColor: "#f0f7f7",
+            border: "1px solid #e0e9e9",
+            borderRadius: "8px",
+            padding: "25px",
+            marginBottom: "30px"
+          },
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("h3", {
+            style: {
+              color: "#4a8b8c",
+              fontSize: "18px",
+              fontWeight: 600,
+              marginBottom: "15px",
+              marginTop: 0
+            },
+            children: "Your Appointment Details"
+          }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+            style: {
+              color: "#333"
+            },
+            children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+              style: {
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "12px",
+                borderBottom: "1px solid #e0e9e9",
+                paddingBottom: "8px"
+              },
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("span", {
+                style: {
+                  fontWeight: 600
+                },
+                children: "Service:"
+              }), /*#__PURE__*/(0, _jsxruntime.jsx)("span", {
+                children: appointmentDetails.service
+              })]
+            }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+              style: {
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "12px",
+                borderBottom: "1px solid #e0e9e9",
+                paddingBottom: "8px"
+              },
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("span", {
+                style: {
+                  fontWeight: 600
+                },
+                children: "Date:"
+              }), /*#__PURE__*/(0, _jsxruntime.jsx)("span", {
+                children: formattedDate
+              })]
+            }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+              style: {
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "12px",
+                borderBottom: "1px solid #e0e9e9",
+                paddingBottom: "8px"
+              },
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("span", {
+                style: {
+                  fontWeight: 600
+                },
+                children: "Time:"
+              }), /*#__PURE__*/(0, _jsxruntime.jsx)("span", {
+                children: formattedTime
+              })]
+            }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+              style: {
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "12px",
+                borderBottom: "1px solid #e0e9e9",
+                paddingBottom: "8px"
+              },
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("span", {
+                style: {
+                  fontWeight: 600
+                },
+                children: "Duration:"
+              }), /*#__PURE__*/(0, _jsxruntime.jsxs)("span", {
+                children: [appointmentDetails.duration, " minutes"]
+              })]
+            }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+              style: {
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "0"
+              },
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("span", {
+                style: {
+                  fontWeight: 600
+                },
+                children: "Session Fee:"
+              }), /*#__PURE__*/(0, _jsxruntime.jsxs)("span", {
+                style: {
+                  fontWeight: 600,
+                  color: "#4a8b8c"
+                },
+                children: ["$", appointmentDetails.price]
+              })]
+            })]
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+          style: {
+            backgroundColor: "#fff",
+            border: "1px solid #e0e0e0",
+            borderRadius: "8px",
+            padding: "20px",
+            marginBottom: "30px"
+          },
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("h3", {
+            style: {
+              color: "#4a8b8c",
+              fontSize: "18px",
+              fontWeight: 600,
+              marginBottom: "15px",
+              marginTop: 0
+            },
+            children: "Office Location"
+          }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+            style: {
+              color: "#555",
+              lineHeight: 1.6
+            },
+            children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("p", {
+              style: {
+                margin: "0 0 8px 0"
+              },
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("strong", {
+                children: "Healing Pathways Counseling"
+              }), /*#__PURE__*/(0, _jsxruntime.jsx)("br", {}), "123 Wellness Way, Suite 200", /*#__PURE__*/(0, _jsxruntime.jsx)("br", {}), "Cityville, ST 12345"]
+            }), /*#__PURE__*/(0, _jsxruntime.jsxs)("p", {
+              style: {
+                margin: "8px 0 0 0"
+              },
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("strong", {
+                children: "Phone:"
+              }), " (555) 123-4567", /*#__PURE__*/(0, _jsxruntime.jsx)("br", {}), /*#__PURE__*/(0, _jsxruntime.jsx)("strong", {
+                children: "Email:"
+              }), " appointments@healingpathways.com"]
+            })]
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+          style: {
+            marginBottom: "30px"
+          },
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("h3", {
+            style: {
+              color: "#4a8b8c",
+              fontSize: "18px",
+              fontWeight: 600,
+              marginBottom: "15px"
+            },
+            children: "What to Expect"
+          }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+            style: {
+              color: "#555",
+              lineHeight: 1.6
+            },
+            children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+              style: {
+                marginBottom: "12px"
+              },
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("strong", {
+                children: "For First-Time Clients:"
+              }), /*#__PURE__*/(0, _jsxruntime.jsxs)("ul", {
+                style: {
+                  marginTop: "5px",
+                  paddingLeft: "20px"
+                },
+                children: [/*#__PURE__*/(0, _jsxruntime.jsx)("li", {
+                  children: "Please arrive 10-15 minutes early to complete intake forms"
+                }), /*#__PURE__*/(0, _jsxruntime.jsx)("li", {
+                  children: "Bring a valid ID and insurance card (if applicable)"
+                }), /*#__PURE__*/(0, _jsxruntime.jsx)("li", {
+                  children: "We'll discuss your goals and create a personalized treatment plan"
+                })]
+              })]
+            }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("strong", {
+                children: "Parking:"
+              }), " Free parking is available in our building lot"]
+            })]
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+          style: {
+            backgroundColor: "#fef9e7",
+            border: "1px solid #f7e98e",
+            borderRadius: "8px",
+            padding: "20px",
+            marginBottom: "25px"
+          },
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("h3", {
+            style: {
+              color: "#8b5a00",
+              fontSize: "16px",
+              fontWeight: 600,
+              marginBottom: "12px",
+              marginTop: 0
+            },
+            children: "Important Information"
+          }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+            style: {
+              color: "#8b5a00",
+              fontSize: "14px",
+              lineHeight: 1.5
+            },
+            children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("p", {
+              style: {
+                margin: "0 0 10px 0"
+              },
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("strong", {
+                children: "Cancellation Policy:"
+              }), " Please provide 24-hour notice for cancellations to avoid fees."]
+            }), /*#__PURE__*/(0, _jsxruntime.jsxs)("p", {
+              style: {
+                margin: "0 0 10px 0"
+              },
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("strong", {
+                children: "Rescheduling:"
+              }), " You can reschedule through your patient portal or by calling our office."]
+            }), /*#__PURE__*/(0, _jsxruntime.jsxs)("p", {
+              style: {
+                margin: "0"
+              },
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("strong", {
+                children: "Confirmation ID:"
+              }), " ", appointmentDetails.id]
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+        style: {
+          backgroundColor: "#f8f4f4",
+          padding: "25px 30px",
+          borderTop: "1px solid #e0e0e0"
+        },
+        children: [/*#__PURE__*/(0, _jsxruntime.jsx)("h3", {
+          style: {
+            color: "#8b0000",
+            fontSize: "16px",
+            fontWeight: 600,
+            marginBottom: "12px",
+            marginTop: 0
+          },
+          children: "Crisis Support Available 24/7"
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+          style: {
+            color: "#555",
+            fontSize: "14px",
+            lineHeight: 1.5
+          },
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("p", {
+            style: {
+              margin: "0 0 8px 0"
+            },
+            children: "If you're experiencing a mental health crisis before your appointment:"
+          }), /*#__PURE__*/(0, _jsxruntime.jsxs)("ul", {
+            style: {
+              margin: "0",
+              paddingLeft: "20px"
+            },
+            children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("li", {
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("strong", {
+                children: "National Crisis Lifeline:"
+              }), " 988"]
+            }), /*#__PURE__*/(0, _jsxruntime.jsxs)("li", {
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("strong", {
+                children: "Crisis Text Line:"
+              }), " Text HOME to 741741"]
+            }), /*#__PURE__*/(0, _jsxruntime.jsxs)("li", {
+              children: [/*#__PURE__*/(0, _jsxruntime.jsx)("strong", {
+                children: "Emergency Services:"
+              }), " Call 911"]
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+        style: {
+          backgroundColor: "#2c2c2c",
+          color: "white",
+          padding: "20px 30px",
+          textAlign: "center",
+          fontSize: "12px"
+        },
+        children: [/*#__PURE__*/(0, _jsxruntime.jsx)("p", {
+          style: {
+            margin: "0 0 10px 0"
+          },
+          children: "We're here to support you on your journey to better mental health."
+        }), /*#__PURE__*/(0, _jsxruntime.jsx)("p", {
+          style: {
+            margin: "0"
+          },
+          children: "Healing Pathways Counseling | Licensed Professional Counselor #12345"
+        })]
+      })]
+    })
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfeGZpa3A5dWZ3IiwiYWN0dWFsQ292ZXJhZ2UiLCJzIiwiQXBwb2ludG1lbnRDb25maXJtYXRpb25FbWFpbCIsImNsaWVudE5hbWUiLCJhcHBvaW50bWVudERldGFpbHMiLCJmIiwiYXBwb2ludG1lbnREYXRlIiwiRGF0ZSIsImRhdGVUaW1lIiwiZm9ybWF0dGVkRGF0ZSIsInRvTG9jYWxlRGF0ZVN0cmluZyIsIndlZWtkYXkiLCJ5ZWFyIiwibW9udGgiLCJkYXkiLCJmb3JtYXR0ZWRUaW1lIiwidG9Mb2NhbGVUaW1lU3RyaW5nIiwiaG91ciIsIm1pbnV0ZSIsImhvdXIxMiIsIl9qc3hydW50aW1lIiwianN4Iiwic3R5bGUiLCJmb250RmFtaWx5IiwibWFyZ2luIiwicGFkZGluZyIsImJhY2tncm91bmRDb2xvciIsImpzeHMiLCJtYXhXaWR0aCIsImNvbG9yIiwidGV4dEFsaWduIiwiZm9udFNpemUiLCJmb250V2VpZ2h0IiwibWFyZ2luQm90dG9tIiwibGluZUhlaWdodCIsImJvcmRlciIsImJvcmRlclJhZGl1cyIsIm1hcmdpblRvcCIsImRpc3BsYXkiLCJqdXN0aWZ5Q29udGVudCIsImJvcmRlckJvdHRvbSIsInBhZGRpbmdCb3R0b20iLCJzZXJ2aWNlIiwiZHVyYXRpb24iLCJwcmljZSIsInBhZGRpbmdMZWZ0IiwiaWQiLCJib3JkZXJUb3AiXSwic291cmNlcyI6WyJEOlxcZ2l0aHViXFxDQ19TaXRlXFxzcmNcXGNvbXBvbmVudHNcXGVtYWlsXFxhcHBvaW50bWVudC1jb25maXJtYXRpb24udHN4Il0sInNvdXJjZXNDb250ZW50IjpbImludGVyZmFjZSBBcHBvaW50bWVudENvbmZpcm1hdGlvbkVtYWlsUHJvcHMge1xuICBjbGllbnROYW1lOiBzdHJpbmc7XG4gIGFwcG9pbnRtZW50RGV0YWlsczoge1xuICAgIGlkOiBzdHJpbmc7XG4gICAgc2VydmljZTogc3RyaW5nO1xuICAgIGRhdGVUaW1lOiBzdHJpbmc7XG4gICAgZHVyYXRpb246IG51bWJlcjtcbiAgICBwcmljZTogc3RyaW5nO1xuICB9O1xufVxuXG5leHBvcnQgZnVuY3Rpb24gQXBwb2ludG1lbnRDb25maXJtYXRpb25FbWFpbCh7XG4gIGNsaWVudE5hbWUsXG4gIGFwcG9pbnRtZW50RGV0YWlscyxcbn06IEFwcG9pbnRtZW50Q29uZmlybWF0aW9uRW1haWxQcm9wcykge1xuICBjb25zdCBhcHBvaW50bWVudERhdGUgPSBuZXcgRGF0ZShhcHBvaW50bWVudERldGFpbHMuZGF0ZVRpbWUpO1xuICBjb25zdCBmb3JtYXR0ZWREYXRlID0gYXBwb2ludG1lbnREYXRlLnRvTG9jYWxlRGF0ZVN0cmluZyhcImVuLVVTXCIsIHtcbiAgICB3ZWVrZGF5OiBcImxvbmdcIixcbiAgICB5ZWFyOiBcIm51bWVyaWNcIixcbiAgICBtb250aDogXCJsb25nXCIsXG4gICAgZGF5OiBcIm51bWVyaWNcIixcbiAgfSk7XG4gIGNvbnN0IGZvcm1hdHRlZFRpbWUgPSBhcHBvaW50bWVudERhdGUudG9Mb2NhbGVUaW1lU3RyaW5nKFwiZW4tVVNcIiwge1xuICAgIGhvdXI6IFwibnVtZXJpY1wiLFxuICAgIG1pbnV0ZTogXCIyLWRpZ2l0XCIsXG4gICAgaG91cjEyOiB0cnVlLFxuICB9KTtcblxuICByZXR1cm4gKFxuICAgIDxkaXZcbiAgICAgIHN0eWxlPXt7XG4gICAgICAgIGZvbnRGYW1pbHk6IFwiQXJpYWwsIHNhbnMtc2VyaWZcIixcbiAgICAgICAgbWFyZ2luOiAwLFxuICAgICAgICBwYWRkaW5nOiAwLFxuICAgICAgICBiYWNrZ3JvdW5kQ29sb3I6IFwiI2Y5ZjlmOVwiLFxuICAgICAgfX1cbiAgICA+XG4gICAgICA8ZGl2XG4gICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgbWF4V2lkdGg6IFwiNjAwcHhcIixcbiAgICAgICAgICBtYXJnaW46IFwiMCBhdXRvXCIsXG4gICAgICAgICAgYmFja2dyb3VuZENvbG9yOiBcIiNmZmZmZmZcIixcbiAgICAgICAgfX1cbiAgICAgID5cbiAgICAgICAgey8qIEhlYWRlciAqL31cbiAgICAgICAgPGRpdlxuICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICBiYWNrZ3JvdW5kQ29sb3I6IFwiIzRhOGI4Y1wiLFxuICAgICAgICAgICAgY29sb3I6IFwid2hpdGVcIixcbiAgICAgICAgICAgIHBhZGRpbmc6IFwiMzBweCAyMHB4XCIsXG4gICAgICAgICAgICB0ZXh0QWxpZ246IFwiY2VudGVyXCIsXG4gICAgICAgICAgfX1cbiAgICAgICAgPlxuICAgICAgICAgIDxoMVxuICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgbWFyZ2luOiAwLFxuICAgICAgICAgICAgICBmb250U2l6ZTogXCIyOHB4XCIsXG4gICAgICAgICAgICAgIGZvbnRXZWlnaHQ6IDMwMCxcbiAgICAgICAgICAgICAgZm9udEZhbWlseTogXCJQbGF5ZmFpciBEaXNwbGF5LCBzZXJpZlwiLFxuICAgICAgICAgICAgfX1cbiAgICAgICAgICA+XG4gICAgICAgICAgICBIZWFsaW5nIFBhdGh3YXlzIENvdW5zZWxpbmdcbiAgICAgICAgICA8L2gxPlxuICAgICAgICA8L2Rpdj5cblxuICAgICAgICB7LyogTWFpbiBDb250ZW50ICovfVxuICAgICAgICA8ZGl2IHN0eWxlPXt7IHBhZGRpbmc6IFwiNDBweCAzMHB4XCIgfX0+XG4gICAgICAgICAgPGgyXG4gICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICBjb2xvcjogXCIjMmMyYzJjXCIsXG4gICAgICAgICAgICAgIGZvbnRTaXplOiBcIjI0cHhcIixcbiAgICAgICAgICAgICAgbWFyZ2luQm90dG9tOiBcIjIwcHhcIixcbiAgICAgICAgICAgICAgZm9udFdlaWdodDogMzAwLFxuICAgICAgICAgICAgfX1cbiAgICAgICAgICA+XG4gICAgICAgICAgICBBcHBvaW50bWVudCBDb25maXJtZWQsIHtjbGllbnROYW1lfSFcbiAgICAgICAgICA8L2gyPlxuXG4gICAgICAgICAgPHBcbiAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgIGNvbG9yOiBcIiM1NTVcIixcbiAgICAgICAgICAgICAgbGluZUhlaWdodDogMS42LFxuICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMzBweFwiLFxuICAgICAgICAgICAgICBmb250U2l6ZTogXCIxNnB4XCIsXG4gICAgICAgICAgICB9fVxuICAgICAgICAgID5cbiAgICAgICAgICAgIFRoYW5rIHlvdSBmb3Igc2NoZWR1bGluZyB5b3VyIGFwcG9pbnRtZW50IHdpdGggSGVhbGluZyBQYXRod2F5c1xuICAgICAgICAgICAgQ291bnNlbGluZy4gV2UmYXBvcztyZSBjb21taXR0ZWQgdG8gc3VwcG9ydGluZyB5b3Ugb24geW91ciBqb3VybmV5XG4gICAgICAgICAgICB0byBiZXR0ZXIgbWVudGFsIGhlYWx0aCBhbmQgd2VsbC1iZWluZy5cbiAgICAgICAgICA8L3A+XG5cbiAgICAgICAgICB7LyogQXBwb2ludG1lbnQgRGV0YWlscyBDYXJkICovfVxuICAgICAgICAgIDxkaXZcbiAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgIGJhY2tncm91bmRDb2xvcjogXCIjZjBmN2Y3XCIsXG4gICAgICAgICAgICAgIGJvcmRlcjogXCIxcHggc29saWQgI2UwZTllOVwiLFxuICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6IFwiOHB4XCIsXG4gICAgICAgICAgICAgIHBhZGRpbmc6IFwiMjVweFwiLFxuICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMzBweFwiLFxuICAgICAgICAgICAgfX1cbiAgICAgICAgICA+XG4gICAgICAgICAgICA8aDNcbiAgICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgICBjb2xvcjogXCIjNGE4YjhjXCIsXG4gICAgICAgICAgICAgICAgZm9udFNpemU6IFwiMThweFwiLFxuICAgICAgICAgICAgICAgIGZvbnRXZWlnaHQ6IDYwMCxcbiAgICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMTVweFwiLFxuICAgICAgICAgICAgICAgIG1hcmdpblRvcDogMCxcbiAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgWW91ciBBcHBvaW50bWVudCBEZXRhaWxzXG4gICAgICAgICAgICA8L2gzPlxuXG4gICAgICAgICAgICA8ZGl2IHN0eWxlPXt7IGNvbG9yOiBcIiMzMzNcIiB9fT5cbiAgICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICBkaXNwbGF5OiBcImZsZXhcIixcbiAgICAgICAgICAgICAgICAgIGp1c3RpZnlDb250ZW50OiBcInNwYWNlLWJldHdlZW5cIixcbiAgICAgICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIxMnB4XCIsXG4gICAgICAgICAgICAgICAgICBib3JkZXJCb3R0b206IFwiMXB4IHNvbGlkICNlMGU5ZTlcIixcbiAgICAgICAgICAgICAgICAgIHBhZGRpbmdCb3R0b206IFwiOHB4XCIsXG4gICAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgIDxzcGFuIHN0eWxlPXt7IGZvbnRXZWlnaHQ6IDYwMCB9fT5TZXJ2aWNlOjwvc3Bhbj5cbiAgICAgICAgICAgICAgICA8c3Bhbj57YXBwb2ludG1lbnREZXRhaWxzLnNlcnZpY2V9PC9zcGFuPlxuICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICA8ZGl2XG4gICAgICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgICAgIGRpc3BsYXk6IFwiZmxleFwiLFxuICAgICAgICAgICAgICAgICAganVzdGlmeUNvbnRlbnQ6IFwic3BhY2UtYmV0d2VlblwiLFxuICAgICAgICAgICAgICAgICAgbWFyZ2luQm90dG9tOiBcIjEycHhcIixcbiAgICAgICAgICAgICAgICAgIGJvcmRlckJvdHRvbTogXCIxcHggc29saWQgI2UwZTllOVwiLFxuICAgICAgICAgICAgICAgICAgcGFkZGluZ0JvdHRvbTogXCI4cHhcIixcbiAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgPHNwYW4gc3R5bGU9e3sgZm9udFdlaWdodDogNjAwIH19PkRhdGU6PC9zcGFuPlxuICAgICAgICAgICAgICAgIDxzcGFuPntmb3JtYXR0ZWREYXRlfTwvc3Bhbj5cbiAgICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICBkaXNwbGF5OiBcImZsZXhcIixcbiAgICAgICAgICAgICAgICAgIGp1c3RpZnlDb250ZW50OiBcInNwYWNlLWJldHdlZW5cIixcbiAgICAgICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIxMnB4XCIsXG4gICAgICAgICAgICAgICAgICBib3JkZXJCb3R0b206IFwiMXB4IHNvbGlkICNlMGU5ZTlcIixcbiAgICAgICAgICAgICAgICAgIHBhZGRpbmdCb3R0b206IFwiOHB4XCIsXG4gICAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgIDxzcGFuIHN0eWxlPXt7IGZvbnRXZWlnaHQ6IDYwMCB9fT5UaW1lOjwvc3Bhbj5cbiAgICAgICAgICAgICAgICA8c3Bhbj57Zm9ybWF0dGVkVGltZX08L3NwYW4+XG4gICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgIDxkaXZcbiAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgZGlzcGxheTogXCJmbGV4XCIsXG4gICAgICAgICAgICAgICAgICBqdXN0aWZ5Q29udGVudDogXCJzcGFjZS1iZXR3ZWVuXCIsXG4gICAgICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMTJweFwiLFxuICAgICAgICAgICAgICAgICAgYm9yZGVyQm90dG9tOiBcIjFweCBzb2xpZCAjZTBlOWU5XCIsXG4gICAgICAgICAgICAgICAgICBwYWRkaW5nQm90dG9tOiBcIjhweFwiLFxuICAgICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICA8c3BhbiBzdHlsZT17eyBmb250V2VpZ2h0OiA2MDAgfX0+RHVyYXRpb246PC9zcGFuPlxuICAgICAgICAgICAgICAgIDxzcGFuPnthcHBvaW50bWVudERldGFpbHMuZHVyYXRpb259IG1pbnV0ZXM8L3NwYW4+XG4gICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgIDxkaXZcbiAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgZGlzcGxheTogXCJmbGV4XCIsXG4gICAgICAgICAgICAgICAgICBqdXN0aWZ5Q29udGVudDogXCJzcGFjZS1iZXR3ZWVuXCIsXG4gICAgICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMFwiLFxuICAgICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICA8c3BhbiBzdHlsZT17eyBmb250V2VpZ2h0OiA2MDAgfX0+U2Vzc2lvbiBGZWU6PC9zcGFuPlxuICAgICAgICAgICAgICAgIDxzcGFuIHN0eWxlPXt7IGZvbnRXZWlnaHQ6IDYwMCwgY29sb3I6IFwiIzRhOGI4Y1wiIH19PlxuICAgICAgICAgICAgICAgICAgJHthcHBvaW50bWVudERldGFpbHMucHJpY2V9XG4gICAgICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgey8qIExvY2F0aW9uIEluZm9ybWF0aW9uICovfVxuICAgICAgICAgIDxkaXZcbiAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgIGJhY2tncm91bmRDb2xvcjogXCIjZmZmXCIsXG4gICAgICAgICAgICAgIGJvcmRlcjogXCIxcHggc29saWQgI2UwZTBlMFwiLFxuICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6IFwiOHB4XCIsXG4gICAgICAgICAgICAgIHBhZGRpbmc6IFwiMjBweFwiLFxuICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMzBweFwiLFxuICAgICAgICAgICAgfX1cbiAgICAgICAgICA+XG4gICAgICAgICAgICA8aDNcbiAgICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgICBjb2xvcjogXCIjNGE4YjhjXCIsXG4gICAgICAgICAgICAgICAgZm9udFNpemU6IFwiMThweFwiLFxuICAgICAgICAgICAgICAgIGZvbnRXZWlnaHQ6IDYwMCxcbiAgICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMTVweFwiLFxuICAgICAgICAgICAgICAgIG1hcmdpblRvcDogMCxcbiAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgT2ZmaWNlIExvY2F0aW9uXG4gICAgICAgICAgICA8L2gzPlxuICAgICAgICAgICAgPGRpdiBzdHlsZT17eyBjb2xvcjogXCIjNTU1XCIsIGxpbmVIZWlnaHQ6IDEuNiB9fT5cbiAgICAgICAgICAgICAgPHAgc3R5bGU9e3sgbWFyZ2luOiBcIjAgMCA4cHggMFwiIH19PlxuICAgICAgICAgICAgICAgIDxzdHJvbmc+SGVhbGluZyBQYXRod2F5cyBDb3Vuc2VsaW5nPC9zdHJvbmc+XG4gICAgICAgICAgICAgICAgPGJyIC8+XG4gICAgICAgICAgICAgICAgMTIzIFdlbGxuZXNzIFdheSwgU3VpdGUgMjAwXG4gICAgICAgICAgICAgICAgPGJyIC8+XG4gICAgICAgICAgICAgICAgQ2l0eXZpbGxlLCBTVCAxMjM0NVxuICAgICAgICAgICAgICA8L3A+XG4gICAgICAgICAgICAgIDxwIHN0eWxlPXt7IG1hcmdpbjogXCI4cHggMCAwIDBcIiB9fT5cbiAgICAgICAgICAgICAgICA8c3Ryb25nPlBob25lOjwvc3Ryb25nPiAoNTU1KSAxMjMtNDU2N1xuICAgICAgICAgICAgICAgIDxiciAvPlxuICAgICAgICAgICAgICAgIDxzdHJvbmc+RW1haWw6PC9zdHJvbmc+IGFwcG9pbnRtZW50c0BoZWFsaW5ncGF0aHdheXMuY29tXG4gICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgey8qIFdoYXQgdG8gRXhwZWN0ICovfVxuICAgICAgICAgIDxkaXYgc3R5bGU9e3sgbWFyZ2luQm90dG9tOiBcIjMwcHhcIiB9fT5cbiAgICAgICAgICAgIDxoM1xuICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgIGNvbG9yOiBcIiM0YThiOGNcIixcbiAgICAgICAgICAgICAgICBmb250U2l6ZTogXCIxOHB4XCIsXG4gICAgICAgICAgICAgICAgZm9udFdlaWdodDogNjAwLFxuICAgICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIxNXB4XCIsXG4gICAgICAgICAgICAgIH19XG4gICAgICAgICAgICA+XG4gICAgICAgICAgICAgIFdoYXQgdG8gRXhwZWN0XG4gICAgICAgICAgICA8L2gzPlxuICAgICAgICAgICAgPGRpdiBzdHlsZT17eyBjb2xvcjogXCIjNTU1XCIsIGxpbmVIZWlnaHQ6IDEuNiB9fT5cbiAgICAgICAgICAgICAgPGRpdiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IFwiMTJweFwiIH19PlxuICAgICAgICAgICAgICAgIDxzdHJvbmc+Rm9yIEZpcnN0LVRpbWUgQ2xpZW50czo8L3N0cm9uZz5cbiAgICAgICAgICAgICAgICA8dWwgc3R5bGU9e3sgbWFyZ2luVG9wOiBcIjVweFwiLCBwYWRkaW5nTGVmdDogXCIyMHB4XCIgfX0+XG4gICAgICAgICAgICAgICAgICA8bGk+XG4gICAgICAgICAgICAgICAgICAgIFBsZWFzZSBhcnJpdmUgMTAtMTUgbWludXRlcyBlYXJseSB0byBjb21wbGV0ZSBpbnRha2UgZm9ybXNcbiAgICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICAgICA8bGk+QnJpbmcgYSB2YWxpZCBJRCBhbmQgaW5zdXJhbmNlIGNhcmQgKGlmIGFwcGxpY2FibGUpPC9saT5cbiAgICAgICAgICAgICAgICAgIDxsaT5cbiAgICAgICAgICAgICAgICAgICAgV2UmYXBvcztsbCBkaXNjdXNzIHlvdXIgZ29hbHMgYW5kIGNyZWF0ZSBhIHBlcnNvbmFsaXplZFxuICAgICAgICAgICAgICAgICAgICB0cmVhdG1lbnQgcGxhblxuICAgICAgICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgICAgICA8L3VsPlxuICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgICA8c3Ryb25nPlBhcmtpbmc6PC9zdHJvbmc+IEZyZWUgcGFya2luZyBpcyBhdmFpbGFibGUgaW4gb3VyXG4gICAgICAgICAgICAgICAgYnVpbGRpbmcgbG90XG4gICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICB7LyogSW1wb3J0YW50IFBvbGljaWVzICovfVxuICAgICAgICAgIDxkaXZcbiAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgIGJhY2tncm91bmRDb2xvcjogXCIjZmVmOWU3XCIsXG4gICAgICAgICAgICAgIGJvcmRlcjogXCIxcHggc29saWQgI2Y3ZTk4ZVwiLFxuICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6IFwiOHB4XCIsXG4gICAgICAgICAgICAgIHBhZGRpbmc6IFwiMjBweFwiLFxuICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMjVweFwiLFxuICAgICAgICAgICAgfX1cbiAgICAgICAgICA+XG4gICAgICAgICAgICA8aDNcbiAgICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgICBjb2xvcjogXCIjOGI1YTAwXCIsXG4gICAgICAgICAgICAgICAgZm9udFNpemU6IFwiMTZweFwiLFxuICAgICAgICAgICAgICAgIGZvbnRXZWlnaHQ6IDYwMCxcbiAgICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMTJweFwiLFxuICAgICAgICAgICAgICAgIG1hcmdpblRvcDogMCxcbiAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgSW1wb3J0YW50IEluZm9ybWF0aW9uXG4gICAgICAgICAgICA8L2gzPlxuICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICBzdHlsZT17eyBjb2xvcjogXCIjOGI1YTAwXCIsIGZvbnRTaXplOiBcIjE0cHhcIiwgbGluZUhlaWdodDogMS41IH19XG4gICAgICAgICAgICA+XG4gICAgICAgICAgICAgIDxwIHN0eWxlPXt7IG1hcmdpbjogXCIwIDAgMTBweCAwXCIgfX0+XG4gICAgICAgICAgICAgICAgPHN0cm9uZz5DYW5jZWxsYXRpb24gUG9saWN5Ojwvc3Ryb25nPiBQbGVhc2UgcHJvdmlkZSAyNC1ob3VyXG4gICAgICAgICAgICAgICAgbm90aWNlIGZvciBjYW5jZWxsYXRpb25zIHRvIGF2b2lkIGZlZXMuXG4gICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgICAgPHAgc3R5bGU9e3sgbWFyZ2luOiBcIjAgMCAxMHB4IDBcIiB9fT5cbiAgICAgICAgICAgICAgICA8c3Ryb25nPlJlc2NoZWR1bGluZzo8L3N0cm9uZz4gWW91IGNhbiByZXNjaGVkdWxlIHRocm91Z2ggeW91clxuICAgICAgICAgICAgICAgIHBhdGllbnQgcG9ydGFsIG9yIGJ5IGNhbGxpbmcgb3VyIG9mZmljZS5cbiAgICAgICAgICAgICAgPC9wPlxuICAgICAgICAgICAgICA8cCBzdHlsZT17eyBtYXJnaW46IFwiMFwiIH19PlxuICAgICAgICAgICAgICAgIDxzdHJvbmc+Q29uZmlybWF0aW9uIElEOjwvc3Ryb25nPiB7YXBwb2ludG1lbnREZXRhaWxzLmlkfVxuICAgICAgICAgICAgICA8L3A+XG4gICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgey8qIENyaXNpcyBTdXBwb3J0IFNlY3Rpb24gKi99XG4gICAgICAgIDxkaXZcbiAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgYmFja2dyb3VuZENvbG9yOiBcIiNmOGY0ZjRcIixcbiAgICAgICAgICAgIHBhZGRpbmc6IFwiMjVweCAzMHB4XCIsXG4gICAgICAgICAgICBib3JkZXJUb3A6IFwiMXB4IHNvbGlkICNlMGUwZTBcIixcbiAgICAgICAgICB9fVxuICAgICAgICA+XG4gICAgICAgICAgPGgzXG4gICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICBjb2xvcjogXCIjOGIwMDAwXCIsXG4gICAgICAgICAgICAgIGZvbnRTaXplOiBcIjE2cHhcIixcbiAgICAgICAgICAgICAgZm9udFdlaWdodDogNjAwLFxuICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMTJweFwiLFxuICAgICAgICAgICAgICBtYXJnaW5Ub3A6IDAsXG4gICAgICAgICAgICB9fVxuICAgICAgICAgID5cbiAgICAgICAgICAgIENyaXNpcyBTdXBwb3J0IEF2YWlsYWJsZSAyNC83XG4gICAgICAgICAgPC9oMz5cbiAgICAgICAgICA8ZGl2IHN0eWxlPXt7IGNvbG9yOiBcIiM1NTVcIiwgZm9udFNpemU6IFwiMTRweFwiLCBsaW5lSGVpZ2h0OiAxLjUgfX0+XG4gICAgICAgICAgICA8cCBzdHlsZT17eyBtYXJnaW46IFwiMCAwIDhweCAwXCIgfX0+XG4gICAgICAgICAgICAgIElmIHlvdSZhcG9zO3JlIGV4cGVyaWVuY2luZyBhIG1lbnRhbCBoZWFsdGggY3Jpc2lzIGJlZm9yZSB5b3VyXG4gICAgICAgICAgICAgIGFwcG9pbnRtZW50OlxuICAgICAgICAgICAgPC9wPlxuICAgICAgICAgICAgPHVsIHN0eWxlPXt7IG1hcmdpbjogXCIwXCIsIHBhZGRpbmdMZWZ0OiBcIjIwcHhcIiB9fT5cbiAgICAgICAgICAgICAgPGxpPlxuICAgICAgICAgICAgICAgIDxzdHJvbmc+TmF0aW9uYWwgQ3Jpc2lzIExpZmVsaW5lOjwvc3Ryb25nPiA5ODhcbiAgICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgICAgPGxpPlxuICAgICAgICAgICAgICAgIDxzdHJvbmc+Q3Jpc2lzIFRleHQgTGluZTo8L3N0cm9uZz4gVGV4dCBIT01FIHRvIDc0MTc0MVxuICAgICAgICAgICAgICA8L2xpPlxuICAgICAgICAgICAgICA8bGk+XG4gICAgICAgICAgICAgICAgPHN0cm9uZz5FbWVyZ2VuY3kgU2VydmljZXM6PC9zdHJvbmc+IENhbGwgOTExXG4gICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICA8L3VsPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cblxuICAgICAgICB7LyogRm9vdGVyICovfVxuICAgICAgICA8ZGl2XG4gICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgIGJhY2tncm91bmRDb2xvcjogXCIjMmMyYzJjXCIsXG4gICAgICAgICAgICBjb2xvcjogXCJ3aGl0ZVwiLFxuICAgICAgICAgICAgcGFkZGluZzogXCIyMHB4IDMwcHhcIixcbiAgICAgICAgICAgIHRleHRBbGlnbjogXCJjZW50ZXJcIixcbiAgICAgICAgICAgIGZvbnRTaXplOiBcIjEycHhcIixcbiAgICAgICAgICB9fVxuICAgICAgICA+XG4gICAgICAgICAgPHAgc3R5bGU9e3sgbWFyZ2luOiBcIjAgMCAxMHB4IDBcIiB9fT5cbiAgICAgICAgICAgIFdlJmFwb3M7cmUgaGVyZSB0byBzdXBwb3J0IHlvdSBvbiB5b3VyIGpvdXJuZXkgdG8gYmV0dGVyIG1lbnRhbFxuICAgICAgICAgICAgaGVhbHRoLlxuICAgICAgICAgIDwvcD5cbiAgICAgICAgICA8cCBzdHlsZT17eyBtYXJnaW46IFwiMFwiIH19PlxuICAgICAgICAgICAgSGVhbGluZyBQYXRod2F5cyBDb3Vuc2VsaW5nIHwgTGljZW5zZWQgUHJvZmVzc2lvbmFsIENvdW5zZWxvciAjMTIzNDVcbiAgICAgICAgICA8L3A+XG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9kaXY+XG4g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

@@ -1,0 +1,115 @@
+5eec37ec99474f7c25bfa0e1f4d63223
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: Object.getOwnPropertyDescriptor(all, name).get
+    });
+}
+_export(exports, {
+    get calculateReschedulingPolicy () {
+        return calculateReschedulingPolicy;
+    },
+    get canRescheduleAppointment () {
+        return canRescheduleAppointment;
+    },
+    get getReschedulingWarningColor () {
+        return getReschedulingWarningColor;
+    }
+});
+const _cancellationpolicy = require("./cancellation-policy");
+function calculateReschedulingPolicy(appointmentDateTime, servicePrice) {
+    const appointmentDate = new Date(appointmentDateTime);
+    const now = new Date();
+    // Calculate hours between now and appointment
+    const hoursUntilAppointment = Math.ceil((appointmentDate.getTime() - now.getTime()) / (1000 * 60 * 60));
+    // Get base cancellation policy
+    const _cancellationPolicy = (0, _cancellationpolicy.calculateCancellationPolicy)(appointmentDateTime, servicePrice);
+    // Format time remaining
+    const timeRemaining = formatTimeUntilAppointment(hoursUntilAppointment);
+    // If appointment is in the past, no rescheduling allowed
+    if (hoursUntilAppointment <= 0) {
+        return {
+            canReschedule: false,
+            policy: "not_allowed",
+            fees: 0,
+            feePercentage: 0,
+            message: "Past appointments cannot be rescheduled. Please contact our office if you need assistance.",
+            timeRemaining: "Past due"
+        };
+    }
+    // 48+ hours: Free rescheduling
+    if (hoursUntilAppointment >= 48) {
+        return {
+            canReschedule: true,
+            policy: "free",
+            fees: 0,
+            feePercentage: 0,
+            message: "Free rescheduling available. You can reschedule without any fees.",
+            timeRemaining
+        };
+    }
+    // 24-48 hours: Rescheduling fee (50% of service price)
+    if (hoursUntilAppointment > 24) {
+        const fee = servicePrice * 0.5;
+        return {
+            canReschedule: true,
+            policy: "fee",
+            fees: fee,
+            feePercentage: 50,
+            message: `Rescheduling fee applies. You will be charged 50% of the session fee ($${fee.toFixed(2)}) to reschedule.`,
+            timeRemaining
+        };
+    }
+    // Less than or equal to 24 hours: No rescheduling allowed
+    return {
+        canReschedule: false,
+        policy: "not_allowed",
+        fees: 0,
+        feePercentage: 0,
+        message: "Appointments cannot be rescheduled within 24 hours of the scheduled time. Please contact our office directly if you have an emergency.",
+        timeRemaining
+    };
+}
+/**
+ * Format hours remaining into a human-readable string
+ *
+ * @param hoursUntilAppointment - Number of hours until appointment
+ * @returns Formatted string
+ */ function formatTimeUntilAppointment(hoursUntilAppointment) {
+    if (hoursUntilAppointment <= 0) {
+        return "Past due";
+    }
+    if (hoursUntilAppointment < 24) {
+        return `${hoursUntilAppointment} hours`;
+    }
+    const days = Math.floor(hoursUntilAppointment / 24);
+    const remainingHours = hoursUntilAppointment % 24;
+    if (remainingHours === 0) {
+        return `${days} day${days !== 1 ? "s" : ""}`;
+    }
+    return `${days} day${days !== 1 ? "s" : ""} ${remainingHours} hours`;
+}
+function getReschedulingWarningColor(hoursUntilAppointment) {
+    if (hoursUntilAppointment <= 0) return "gray";
+    if (hoursUntilAppointment >= 48) return "green";
+    if (hoursUntilAppointment >= 24) return "yellow";
+    return "red";
+}
+function canRescheduleAppointment(status, appointmentDateTime) {
+    // Only allow rescheduling for PENDING or CONFIRMED appointments
+    if (status !== "PENDING" && status !== "CONFIRMED") {
+        return false;
+    }
+    // Check time-based restrictions
+    const appointmentDate = new Date(appointmentDateTime);
+    const now = new Date();
+    const hoursUntilAppointment = Math.ceil((appointmentDate.getTime() - now.getTime()) / (1000 * 60 * 60));
+    // Must be more than 24 hours in the future
+    return hoursUntilAppointment > 24;
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkQ6XFxnaXRodWJcXENDX1NpdGVcXHNyY1xcbGliXFx1dGlsc1xccmVzY2hlZHVsaW5nLXBvbGljeS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBjYWxjdWxhdGVDYW5jZWxsYXRpb25Qb2xpY3kgfSBmcm9tIFwiLi9jYW5jZWxsYXRpb24tcG9saWN5XCI7XG5cbmludGVyZmFjZSBSZXNjaGVkdWxpbmdQb2xpY3kge1xuICBjYW5SZXNjaGVkdWxlOiBib29sZWFuO1xuICBwb2xpY3k6IFwiZnJlZVwiIHwgXCJmZWVcIiB8IFwibm90X2FsbG93ZWRcIjtcbiAgZmVlczogbnVtYmVyO1xuICBmZWVQZXJjZW50YWdlOiBudW1iZXI7XG4gIG1lc3NhZ2U6IHN0cmluZztcbiAgdGltZVJlbWFpbmluZzogc3RyaW5nO1xufVxuXG4vKipcbiAqIENhbGN1bGF0ZSByZXNjaGVkdWxpbmcgcG9saWN5IGJhc2VkIG9uIHRpbWUgcmVtYWluaW5nIHVudGlsIGFwcG9pbnRtZW50XG4gKiBVc2VzIHNhbWUgdGltZSByZXN0cmljdGlvbnMgYXMgY2FuY2VsbGF0aW9uIHBvbGljeVxuICpcbiAqIEBwYXJhbSBhcHBvaW50bWVudERhdGVUaW1lIC0gSVNPIHN0cmluZyBvZiBhcHBvaW50bWVudCBkYXRlL3RpbWVcbiAqIEBwYXJhbSBzZXJ2aWNlUHJpY2UgLSBQcmljZSBvZiB0aGUgc2VydmljZSBhcyBhIG51bWJlclxuICogQHJldHVybnMgUmVzY2hlZHVsaW5nUG9saWN5IG9iamVjdCB3aXRoIGZlZSBkZXRhaWxzXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBjYWxjdWxhdGVSZXNjaGVkdWxpbmdQb2xpY3koXG4gIGFwcG9pbnRtZW50RGF0ZVRpbWU6IHN0cmluZyxcbiAgc2VydmljZVByaWNlOiBudW1iZXJcbik6IFJlc2NoZWR1bGluZ1BvbGljeSB7XG4gIGNvbnN0IGFwcG9pbnRtZW50RGF0ZSA9IG5ldyBEYXRlKGFwcG9pbnRtZW50RGF0ZVRpbWUpO1xuICBjb25zdCBub3cgPSBuZXcgRGF0ZSgpO1xuXG4gIC8vIENhbGN1bGF0ZSBob3VycyBiZXR3ZWVuIG5vdyBhbmQgYXBwb2ludG1lbnRcbiAgY29uc3QgaG91cnNVbnRpbEFwcG9pbnRtZW50ID0gTWF0aC5jZWlsKFxuICAgIChhcHBvaW50bWVudERhdGUuZ2V0VGltZSgpIC0gbm93LmdldFRpbWUoKSkgLyAoMTAwMCAqIDYwICogNjApXG4gICk7XG5cbiAgLy8gR2V0IGJhc2UgY2FuY2VsbGF0aW9uIHBvbGljeVxuICBjb25zdCBfY2FuY2VsbGF0aW9uUG9saWN5ID0gY2FsY3VsYXRlQ2FuY2VsbGF0aW9uUG9saWN5KFxuICAgIGFwcG9pbnRtZW50RGF0ZVRpbWUsXG4gICAgc2VydmljZVByaWNlXG4gICk7XG5cbiAgLy8gRm9ybWF0IHRpbWUgcmVtYWluaW5nXG4gIGNvbnN0IHRpbWVSZW1haW5pbmcgPSBmb3JtYXRUaW1lVW50aWxBcHBvaW50bWVudChob3Vyc1VudGlsQXBwb2ludG1lbnQpO1xuXG4gIC8vIElmIGFwcG9pbnRtZW50IGlzIGluIHRoZSBwYXN0LCBubyByZXNjaGVkdWxpbmcgYWxsb3dlZFxuICBpZiAoaG91cnNVbnRpbEFwcG9pbnRtZW50IDw9IDApIHtcbiAgICByZXR1cm4ge1xuICAgICAgY2FuUmVzY2hlZHVsZTogZmFsc2UsXG4gICAgICBwb2xpY3k6IFwibm90X2FsbG93ZWRcIixcbiAgICAgIGZlZXM6IDAsXG4gICAgICBmZWVQZXJjZW50YWdlOiAwLFxuICAgICAgbWVzc2FnZTpcbiAgICAgICAgXCJQYXN0IGFwcG9pbnRtZW50cyBjYW5ub3QgYmUgcmVzY2hlZHVsZWQuIFBsZWFzZSBjb250YWN0IG91ciBvZmZpY2UgaWYgeW91IG5lZWQgYXNzaXN0YW5jZS5cIixcbiAgICAgIHRpbWVSZW1haW5pbmc6IFwiUGFzdCBkdWVcIixcbiAgICB9O1xuICB9XG5cbiAgLy8gNDgrIGhvdXJzOiBGcmVlIHJlc2NoZWR1bGluZ1xuICBpZiAoaG91cnNVbnRpbEFwcG9pbnRtZW50ID49IDQ4KSB7XG4gICAgcmV0dXJuIHtcbiAgICAgIGNhblJlc2NoZWR1bGU6IHRydWUsXG4gICAgICBwb2xpY3k6IFwiZnJlZVwiLFxuICAgICAgZmVlczogMCxcbiAgICAgIGZlZVBlcmNlbnRhZ2U6IDAsXG4gICAgICBtZXNzYWdlOlxuICAgICAgICBcIkZyZWUgcmVzY2hlZHVsaW5nIGF2YWlsYWJsZS4gWW91IGNhbiByZXNjaGVkdWxlIHdpdGhvdXQgYW55IGZlZXMuXCIsXG4gICAgICB0aW1lUmVtYWluaW5nLFxuICAgIH07XG4gIH1cblxuICAvLyAyNC00OCBob3VyczogUmVzY2hlZHVsaW5nIGZlZSAoNTAlIG9mIHNlcnZpY2UgcHJpY2UpXG4gIGlmIChob3Vyc1VudGlsQXBwb2ludG1lbnQgPiAyNCkge1xuICAgIGNvbnN0IGZlZSA9IHNlcnZpY2VQcmljZSAqIDAuNTtcbiAgICByZXR1cm4ge1xuICAgICAgY2FuUmVzY2hlZHVsZTogdHJ1ZSxcbiAgICAgIHBvbGljeTogXCJmZWVcIixcbiAgICAgIGZlZXM6IGZlZSxcbiAgICAgIGZlZVBlcmNlbnRhZ2U6IDUwLFxuICAgICAgbWVzc2FnZTogYFJlc2NoZWR1bGluZyBmZWUgYXBwbGllcy4gWW91IHdpbGwgYmUgY2hhcmdlZCA1MCUgb2YgdGhlIHNlc3Npb24gZmVlICgkJHtmZWUudG9GaXhlZCgyKX0pIHRvIHJlc2NoZWR1bGUuYCxcbiAgICAgIHRpbWVSZW1haW5pbmcsXG4gICAgfTtcbiAgfVxuXG4gIC8vIExlc3MgdGhhbiBvciBlcXVhbCB0byAyNCBob3VyczogTm8gcmVzY2hlZHVsaW5nIGFsbG93ZWRcbiAgcmV0dXJuIHtcbiAgICBjYW5SZXNjaGVkdWxlOiBmYWxzZSxcbiAgICBwb2xpY3k6IFwibm90X2FsbG93ZWRcIixcbiAgICBmZWVzOiAwLFxuICAgIGZlZVBlcmNlbnRhZ2U6IDAsXG4gICAgbWVzc2FnZTpcbiAgICAgIFwiQXBwb2ludG1lbnRzIGNhbm5vdCBiZSByZXNjaGVkdWxlZCB3aXRoaW4gMjQgaG91cnMgb2YgdGhlIHNjaGVkdWxlZCB0aW1lLiBQbGVhc2UgY29udGFjdCBvdXIgb2ZmaWNlIGRpcmVjdGx5IGlmIHlvdSBoYXZlIGFuIGVtZXJnZW5jeS5cIixcbiAgICB0aW1lUmVtYWluaW5nLFxuICB9O1xufVxuXG4vKipcbiAqIEZvcm1hdCBob3VycyByZW1haW5pbmcgaW50byBhIGh1bWFuLXJlYWRhYmxlIHN0cmluZ1xuICpcbiAqIEBwYXJhbSBob3Vyc1VudGlsQXBwb2ludG1lbnQgLSBOdW1iZXIgb2YgaG91cnMgdW50aWwgYXBwb2ludG1lbnRcbiAqIEByZXR1cm5zIEZvcm1hdHRlZCBzdHJpbmdcbiAqL1xuZnVuY3Rpb24gZm9ybWF0VGltZVVudGlsQXBwb2ludG1lbnQoaG91cnNVbnRpbEFwcG9pbnRtZW50OiBudW1iZXIpOiBzdHJpbmcge1xuICBpZiAoaG91cnNVbnRpbEFwcG9pbnRtZW50IDw9IDApIHtcbiAgICByZXR1cm4gXCJQYXN0IGR1ZVwiO1xuICB9XG5cbiAgaWYgKGhvdXJzVW50aWxBcHBvaW50bWVudCA8IDI0KSB7XG4gICAgcmV0dXJuIGAke2hvdXJzVW50aWxBcHBvaW50bWVudH0gaG91cnNgO1xuICB9XG5cbiAgY29uc3QgZGF5cyA9IE1hdGguZmxvb3IoaG91cnNVbnRpbEFwcG9pbnRtZW50IC8gMjQpO1xuICBjb25zdCByZW1haW5pbmdIb3VycyA9IGhvdXJzVW50aWxBcHBvaW50bWVudCAlIDI0O1xuXG4gIGlmIChyZW1haW5pbmdIb3VycyA9PT0gMCkge1xuICAgIHJldHVybiBgJHtkYXlzfSBkYXkke2RheXMgIT09IDEgPyBcInNcIiA6IFwiXCJ9YDtcbiAgfVxuXG4gIHJldHVybiBgJHtkYXlzfSBkYXkke2RheXMgIT09IDEgPyBcInNcIiA6IFwiXCJ9ICR7cmVtYWluaW5nSG91cnN9IGhvdXJzYDtcbn1cblxuLyoqXG4gKiBHZXQgcmVzY2hlZHVsaW5nIHdhcm5pbmcgY29sb3IgZm9yIFVJIHN0eWxpbmdcbiAqXG4gKiBAcGFyYW0gaG91cnNVbnRpbEFwcG9pbnRtZW50IC0gTnVtYmVyIG9mIGhvdXJzIHVudGlsIGFwcG9pbnRtZW50XG4gKiBAcmV0dXJucyBDU1MgY29sb3IgY2xhc3Mgc3VmZml4XG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBnZXRSZXNjaGVkdWxpbmdXYXJuaW5nQ29sb3IoXG4gIGhvdXJzVW50aWxBcHBvaW50bWVudDogbnVtYmVyXG4pOiBcImdyZWVuXCIgfCBcInllbGxvd1wiIHwgXCJyZWRcIiB8IFwiZ3JheVwiIHtcbiAgaWYgKGhvdXJzVW50aWxBcHBvaW50bWVudCA8PSAwKSByZXR1cm4gXCJncmF5XCI7XG4gIGlmIChob3Vyc1VudGlsQXBwb2ludG1lbnQgPj0gNDgpIHJldHVybiBcImdyZWVuXCI7XG4gIGlmIChob3Vyc1VudGlsQXBwb2ludG1lbnQgPj0gMjQpIHJldHVybiBcInllbGxvd1wiO1xuICByZXR1cm4gXCJyZWRcIjtcbn1cblxuLyoqXG4gKiBDaGVjayBpZiBhcHBvaW50bWVudCBjYW4gYmUgcmVzY2hlZHVsZWQgYmFzZWQgb24gc3RhdHVzIGFuZCB0aW1lXG4gKlxuICogQHBhcmFtIHN0YXR1cyAtIEFwcG9pbnRtZW50IHN0YXR1c1xuICogQHBhcmFtIGFwcG9pbnRtZW50RGF0ZVRpbWUgLSBJU08gc3RyaW5nIG9mIGFwcG9pbnRtZW50IGRhdGUvdGltZVxuICogQHJldHVybnMgYm9vbGVhbiBpbmRpY2F0aW5nIGlmIHJlc2NoZWR1bGluZyBpcyBhbGxvd2VkXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBjYW5SZXNjaGVkdWxlQXBwb2ludG1lbnQoXG4gIHN0YXR1czogc3RyaW5nLFxuICBhcHBvaW50bWVudERhdGVUaW1lOiBzdHJpbmdcbik6IGJvb2xlYW4ge1xuICAvLyBPbmx5IGFsbG93IHJlc2NoZWR1bGluZyBmb3IgUEVORElORyBvciBDT05GSVJNRUQgYXBwb2ludG1lbnRzXG4gIGlmIChzdGF0dXMgIT09IFwiUEVORElOR1wiICYmIHN0YXR1cyAhPT0gXCJDT05GSVJNRURcIikge1xuICAgIHJldHVybiBmYWxzZTtcbiAgfVxuXG4gIC8vIENoZWNrIHRpbWUtYmFzZWQgcmVzdHJpY3Rpb25zXG4gIGNvbnN0IGFwcG9pbnRtZW50RGF0ZSA9IG5ldyBEYXRlKGFwcG9pbnRtZW50RGF0ZVRpbWUpO1xuICBjb25zdCBub3cgPSBuZXcgRGF0ZSgpO1xuICBjb25zdCBob3Vyc1VudGlsQXBwb2ludG1lbnQgPSBNYXRoLmNlaWwoXG4gICAgKGFwcG9pbnRtZW50RGF0ZS5nZXRUaW1lKCkgLSBub3cuZ2V0VGltZSgpKSAvICgxMDAwICogNjAgKiA2MClcbiAgKTtcblxuICAvLyBNdXN0IGJlIG1vcmUgdGhhbiAyNCBob3VycyBpbiB0aGUgZnV0dXJlXG4gIHJldHVybiBob3Vyc1VudGlsQXBwb2ludG1lbnQgPiAyNDtcbn1cbiJdLCJuYW1lcyI6WyJjYWxjdWxhdGVSZXNjaGVkdWxpbmdQb2xpY3kiLCJjYW5SZXNjaGVkdWxlQXBwb2ludG1lbnQiLCJnZXRSZXNjaGVkdWxpbmdXYXJuaW5nQ29sb3IiLCJhcHBvaW50bWVudERhdGVUaW1lIiwic2VydmljZVByaWNlIiwiYXBwb2ludG1lbnREYXRlIiwiRGF0ZSIsIm5vdyIsImhvdXJzVW50aWxBcHBvaW50bWVudCIsIk1hdGgiLCJjZWlsIiwiZ2V0VGltZSIsIl9jYW5jZWxsYXRpb25Qb2xpY3kiLCJjYWxjdWxhdGVDYW5jZWxsYXRpb25Qb2xpY3kiLCJ0aW1lUmVtYWluaW5nIiwiZm9ybWF0VGltZVVudGlsQXBwb2ludG1lbnQiLCJjYW5SZXNjaGVkdWxlIiwicG9saWN5IiwiZmVlcyIsImZlZVBlcmNlbnRhZ2UiLCJtZXNzYWdlIiwiZmVlIiwidG9GaXhlZCIsImRheXMiLCJmbG9vciIsInJlbWFpbmluZ0hvdXJzIiwic3RhdHVzIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7OztRQW1CZ0JBO2VBQUFBOztRQXVIQUM7ZUFBQUE7O1FBaEJBQztlQUFBQTs7O29DQTFINEI7QUFtQnJDLFNBQVNGLDRCQUNkRyxtQkFBMkIsRUFDM0JDLFlBQW9CO0lBRXBCLE1BQU1DLGtCQUFrQixJQUFJQyxL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

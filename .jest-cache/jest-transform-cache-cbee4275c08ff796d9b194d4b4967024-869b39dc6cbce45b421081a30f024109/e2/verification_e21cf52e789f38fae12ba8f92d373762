@@ -1,0 +1,1455 @@
+00e417780004abbcf01f10ff14722519
+"use strict";
+
+/* istanbul ignore next */
+function cov_nd6erzj7g() {
+  var path = "D:\\github\\CC_Site\\src\\lib\\email\\verification.ts";
+  var hash = "2e418683bb55b50f7ce85803d49ae1d3c7b2fd75";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\github\\CC_Site\\src\\lib\\email\\verification.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 4,
+          column: 3
+        }
+      },
+      "1": {
+        start: {
+          line: 6,
+          column: 4
+        },
+        end: {
+          line: 9,
+          column: 7
+        }
+      },
+      "2": {
+        start: {
+          line: 6,
+          column: 24
+        },
+        end: {
+          line: 9,
+          column: 7
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 0
+        },
+        end: {
+          line: 21,
+          column: 3
+        }
+      },
+      "4": {
+        start: {
+          line: 13,
+          column: 8
+        },
+        end: {
+          line: 13,
+          column: 41
+        }
+      },
+      "5": {
+        start: {
+          line: 16,
+          column: 8
+        },
+        end: {
+          line: 16,
+          column: 37
+        }
+      },
+      "6": {
+        start: {
+          line: 19,
+          column: 8
+        },
+        end: {
+          line: 19,
+          column: 32
+        }
+      },
+      "7": {
+        start: {
+          line: 22,
+          column: 12
+        },
+        end: {
+          line: 22,
+          column: 28
+        }
+      },
+      "8": {
+        start: {
+          line: 23,
+          column: 16
+        },
+        end: {
+          line: 23,
+          column: 36
+        }
+      },
+      "9": {
+        start: {
+          line: 24,
+          column: 34
+        },
+        end: {
+          line: 24,
+          column: 81
+        }
+      },
+      "10": {
+        start: {
+          line: 25,
+          column: 30
+        },
+        end: {
+          line: 25,
+          column: 73
+        }
+      },
+      "11": {
+        start: {
+          line: 27,
+          column: 4
+        },
+        end: {
+          line: 29,
+          column: 6
+        }
+      },
+      "12": {
+        start: {
+          line: 32,
+          column: 20
+        },
+        end: {
+          line: 40,
+          column: 2
+        }
+      },
+      "13": {
+        start: {
+          line: 42,
+          column: 18
+        },
+        end: {
+          line: 42,
+          column: 65
+        }
+      },
+      "14": {
+        start: {
+          line: 43,
+          column: 20
+        },
+        end: {
+          line: 43,
+          column: 62
+        }
+      },
+      "15": {
+        start: {
+          line: 45,
+          column: 4
+        },
+        end: {
+          line: 49,
+          column: 7
+        }
+      },
+      "16": {
+        start: {
+          line: 51,
+          column: 4
+        },
+        end: {
+          line: 57,
+          column: 7
+        }
+      },
+      "17": {
+        start: {
+          line: 58,
+          column: 4
+        },
+        end: {
+          line: 61,
+          column: 7
+        }
+      },
+      "18": {
+        start: {
+          line: 62,
+          column: 4
+        },
+        end: {
+          line: 62,
+          column: 17
+        }
+      },
+      "19": {
+        start: {
+          line: 65,
+          column: 4
+        },
+        end: {
+          line: 190,
+          column: 5
+        }
+      },
+      "20": {
+        start: {
+          line: 67,
+          column: 8
+        },
+        end: {
+          line: 75,
+          column: 9
+        }
+      },
+      "21": {
+        start: {
+          line: 68,
+          column: 12
+        },
+        end: {
+          line: 70,
+          column: 15
+        }
+      },
+      "22": {
+        start: {
+          line: 71,
+          column: 12
+        },
+        end: {
+          line: 74,
+          column: 14
+        }
+      },
+      "23": {
+        start: {
+          line: 77,
+          column: 22
+        },
+        end: {
+          line: 77,
+          column: 60
+        }
+      },
+      "24": {
+        start: {
+          line: 78,
+          column: 32
+        },
+        end: {
+          line: 78,
+          column: 137
+        }
+      },
+      "25": {
+        start: {
+          line: 80,
+          column: 21
+        },
+        end: {
+          line: 148,
+          column: 5
+        }
+      },
+      "26": {
+        start: {
+          line: 149,
+          column: 21
+        },
+        end: {
+          line: 164,
+          column: 5
+        }
+      },
+      "27": {
+        start: {
+          line: 165,
+          column: 28
+        },
+        end: {
+          line: 171,
+          column: 9
+        }
+      },
+      "28": {
+        start: {
+          line: 172,
+          column: 21
+        },
+        end: {
+          line: 172,
+          column: 60
+        }
+      },
+      "29": {
+        start: {
+          line: 173,
+          column: 8
+        },
+        end: {
+          line: 177,
+          column: 11
+        }
+      },
+      "30": {
+        start: {
+          line: 178,
+          column: 8
+        },
+        end: {
+          line: 181,
+          column: 10
+        }
+      },
+      "31": {
+        start: {
+          line: 183,
+          column: 8
+        },
+        end: {
+          line: 185,
+          column: 11
+        }
+      },
+      "32": {
+        start: {
+          line: 186,
+          column: 8
+        },
+        end: {
+          line: 189,
+          column: 10
+        }
+      },
+      "33": {
+        start: {
+          line: 193,
+          column: 4
+        },
+        end: {
+          line: 246,
+          column: 5
+        }
+      },
+      "34": {
+        start: {
+          line: 195,
+          column: 34
+        },
+        end: {
+          line: 203,
+          column: 10
+        }
+      },
+      "35": {
+        start: {
+          line: 204,
+          column: 8
+        },
+        end: {
+          line: 212,
+          column: 9
+        }
+      },
+      "36": {
+        start: {
+          line: 205,
+          column: 12
+        },
+        end: {
+          line: 207,
+          column: 15
+        }
+      },
+      "37": {
+        start: {
+          line: 208,
+          column: 12
+        },
+        end: {
+          line: 211,
+          column: 14
+        }
+      },
+      "38": {
+        start: {
+          line: 214,
+          column: 8
+        },
+        end: {
+          line: 221,
+          column: 11
+        }
+      },
+      "39": {
+        start: {
+          line: 223,
+          column: 8
+        },
+        end: {
+          line: 230,
+          column: 11
+        }
+      },
+      "40": {
+        start: {
+          line: 231,
+          column: 8
+        },
+        end: {
+          line: 233,
+          column: 11
+        }
+      },
+      "41": {
+        start: {
+          line: 234,
+          column: 8
+        },
+        end: {
+          line: 236,
+          column: 10
+        }
+      },
+      "42": {
+        start: {
+          line: 238,
+          column: 8
+        },
+        end: {
+          line: 241,
+          column: 11
+        }
+      },
+      "43": {
+        start: {
+          line: 242,
+          column: 8
+        },
+        end: {
+          line: 245,
+          column: 10
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "_export",
+        decl: {
+          start: {
+            line: 5,
+            column: 9
+          },
+          end: {
+            line: 5,
+            column: 16
+          }
+        },
+        loc: {
+          start: {
+            line: 5,
+            column: 30
+          },
+          end: {
+            line: 10,
+            column: 1
+          }
+        },
+        line: 5
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 12,
+            column: 4
+          },
+          end: {
+            line: 12,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 12,
+            column: 37
+          },
+          end: {
+            line: 14,
+            column: 5
+          }
+        },
+        line: 12
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 15,
+            column: 4
+          },
+          end: {
+            line: 15,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 33
+          },
+          end: {
+            line: 17,
+            column: 5
+          }
+        },
+        line: 15
+      },
+      "3": {
+        name: "(anonymous_3)",
+        decl: {
+          start: {
+            line: 18,
+            column: 4
+          },
+          end: {
+            line: 18,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 18,
+            column: 28
+          },
+          end: {
+            line: 20,
+            column: 5
+          }
+        },
+        line: 18
+      },
+      "4": {
+        name: "_interop_require_default",
+        decl: {
+          start: {
+            line: 26,
+            column: 9
+          },
+          end: {
+            line: 26,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 26,
+            column: 39
+          },
+          end: {
+            line: 30,
+            column: 1
+          }
+        },
+        line: 26
+      },
+      "5": {
+        name: "generateVerificationToken",
+        decl: {
+          start: {
+            line: 41,
+            column: 15
+          },
+          end: {
+            line: 41,
+            column: 40
+          }
+        },
+        loc: {
+          start: {
+            line: 41,
+            column: 48
+          },
+          end: {
+            line: 63,
+            column: 1
+          }
+        },
+        line: 41
+      },
+      "6": {
+        name: "sendVerificationEmail",
+        decl: {
+          start: {
+            line: 64,
+            column: 15
+          },
+          end: {
+            line: 64,
+            column: 36
+          }
+        },
+        loc: {
+          start: {
+            line: 64,
+            column: 50
+          },
+          end: {
+            line: 191,
+            column: 1
+          }
+        },
+        line: 64
+      },
+      "7": {
+        name: "verifyEmailToken",
+        decl: {
+          start: {
+            line: 192,
+            column: 15
+          },
+          end: {
+            line: 192,
+            column: 31
+          }
+        },
+        loc: {
+          start: {
+            line: 192,
+            column: 46
+          },
+          end: {
+            line: 247,
+            column: 1
+          }
+        },
+        line: 192
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 27,
+            column: 11
+          },
+          end: {
+            line: 29,
+            column: 5
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 27,
+            column: 35
+          },
+          end: {
+            line: 27,
+            column: 38
+          }
+        }, {
+          start: {
+            line: 27,
+            column: 41
+          },
+          end: {
+            line: 29,
+            column: 5
+          }
+        }],
+        line: 27
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 27,
+            column: 11
+          },
+          end: {
+            line: 27,
+            column: 32
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 27,
+            column: 11
+          },
+          end: {
+            line: 27,
+            column: 14
+          }
+        }, {
+          start: {
+            line: 27,
+            column: 18
+          },
+          end: {
+            line: 27,
+            column: 32
+          }
+        }],
+        line: 27
+      },
+      "2": {
+        loc: {
+          start: {
+            line: 34,
+            column: 19
+          },
+          end: {
+            line: 34,
+            column: 57
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 34,
+            column: 19
+          },
+          end: {
+            line: 34,
+            column: 48
+          }
+        }, {
+          start: {
+            line: 34,
+            column: 52
+          },
+          end: {
+            line: 34,
+            column: 57
+          }
+        }],
+        line: 34
+      },
+      "3": {
+        loc: {
+          start: {
+            line: 67,
+            column: 8
+          },
+          end: {
+            line: 75,
+            column: 9
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 67,
+            column: 8
+          },
+          end: {
+            line: 75,
+            column: 9
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 67
+      },
+      "4": {
+        loc: {
+          start: {
+            line: 67,
+            column: 12
+          },
+          end: {
+            line: 67,
+            column: 80
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 67,
+            column: 12
+          },
+          end: {
+            line: 67,
+            column: 42
+          }
+        }, {
+          start: {
+            line: 67,
+            column: 46
+          },
+          end: {
+            line: 67,
+            column: 80
+          }
+        }],
+        line: 67
+      },
+      "5": {
+        loc: {
+          start: {
+            line: 183,
+            column: 66
+          },
+          end: {
+            line: 183,
+            column: 123
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 183,
+            column: 91
+          },
+          end: {
+            line: 183,
+            column: 96
+          }
+        }, {
+          start: {
+            line: 183,
+            column: 99
+          },
+          end: {
+            line: 183,
+            column: 123
+          }
+        }],
+        line: 183
+      },
+      "6": {
+        loc: {
+          start: {
+            line: 188,
+            column: 19
+          },
+          end: {
+            line: 188,
+            column: 75
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 188,
+            column: 44
+          },
+          end: {
+            line: 188,
+            column: 57
+          }
+        }, {
+          start: {
+            line: 188,
+            column: 60
+          },
+          end: {
+            line: 188,
+            column: 75
+          }
+        }],
+        line: 188
+      },
+      "7": {
+        loc: {
+          start: {
+            line: 204,
+            column: 8
+          },
+          end: {
+            line: 212,
+            column: 9
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 204,
+            column: 8
+          },
+          end: {
+            line: 212,
+            column: 9
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 204
+      },
+      "8": {
+        loc: {
+          start: {
+            line: 238,
+            column: 61
+          },
+          end: {
+            line: 238,
+            column: 118
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 238,
+            column: 86
+          },
+          end: {
+            line: 238,
+            column: 91
+          }
+        }, {
+          start: {
+            line: 238,
+            column: 94
+          },
+          end: {
+            line: 238,
+            column: 118
+          }
+        }],
+        line: 238
+      },
+      "9": {
+        loc: {
+          start: {
+            line: 244,
+            column: 19
+          },
+          end: {
+            line: 244,
+            column: 81
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 244,
+            column: 44
+          },
+          end: {
+            line: 244,
+            column: 57
+          }
+        }, {
+          start: {
+            line: 244,
+            column: 60
+          },
+          end: {
+            line: 244,
+            column: 81
+          }
+        }],
+        line: 244
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "16": 0,
+      "17": 0,
+      "18": 0,
+      "19": 0,
+      "20": 0,
+      "21": 0,
+      "22": 0,
+      "23": 0,
+      "24": 0,
+      "25": 0,
+      "26": 0,
+      "27": 0,
+      "28": 0,
+      "29": 0,
+      "30": 0,
+      "31": 0,
+      "32": 0,
+      "33": 0,
+      "34": 0,
+      "35": 0,
+      "36": 0,
+      "37": 0,
+      "38": 0,
+      "39": 0,
+      "40": 0,
+      "41": 0,
+      "42": 0,
+      "43": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0],
+      "2": [0, 0],
+      "3": [0, 0],
+      "4": [0, 0],
+      "5": [0, 0],
+      "6": [0, 0],
+      "7": [0, 0],
+      "8": [0, 0],
+      "9": [0, 0]
+    },
+    inputSourceMap: {
+      version: 3,
+      sources: ["D:\\github\\CC_Site\\src\\lib\\email\\verification.ts"],
+      sourcesContent: ["import { render as _render } from \"@react-email/components\";\nimport { prisma } from \"@/lib/db\";\nimport { logger } from \"@/lib/logger\";\nimport nodemailer from \"nodemailer\";\nimport crypto from \"crypto\";\n\n// Create reusable transporter\nconst transporter = nodemailer.createTransport({\n  host: process.env.EMAIL_SERVER_HOST,\n  port: parseInt(process.env.EMAIL_SERVER_PORT || \"587\"),\n  secure: false, // true for 465, false for other ports\n  auth: {\n    user: process.env.EMAIL_SERVER_USER,\n    pass: process.env.EMAIL_SERVER_PASSWORD,\n  },\n});\n\nexport async function generateVerificationToken(\n  email: string\n): Promise<string> {\n  const token = crypto.randomBytes(32).toString(\"hex\");\n  const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours\n\n  // Delete any existing tokens for this email\n  await prisma.verificationToken.deleteMany({\n    where: {\n      identifier: email,\n    },\n  });\n\n  // Create new token\n  await prisma.verificationToken.create({\n    data: {\n      identifier: email,\n      token,\n      expires,\n    },\n  });\n\n  logger.info(\"Verification token generated\", { email, expires });\n  return token;\n}\n\nexport async function sendVerificationEmail(\n  email: string,\n  name: string\n): Promise<{ success: boolean; error?: string; messageId?: string }> {\n  try {\n    // Check if email configuration is available\n    if (!process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD) {\n      logger.warn(\n        \"Email configuration not available, skipping verification email\",\n        {\n          email,\n        }\n      );\n      return { success: false, error: \"Email configuration not available\" };\n    }\n\n    // Generate verification token\n    const token = await generateVerificationToken(email);\n    const verificationUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/auth/verify-email?token=${token}&email=${encodeURIComponent(email)}`;\n\n    // Create professional HTML email\n    const html = `\n      <!DOCTYPE html>\n      <html>\n        <head>\n          <meta charset=\"utf-8\">\n          <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n          <title>Verify Your Email - Healing Pathways Counseling</title>\n        </head>\n        <body style=\"font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9;\">\n          <div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff;\">\n            <!-- Header -->\n            <div style=\"background-color: #4a8b8c; color: white; padding: 30px 20px; text-align: center;\">\n              <h1 style=\"margin: 0; font-size: 28px; font-weight: 300; font-family: 'Playfair Display', serif;\">\n                Healing Pathways Counseling\n              </h1>\n            </div>\n            \n            <!-- Main Content -->\n            <div style=\"padding: 40px 30px;\">\n              <h2 style=\"color: #2c2c2c; font-size: 24px; margin-bottom: 20px; font-weight: 300;\">\n                Welcome, ${name}!\n              </h2>\n              \n              <p style=\"color: #555; line-height: 1.6; margin-bottom: 20px; font-size: 16px;\">\n                Thank you for creating your account with Healing Pathways Counseling. \n                To complete your registration and secure your account, please verify your email address.\n              </p>\n              \n              <p style=\"color: #555; line-height: 1.6; margin-bottom: 30px; font-size: 16px;\">\n                Click the button below to verify your email address:\n              </p>\n              \n              <!-- Verification Button -->\n              <div style=\"text-align: center; margin: 30px 0;\">\n                <a href=\"${verificationUrl}\" \n                   style=\"background-color: #4a8b8c; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: 500; display: inline-block;\">\n                  Verify Email Address\n                </a>\n              </div>\n              \n              <p style=\"color: #777; font-size: 14px; line-height: 1.5; margin-top: 30px;\">\n                If the button doesn't work, you can also copy and paste this link into your browser:\n              </p>\n              <p style=\"color: #4a8b8c; font-size: 14px; word-break: break-all; margin-bottom: 30px;\">\n                ${verificationUrl}\n              </p>\n              \n              <div style=\"border-top: 1px solid #eee; padding-top: 20px; margin-top: 30px;\">\n                <p style=\"color: #777; font-size: 14px; line-height: 1.5; margin-bottom: 10px;\">\n                  <strong>Important:</strong> This verification link will expire in 24 hours for security reasons.\n                </p>\n                <p style=\"color: #777; font-size: 14px; line-height: 1.5; margin-bottom: 10px;\">\n                  If you didn't create an account with us, please ignore this email.\n                </p>\n              </div>\n            </div>\n            \n            <!-- Footer -->\n            <div style=\"background-color: #f0f7f7; padding: 20px 30px; border-top: 1px solid #e0e0e0;\">\n              <p style=\"color: #666; font-size: 12px; line-height: 1.4; margin: 0; text-align: center;\">\n                This email was sent by Healing Pathways Counseling<br>\n                If you need help, contact us at \n                <a href=\"mailto:${process.env.EMAIL_FROM}\" style=\"color: #4a8b8c;\">${process.env.EMAIL_FROM}</a>\n              </p>\n            </div>\n          </div>\n        </body>\n      </html>\n    `;\n\n    const text = `\nWelcome to Healing Pathways Counseling, ${name}!\n\nThank you for creating your account. To complete your registration and secure your account, please verify your email address.\n\nClick this link to verify your email:\n${verificationUrl}\n\nThis verification link will expire in 24 hours for security reasons.\n\nIf you didn't create an account with us, please ignore this email.\n\nNeed help? Contact us at ${process.env.EMAIL_FROM}\n\nHealing Pathways Counseling\n    `;\n\n    const mailOptions = {\n      from: `\"Healing Pathways Counseling\" <${process.env.EMAIL_FROM}>`,\n      to: email,\n      subject: \"Verify Your Email Address - Healing Pathways Counseling\",\n      html,\n      text,\n    };\n\n    const info = await transporter.sendMail(mailOptions);\n    logger.info(\"Verification email sent successfully\", {\n      email,\n      messageId: info.messageId,\n      token: token.substring(0, 8) + \"...\", // Log partial token for debugging\n    });\n\n    return { success: true, messageId: info.messageId };\n  } catch (error) {\n    logger.error(\n      \"Failed to send verification email\",\n      error instanceof Error ? error : new Error(String(error)),\n      { email }\n    );\n    return {\n      success: false,\n      error: error instanceof Error ? error.message : \"Unknown error\",\n    };\n  }\n}\n\nexport async function verifyEmailToken(\n  email: string,\n  token: string\n): Promise<{ success: boolean; error?: string }> {\n  try {\n    // Find the verification token\n    const verificationToken = await prisma.verificationToken.findFirst({\n      where: {\n        identifier: email,\n        token,\n        expires: {\n          gt: new Date(), // Token must not be expired\n        },\n      },\n    });\n\n    if (!verificationToken) {\n      logger.warn(\"Invalid or expired verification token\", { email });\n      return { success: false, error: \"Invalid or expired verification token\" };\n    }\n\n    // Update user as verified\n    await prisma.user.update({\n      where: { email },\n      data: { emailVerified: new Date() },\n    });\n\n    // Delete the used verification token\n    await prisma.verificationToken.delete({\n      where: {\n        identifier_token: {\n          identifier: verificationToken.identifier,\n          token: verificationToken.token,\n        },\n      },\n    });\n\n    logger.info(\"Email verified successfully\", { email });\n    return { success: true };\n  } catch (error) {\n    logger.error(\n      \"Failed to verify email token\",\n      error instanceof Error ? error : new Error(String(error)),\n      { email, token: token.substring(0, 8) + \"...\" }\n    );\n    return {\n      success: false,\n      error: error instanceof Error ? error.message : \"Verification failed\",\n    };\n  }\n}\n"],
+      names: ["generateVerificationToken", "sendVerificationEmail", "verifyEmailToken", "transporter", "nodemailer", "createTransport", "host", "process", "env", "EMAIL_SERVER_HOST", "port", "parseInt", "EMAIL_SERVER_PORT", "secure", "auth", "user", "EMAIL_SERVER_USER", "pass", "EMAIL_SERVER_PASSWORD", "email", "token", "crypto", "randomBytes", "toString", "expires", "Date", "now", "prisma", "verificationToken", "deleteMany", "where", "identifier", "create", "data", "logger", "info", "name", "warn", "success", "error", "verificationUrl", "NEXT_PUBLIC_SITE_URL", "encodeURIComponent", "html", "EMAIL_FROM", "text", "mailOptions", "from", "to", "subject", "sendMail", "messageId", "substring", "Error", "String", "message", "findFirst", "gt", "update", "emailVerified", "delete", "identifier_token"],
+      mappings: "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"
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "2e418683bb55b50f7ce85803d49ae1d3c7b2fd75"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_nd6erzj7g = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_nd6erzj7g();
+cov_nd6erzj7g().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function _export(target, all) {
+  /* istanbul ignore next */
+  cov_nd6erzj7g().f[0]++;
+  cov_nd6erzj7g().s[1]++;
+  for (var name in all) {
+    /* istanbul ignore next */
+    cov_nd6erzj7g().s[2]++;
+    Object.defineProperty(target, name, {
+      enumerable: true,
+      get: Object.getOwnPropertyDescriptor(all, name).get
+    });
+  }
+}
+/* istanbul ignore next */
+cov_nd6erzj7g().s[3]++;
+_export(exports, {
+  get generateVerificationToken() {
+    /* istanbul ignore next */
+    cov_nd6erzj7g().f[1]++;
+    cov_nd6erzj7g().s[4]++;
+    return generateVerificationToken;
+  },
+  get sendVerificationEmail() {
+    /* istanbul ignore next */
+    cov_nd6erzj7g().f[2]++;
+    cov_nd6erzj7g().s[5]++;
+    return sendVerificationEmail;
+  },
+  get verifyEmailToken() {
+    /* istanbul ignore next */
+    cov_nd6erzj7g().f[3]++;
+    cov_nd6erzj7g().s[6]++;
+    return verifyEmailToken;
+  }
+});
+const _db =
+/* istanbul ignore next */
+(cov_nd6erzj7g().s[7]++, require("../db"));
+const _logger =
+/* istanbul ignore next */
+(cov_nd6erzj7g().s[8]++, require("../logger"));
+const _nodemailer =
+/* istanbul ignore next */
+(/*#__PURE__*/cov_nd6erzj7g().s[9]++, _interop_require_default(require("nodemailer")));
+const _crypto =
+/* istanbul ignore next */
+(/*#__PURE__*/cov_nd6erzj7g().s[10]++, _interop_require_default(require("crypto")));
+function _interop_require_default(obj) {
+  /* istanbul ignore next */
+  cov_nd6erzj7g().f[4]++;
+  cov_nd6erzj7g().s[11]++;
+  return /* istanbul ignore next */(cov_nd6erzj7g().b[1][0]++, obj) &&
+  /* istanbul ignore next */
+  (cov_nd6erzj7g().b[1][1]++, obj.__esModule) ?
+  /* istanbul ignore next */
+  (cov_nd6erzj7g().b[0][0]++, obj) :
+  /* istanbul ignore next */
+  (cov_nd6erzj7g().b[0][1]++, {
+    default: obj
+  });
+}
+// Create reusable transporter
+const transporter =
+/* istanbul ignore next */
+(cov_nd6erzj7g().s[12]++, _nodemailer.default.createTransport({
+  host: process.env.EMAIL_SERVER_HOST,
+  port: parseInt(
+  /* istanbul ignore next */
+  (cov_nd6erzj7g().b[2][0]++, process.env.EMAIL_SERVER_PORT) ||
+  /* istanbul ignore next */
+  (cov_nd6erzj7g().b[2][1]++, "587")),
+  secure: false,
+  auth: {
+    user: process.env.EMAIL_SERVER_USER,
+    pass: process.env.EMAIL_SERVER_PASSWORD
+  }
+}));
+async function generateVerificationToken(email) {
+  /* istanbul ignore next */
+  cov_nd6erzj7g().f[5]++;
+  const token =
+  /* istanbul ignore next */
+  (cov_nd6erzj7g().s[13]++, _crypto.default.randomBytes(32).toString("hex"));
+  const expires =
+  /* istanbul ignore next */
+  (cov_nd6erzj7g().s[14]++, new Date(Date.now() + 24 * 60 * 60 * 1000)); // 24 hours
+  // Delete any existing tokens for this email
+  /* istanbul ignore next */
+  cov_nd6erzj7g().s[15]++;
+  await _db.prisma.verificationToken.deleteMany({
+    where: {
+      identifier: email
+    }
+  });
+  // Create new token
+  /* istanbul ignore next */
+  cov_nd6erzj7g().s[16]++;
+  await _db.prisma.verificationToken.create({
+    data: {
+      identifier: email,
+      token,
+      expires
+    }
+  });
+  /* istanbul ignore next */
+  cov_nd6erzj7g().s[17]++;
+  _logger.logger.info("Verification token generated", {
+    email,
+    expires
+  });
+  /* istanbul ignore next */
+  cov_nd6erzj7g().s[18]++;
+  return token;
+}
+async function sendVerificationEmail(email, name) {
+  /* istanbul ignore next */
+  cov_nd6erzj7g().f[6]++;
+  cov_nd6erzj7g().s[19]++;
+  try {
+    /* istanbul ignore next */
+    cov_nd6erzj7g().s[20]++;
+    // Check if email configuration is available
+    if (
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().b[4][0]++, !process.env.EMAIL_SERVER_USER) ||
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().b[4][1]++, !process.env.EMAIL_SERVER_PASSWORD)) {
+      /* istanbul ignore next */
+      cov_nd6erzj7g().b[3][0]++;
+      cov_nd6erzj7g().s[21]++;
+      _logger.logger.warn("Email configuration not available, skipping verification email", {
+        email
+      });
+      /* istanbul ignore next */
+      cov_nd6erzj7g().s[22]++;
+      return {
+        success: false,
+        error: "Email configuration not available"
+      };
+    } else
+    /* istanbul ignore next */
+    {
+      cov_nd6erzj7g().b[3][1]++;
+    }
+    // Generate verification token
+    const token =
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().s[23]++, await generateVerificationToken(email));
+    const verificationUrl =
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().s[24]++, `${process.env.NEXT_PUBLIC_SITE_URL}/auth/verify-email?token=${token}&email=${encodeURIComponent(email)}`);
+    // Create professional HTML email
+    const html =
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().s[25]++, `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Verify Your Email - Healing Pathways Counseling</title>
+        </head>
+        <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9;">
+          <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+            <!-- Header -->
+            <div style="background-color: #4a8b8c; color: white; padding: 30px 20px; text-align: center;">
+              <h1 style="margin: 0; font-size: 28px; font-weight: 300; font-family: 'Playfair Display', serif;">
+                Healing Pathways Counseling
+              </h1>
+            </div>
+            
+            <!-- Main Content -->
+            <div style="padding: 40px 30px;">
+              <h2 style="color: #2c2c2c; font-size: 24px; margin-bottom: 20px; font-weight: 300;">
+                Welcome, ${name}!
+              </h2>
+              
+              <p style="color: #555; line-height: 1.6; margin-bottom: 20px; font-size: 16px;">
+                Thank you for creating your account with Healing Pathways Counseling. 
+                To complete your registration and secure your account, please verify your email address.
+              </p>
+              
+              <p style="color: #555; line-height: 1.6; margin-bottom: 30px; font-size: 16px;">
+                Click the button below to verify your email address:
+              </p>
+              
+              <!-- Verification Button -->
+              <div style="text-align: center; margin: 30px 0;">
+                <a href="${verificationUrl}" 
+                   style="background-color: #4a8b8c; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: 500; display: inline-block;">
+                  Verify Email Address
+                </a>
+              </div>
+              
+              <p style="color: #777; font-size: 14px; line-height: 1.5; margin-top: 30px;">
+                If the button doesn't work, you can also copy and paste this link into your browser:
+              </p>
+              <p style="color: #4a8b8c; font-size: 14px; word-break: break-all; margin-bottom: 30px;">
+                ${verificationUrl}
+              </p>
+              
+              <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 30px;">
+                <p style="color: #777; font-size: 14px; line-height: 1.5; margin-bottom: 10px;">
+                  <strong>Important:</strong> This verification link will expire in 24 hours for security reasons.
+                </p>
+                <p style="color: #777; font-size: 14px; line-height: 1.5; margin-bottom: 10px;">
+                  If you didn't create an account with us, please ignore this email.
+                </p>
+              </div>
+            </div>
+            
+            <!-- Footer -->
+            <div style="background-color: #f0f7f7; padding: 20px 30px; border-top: 1px solid #e0e0e0;">
+              <p style="color: #666; font-size: 12px; line-height: 1.4; margin: 0; text-align: center;">
+                This email was sent by Healing Pathways Counseling<br>
+                If you need help, contact us at 
+                <a href="mailto:${process.env.EMAIL_FROM}" style="color: #4a8b8c;">${process.env.EMAIL_FROM}</a>
+              </p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `);
+    const text =
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().s[26]++, `
+Welcome to Healing Pathways Counseling, ${name}!
+
+Thank you for creating your account. To complete your registration and secure your account, please verify your email address.
+
+Click this link to verify your email:
+${verificationUrl}
+
+This verification link will expire in 24 hours for security reasons.
+
+If you didn't create an account with us, please ignore this email.
+
+Need help? Contact us at ${process.env.EMAIL_FROM}
+
+Healing Pathways Counseling
+    `);
+    const mailOptions =
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().s[27]++, {
+      from: `"Healing Pathways Counseling" <${process.env.EMAIL_FROM}>`,
+      to: email,
+      subject: "Verify Your Email Address - Healing Pathways Counseling",
+      html,
+      text
+    });
+    const info =
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().s[28]++, await transporter.sendMail(mailOptions));
+    /* istanbul ignore next */
+    cov_nd6erzj7g().s[29]++;
+    _logger.logger.info("Verification email sent successfully", {
+      email,
+      messageId: info.messageId,
+      token: token.substring(0, 8) + "..."
+    });
+    /* istanbul ignore next */
+    cov_nd6erzj7g().s[30]++;
+    return {
+      success: true,
+      messageId: info.messageId
+    };
+  } catch (error) {
+    /* istanbul ignore next */
+    cov_nd6erzj7g().s[31]++;
+    _logger.logger.error("Failed to send verification email", error instanceof Error ?
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().b[5][0]++, error) :
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().b[5][1]++, new Error(String(error))), {
+      email
+    });
+    /* istanbul ignore next */
+    cov_nd6erzj7g().s[32]++;
+    return {
+      success: false,
+      error: error instanceof Error ?
+      /* istanbul ignore next */
+      (cov_nd6erzj7g().b[6][0]++, error.message) :
+      /* istanbul ignore next */
+      (cov_nd6erzj7g().b[6][1]++, "Unknown error")
+    };
+  }
+}
+async function verifyEmailToken(email, token) {
+  /* istanbul ignore next */
+  cov_nd6erzj7g().f[7]++;
+  cov_nd6erzj7g().s[33]++;
+  try {
+    // Find the verification token
+    const verificationToken =
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().s[34]++, await _db.prisma.verificationToken.findFirst({
+      where: {
+        identifier: email,
+        token,
+        expires: {
+          gt: new Date()
+        }
+      }
+    }));
+    /* istanbul ignore next */
+    cov_nd6erzj7g().s[35]++;
+    if (!verificationToken) {
+      /* istanbul ignore next */
+      cov_nd6erzj7g().b[7][0]++;
+      cov_nd6erzj7g().s[36]++;
+      _logger.logger.warn("Invalid or expired verification token", {
+        email
+      });
+      /* istanbul ignore next */
+      cov_nd6erzj7g().s[37]++;
+      return {
+        success: false,
+        error: "Invalid or expired verification token"
+      };
+    } else
+    /* istanbul ignore next */
+    {
+      cov_nd6erzj7g().b[7][1]++;
+    }
+    // Update user as verified
+    cov_nd6erzj7g().s[38]++;
+    await _db.prisma.user.update({
+      where: {
+        email
+      },
+      data: {
+        emailVerified: new Date()
+      }
+    });
+    // Delete the used verification token
+    /* istanbul ignore next */
+    cov_nd6erzj7g().s[39]++;
+    await _db.prisma.verificationToken.delete({
+      where: {
+        identifier_token: {
+          identifier: verificationToken.identifier,
+          token: verificationToken.token
+        }
+      }
+    });
+    /* istanbul ignore next */
+    cov_nd6erzj7g().s[40]++;
+    _logger.logger.info("Email verified successfully", {
+      email
+    });
+    /* istanbul ignore next */
+    cov_nd6erzj7g().s[41]++;
+    return {
+      success: true
+    };
+  } catch (error) {
+    /* istanbul ignore next */
+    cov_nd6erzj7g().s[42]++;
+    _logger.logger.error("Failed to verify email token", error instanceof Error ?
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().b[8][0]++, error) :
+    /* istanbul ignore next */
+    (cov_nd6erzj7g().b[8][1]++, new Error(String(error))), {
+      email,
+      token: token.substring(0, 8) + "..."
+    });
+    /* istanbul ignore next */
+    cov_nd6erzj7g().s[43]++;
+    return {
+      success: false,
+      error: error instanceof Error ?
+      /* istanbul ignore next */
+      (cov_nd6erzj7g().b[9][0]++, error.message) :
+      /* istanbul ignore next */
+      (cov_nd6erzj7g().b[9][1]++, "Verification failed")
+    };
+  }
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJnZW5lcmF0ZVZlcmlmaWNhdGlvblRva2VuIiwiY292X25kNmVyemo3ZyIsImYiLCJzIiwic2VuZFZlcmlmaWNhdGlvbkVtYWlsIiwidmVyaWZ5RW1haWxUb2tlbiIsInRyYW5zcG9ydGVyIiwiX25vZGVtYWlsZXIiLCJkZWZhdWx0IiwiY3JlYXRlVHJhbnNwb3J0IiwiaG9zdCIsInByb2Nlc3MiLCJlbnYiLCJFTUFJTF9TRVJWRVJfSE9TVCIsInBvcnQiLCJwYXJzZUludCIsImIiLCJFTUFJTF9TRVJWRVJfUE9SVCIsInNlY3VyZSIsImF1dGgiLCJ1c2VyIiwiRU1BSUxfU0VSVkVSX1VTRVIiLCJwYXNzIiwiRU1BSUxfU0VSVkVSX1BBU1NXT1JEIiwiZW1haWwiLCJ0b2tlbiIsIl9jcnlwdG8iLCJyYW5kb21CeXRlcyIsInRvU3RyaW5nIiwiZXhwaXJlcyIsIkRhdGUiLCJub3ciLCJfZGIiLCJwcmlzbWEiLCJ2ZXJpZmljYXRpb25Ub2tlbiIsImRlbGV0ZU1hbnkiLCJ3aGVyZSIsImlkZW50aWZpZXIiLCJjcmVhdGUiLCJkYXRhIiwiX2xvZ2dlciIsImxvZ2dlciIsImluZm8iLCJuYW1lIiwid2FybiIsInN1Y2Nlc3MiLCJlcnJvciIsInZlcmlmaWNhdGlvblVybCIsIk5FWFRfUFVCTElDX1NJVEVfVVJMIiwiZW5jb2RlVVJJQ29tcG9uZW50IiwiaHRtbCIsIkVNQUlMX0ZST00iLCJ0ZXh0IiwibWFpbE9wdGlvbnMiLCJmcm9tIiwidG8iLCJzdWJqZWN0Iiwic2VuZE1haWwiLCJtZXNzYWdlSWQiLCJzdWJzdHJpbmciLCJFcnJvciIsIlN0cmluZyIsIm1lc3NhZ2UiLCJmaW5kRmlyc3QiLCJndCIsInVwZGF0ZSIsImVtYWlsVmVyaWZpZWQiLCJkZWxldGUiLCJpZGVudGlmaWVyX3Rva2VuIl0sInNvdXJjZXMiOlsiRDpcXGdpdGh1YlxcQ0NfU2l0ZVxcc3JjXFxsaWJcXGVtYWlsXFx2ZXJpZmljYXRpb24udHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgcmVuZGVyIGFzIF9yZW5kZXIgfSBmcm9tIFwiQHJlYWN0LWVtYWlsL2NvbXBvbmVudHNcIjtcbmltcG9ydCB7IHByaXNtYSB9IGZyb20gXCJAL2xpYi9kYlwiO1xuaW1wb3J0IHsgbG9nZ2VyIH0gZnJvbSBcIkAvbGliL2xvZ2dlclwiO1xuaW1wb3J0IG5vZGVtYWlsZXIgZnJvbSBcIm5vZGVtYWlsZXJcIjtcbmltcG9ydCBjcnlwdG8gZnJvbSBcImNyeXB0b1wiO1xuXG4vLyBDcmVhdGUgcmV1c2FibGUgdHJhbnNwb3J0ZXJcbmNvbnN0IHRyYW5zcG9ydGVyID0gbm9kZW1haWxlci5jcmVhdGVUcmFuc3BvcnQoe1xuICBob3N0OiBwcm9jZXNzLmVudi5FTUFJTF9TRVJWRVJfSE9TVCxcbiAgcG9ydDogcGFyc2VJbnQocHJvY2Vzcy5lbnYuRU1BSUxfU0VSVkVSX1BPUlQgfHwgXCI1ODdcIiksXG4gIHNlY3VyZTogZmFsc2UsIC8vIHRydWUgZm9yIDQ2NSwgZmFsc2UgZm9yIG90aGVyIHBvcnRzXG4gIGF1dGg6IHtcbiAgICB1c2VyOiBwcm9jZXNzLmVudi5FTUFJTF9TRVJWRVJfVVNFUixcbiAgICBwYXNzOiBwcm9jZXNzLmVudi5FTUFJTF9TRVJWRVJfUEFTU1dPUkQsXG4gIH0sXG59KTtcblxuZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGdlbmVyYXRlVmVyaWZpY2F0aW9uVG9rZW4oXG4gIGVtYWlsOiBzdHJpbmdcbik6IFByb21pc2U8c3RyaW5nPiB7XG4gIGNvbnN0IHRva2VuID0gY3J5cHRvLnJhbmRvbUJ5dGVzKDMyKS50b1N0cmluZyhcImhleFwiKTtcbiAgY29uc3QgZXhwaXJlcyA9IG5ldyBEYXRlKERhdGUubm93KCkgKyAyNCAqIDYwICogNjAgKiAxMDAwKTsgLy8gMjQgaG91cnNcblxuICAvLyBEZWxldGUgYW55IGV4aXN0aW5nIHRva2VucyBmb3IgdGhpcyBlbWFpbFxuICBhd2FpdCBwcmlzbWEudmVyaWZpY2F0aW9uVG9rZW4uZGVsZXRlTWFueSh7XG4gICAgd2hlcmU6IHtcbiAgICAgIGlkZW50aWZpZXI6IGVtYWlsLFxuICAgIH0sXG4gIH0pO1xuXG4gIC8vIENyZWF0ZSBuZXcgdG9rZW5cbiAgYXdhaXQgcHJpc21hLnZlcmlmaWNhdGlvblRva2VuLmNyZWF0ZSh7XG4gICAgZGF0YToge1xuICAgICAgaWRlbnRpZmllcjogZW1haWwsXG4gICAgICB0b2tlbixcbiAgICAgIGV4cGlyZXMsXG4gICAgfSxcbiAgfSk7XG5cbiAgbG9nZ2VyLmluZm8oXCJWZXJpZmljYXRpb24gdG9rZW4gZ2VuZXJhdGVkXCIsIHsgZW1haWwsIGV4cGlyZXMgfSk7XG4gIHJldHVybiB0b2tlbjtcbn1cblxuZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHNlbmRWZXJpZmljYXRpb25FbWFpbChcbiAgZW1haWw6IHN0cmluZyxcbiAgbmFtZTogc3RyaW5nXG4pOiBQcm9taXNlPHsgc3VjY2VzczogYm9vbGVhbjsgZXJyb3I/OiBzdHJpbmc7IG1lc3NhZ2VJZD86IHN0cmluZyB9PiB7XG4gIHRyeSB7XG4gICAgLy8gQ2hlY2sgaWYgZW1haWwgY29uZmlndXJhdGlvbiBpcyBhdmFpbGFibGVcbiAgICBpZiAoIXByb2Nlc3MuZW52LkVNQUlMX1NFUlZFUl9VU0VSIHx8ICFwcm9jZXNzLmVudi5FTUFJTF9TRVJWRVJfUEFTU1dPUkQpIHtcbiAgICAgIGxvZ2dlci53YXJuKFxuICAgICAgICBcIkVtYWlsIGNvbmZpZ3VyYXRpb24gbm90IGF2YWlsYWJsZSwgc2tpcHBpbmcgdmVyaWZpY2F0aW9uIGVtYWlsXCIsXG4gICAgICAgIHtcbiAgICAgICAgICBlbWFpbCxcbiAgICAgICAgfVxuICAgICAgKTtcbiAgICAgIHJldHVybiB7IHN1Y2Nlc3M6IGZhbHNlLCBlcnJvcjogXCJFbWFpbCBjb25maWd1cmF0aW9uIG5vdCBhdmFpbGFibGVcIiB9O1xuICAgIH1cblxuICAgIC8vIEdlbmVyYXRlIHZlcmlmaWNhdGlvbiB0b2tlblxuICAgIGNvbnN0IHRva2VuID0gYXdhaXQgZ2VuZXJhdGVWZXJpZmljYXRpb25Ub2tlbihlbWFpbCk7XG4gICAgY29uc3QgdmVyaWZpY2F0aW9uVXJsID0gYCR7cHJvY2Vzcy5lbnYuTkVYVF9QVUJMSUNfU0lURV9VUkx9L2F1dGgvdmVyaWZ5LWVtYWlsP3Rva2VuPSR7dG9rZW59JmVtYWlsPSR7ZW5jb2RlVVJJQ29tcG9uZW50KGVtYWlsKX1gO1xuXG4gICAgLy8gQ3JlYXRlIHByb2Zlc3Npb25hbCBIVE1MIGVtYWlsXG4gICAgY29uc3QgaHRtbCA9IGBcbiAgICAgIDwhRE9DVFlQRSBodG1sPlxuICAgICAgPGh0bWw+XG4gICAgICAgIDxoZWFkPlxuICAgICAgICAgIDxtZXRhIGNoYXJzZXQ9XCJ1dGYtOFwiPlxuICAgICAgICAgIDxtZXRhIG5hbWU9XCJ2aWV3cG9ydFwiIGNvbnRlbnQ9XCJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MS4wXCI+XG4gICAgICAgICAgPHRpdGxlPlZlcmlmeSBZb3VyIEVtYWlsIC0gSGVhbGluZyBQYXRod2F5cyBDb3Vuc2VsaW5nPC90aXRsZT5cbiAgICAgICAgPC9oZWFkPlxuICAgICAgICA8Ym9keSBzdHlsZT1cImZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjsgbWFyZ2luOiAwOyBwYWRkaW5nOiAwOyBiYWNrZ3JvdW5kLWNvbG9yOiAjZjlmOWY5O1wiPlxuICAgICAgICAgIDxkaXYgc3R5bGU9XCJtYXgtd2lkdGg6IDYwMHB4OyBtYXJnaW46IDAgYXV0bzsgYmFja2dyb3VuZC1jb2xvcjogI2ZmZmZmZjtcIj5cbiAgICAgICAgICAgIDwhLS0gSGVhZGVyIC0tPlxuICAgICAgICAgICAgPGRpdiBzdHlsZT1cImJhY2tncm91bmQtY29sb3I6ICM0YThiOGM7IGNvbG9yOiB3aGl0ZTsgcGFkZGluZzogMzBweCAyMHB4OyB0ZXh0LWFsaWduOiBjZW50ZXI7XCI+XG4gICAgICAgICAgICAgIDxoMSBzdHlsZT1cIm1hcmdpbjogMDsgZm9udC1zaXplOiAyOHB4OyBmb250LXdlaWdodDogMzAwOyBmb250LWZhbWlseTogJ1BsYXlmYWlyIERpc3BsYXknLCBzZXJpZjtcIj5cbiAgICAgICAgICAgICAgICBIZWFsaW5nIFBhdGh3YXlzIENvdW5zZWxpbmdcbiAgICAgICAgICAgICAgPC9oMT5cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgXG4gICAgICAgICAgICA8IS0tIE1haW4gQ29udGVudCAtLT5cbiAgICAgICAgICAgIDxkaXYgc3R5bGU9XCJwYWRkaW5nOiA0MHB4IDMwcHg7XCI+XG4gICAgICAgICAgICAgIDxoMiBzdHlsZT1cImNvbG9yOiAjMmMyYzJjOyBmb250LXNpemU6IDI0cHg7IG1hcmdpbi1ib3R0b206IDIwcHg7IGZvbnQtd2VpZ2h0OiAzMDA7XCI+XG4gICAgICAgICAgICAgICAgV2VsY29tZSwgJHtuYW1lfSFcbiAgICAgICAgICAgICAgPC9oMj5cbiAgICAgICAgICAgICAgXG4gICAgICAgICAgICAgIDxwIHN0eWxlPVwiY29sb3I6ICM1NTU7IGxpbmUtaGVpZ2h0OiAxLjY7IG1hcmdpbi1ib3R0b206IDIwcHg7IGZvbnQtc2l6ZTogMTZweDtcIj5cbiAgICAgICAgICAgICAgICBUaGFuayB5b3UgZm9yIGNyZWF0aW5nIHlvdXIgYWNjb3VudCB3aXRoIEhlYWxpbmcgUGF0aHdheXMgQ291bnNlbGluZy4gXG4gICAgICAgICAgICAgICAgVG8gY29tcGxldGUgeW91ciByZWdpc3RyYXRpb24gYW5kIHNlY3VyZSB5b3VyIGFjY291bnQsIHBsZWFzZSB2ZXJpZnkgeW91ciBlbWFpbCBhZGRyZXNzLlxuICAgICAgICAgICAgICA8L3A+XG4gICAgICAgICAgICAgIFxuICAgICAgICAgICAgICA8cCBzdHlsZT1cImNvbG9yOiAjNTU1OyBsaW5lLWhlaWdodDogMS42OyBtYXJnaW4tYm90dG9tOiAzMHB4OyBmb250LXNpemU6IDE2cHg7XCI+XG4gICAgICAgICAgICAgICAgQ2xpY2sgdGhlIGJ1dHRvbiBiZWxvdyB0byB2ZXJpZnkgeW91ciBlbWFpbCBhZGRyZXNzOlxuICAgICAgICAgICAgICA8L3A+XG4gICAgICAgICAgICAgIFxuICAgICAgICAgICAgICA8IS0tIFZlcmlmaWNhdGlvbiBCdXR0b24gLS0+XG4gICAgICAgICAgICAgIDxkaXYgc3R5bGU9XCJ0ZXh0LWFsaWduOiBjZW50ZXI7IG1hcmdpbjogMzBweCAwO1wiPlxuICAgICAgICAgICAgICAgIDxhIGhyZWY9XCIke3ZlcmlmaWNhdGlvblVybH1cIiBcbiAgICAgICAgICAgICAgICAgICBzdHlsZT1cImJhY2tncm91bmQtY29sb3I6ICM0YThiOGM7IGNvbG9yOiB3aGl0ZTsgcGFkZGluZzogMTVweCAzMHB4OyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IGJvcmRlci1yYWRpdXM6IDVweDsgZm9udC1zaXplOiAxNnB4OyBmb250LXdlaWdodDogNTAwOyBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XCI+XG4gICAgICAgICAgICAgICAgICBWZXJpZnkgRW1haWwgQWRkcmVzc1xuICAgICAgICAgICAgICAgIDwvYT5cbiAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgIFxuICAgICAgICAgICAgICA8cCBzdHlsZT1cImNvbG9yOiAjNzc3OyBmb250LXNpemU6IDE0cHg7IGxpbmUtaGVpZ2h0OiAxLjU7IG1hcmdpbi10b3A6IDMwcHg7XCI+XG4gICAgICAgICAgICAgICAgSWYgdGhlIGJ1dHRvbiBkb2Vzbid0IHdvcmssIHlvdSBjYW4gYWxzbyBjb3B5IGFuZCBwYXN0ZSB0aGlzIGxpbmsgaW50byB5b3VyIGJyb3dzZXI6XG4gICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgICAgPHAgc3R5bGU9XCJjb2xvcjogIzRhOGI4YzsgZm9udC1zaXplOiAxNHB4OyB3b3JkLWJyZWFrOiBicmVhay1hbGw7IG1hcmdpbi1ib3R0b206IDMwcHg7XCI+XG4gICAgICAgICAgICAgICAgJHt2ZXJpZmljYXRpb25Vcmx9XG4gICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgICAgXG4gICAgICAgICAgICAgIDxkaXYgc3R5bGU9XCJib3JkZXItdG9wOiAxcHggc29saWQgI2VlZTsgcGFkZGluZy10b3A6IDIwcHg7IG1hcmdpbi10b3A6IDMwcHg7XCI+XG4gICAgICAgICAgICAgICAgPHAgc3R5bGU9XCJjb2xvcjogIzc3NzsgZm9udC1zaXplOiAxNHB4OyBsaW5lLWhlaWdodDogMS41OyBtYXJnaW4tYm90dG9tOiAxMHB4O1wiPlxuICAgICAgICAgICAgICAgICAgPHN0cm9uZz5JbXBvcnRhbnQ6PC9zdHJvbmc+IFRoaXMgdmVyaWZpY2F0aW9uIGxpbmsgd2lsbCBleHBpcmUgaW4gMjQgaG91cnMgZm9yIHNlY3VyaXR5IHJlYXNvbnMuXG4gICAgICAgICAgICAgICAgPC9wPlxuICAgICAgICAgICAgICAgIDxwIHN0eWxlPVwiY29sb3I6ICM3Nzc7IGZvbnQtc2l6ZTogMTRweDsgbGluZS1oZWlnaHQ6IDEuNTsgbWFyZ2luLWJvdHRvbTogMTBweDtcIj5cbiAgICAgICAgICAgICAgICAgIElmIHlvdSBkaWRuJ3QgY3JlYXRlIGFuIGFjY291bnQgd2l0aCB1cywgcGxlYXNlIGlnbm9yZSB0aGlzIGVtYWlsLlxuICAgICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgIFxuICAgICAgICAgICAgPCEtLSBGb290ZXIgLS0+XG4gICAgICAgICAgICA8ZGl2IHN0eWxlPVwiYmFja2dyb3VuZC1jb2xvcjogI2YwZjdmNzsgcGFkZGluZzogMjBweCAzMHB4OyBib3JkZXItdG9wOiAxcHggc29saWQgI2UwZTBlMDtcIj5cbiAgICAgICAgICAgICAgPHAgc3R5bGU9XCJjb2xvcjogIzY2NjsgZm9udC1zaXplOiAxMnB4OyBsaW5lLWhlaWdodDogMS40OyBtYXJnaW46IDA7IHRleHQtYWxpZ246IGNlbnRlcjtcIj5cbiAgICAgICAgICAgICAgICBUaGlzIGVtYWlsIHdhcyBzZW50IGJ5IEhlYWxpbmcgUGF0aHdheXMgQ291bnNlbGluZzxicj5cbiAgICAgICAgICAgICAgICBJZiB5b3UgbmVlZCBoZWxwLCBjb250YWN0IHVzIGF0IFxuICAgICAgICAgICAgICAgIDxhIGhyZWY9XCJtYWlsdG86JHtwcm9jZXNzLmVudi5FTUFJTF9GUk9NfVwiIHN0eWxlPVwiY29sb3I6ICM0YThiOGM7XCI+JHtwcm9jZXNzLmVudi5FTUFJTF9GUk9NfTwvYT5cbiAgICAgICAgICAgICAgPC9wPlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvYm9keT5cbiAgICAgIDwvaHRtbD5cbiAgICBgO1xuXG4gICAgY29uc3QgdGV4dCA9IGBcbldlbGNvbWUgdG8gSGVhbGluZyBQYXRod2F5cyBDb3Vuc2VsaW5nLCAke25hbWV9IVxuXG5UaGFuayB5b3UgZm9yIGNyZWF0aW5nIHlvdXIgYWNjb3VudC4gVG8gY29tcGxldGUgeW91ciByZWdpc3RyYXRpb24gYW5kIHNlY3VyZSB5b3VyIGFjY291bnQsIHBsZWFzZSB2ZXJpZnkgeW91ciBlbWFpbCBhZGRyZXNzLlxuXG5DbGljayB0aGlzIGxpbmsgdG8gdmVyaWZ5IHlvdXIgZW1haWw6XG4ke3ZlcmlmaWNhdGlvblVybH1cblxuVGhpcyB2ZXJpZmljYXRpb24gbGluayB3aWxsIGV4cGlyZSBpbiAyNCBob3VycyBmb3Igc2VjdXJpdHkgcmVhc29ucy5cblxuSWYgeW91IGRpZG4ndCBjcmVhdGUgYW4gYWNjb3VudCB3aXRoIHVzLCBwbGVhc2UgaWdub3JlIHRoaXMgZW1haWwuXG5cbk5lZWQgaGVscD8gQ29udGFjdCB1cyBhdCAke3Byb2Nlc3MuZW52LkVNQUlMX0ZST019XG5cbkhlYWxpbmcgUGF0aHdheXMgQ291bnNlbGluZ1xuICAgIGA7XG5cbiAgICBjb25zdCBtYWlsT3B0aW9ucyA9IHtcbiAgICAgIGZyb206IGBcIkhlYWxpbmcgUGF0aHdheXMgQ291bnNlbGluZ1wiIDwke3Byb2Nlc3MuZW52LkVNQUlMX0ZST019PmAsXG4gICAgICB0bzogZW1haWwsXG4gICAgICBzdWJqZWN0OiBcIlZlcmlmeSBZb3VyIEVtYWlsIEFkZHJlc3MgLSBIZWFsaW5nIFBhdGh3YXlzIENvdW5zZWxpbmdcIixcbiAgICAgIGh0bWwsXG4gICAgICB0ZXh0LFxuICAgIH07XG5cbiAgICBjb25zdCBpbmZvID0gYXdhaXQgdHJhbnNwb3J0ZXIuc2VuZE1haWwobWFpbE9wdGlvbnMpO1xuICAgIGxvZ2dlci5pbmZvKFwiVmVyaWZpY2F0aW9uIGVtYWlsIHNlbnQgc3VjY2Vzc2Z1bGx5XCIsIHtcbiAgICAgIGVtYWlsLFxuICAgICAgbWVzc2FnZUlkOiBpbmZvLm1lc3NhZ2VJZCxcbiAgICAgIHRva2VuOiB0b2tlbi5zdWJzdHJpbmcoMCwgOCkgKyBcIi4uLlwiLCAvLyBMb2cgcGFydGlhbCB0b2tlbiBmb3IgZGVidWdnaW5nXG4gICAgfSk7XG5cbiAgICByZXR1cm4geyBzdWNjZXNzOiB0cnVlLCBtZXNzYWdlSWQ6IGluZm8ubWVzc2FnZUlkIH07XG4gIH0gY2F0Y2ggKGVycm9yKSB7XG4gICAgbG9nZ2VyLmVycm9yKFxuICAgICAgXCJGYWlsZWQgdG8gc2VuZCB2ZXJpZmljYXRpb24gZW1haWxcIixcbiAgICAgIGVycm9yIGluc3RhbmNlb2YgRXJyb3IgPyBlcnJvciA6IG5ldyBFcnJvcihTdHJpbmcoZXJyb3IpKSxcbiAgICAgIHsgZW1haWwgfVxuICAgICk7XG4gICAgcmV0dXJuIHtcbiAgICAgIHN1Y2Nlc3M6IGZhbHNlLFxuICAgICAgZXJyb3I6IGVycm9yIGluc3RhbmNlb2YgRXJyb3IgPyBlcnJvci5tZXNzYWdlIDogXCJVbmtub3duIGVycm9yXCIsXG4gICAgfTtcbiAgfVxufVxuXG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gdmVyaWZ5RW1haWxUb2tlbihcbiAgZW1haWw6IHN0cmluZyxcbiAgdG9rZW46IHN0cmluZ1xuKTogUHJvbWlzZTx7IHN1Y2Nlc3M6IGJvb2xlYW47IGVycm9yPzogc3RyaW5nIH0+IHtcbiAgdHJ5IHtcbiAgICAvLyBGaW5kIHRoZSB2ZXJpZmljYXRpb24gdG9rZW5cbiAgICBjb25zdCB2ZXJpZmljYXRpb25Ub2tlbiA9IGF3YWl0IHByaXNtYS52ZXJpZmljYXRpb25Ub2tlbi5maW5kRmlyc3Qoe1xuICAgICAgd2hlcmU6IHtcbiAgICAgICAgaWRlbnRpZmllcjogZW1haWwsXG4gICAgICAgIHRva2VuLFxuICAgICAgICBleHBpcmVzOiB7XG4gICAgICAgICAgZ3Q6IG5ldyBEYXRlKCksIC8vIFRva2VuIG11c3Qgbm90IGJlIGV4cGlyZWRcbiAgICAgICAgfSxcbiAgICAgIH0sXG4gICAgfSk7XG5cbiAgICBpZiAoIXZlcmlmaWNhdGlvblRva2VuKSB7XG4gICAgICBsb2dnZXIud2FybihcIkludmFsaWQgb3IgZXhwaXJlZCB2ZXJpZmljYXRpb24gdG9rZW5cIiwgeyBlbWFpbCB9KTtcbiAgICAgIHJldHVybiB7IHN1Y2Nlc3M6IGZhbHNlLCBlcnJvcjogXCJJbnZhbGlkIG9yIGV4cGlyZWQgdmVyaWZpY2F0aW9uIHRva2VuXCIgfTtcbiAgICB9XG5cbiAgICAvLyBVcGRhdGUgdXNlciBhcyB2ZXJpZmllZFxuICAgIGF3YWl0IHByaXNtYS51c2VyLnVwZGF0ZSh7XG4gICAgICB3aGVyZTogeyBlbWFpbCB9LFxuICAgICAgZGF0YTogeyBlbWFpbFZlcmlmaWVkOiBuZXcgRGF0ZSgpIH0sXG4gICAgfSk7XG5cbiAgICAvLyBEZWxldGUgdGhlIHVzZWQgdmVyaWZpY2F0aW9uIHRva2VuXG4gICAgYXdhaXQgcHJpc21hLnZlcmlmaWNhdGlvblRva2VuLmRlbGV0ZSh7XG4gICAgICB3aGVyZToge1xuICAgICAgICBpZGVudGlmaWVyX3Rva2VuOiB7XG4gICAgICAgICAgaWRlbnRpZmllcjogdmVyaWZpY2F0aW9uVG9rZW4uaWRlbnRpZmllcixcbiAgICAgICAgICB0b2tlbjogdmVyaWZpY2F0aW9uVG9rZW4udG9rZW4sXG4gICAgICAgIH0sXG4gICAgICB9LFxuICAgIH0pO1xuXG4gICAgbG9nZ2VyLmluZm8oXCJFbWFpbCB2ZXJpZmllZCBzdWNjZXNzZnVsbHlcIiwgeyBlbWFpbCB9KTtcbiAgICByZXR1cm4geyBzdWNjZXNzOiB0cnVlIH07XG4gIH0gY2F0Y2ggKGVycm9yKSB7XG4gICAgbG9nZ2VyLmVycm9yKFxuICAgICAgXCJGYWlsZWQgdG8gdmVyaWZ5IGVtYWlsIHRva2VuXCIsXG4gICAgICBlcnJvciBpbnN0YW5jZW9mIEVycm9yID8gZXJyb3IgOiBuZXcgRXJyb3IoU3RyaW5nKGVycm9yKSksXG4gICAgICB7IGVtYWlsLCB0b2tlbjogdG9rZW4uc3Vic3RyaW5nKDAsIDgpICsgXCIuLi5cIiB9XG4gICAgKTtcbiAgICByZXR1cm4ge1xuICAgICAgc3VjY2VzczogZmFsc2UsXG4gICAgICBlcnJvcjogZXJyb3IgaW5zdGFuY2VvZiBFcnJvciA/IGVycm9yLm1lc3NhZ2UgOiBcIlZlcmlmaWNhdGlvbiBmYWlsZWRcIixcbiAgICB9O1xuICB9XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7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

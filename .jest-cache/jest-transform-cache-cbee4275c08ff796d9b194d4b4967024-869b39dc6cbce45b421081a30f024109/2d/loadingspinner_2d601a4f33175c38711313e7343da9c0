@@ -1,0 +1,255 @@
+9afbe2d6d4898e63e135e8c763580111
+"use strict";
+
+/* istanbul ignore next */
+function cov_1of3nb5xuv() {
+  var path = "D:\\github\\CC_Site\\src\\components\\ui\\loading-spinner.tsx";
+  var hash = "a05d73da44dbf87674cc5da6e5408fb450c83b30";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\github\\CC_Site\\src\\components\\ui\\loading-spinner.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 4,
+          column: 3
+        }
+      },
+      "1": {
+        start: {
+          line: 5,
+          column: 0
+        },
+        end: {
+          line: 10,
+          column: 3
+        }
+      },
+      "2": {
+        start: {
+          line: 8,
+          column: 8
+        },
+        end: {
+          line: 8,
+          column: 30
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 20
+        },
+        end: {
+          line: 11,
+          column: 48
+        }
+      },
+      "4": {
+        start: {
+          line: 13,
+          column: 24
+        },
+        end: {
+          line: 17,
+          column: 5
+        }
+      },
+      "5": {
+        start: {
+          line: 18,
+          column: 4
+        },
+        end: {
+          line: 20,
+          column: 7
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 7,
+            column: 9
+          },
+          end: {
+            line: 7,
+            column: 10
+          }
+        },
+        loc: {
+          start: {
+            line: 7,
+            column: 20
+          },
+          end: {
+            line: 9,
+            column: 5
+          }
+        },
+        line: 7
+      },
+      "1": {
+        name: "LoadingSpinner",
+        decl: {
+          start: {
+            line: 12,
+            column: 9
+          },
+          end: {
+            line: 12,
+            column: 23
+          }
+        },
+        loc: {
+          start: {
+            line: 12,
+            column: 57
+          },
+          end: {
+            line: 21,
+            column: 1
+          }
+        },
+        line: 12
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 12,
+            column: 26
+          },
+          end: {
+            line: 12,
+            column: 37
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 12,
+            column: 33
+          },
+          end: {
+            line: 12,
+            column: 37
+          }
+        }],
+        line: 12
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 12,
+            column: 39
+          },
+          end: {
+            line: 12,
+            column: 53
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 12,
+            column: 51
+          },
+          end: {
+            line: 12,
+            column: 53
+          }
+        }],
+        line: 12
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {
+      "0": [0],
+      "1": [0]
+    },
+    inputSourceMap: {
+      version: 3,
+      sources: ["D:\\github\\CC_Site\\src\\components\\ui\\loading-spinner.tsx"],
+      sourcesContent: ["interface LoadingSpinnerProps {\n  size?: \"sm\" | \"md\" | \"lg\";\n  className?: string;\n}\n\nexport function LoadingSpinner({\n  size = \"md\",\n  className = \"\",\n}: LoadingSpinnerProps) {\n  const sizeClasses = {\n    sm: \"w-4 h-4\",\n    md: \"w-8 h-8\",\n    lg: \"w-12 h-12\",\n  };\n\n  return (\n    <div\n      className={`animate-spin rounded-full border-2 border-primary border-t-transparent ${sizeClasses[size]} ${className}`}\n    />\n  );\n}\n"],
+      names: ["LoadingSpinner", "size", "className", "sizeClasses", "sm", "md", "lg", "div"],
+      mappings: ";;;;+BAKgBA;;;eAAAA;;;;AAAT,SAASA,eAAe,EAC7BC,OAAO,IAAI,EACXC,YAAY,EAAE,EACM;IACpB,MAAMC,cAAc;QAClBC,IAAI;QACJC,IAAI;QACJC,IAAI;IACN;IAEA,qBACE,qBAACC;QACCL,WAAW,CAAC,uEAAuE,EAAEC,WAAW,CAACF,KAAK,CAAC,CAAC,EAAEC,WAAW;;AAG3H"
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "a05d73da44dbf87674cc5da6e5408fb450c83b30"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1of3nb5xuv = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1of3nb5xuv();
+cov_1of3nb5xuv().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* istanbul ignore next */
+cov_1of3nb5xuv().s[1]++;
+Object.defineProperty(exports, "LoadingSpinner", {
+  enumerable: true,
+  get: function () {
+    /* istanbul ignore next */
+    cov_1of3nb5xuv().f[0]++;
+    cov_1of3nb5xuv().s[2]++;
+    return LoadingSpinner;
+  }
+});
+const _jsxruntime =
+/* istanbul ignore next */
+(cov_1of3nb5xuv().s[3]++, require("react/jsx-runtime"));
+function LoadingSpinner({
+  size =
+  /* istanbul ignore next */
+  (cov_1of3nb5xuv().b[0][0]++, "md"),
+  className =
+  /* istanbul ignore next */
+  (cov_1of3nb5xuv().b[1][0]++, "")
+}) {
+  /* istanbul ignore next */
+  cov_1of3nb5xuv().f[1]++;
+  const sizeClasses =
+  /* istanbul ignore next */
+  (cov_1of3nb5xuv().s[4]++, {
+    sm: "w-4 h-4",
+    md: "w-8 h-8",
+    lg: "w-12 h-12"
+  });
+  /* istanbul ignore next */
+  cov_1of3nb5xuv().s[5]++;
+  return /*#__PURE__*/(0, _jsxruntime.jsx)("div", {
+    className: `animate-spin rounded-full border-2 border-primary border-t-transparent ${sizeClasses[size]} ${className}`
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMW9mM25iNXh1diIsImFjdHVhbENvdmVyYWdlIiwicyIsIkxvYWRpbmdTcGlubmVyIiwic2l6ZSIsImIiLCJjbGFzc05hbWUiLCJmIiwic2l6ZUNsYXNzZXMiLCJzbSIsIm1kIiwibGciLCJfanN4cnVudGltZSIsImpzeCJdLCJzb3VyY2VzIjpbIkQ6XFxnaXRodWJcXENDX1NpdGVcXHNyY1xcY29tcG9uZW50c1xcdWlcXGxvYWRpbmctc3Bpbm5lci50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW50ZXJmYWNlIExvYWRpbmdTcGlubmVyUHJvcHMge1xuICBzaXplPzogXCJzbVwiIHwgXCJtZFwiIHwgXCJsZ1wiO1xuICBjbGFzc05hbWU/OiBzdHJpbmc7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBMb2FkaW5nU3Bpbm5lcih7XG4gIHNpemUgPSBcIm1kXCIsXG4gIGNsYXNzTmFtZSA9IFwiXCIsXG59OiBMb2FkaW5nU3Bpbm5lclByb3BzKSB7XG4gIGNvbnN0IHNpemVDbGFzc2VzID0ge1xuICAgIHNtOiBcInctNCBoLTRcIixcbiAgICBtZDogXCJ3LTggaC04XCIsXG4gICAgbGc6IFwidy0xMiBoLTEyXCIsXG4gIH07XG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2XG4gICAgICBjbGFzc05hbWU9e2BhbmltYXRlLXNwaW4gcm91bmRlZC1mdWxsIGJvcmRlci0yIGJvcmRlci1wcmltYXJ5IGJvcmRlci10LXRyYW5zcGFyZW50ICR7c2l6ZUNsYXNzZXNbc2l6ZV19ICR7Y2xhc3NOYW1lfWB9XG4gICAgLz5cbiAgKTtcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBWVE7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQUFBQSxjQUFBLEdBQUFFLENBQUE7Ozs7OzsrQkFQUTs7Ozs7O1dBQUFDLGNBQUE7Ozs7OztBQUFULFNBQVNBLGVBQWU7RUFDN0JDLElBQUE7RUFBQTtFQUFBLENBQUFKLGNBQUEsR0FBQUssQ0FBQSxVQUFPLElBQUk7RUFDWEMsU0FBQTtFQUFBO0VBQUEsQ0FBQU4sY0FBQSxHQUFBSyxDQUFBLFVBQVksRUFBRTtBQUFBLENBQ007RUFBQTtFQUFBTCxjQUFBLEdBQUFPLENBQUE7RUFDcEIsTUFBTUMsV0FBQTtFQUFBO0VBQUEsQ0FBQVIsY0FBQSxHQUFBRSxDQUFBLE9BQWM7SUFDbEJPLEVBQUEsRUFBSTtJQUNKQyxFQUFBLEVBQUk7SUFDSkMsRUFBQSxFQUFJO0VBQ047RUFBQTtFQUFBWCxjQUFBLEdBQUFFLENBQUE7RUFFQSxvQkFDRSxJQUFBVSxXQUFBLENBQUFDLEdBQUEsRUFBQztJQUNDUCxTQUFBLEVBQVcsMEVBQTBFRSxXQUFXLENBQUNKLElBQUEsQ0FBSyxJQUFJRSxTQUFBOztBQUdoSCIsImlnbm9yZUxpc3QiOltdfQ==

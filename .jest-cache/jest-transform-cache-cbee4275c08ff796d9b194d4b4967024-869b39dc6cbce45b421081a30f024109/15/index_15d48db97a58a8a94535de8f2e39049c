@@ -1,0 +1,58 @@
+88efb6c34fcacd99bec0cfffac05ad70
+"use strict";
+
+/* istanbul ignore next */
+function cov_2drbocx2xr() {
+  var path = "D:\\github\\CC_Site\\src\\types\\index.ts";
+  var hash = "28ac73b8ba48b3bcd4e3b51c54ec32b0a626e451";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\github\\CC_Site\\src\\types\\index.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 4,
+          column: 3
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    inputSourceMap: {
+      version: 3,
+      sources: [],
+      names: [],
+      mappings: ""
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "28ac73b8ba48b3bcd4e3b51c54ec32b0a626e451"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_2drbocx2xr = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2drbocx2xr();
+cov_2drbocx2xr().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sInNvdXJjZXMiOltdLCJzb3VyY2VzQ29udGVudCI6W10sIm1hcHBpbmdzIjoiIiwiaWdub3JlTGlzdCI6W119

@@ -1,0 +1,261 @@
+022d15f2bcf64ad5953844a697855b7c
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "ContactNotificationEmail", {
+    enumerable: true,
+    get: function() {
+        return ContactNotificationEmail;
+    }
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _components = require("@react-email/components");
+function ContactNotificationEmail({ contactData, submissionId }) {
+    const { name, email, phone, subject, message } = contactData;
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Html, {
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Head, {}),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Body, {
+                style: main,
+                children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Container, {
+                    style: container,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Section, {
+                            style: header,
+                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Heading, {
+                                style: headerTitle,
+                                children: "New Contact Form Submission"
+                            })
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                            style: content,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                    style: title,
+                                    children: "Contact Details"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                    style: infoSection,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: label,
+                                            children: "Name:"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: value,
+                                            children: name
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                    style: infoSection,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: label,
+                                            children: "Email:"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: value,
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Link, {
+                                                href: `mailto:${email}`,
+                                                style: link,
+                                                children: email
+                                            })
+                                        })
+                                    ]
+                                }),
+                                phone && /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                    style: infoSection,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: label,
+                                            children: "Phone:"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: value,
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Link, {
+                                                href: `tel:${phone}`,
+                                                style: link,
+                                                children: phone
+                                            })
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                    style: infoSection,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: label,
+                                            children: "Subject:"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: value,
+                                            children: subject
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Hr, {
+                                    style: hr
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                    style: label,
+                                    children: "Message:"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Section, {
+                                    style: messageBox,
+                                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                        style: messageText,
+                                        children: message
+                                    })
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Hr, {
+                                    style: hr
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                    style: actionSection,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: actionText,
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Link, {
+                                                href: `${process.env.NEXTAUTH_URL}/admin/contact`,
+                                                style: button,
+                                                children: "View in Admin Dashboard"
+                                            })
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Text, {
+                                            style: submissionInfo,
+                                            children: [
+                                                "Submission ID: ",
+                                                submissionId
+                                            ]
+                                        })
+                                    ]
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                            style: footer,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                    style: footerText,
+                                    children: "Healing Pathways Counseling Admin Notification"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                    style: footerText,
+                                    children: "This email was automatically generated from your website contact form."
+                                })
+                            ]
+                        })
+                    ]
+                })
+            })
+        ]
+    });
+}
+const main = {
+    backgroundColor: "#f6f9fc",
+    fontFamily: "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+};
+const container = {
+    margin: "0 auto",
+    padding: "20px 0 48px",
+    maxWidth: "600px"
+};
+const header = {
+    backgroundColor: "#4a8b8c",
+    borderRadius: "8px 8px 0 0",
+    padding: "24px",
+    textAlign: "center"
+};
+const headerTitle = {
+    color: "#ffffff",
+    fontSize: "24px",
+    fontWeight: "600",
+    margin: "0"
+};
+const content = {
+    backgroundColor: "#ffffff",
+    padding: "24px",
+    borderRadius: "0 0 8px 8px",
+    border: "1px solid #e5e7eb"
+};
+const title = {
+    color: "#2c2c2c",
+    fontSize: "18px",
+    fontWeight: "600",
+    margin: "0 0 16px 0"
+};
+const infoSection = {
+    margin: "12px 0"
+};
+const label = {
+    color: "#6b7280",
+    fontSize: "14px",
+    fontWeight: "500",
+    margin: "0 0 4px 0"
+};
+const value = {
+    color: "#2c2c2c",
+    fontSize: "16px",
+    margin: "0 0 12px 0"
+};
+const link = {
+    color: "#4a8b8c",
+    textDecoration: "none"
+};
+const messageBox = {
+    backgroundColor: "#f8f8f8",
+    border: "1px solid #e5e7eb",
+    borderRadius: "6px",
+    padding: "16px",
+    margin: "8px 0 16px 0"
+};
+const messageText = {
+    color: "#2c2c2c",
+    fontSize: "16px",
+    lineHeight: "1.6",
+    margin: "0",
+    whiteSpace: "pre-wrap"
+};
+const hr = {
+    borderColor: "#e5e7eb",
+    margin: "20px 0"
+};
+const actionSection = {
+    textAlign: "center",
+    margin: "24px 0"
+};
+const button = {
+    backgroundColor: "#4a8b8c",
+    borderRadius: "6px",
+    color: "#ffffff",
+    fontSize: "16px",
+    fontWeight: "500",
+    textDecoration: "none",
+    textAlign: "center",
+    display: "inline-block",
+    padding: "12px 24px"
+};
+const actionText = {
+    margin: "0 0 8px 0"
+};
+const submissionInfo = {
+    color: "#6b7280",
+    fontSize: "12px",
+    margin: "8px 0 0 0"
+};
+const footer = {
+    backgroundColor: "#f8f8f8",
+    borderRadius: "6px",
+    padding: "16px",
+    margin: "20px 0 0 0",
+    textAlign: "center"
+};
+const footerText = {
+    color: "#6b7280",
+    fontSize: "12px",
+    margin: "4px 0"
+};
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkQ6XFxnaXRodWJcXENDX1NpdGVcXHNyY1xcY29tcG9uZW50c1xcZW1haWxcXGNvbnRhY3Qtbm90aWZpY2F0aW9uLnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge1xuICBIdG1sLFxuICBIZWFkLFxuICBCb2R5LFxuICBDb250YWluZXIsXG4gIFNlY3Rpb24sXG4gIFRleHQsXG4gIEhlYWRpbmcsXG4gIEhyLFxuICBMaW5rLFxufSBmcm9tIFwiQHJlYWN0LWVtYWlsL2NvbXBvbmVudHNcIjtcbmltcG9ydCB0eXBlIHsgQ29udGFjdEZvcm1EYXRhIH0gZnJvbSBcIkAvbGliL3ZhbGlkYXRpb25zXCI7XG5cbmludGVyZmFjZSBDb250YWN0Tm90aWZpY2F0aW9uRW1haWxQcm9wcyB7XG4gIGNvbnRhY3REYXRhOiBDb250YWN0Rm9ybURhdGE7XG4gIHN1Ym1pc3Npb25JZDogc3RyaW5nO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gQ29udGFjdE5vdGlmaWNhdGlvbkVtYWlsKHtcbiAgY29udGFjdERhdGEsXG4gIHN1Ym1pc3Npb25JZCxcbn06IENvbnRhY3ROb3RpZmljYXRpb25FbWFpbFByb3BzKSB7XG4gIGNvbnN0IHsgbmFtZSwgZW1haWwsIHBob25lLCBzdWJqZWN0LCBtZXNzYWdlIH0gPSBjb250YWN0RGF0YTtcblxuICByZXR1cm4gKFxuICAgIDxIdG1sPlxuICAgICAgPEhlYWQgLz5cbiAgICAgIDxCb2R5IHN0eWxlPXttYWlufT5cbiAgICAgICAgPENvbnRhaW5lciBzdHlsZT17Y29udGFpbmVyfT5cbiAgICAgICAgICA8U2VjdGlvbiBzdHlsZT17aGVhZGVyfT5cbiAgICAgICAgICAgIDxIZWFkaW5nIHN0eWxlPXtoZWFkZXJUaXRsZX0+TmV3IENvbnRhY3QgRm9ybSBTdWJtaXNzaW9uPC9IZWFkaW5nPlxuICAgICAgICAgIDwvU2VjdGlvbj5cblxuICAgICAgICAgIDxTZWN0aW9uIHN0eWxlPXtjb250ZW50fT5cbiAgICAgICAgICAgIDxUZXh0IHN0eWxlPXt0aXRsZX0+Q29udGFjdCBEZXRhaWxzPC9UZXh0PlxuXG4gICAgICAgICAgICA8U2VjdGlvbiBzdHlsZT17aW5mb1NlY3Rpb259PlxuICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17bGFiZWx9Pk5hbWU6PC9UZXh0PlxuICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17dmFsdWV9PntuYW1lfTwvVGV4dD5cbiAgICAgICAgICAgIDwvU2VjdGlvbj5cblxuICAgICAgICAgICAgPFNlY3Rpb24gc3R5bGU9e2luZm9TZWN0aW9ufT5cbiAgICAgICAgICAgICAgPFRleHQgc3R5bGU9e2xhYmVsfT5FbWFpbDo8L1RleHQ+XG4gICAgICAgICAgICAgIDxUZXh0IHN0eWxlPXt2YWx1ZX0+XG4gICAgICAgICAgICAgICAgPExpbmsgaHJlZj17YG1haWx0bzoke2VtYWlsfWB9IHN0eWxlPXtsaW5rfT5cbiAgICAgICAgICAgICAgICAgIHtlbWFpbH1cbiAgICAgICAgICAgICAgICA8L0xpbms+XG4gICAgICAgICAgICAgIDwvVGV4dD5cbiAgICAgICAgICAgIDwvU2VjdGlvbj5cblxuICAgICAgICAgICAge3Bob25lICYmIChcbiAgICAgICAgICAgICAgPFNlY3Rpb24gc3R5bGU9e2luZm9TZWN0aW9ufT5cbiAgICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17bGFiZWx9PlBob25lOjwvVGV4dD5cbiAgICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17dmFsdWV9PlxuICAgICAgICAgICAgICAgICAgPExpbmsgaHJlZj17YHRlbDoke3Bob25lfWB9IHN0eWxlPXtsaW5rfT5cbiAgICAgICAgICAgICAgICAgICAge3Bob25lfVxuICAgICAgICAgICAgICAgICAgPC9MaW5rPlxuICAgICAgICAgICAgICAgIDwvVGV4dD5cbiAgICAgICAgICAgICAgPC9TZWN0aW9uPlxuICAgICAgICAgICAgKX1cblxuICAgICAgICAgICAgPFNlY3Rpb24gc3R5bGU9e2luZm9TZWN0aW9ufT5cbiAgICAgICAgICAgICAgPFRleHQgc3R5bGU9e2xhYmVsfT5TdWJqZWN0OjwvVGV4dD5cbiAgICAgICAgICAgICAgPFRleHQgc3R5bGU9e3ZhbHVlfT57c3ViamVjdH08L1RleHQ+XG4gICAgICAgICAgICA8L1NlY3Rpb24+XG5cbiAgICAgICAgICAgIDxIciBzdHlsZT17aHJ9IC8+XG5cbiAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtsYWJlbH0+TWVzc2FnZTo8L1RleHQ+XG4gICAgICAgICAgICA8U2VjdGlvbiBzdHlsZT17bWVzc2FnZUJveH0+XG4gICAgICAgICAgICAgIDxUZXh0IHN0eWxlPXttZXNzYWdlVGV4dH0+e21lc3NhZ2V9PC9UZXh0PlxuICAgICAgICAgICAgPC9TZWN0aW9uPlxuXG4gICAgICAgICAgICA8SHIgc3R5bGU9e2hyfSAvPlxuXG4gICAgICAgICAgICA8U2VjdGlvbiBzdHlsZT17YWN0aW9uU2VjdGlvbn0+XG4gICAgICAgICAgICAgIDxUZXh0IHN0eWxlPXthY3Rpb25UZXh0fT5cbiAgICAgICAgICAgICAgICA8TGlua1xuICAgICAgICAgICAgICAgICAgaHJlZj17YCR7cHJvY2Vzcy5lbnYuTkVYVEFVVEhfVVJMfS9hZG1pbi9jb250YWN0YH1cbiAgICAgICAgICAgICAgICAgIHN0eWxlPXtidXR0b259XG4gICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgVmlldyBpbiBBZG1pbiBEYXNoYm9hcmRcbiAgICAgICAgICAgICAgICA8L0xpbms+XG4gICAgICAgICAgICAgIDwvVGV4dD5cbiAgICAgICAgICAgICAgPFRleHQgc3R5bGU9e3N1Ym1pc3Npb25JbmZvfT5TdWJtaXNzaW9uIElEOiB7c3VibWlzc2lvbklkfTwvVGV4dD5cbiAgICAgICAgICAgIDwvU2VjdGlvbj5cbiAgICAgICAgICA8L1NlY3Rpb24+XG5cbiAgICAgICAgICA8U2VjdGlvbiBzdHlsZT17Zm9vdGVyfT5cbiAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtmb290ZXJUZXh0fT5cbiAgICAgICAgICAgICAgSGVhbGluZyBQYXRod2F5cyBDb3Vuc2VsaW5nIEFkbWluIE5vdGlmaWNhdGlvblxuICAgICAgICAgICAgPC9UZXh0PlxuICAgICAgICAgICAgPFRleHQgc3R5bGU9e2Zvb3RlclRleHR9PlxuICAgICAgICAgICAgICBUaGlzIGVtYWlsIHdhcyBhdXRvbWF0aWNhbGx5IGdlbmVyYXRlZCBmcm9tIHlvdXIgd2Vic2l0ZSBjb250YWN0XG4gICAgICAgICAgICAgIGZvcm0uXG4gICAgICAgICAgICA8L1RleHQ+XG4gICAgICAgICAgPC9TZWN0aW9uPlxuICAgICAgICA8L0NvbnRhaW5lcj5cbiAgICAgIDwvQm9keT5cbiAgICA8L0h0bWw+XG4gICk7XG59XG5cbmNvbnN0IG1haW4gPSB7XG4gIGJhY2tncm91bmRDb2xvcjogXCIjZjZmOWZjXCIsXG4gIGZvbnRGYW1pbHk6IFwiSW50ZXIsIC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgc2Fucy1zZXJpZlwiLFxufTtcblxuY29uc3QgY29udGFpbmVyID0ge1xuICBtYXJnaW46IFwiMCBhdXRvXCIsXG4gIHBhZGRpbmc6IFwiMjBweCAwIDQ4cHhcIixcbiAgbWF4V2lkdGg6IFwiNjAwcHhcIixcbn07XG5cbmNvbnN0IGhlYWRlciA9IHtcbiAgYmFja2dyb3VuZENvbG9yOiBcIiM0YThiOGNcIixcbiAgYm9yZGVyUmFkaXVzOiBcIjhweCA4cHggMCAwXCIsXG4gIHBhZGRpbmc6IFwiMjRweFwiLFxuICB0ZXh0QWxpZ246IFwiY2VudGVyXCIgYXMgY29uc3QsXG59O1xuXG5jb25zdCBoZWFkZXJUaXRsZSA9IHtcbiAgY29sb3I6IFwiI2ZmZmZmZlwiLFxuICBmb250U2l6ZTogXCIyNHB4XCIsXG4gIGZvbnRXZWlnaHQ6IFwiNjAwXCIsXG4gIG1hcmdpbjogXCIwXCIsXG59O1xuXG5jb25zdCBjb250ZW50ID0ge1xuICBiYWNrZ3JvdW5kQ29sb3I6IFwiI2ZmZmZmZlwiLFxuICBwYWRkaW5nOiBcIjI0cHhcIixcbiAgYm9yZGVyUmFkaXVzOiBcIjAgMCA4cHggOHB4XCIsXG4gIGJvcmRlcjogXCIxcHggc29saWQgI2U1ZTdlYlwiLFxufTtcblxuY29uc3QgdGl0bGUgPSB7XG4gIGNvbG9yOiBcIiMyYzJjMmNcIixcbiAgZm9udFNpemU6IFwiMThweFwiLFxuICBmb250V2VpZ2h0OiBcIjYwMFwiLFxuICBtYXJnaW46IFwiMCAwIDE2cHggMFwiLFxufTtcblxuY29uc3QgaW5mb1NlY3Rpb24gPSB7XG4gIG1hcmdpbjogXCIxMnB4IDBcIixcbn07XG5cbmNvbnN0IGxhYmVsID0ge1xuICBjb2xvcjogXCIjNmI3MjgwXCIsXG4gIGZvbnRTaXplOiBcIjE0cHhcIixcbiAgZm9udFdlaWdodDogXCI1MDBcIixcbiAgbWFyZ2luOiBcIjAgMCA0cHggMFwiLFxufTtcblxuY29uc3QgdmFsdWUgPSB7XG4gIGNvbG9yOiBcIiMyYzJjMmNcIixcbiAgZm9udFNpemU6IFwiMTZweFwiLFxuICBtYXJnaW46IFwiMCAwIDEycHggMFwiLFxufTtcblxuY29uc3QgbGluayA9IHtcbiAgY29sb3I6IFwiIzRhOGI4Y1wiLFxuICB0ZXh0RGVjb3JhdGlvbjogXCJub25lXCIsXG59O1xuXG5jb25zdCBtZXNzYWdlQm94ID0ge1xuICBiYWNrZ3JvdW5kQ29sb3I6IFwiI2Y4ZjhmOFwiLFxuICBib3JkZXI6IFwiMXB4IHNvbGlkICNlNWU3ZWJcIixcbiAgYm9yZGVyUmFkaXVzOiBcIjZweFwiLFxuICBwYWRkaW5nOiBcIjE2cHhcIixcbiAgbWFyZ2luOiBcIjhweCAwIDE2cHggMFwiLFxufTtcblxuY29uc3QgbWVzc2FnZVRleHQgPSB7XG4gIGNvbG9yOiBcIiMyYzJjMmNcIixcbiAgZm9udFNpemU6IFwiMTZweFwiLFxuICBsaW5lSGVpZ2h0OiBcIjEuNlwiLFxuICBtYXJnaW46IFwiMFwiLFxuICB3aGl0ZVNwYWNlOiBcInByZS13cmFwXCIgYXMgY29uc3QsXG59O1xuXG5jb25zdCBociA9IHtcbiAgYm9yZGVyQ29sb3I6IFwiI2U1ZTdlYlwiLFxuICBtYXJnaW46IFwiMjBweCAwXCIsXG59O1xuXG5jb25zdCBhY3Rpb25TZWN0aW9uID0ge1xuICB0ZXh0QWxpZ246IFwiY2VudGVyXCIgYXMgY29uc3QsXG4gIG1hcmdpbjogXCIyNHB4IDBcIixcbn07XG5cbmNvbnN0IGJ1dHRvbiA9IHtcbiAgYmFja2dyb3VuZENvbG9yOiBcIiM0YThiOGNcIixcbiAgYm9yZGVyUmFkaXVzOiBcIjZweFwiLFxuICBjb2xvcjogXCIjZmZmZmZmXCIsXG4gIGZvbnRTaXplOiBcIjE2cHhcIixcbiAgZm9udFdlaWdodDogXCI1MDBcIixcbiAgdGV4dERlY29yYXRpb246IFwibm9uZVwiLFxuICB0ZXh0QWxpZ246IFwiY2VudGVyXCIgYXMgY29uc3QsXG4gIGRpc3BsYXk6IFwiaW5saW5lLWJsb2NrXCIsXG4gIHBhZGRpbmc6IFwiMTJweCAyNHB4XCIsXG59O1xuXG5jb25zdCBhY3Rpb25UZXh0ID0ge1xuICBtYXJnaW46IFwiMCAwIDhweCAwXCIsXG59O1xuXG5jb25zdCBzdWJtaXNzaW9uSW5mbyA9IHtcbiAgY29sb3I6IFwiIzZiNzI4MFwiLFxuICBmb250U2l6ZTogXCIxMnB4XCIsXG4gIG1hcmdpbjogXCI4cHggMCAwIDBcIixcbn07XG5cbmNvbnN0IGZvb3RlciA9IHtcbiAgYmFja2dyb3VuZENvbG9yOiBcIiNmOGY4ZjhcIixcbiAgYm9yZGVyUmFkaXVzOiBcIjZweFwiLFxuICBwYWRkaW5nOiBcIjE2cHhcIixcbiAgbWFyZ2luOiBcIjIwcHggMCAwIDBcIixcbiAgdGV4dEFsaWduOiBcImNlbnRlclwiIGFzIGNvbnN0LFxufTtcblxuY29uc3QgZm9vdGVyVGV4dCA9IHtcbiAgY29sb3I6IFwiIzZiNzI4MFwiLFxuICBmb250U2l6ZTogXCIxMnB4XCIsXG4gIG1hcmdpbjogXCI0cHggMFwiLFxufTtcbiJdLCJuYW1lcyI6WyJDb250YWN0Tm90aWZpY2F0aW9uRW1haWwiLCJjb250YWN0RGF0YSIsInN1Ym1pc3Npb25JZCIsIm5hbWUiLCJlbWFpbCIsInBob25lIiwic3ViamVjdCIsIm1lc3NhZ2UiLCJIdG1sIiwiSGVhZCIsIkJvZHkiLCJzdHlsZSIsIm1haW4iLCJDb250YWluZXIiLCJjb250YWluZXIiLCJTZWN0aW9uIiwiaGVhZGVyIiwiSGVhZGluZyIsImhlYWRlclRpdGxlIiwiY29udGVudCIsIlRleHQiLCJ0aXRsZSIsImluZm9TZWN0aW9uIiwibGFiZWwiLCJ2YWx1ZSIsIkxpbmsiLCJocmVmIiwibGluayIsIkhyIiwiaHIiLCJtZXNzYWdlQm94IiwibWVzc2FnZVRleHQiLCJhY3Rpb25TZWN0aW9uIiwiYWN0aW9uVGV4dCIsInByb2Nlc3MiLCJlbnYiLCJORVhUQVVUSF9VUkwiLCJidXR0b24iLCJzdWJtaXNzaW9uSW5mbyIsImZvb3RlciIsImZvb3RlclRleHQiLCJiYWNrZ3JvdW5kQ29sb3IiLCJmb250RmFtaWx5IiwibWFyZ2luIiwicGFkZGluZyIsIm1heFdpZHRoIiwiYm9yZGVyUmFkaXVzIiwidGV4dEFsaWduIiwiY29sb3IiLCJmb250U2l6ZSIsImZvbnRXZWlnaHQiLCJib3JkZXIiLCJ0ZXh0RGVjb3JhdGlvbiIsImxpbmVIZWlnaHQiLCJ3aGl0ZVNwYWNlIiwiYm9yZGVyQ29sb3IiLCJkaXNwbGF5Il0sIm1hcHBpbmdzIjoiOzs7OytCQWtCZ0JBOzs7ZUFBQUE7Ozs7NEJBUlQ7QUFRQSxTQUFTQSx5QkFBeUIsRUFDdkNDLFdBQVcsRUFDWEMsWUFBWSxFQUNrQjtJQUM5QixNQUFNLEVBQUVDLElBQUksRUFBRUMsS0FBSyxFQUFFQyxLQUFLLEVBQUVDLE9BQU8sRUFBRUMsT0FBTyxFQUFFLEdBQUdOO0lBRWpELHFCQUNFLHNCQUFDTyxnQkFBSTs7MEJBQ0gscUJBQUNDLGdCQUFJOzBCQUNMLHFCQUFDQyxnQkFBSTtnQkFBQ0MsT0FBT0M7MEJBQ1gsY0FBQSxzQkFBQ0MscUJBQVM7b0JBQUNGLE9BQU9HOztzQ0FDaEIscUJBQUNDLG1CQUFPOzRCQUFDSixPQUFPSztzQ0FDZCxjQUFBLHFCQUFDQyxtQkFBTztnQ0FBQ04sT0FBT087MENBQWE7OztzQ0FHL0Isc0JB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

@@ -1,0 +1,200 @@
+e7b21b12639b7e00bbdc8e9a0b1ce1d8
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "Footer", {
+    enumerable: true,
+    get: function() {
+        return Footer;
+    }
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _link = /*#__PURE__*/ _interop_require_default(require("next/link"));
+const _site = require("../../lib/config/site");
+function _interop_require_default(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
+const footerLinks = {
+    services: [
+        {
+            title: "Individual Therapy",
+            href: "/services/individual"
+        },
+        {
+            title: "Couples Counseling",
+            href: "/services/couples"
+        },
+        {
+            title: "Family Therapy",
+            href: "/services/family"
+        },
+        {
+            title: "Group Therapy",
+            href: "/services/group"
+        }
+    ],
+    resources: [
+        {
+            title: "About",
+            href: "/about"
+        },
+        {
+            title: "Blog",
+            href: "/blog"
+        },
+        {
+            title: "FAQ",
+            href: "/faq"
+        },
+        {
+            title: "Privacy Policy",
+            href: "/privacy"
+        }
+    ],
+    contact: [
+        {
+            title: "Schedule Appointment",
+            href: "/book"
+        },
+        {
+            title: "Contact Us",
+            href: "/contact"
+        },
+        {
+            title: "Location",
+            href: "/location"
+        },
+        {
+            title: "Emergency Resources",
+            href: "/emergency"
+        }
+    ]
+};
+function Footer() {
+    const currentYear = new Date().getFullYear();
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)("footer", {
+        className: "bg-muted border-t border-border",
+        children: /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+            className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12",
+            children: [
+                /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                    className: "grid grid-cols-1 md:grid-cols-4 gap-8",
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                            className: "col-span-1 md:col-span-1",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_link.default, {
+                                    href: "/",
+                                    className: "inline-block mb-4",
+                                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                        className: "font-serif text-2xl font-semibold text-primary",
+                                        children: _site.siteConfig.name
+                                    })
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                                    className: "text-muted-foreground text-sm leading-relaxed mb-4",
+                                    children: "Professional counseling services focused on your mental health and wellbeing."
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+                                    className: "flex space-x-4"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                                    className: "font-semibold text-foreground mb-4",
+                                    children: "Services"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("ul", {
+                                    className: "space-y-2",
+                                    children: footerLinks.services.map((link)=>/*#__PURE__*/ (0, _jsxruntime.jsx)("li", {
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_link.default, {
+                                                href: link.href,
+                                                className: "text-muted-foreground hover:text-primary transition-colors duration-200 text-sm",
+                                                children: link.title
+                                            })
+                                        }, link.href))
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                                    className: "font-semibold text-foreground mb-4",
+                                    children: "Resources"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("ul", {
+                                    className: "space-y-2",
+                                    children: footerLinks.resources.map((link)=>/*#__PURE__*/ (0, _jsxruntime.jsx)("li", {
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_link.default, {
+                                                href: link.href,
+                                                className: "text-muted-foreground hover:text-primary transition-colors duration-200 text-sm",
+                                                children: link.title
+                                            })
+                                        }, link.href))
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                                    className: "font-semibold text-foreground mb-4",
+                                    children: "Contact"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("ul", {
+                                    className: "space-y-2",
+                                    children: footerLinks.contact.map((link)=>/*#__PURE__*/ (0, _jsxruntime.jsx)("li", {
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_link.default, {
+                                                href: link.href,
+                                                className: "text-muted-foreground hover:text-primary transition-colors duration-200 text-sm",
+                                                children: link.title
+                                            })
+                                        }, link.href))
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                    className: "mt-4 text-sm text-muted-foreground",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                                            children: "Phone: (555) 123-4567"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                                            children: "Email: info@healingpathways.com"
+                                        })
+                                    ]
+                                })
+                            ]
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+                    className: "border-t border-border mt-12 pt-8",
+                    children: /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                        className: "flex flex-col md:flex-row justify-between items-center",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxruntime.jsxs)("p", {
+                                className: "text-muted-foreground text-sm",
+                                children: [
+                                    "\xa9 ",
+                                    currentYear,
+                                    " ",
+                                    _site.siteConfig.name,
+                                    ". All rights reserved."
+                                ]
+                            }),
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                                className: "text-muted-foreground text-sm mt-4 md:mt-0",
+                                children: "Licensed Professional Counselor • LPC #12345"
+                            })
+                        ]
+                    })
+                })
+            ]
+        })
+    });
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkQ6XFxnaXRodWJcXENDX1NpdGVcXHNyY1xcY29tcG9uZW50c1xcbGF5b3V0XFxmb290ZXIudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBMaW5rIGZyb20gXCJuZXh0L2xpbmtcIjtcbmltcG9ydCB7IHNpdGVDb25maWcgfSBmcm9tIFwiQC9saWIvY29uZmlnL3NpdGVcIjtcblxuY29uc3QgZm9vdGVyTGlua3MgPSB7XG4gIHNlcnZpY2VzOiBbXG4gICAgeyB0aXRsZTogXCJJbmRpdmlkdWFsIFRoZXJhcHlcIiwgaHJlZjogXCIvc2VydmljZXMvaW5kaXZpZHVhbFwiIH0sXG4gICAgeyB0aXRsZTogXCJDb3VwbGVzIENvdW5zZWxpbmdcIiwgaHJlZjogXCIvc2VydmljZXMvY291cGxlc1wiIH0sXG4gICAgeyB0aXRsZTogXCJGYW1pbHkgVGhlcmFweVwiLCBocmVmOiBcIi9zZXJ2aWNlcy9mYW1pbHlcIiB9LFxuICAgIHsgdGl0bGU6IFwiR3JvdXAgVGhlcmFweVwiLCBocmVmOiBcIi9zZXJ2aWNlcy9ncm91cFwiIH0sXG4gIF0sXG4gIHJlc291cmNlczogW1xuICAgIHsgdGl0bGU6IFwiQWJvdXRcIiwgaHJlZjogXCIvYWJvdXRcIiB9LFxuICAgIHsgdGl0bGU6IFwiQmxvZ1wiLCBocmVmOiBcIi9ibG9nXCIgfSxcbiAgICB7IHRpdGxlOiBcIkZBUVwiLCBocmVmOiBcIi9mYXFcIiB9LFxuICAgIHsgdGl0bGU6IFwiUHJpdmFjeSBQb2xpY3lcIiwgaHJlZjogXCIvcHJpdmFjeVwiIH0sXG4gIF0sXG4gIGNvbnRhY3Q6IFtcbiAgICB7IHRpdGxlOiBcIlNjaGVkdWxlIEFwcG9pbnRtZW50XCIsIGhyZWY6IFwiL2Jvb2tcIiB9LFxuICAgIHsgdGl0bGU6IFwiQ29udGFjdCBVc1wiLCBocmVmOiBcIi9jb250YWN0XCIgfSxcbiAgICB7IHRpdGxlOiBcIkxvY2F0aW9uXCIsIGhyZWY6IFwiL2xvY2F0aW9uXCIgfSxcbiAgICB7IHRpdGxlOiBcIkVtZXJnZW5jeSBSZXNvdXJjZXNcIiwgaHJlZjogXCIvZW1lcmdlbmN5XCIgfSxcbiAgXSxcbn07XG5cbmV4cG9ydCBmdW5jdGlvbiBGb290ZXIoKSB7XG4gIGNvbnN0IGN1cnJlbnRZZWFyID0gbmV3IERhdGUoKS5nZXRGdWxsWWVhcigpO1xuXG4gIHJldHVybiAoXG4gICAgPGZvb3RlciBjbGFzc05hbWU9XCJiZy1tdXRlZCBib3JkZXItdCBib3JkZXItYm9yZGVyXCI+XG4gICAgICA8ZGl2IGNsYXNzTmFtZT1cIm1heC13LTd4bCBteC1hdXRvIHB4LTQgc206cHgtNiBsZzpweC04IHB5LTEyXCI+XG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZ3JpZCBncmlkLWNvbHMtMSBtZDpncmlkLWNvbHMtNCBnYXAtOFwiPlxuICAgICAgICAgIHsvKiBCcmFuZCAqL31cbiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImNvbC1zcGFuLTEgbWQ6Y29sLXNwYW4tMVwiPlxuICAgICAgICAgICAgPExpbmsgaHJlZj1cIi9cIiBjbGFzc05hbWU9XCJpbmxpbmUtYmxvY2sgbWItNFwiPlxuICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJmb250LXNlcmlmIHRleHQtMnhsIGZvbnQtc2VtaWJvbGQgdGV4dC1wcmltYXJ5XCI+XG4gICAgICAgICAgICAgICAge3NpdGVDb25maWcubmFtZX1cbiAgICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgICAgPC9MaW5rPlxuICAgICAgICAgICAgPHAgY2xhc3NOYW1lPVwidGV4dC1tdXRlZC1mb3JlZ3JvdW5kIHRleHQtc20gbGVhZGluZy1yZWxheGVkIG1iLTRcIj5cbiAgICAgICAgICAgICAgUHJvZmVzc2lvbmFsIGNvdW5zZWxpbmcgc2VydmljZXMgZm9jdXNlZCBvbiB5b3VyIG1lbnRhbCBoZWFsdGggYW5kXG4gICAgICAgICAgICAgIHdlbGxiZWluZy5cbiAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmxleCBzcGFjZS14LTRcIj5cbiAgICAgICAgICAgICAgey8qIFNvY2lhbCBsaW5rcyB3b3VsZCBnbyBoZXJlICovfVxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICB7LyogU2VydmljZXMgKi99XG4gICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgIDxoMyBjbGFzc05hbWU9XCJmb250LXNlbWlib2xkIHRleHQtZm9yZWdyb3VuZCBtYi00XCI+U2VydmljZXM8L2gzPlxuICAgICAgICAgICAgPHVsIGNsYXNzTmFtZT1cInNwYWNlLXktMlwiPlxuICAgICAgICAgICAgICB7Zm9vdGVyTGlua3Muc2VydmljZXMubWFwKGxpbmsgPT4gKFxuICAgICAgICAgICAgICAgIDxsaSBrZXk9e2xpbmsuaHJlZn0+XG4gICAgICAgICAgICAgICAgICA8TGlua1xuICAgICAgICAgICAgICAgICAgICBocmVmPXtsaW5rLmhyZWZ9XG4gICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cInRleHQtbXV0ZWQtZm9yZWdyb3VuZCBob3Zlcjp0ZXh0LXByaW1hcnkgdHJhbnNpdGlvbi1jb2xvcnMgZHVyYXRpb24tMjAwIHRleHQtc21cIlxuICAgICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICB7bGluay50aXRsZX1cbiAgICAgICAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICAgICAgICA8L2xpPlxuICAgICAgICAgICAgICApKX1cbiAgICAgICAgICAgIDwvdWw+XG4gICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICB7LyogUmVzb3VyY2VzICovfVxuICAgICAgICAgIDxkaXY+XG4gICAgICAgICAgICA8aDMgY2xhc3NOYW1lPVwiZm9udC1zZW1pYm9sZCB0ZXh0LWZvcmVncm91bmQgbWItNFwiPlJlc291cmNlczwvaDM+XG4gICAgICAgICAgICA8dWwgY2xhc3NOYW1lPVwic3BhY2UteS0yXCI+XG4gICAgICAgICAgICAgIHtmb290ZXJMaW5rcy5yZXNvdXJjZXMubWFwKGxpbmsgPT4gKFxuICAgICAgICAgICAgICAgIDxsaSBrZXk9e2xpbmsuaHJlZn0+XG4gICAgICAgICAgICAgICAgICA8TGlua1xuICAgICAgICAgICAgICAgICAgICBocmVmPXtsaW5rLmhyZWZ9XG4gICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cInRleHQtbXV0ZWQtZm9yZWdyb3VuZCBob3Zlcjp0ZXh0LXByaW1hcnkgdHJhbnNpdGlvbi1jb2xvcnMgZHVyYXRpb24tMjAwIHRleHQtc21cIlxuICAgICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICB7bGluay50aXRsZX1cbiAgICAgICAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICAgICAgICA8L2xpPlxuICAgICAgICAgICAgICApKX1cbiAgICAgICAgICAgIDwvdWw+XG4gICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICB7LyogQ29udGFjdCAqL31cbiAgICAgICAgICA8ZGl2PlxuICAgICAgICAgICAgPGgzIGNsYXNzTmFtZT1cImZvbnQtc2VtaWJvbGQgdGV4dC1mb3JlZ3JvdW5kIG1iLTRcIj5Db250YWN0PC9oMz5cbiAgICAgICAgICAgIDx1bCBjbGFzc05hbWU9XCJzcGFjZS15LTJcIj5cbiAgICAgICAgICAgICAge2Zvb3RlckxpbmtzLmNvbnRhY3QubWFwKGxpbmsgPT4gKFxuICAgICAgICAgICAgICAgIDxsaSBrZXk9e2xpbmsuaHJlZn0+XG4gICAgICAgICAgICAgICAgICA8TGlua1xuICAgICAgICAgICAgICAgICAgICBocmVmPXtsaW5rLmhyZWZ9XG4gICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cInRleHQtbXV0ZWQtZm9yZWdyb3VuZCBob3Zlcjp0ZXh0LXByaW1hcnkgdHJhbnNpdGlvbi1jb2xvcnMgZHVyYXRpb24tMjAwIHRleHQtc21cIlxuICAgICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICB7bGluay50aXRsZX1cbiAgICAgICAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICAgICAgICA8L2xpPlxuICAgICAgICAgICAgICApKX1cbiAgICAgICAgICAgIDwvdWw+XG4gICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm10LTQgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmRcIj5cbiAgICAgICAgICAgICAgPHA+UGhvbmU6ICg1NTUpIDEyMy00NTY3PC9wPlxuICAgICAgICAgICAgICA8cD5FbWFpbDogaW5mb0BoZWFsaW5ncGF0aHdheXMuY29tPC9wPlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuXG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiYm9yZGVyLXQgYm9yZGVyLWJvcmRlciBtdC0xMiBwdC04XCI+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IGZsZXgtY29sIG1kOmZsZXgtcm93IGp1c3RpZnktYmV0d2VlbiBpdGVtcy1jZW50ZXJcIj5cbiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cInRleHQtbXV0ZWQtZm9yZWdyb3VuZCB0ZXh0LXNtXCI+XG4gICAgICAgICAgICAgIMKpIHtjdXJyZW50WWVhcn0ge3NpdGVDb25maWcubmFtZX0uIEFsbCByaWdodHMgcmVzZXJ2ZWQuXG4gICAgICAgICAgICA8L3A+XG4gICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJ0ZXh0LW11dGVkLWZvcmVncm91bmQgdGV4dC1zbSBtdC00IG1kOm10LTBcIj5cbiAgICAgICAgICAgICAgTGljZW5zZWQgUHJvZmVzc2lvbmFsIENvdW5zZWxvciDigKIgTFBDICMxMjM0NVxuICAgICAgICAgICAgPC9wPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvZGl2PlxuICAgIDwvZm9vdGVyPlxuICApO1xufVxuIl0sIm5hbWVzIjpbIkZvb3RlciIsImZvb3RlckxpbmtzIiwic2VydmljZXMiLCJ0aXRsZSIsImhyZWYiLCJyZXNvdXJjZXMiLCJjb250YWN0IiwiY3VycmVudFllYXIiLCJEYXRlIiwiZ2V0RnVsbFllYXIiLCJmb290ZXIiLCJjbGFzc05hbWUiLCJkaXYiLCJMaW5rIiwic3BhbiIsInNpdGVDb25maWciLCJuYW1lIiwicCIsImgzIiwidWwiLCJtYXAiLCJsaW5rIiwibGkiXSwibWFwcGluZ3MiOiI7Ozs7K0JBd0JnQkE7OztlQUFBQTs7Ozs2REF4QkM7c0JBQ1U7Ozs7OztBQUUzQixNQUFNQyxjQUFjO0lBQ2xCQyxVQUFVO1FBQ1I7WUFBRUMsT0FBTztZQUFzQkMsTUFBTTtRQUF1QjtRQUM1RDtZQUFFRCxPQUFPO1lBQXNCQyxNQUFNO1FBQW9CO1FBQ3pEO1lBQUVELE9BQU87WUFBa0JDLE1BQU07UUFBbUI7UUFDcEQ7WUFBRUQsT0FBTztZQUFpQkMsTUFBTTtRQUFrQjtLQUNuRDtJQUNEQyxXQUFXO1FBQ1Q7WUFBRUYsT0FBTztZQUFTQyxNQUFNO1FBQVM7UUFDakM7WUFBRUQsT0FBTztZQUFRQyxNQUFNO1FBQVE7UUFDL0I7WUFBRUQsT0FBTztZQUFPQyxNQUFNO1FBQU87UUFDN0I7WUFBRUQsT0FBTztZQUFrQkMsTUFBTTtRQUFXO0tBQzdDO0lBQ0RFLFNBQVM7UUFDUDtZQUFFSCxPQUFPO1lBQXdCQyxNQUFNO1FBQVE7UUFDL0M7WUFBRUQsT0FBTztZQUFjQyxNQUFNO1FBQVc7UUFDeEM7WUFBRUQsT0FBTztZQUFZQyxNQUFNO1FBQVk7UUFDdkM7WUFBRUQsT0FBTztZQUF1QkMsTUFBTTtRQUFhO0tBQ3BEO0FBQ0g7QUFFTyxTQUFTSjtJQUNkLE1BQU1PLGNBQWMsSUFBSUMsT0FBT0MsV0FBVztJQUUxQyxxQkFDRSxxQkFBQ0M7UUFBT0MsV0FBVTtrQkFDaEIsY0FBQSxzQkFBQ0M7WUFBSUQsV0FBVTs7OEJBQ2Isc0JBQUNDO29CQUFJRCxXQUFVOztzQ0FFYixzQkFBQ0M7NEJBQUlELFdBQVU7OzhDQUNiLHFCQUFDRSxhQUFJO29DQUFDVCxNQUFLO29DQUFJTyxXQUFVOzhDQUN2QixjQUFBLHFCQUFDRzt3Q0FBS0gsV0FBVTtrREFDYkksZ0JBQVUsQ0FBQ0MsSUFBSTs7OzhDQUdwQixxQkFBQ0M7b0NBQUVOLFdBQVU7OENBQXFEOzs4Q0FJbEUscUJBQUNDO29DQUFJRCxXQUFVOzs7O3NDQU1qQixzQkFBQ0M7OzhDQUNDLHFCQUFDTTtvQ0FBR1AsV0FBVTs4Q0FBcUM7OzhDQUNuRCxxQkFBQ1E7b0NBQUdSLFdBQVU7OENBQ1hWLFlBQVlDLFFBQVEsQ0FBQ2tCLEdBQUcsQ0FBQ0MsQ0FBQUEscUJBQ3hCLHFCQUFDQztzREFDQyxjQUFBLHFCQUFDVCxhQUFJO2dEQUNIVCxNQUFNaUIsS0FBS2pCLElBQUk7Z0RBQ2ZPLFdBQVU7MERBRVRVLEtBQUtsQixLQUFLOzsyQ0FMTmtCLEtBQUtqQixJQUFJOzs7O3NDQWF4QixzQkFBQ1E7OzhDQUNDLHFCQUFDTTtvQ0FBR1AsV0FBVTs4Q0FBcUM7OzhDQUNuRCxxQkFBQ1E7b0NBQUdSLFdBQVU7OENBQ1hWLFlBQVlJLFNBQVMsQ0FBQ2UsR0FBRyxDQUFDQyxDQUFBQSxxQkFDekIscUJBQUNDO3NEQUNDLGNBQUEscUJBQUNULGFBQUk7Z0RBQ0hULE1BQU1pQixLQUFLakIsSUFBSTtnREFDZk8sV0FBVTswREFFVFUsS0FBS2xCLEtBQUs7OzJDQUxOa0IsS0FBS2pCLElBQUk7Ozs7c0NBYXhCLHNCQUFDUTs7OENBQ0MscUJBQUNNO29DQUFHUCxXQUFVOzhDQUFxQzs7OENBQ25ELHFCQUFDUTtvQ0FBR1IsV0FBVTs4Q0FDWFYsWUFBWUssT0FBTyxDQUFDYyxHQUFHLENBQUNDLENBQUFBLHFCQUN2QixxQkFBQ0M7c0RBQ0MsY0FBQSxxQkFBQ1QsYUFBSTtnREFDSFQsTUFBTWlCLEtBQUtqQixJQUFJO2dEQUNmTyxXQUFVOzBEQUVUVSxLQUFLbEIsS0FBSzs7MkNBTE5rQixLQUFLakIsSUFBSTs7OENBVXRCLHNCQUFDUTtvQ0FBSUQsV0FBVTs7c0RBQ2IscUJBQUNNO3NEQUFFOztzREFDSCxxQkFBQ0E7c0RBQUU7Ozs7Ozs7OzhCQUtULHFCQUFDTDtvQkFBSUQsV0FBVTs4QkFDYixjQUFBLHNCQUFDQzt3QkFBSUQsV0FBVTs7MENBQ2Isc0JBQUNNO2dDQUFFTixXQUFVOztvQ0FBZ0M7b0NBQ3hDSjtvQ0FBWTtvQ0FBRVEsZ0JBQVUsQ0FBQ0MsSUFBSTtvQ0FBQzs7OzBDQUVuQyxxQkFBQ0M7Z0NBQUVOLFdBQVU7MENBQTZDOzs7Ozs7OztBQVF0RSJ9

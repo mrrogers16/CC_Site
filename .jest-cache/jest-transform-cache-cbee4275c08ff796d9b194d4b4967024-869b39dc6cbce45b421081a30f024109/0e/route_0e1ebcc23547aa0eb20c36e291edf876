@@ -1,0 +1,603 @@
+328ab26842ca5af09dc87dbbb5f6de2b
+"use strict";
+
+/* istanbul ignore next */
+function cov_2h96mo8xsc() {
+  var path = "D:\\github\\CC_Site\\src\\app\\api\\admin\\appointments\\[id]\\history\\route.ts";
+  var hash = "e27459c4459e5290f52fd8e2d6b31539d5320ccb";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\github\\CC_Site\\src\\app\\api\\admin\\appointments\\[id]\\history\\route.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 4,
+          column: 3
+        }
+      },
+      "1": {
+        start: {
+          line: 5,
+          column: 0
+        },
+        end: {
+          line: 10,
+          column: 3
+        }
+      },
+      "2": {
+        start: {
+          line: 8,
+          column: 8
+        },
+        end: {
+          line: 8,
+          column: 19
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 16
+        },
+        end: {
+          line: 11,
+          column: 38
+        }
+      },
+      "4": {
+        start: {
+          line: 12,
+          column: 18
+        },
+        end: {
+          line: 12,
+          column: 38
+        }
+      },
+      "5": {
+        start: {
+          line: 13,
+          column: 14
+        },
+        end: {
+          line: 13,
+          column: 51
+        }
+      },
+      "6": {
+        start: {
+          line: 14,
+          column: 12
+        },
+        end: {
+          line: 14,
+          column: 47
+        }
+      },
+      "7": {
+        start: {
+          line: 15,
+          column: 16
+        },
+        end: {
+          line: 15,
+          column: 55
+        }
+      },
+      "8": {
+        start: {
+          line: 16,
+          column: 22
+        },
+        end: {
+          line: 16,
+          column: 72
+        }
+      },
+      "9": {
+        start: {
+          line: 17,
+          column: 16
+        },
+        end: {
+          line: 17,
+          column: 55
+        }
+      },
+      "10": {
+        start: {
+          line: 18,
+          column: 12
+        },
+        end: {
+          line: 70,
+          column: 2
+        }
+      },
+      "11": {
+        start: {
+          line: 19,
+          column: 20
+        },
+        end: {
+          line: 19,
+          column: 76
+        }
+      },
+      "12": {
+        start: {
+          line: 20,
+          column: 4
+        },
+        end: {
+          line: 22,
+          column: 5
+        }
+      },
+      "13": {
+        start: {
+          line: 21,
+          column: 8
+        },
+        end: {
+          line: 21,
+          column: 69
+        }
+      },
+      "14": {
+        start: {
+          line: 23,
+          column: 19
+        },
+        end: {
+          line: 23,
+          column: 31
+        }
+      },
+      "15": {
+        start: {
+          line: 25,
+          column: 24
+        },
+        end: {
+          line: 32,
+          column: 6
+        }
+      },
+      "16": {
+        start: {
+          line: 33,
+          column: 4
+        },
+        end: {
+          line: 35,
+          column: 5
+        }
+      },
+      "17": {
+        start: {
+          line: 34,
+          column: 8
+        },
+        end: {
+          line: 34,
+          column: 55
+        }
+      },
+      "18": {
+        start: {
+          line: 37,
+          column: 20
+        },
+        end: {
+          line: 55,
+          column: 6
+        }
+      },
+      "19": {
+        start: {
+          line: 56,
+          column: 4
+        },
+        end: {
+          line: 60,
+          column: 7
+        }
+      },
+      "20": {
+        start: {
+          line: 61,
+          column: 4
+        },
+        end: {
+          line: 69,
+          column: 7
+        }
+      },
+      "21": {
+        start: {
+          line: 63,
+          column: 40
+        },
+        end: {
+          line: 68,
+          column: 13
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 7,
+            column: 9
+          },
+          end: {
+            line: 7,
+            column: 10
+          }
+        },
+        loc: {
+          start: {
+            line: 7,
+            column: 20
+          },
+          end: {
+            line: 9,
+            column: 5
+          }
+        },
+        line: 7
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 18,
+            column: 48
+          },
+          end: {
+            line: 18,
+            column: 49
+          }
+        },
+        loc: {
+          start: {
+            line: 18,
+            column: 77
+          },
+          end: {
+            line: 70,
+            column: 1
+          }
+        },
+        line: 18
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 63,
+            column: 29
+          },
+          end: {
+            line: 63,
+            column: 30
+          }
+        },
+        loc: {
+          start: {
+            line: 63,
+            column: 40
+          },
+          end: {
+            line: 68,
+            column: 13
+          }
+        },
+        line: 63
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 20,
+            column: 4
+          },
+          end: {
+            line: 22,
+            column: 5
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 20,
+            column: 4
+          },
+          end: {
+            line: 22,
+            column: 5
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 20
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 20,
+            column: 8
+          },
+          end: {
+            line: 20,
+            column: 49
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 20,
+            column: 8
+          },
+          end: {
+            line: 20,
+            column: 16
+          }
+        }, {
+          start: {
+            line: 20,
+            column: 20
+          },
+          end: {
+            line: 20,
+            column: 49
+          }
+        }],
+        line: 20
+      },
+      "2": {
+        loc: {
+          start: {
+            line: 33,
+            column: 4
+          },
+          end: {
+            line: 35,
+            column: 5
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 33,
+            column: 4
+          },
+          end: {
+            line: 35,
+            column: 5
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 33
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "16": 0,
+      "17": 0,
+      "18": 0,
+      "19": 0,
+      "20": 0,
+      "21": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0],
+      "2": [0, 0]
+    },
+    inputSourceMap: {
+      version: 3,
+      sources: ["D:\\github\\CC_Site\\src\\app\\api\\admin\\appointments\\[id]\\history\\route.ts"],
+      sourcesContent: ["import { NextRequest, NextResponse } from \"next/server\";\nimport { getServerSession } from \"next-auth\";\nimport { authOptions } from \"@/lib/auth\";\nimport { prisma } from \"@/lib/db\";\nimport { logger } from \"@/lib/logger\";\nimport { withErrorHandler } from \"@/lib/api/error-handler\";\nimport { NotFoundError, UnauthorizedError } from \"@/lib/errors\";\n\nexport const GET = withErrorHandler(\n  async (\n    request: NextRequest,\n    { params }: { params: Promise<{ id: string }> }\n  ) => {\n    const session = await getServerSession(authOptions);\n\n    if (!session || session.user.role !== \"ADMIN\") {\n      throw new UnauthorizedError(\"Admin access required\");\n    }\n\n    const { id } = await params;\n\n    // Check if appointment exists\n    const appointment = await prisma.appointment.findUnique({\n      where: { id },\n      select: { id: true },\n    });\n\n    if (!appointment) {\n      throw new NotFoundError(\"Appointment\");\n    }\n\n    // Get appointment history\n    const history = await prisma.appointmentHistory.findMany({\n      where: { appointmentId: id },\n      orderBy: { createdAt: \"desc\" },\n      select: {\n        id: true,\n        action: true,\n        oldDateTime: true,\n        newDateTime: true,\n        oldStatus: true,\n        newStatus: true,\n        reason: true,\n        adminName: true,\n        createdAt: true,\n      },\n    });\n\n    logger.info(\"Retrieved appointment history\", {\n      appointmentId: id,\n      historyRecords: history.length,\n      adminId: session.user.id,\n    });\n\n    return NextResponse.json({\n      success: true,\n      history: history.map(record => ({\n        ...record,\n        oldDateTime: record.oldDateTime?.toISOString(),\n        newDateTime: record.newDateTime?.toISOString(),\n        createdAt: record.createdAt.toISOString(),\n      })),\n    });\n  }\n);\n"],
+      names: ["GET", "withErrorHandler", "request", "params", "session", "getServerSession", "authOptions", "user", "role", "UnauthorizedError", "id", "appointment", "prisma", "findUnique", "where", "select", "NotFoundError", "history", "appointmentHistory", "findMany", "appointmentId", "orderBy", "createdAt", "action", "oldDateTime", "newDateTime", "oldStatus", "newStatus", "reason", "adminName", "logger", "info", "historyRecords", "length", "adminId", "NextResponse", "json", "success", "map", "record", "toISOString"],
+      mappings: ";;;;+BAQaA;;;eAAAA;;;wBAR6B;0BACT;sBACL;oBACL;wBACA;8BACU;wBACgB;AAE1C,MAAMA,MAAMC,IAAAA,8BAAgB,EACjC,OACEC,SACA,EAAEC,MAAM,EAAuC;IAE/C,MAAMC,UAAU,MAAMC,IAAAA,0BAAgB,EAACC,iBAAW;IAElD,IAAI,CAACF,WAAWA,QAAQG,IAAI,CAACC,IAAI,KAAK,SAAS;QAC7C,MAAM,IAAIC,yBAAiB,CAAC;IAC9B;IAEA,MAAM,EAAEC,EAAE,EAAE,GAAG,MAAMP;IAErB,8BAA8B;IAC9B,MAAMQ,cAAc,MAAMC,UAAM,CAACD,WAAW,CAACE,UAAU,CAAC;QACtDC,OAAO;YAAEJ;QAAG;QACZK,QAAQ;YAAEL,IAAI;QAAK;IACrB;IAEA,IAAI,CAACC,aAAa;QAChB,MAAM,IAAIK,qBAAa,CAAC;IAC1B;IAEA,0BAA0B;IAC1B,MAAMC,UAAU,MAAML,UAAM,CAACM,kBAAkB,CAACC,QAAQ,CAAC;QACvDL,OAAO;YAAEM,eAAeV;QAAG;QAC3BW,SAAS;YAAEC,WAAW;QAAO;QAC7BP,QAAQ;YACNL,IAAI;YACJa,QAAQ;YACRC,aAAa;YACbC,aAAa;YACbC,WAAW;YACXC,WAAW;YACXC,QAAQ;YACRC,WAAW;YACXP,WAAW;QACb;IACF;IAEAQ,cAAM,CAACC,IAAI,CAAC,iCAAiC;QAC3CX,eAAeV;QACfsB,gBAAgBf,QAAQgB,MAAM;QAC9BC,SAAS9B,QAAQG,IAAI,CAACG,EAAE;IAC1B;IAEA,OAAOyB,oBAAY,CAACC,IAAI,CAAC;QACvBC,SAAS;QACTpB,SAASA,QAAQqB,GAAG,CAACC,CAAAA,SAAW,CAAA;gBAC9B,GAAGA,MAAM;gBACTf,aAAae,OAAOf,WAAW,EAAEgB;gBACjCf,aAAac,OAAOd,WAAW,EAAEe;gBACjClB,WAAWiB,OAAOjB,SAAS,CAACkB,WAAW;YACzC,CAAA;IACF;AACF"
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "e27459c4459e5290f52fd8e2d6b31539d5320ccb"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_2h96mo8xsc = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2h96mo8xsc();
+cov_2h96mo8xsc().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* istanbul ignore next */
+cov_2h96mo8xsc().s[1]++;
+Object.defineProperty(exports, "GET", {
+  enumerable: true,
+  get: function () {
+    /* istanbul ignore next */
+    cov_2h96mo8xsc().f[0]++;
+    cov_2h96mo8xsc().s[2]++;
+    return GET;
+  }
+});
+const _server =
+/* istanbul ignore next */
+(cov_2h96mo8xsc().s[3]++, require("next/server"));
+const _nextauth =
+/* istanbul ignore next */
+(cov_2h96mo8xsc().s[4]++, require("next-auth"));
+const _auth =
+/* istanbul ignore next */
+(cov_2h96mo8xsc().s[5]++, require("../../../../../../lib/auth"));
+const _db =
+/* istanbul ignore next */
+(cov_2h96mo8xsc().s[6]++, require("../../../../../../lib/db"));
+const _logger =
+/* istanbul ignore next */
+(cov_2h96mo8xsc().s[7]++, require("../../../../../../lib/logger"));
+const _errorhandler =
+/* istanbul ignore next */
+(cov_2h96mo8xsc().s[8]++, require("../../../../../../lib/api/error-handler"));
+const _errors =
+/* istanbul ignore next */
+(cov_2h96mo8xsc().s[9]++, require("../../../../../../lib/errors"));
+const GET =
+/* istanbul ignore next */
+(cov_2h96mo8xsc().s[10]++, (0, _errorhandler.withErrorHandler)(async (request, {
+  params
+}) => {
+  /* istanbul ignore next */
+  cov_2h96mo8xsc().f[1]++;
+  const session =
+  /* istanbul ignore next */
+  (cov_2h96mo8xsc().s[11]++, await (0, _nextauth.getServerSession)(_auth.authOptions));
+  /* istanbul ignore next */
+  cov_2h96mo8xsc().s[12]++;
+  if (
+  /* istanbul ignore next */
+  (cov_2h96mo8xsc().b[1][0]++, !session) ||
+  /* istanbul ignore next */
+  (cov_2h96mo8xsc().b[1][1]++, session.user.role !== "ADMIN")) {
+    /* istanbul ignore next */
+    cov_2h96mo8xsc().b[0][0]++;
+    cov_2h96mo8xsc().s[13]++;
+    throw new _errors.UnauthorizedError("Admin access required");
+  } else
+  /* istanbul ignore next */
+  {
+    cov_2h96mo8xsc().b[0][1]++;
+  }
+  const {
+    id
+  } =
+  /* istanbul ignore next */
+  (cov_2h96mo8xsc().s[14]++, await params);
+  // Check if appointment exists
+  const appointment =
+  /* istanbul ignore next */
+  (cov_2h96mo8xsc().s[15]++, await _db.prisma.appointment.findUnique({
+    where: {
+      id
+    },
+    select: {
+      id: true
+    }
+  }));
+  /* istanbul ignore next */
+  cov_2h96mo8xsc().s[16]++;
+  if (!appointment) {
+    /* istanbul ignore next */
+    cov_2h96mo8xsc().b[2][0]++;
+    cov_2h96mo8xsc().s[17]++;
+    throw new _errors.NotFoundError("Appointment");
+  } else
+  /* istanbul ignore next */
+  {
+    cov_2h96mo8xsc().b[2][1]++;
+  }
+  // Get appointment history
+  const history =
+  /* istanbul ignore next */
+  (cov_2h96mo8xsc().s[18]++, await _db.prisma.appointmentHistory.findMany({
+    where: {
+      appointmentId: id
+    },
+    orderBy: {
+      createdAt: "desc"
+    },
+    select: {
+      id: true,
+      action: true,
+      oldDateTime: true,
+      newDateTime: true,
+      oldStatus: true,
+      newStatus: true,
+      reason: true,
+      adminName: true,
+      createdAt: true
+    }
+  }));
+  /* istanbul ignore next */
+  cov_2h96mo8xsc().s[19]++;
+  _logger.logger.info("Retrieved appointment history", {
+    appointmentId: id,
+    historyRecords: history.length,
+    adminId: session.user.id
+  });
+  /* istanbul ignore next */
+  cov_2h96mo8xsc().s[20]++;
+  return _server.NextResponse.json({
+    success: true,
+    history: history.map(record => {
+      /* istanbul ignore next */
+      cov_2h96mo8xsc().f[2]++;
+      cov_2h96mo8xsc().s[21]++;
+      return {
+        ...record,
+        oldDateTime: record.oldDateTime?.toISOString(),
+        newDateTime: record.newDateTime?.toISOString(),
+        createdAt: record.createdAt.toISOString()
+      };
+    })
+  });
+}));
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJHRVQiLCJjb3ZfMmg5Nm1vOHhzYyIsInMiLCJfZXJyb3JoYW5kbGVyIiwid2l0aEVycm9ySGFuZGxlciIsInJlcXVlc3QiLCJwYXJhbXMiLCJmIiwic2Vzc2lvbiIsIl9uZXh0YXV0aCIsImdldFNlcnZlclNlc3Npb24iLCJfYXV0aCIsImF1dGhPcHRpb25zIiwiYiIsInVzZXIiLCJyb2xlIiwiX2Vycm9ycyIsIlVuYXV0aG9yaXplZEVycm9yIiwiaWQiLCJhcHBvaW50bWVudCIsIl9kYiIsInByaXNtYSIsImZpbmRVbmlxdWUiLCJ3aGVyZSIsInNlbGVjdCIsIk5vdEZvdW5kRXJyb3IiLCJoaXN0b3J5IiwiYXBwb2ludG1lbnRIaXN0b3J5IiwiZmluZE1hbnkiLCJhcHBvaW50bWVudElkIiwib3JkZXJCeSIsImNyZWF0ZWRBdCIsImFjdGlvbiIsIm9sZERhdGVUaW1lIiwibmV3RGF0ZVRpbWUiLCJvbGRTdGF0dXMiLCJuZXdTdGF0dXMiLCJyZWFzb24iLCJhZG1pbk5hbWUiLCJfbG9nZ2VyIiwibG9nZ2VyIiwiaW5mbyIsImhpc3RvcnlSZWNvcmRzIiwibGVuZ3RoIiwiYWRtaW5JZCIsIl9zZXJ2ZXIiLCJOZXh0UmVzcG9uc2UiLCJqc29uIiwic3VjY2VzcyIsIm1hcCIsInJlY29yZCIsInRvSVNPU3RyaW5nIl0sInNvdXJjZXMiOlsiRDpcXGdpdGh1YlxcQ0NfU2l0ZVxcc3JjXFxhcHBcXGFwaVxcYWRtaW5cXGFwcG9pbnRtZW50c1xcW2lkXVxcaGlzdG9yeVxccm91dGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgTmV4dFJlcXVlc3QsIE5leHRSZXNwb25zZSB9IGZyb20gXCJuZXh0L3NlcnZlclwiO1xuaW1wb3J0IHsgZ2V0U2VydmVyU2Vzc2lvbiB9IGZyb20gXCJuZXh0LWF1dGhcIjtcbmltcG9ydCB7IGF1dGhPcHRpb25zIH0gZnJvbSBcIkAvbGliL2F1dGhcIjtcbmltcG9ydCB7IHByaXNtYSB9IGZyb20gXCJAL2xpYi9kYlwiO1xuaW1wb3J0IHsgbG9nZ2VyIH0gZnJvbSBcIkAvbGliL2xvZ2dlclwiO1xuaW1wb3J0IHsgd2l0aEVycm9ySGFuZGxlciB9IGZyb20gXCJAL2xpYi9hcGkvZXJyb3ItaGFuZGxlclwiO1xuaW1wb3J0IHsgTm90Rm91bmRFcnJvciwgVW5hdXRob3JpemVkRXJyb3IgfSBmcm9tIFwiQC9saWIvZXJyb3JzXCI7XG5cbmV4cG9ydCBjb25zdCBHRVQgPSB3aXRoRXJyb3JIYW5kbGVyKFxuICBhc3luYyAoXG4gICAgcmVxdWVzdDogTmV4dFJlcXVlc3QsXG4gICAgeyBwYXJhbXMgfTogeyBwYXJhbXM6IFByb21pc2U8eyBpZDogc3RyaW5nIH0+IH1cbiAgKSA9PiB7XG4gICAgY29uc3Qgc2Vzc2lvbiA9IGF3YWl0IGdldFNlcnZlclNlc3Npb24oYXV0aE9wdGlvbnMpO1xuXG4gICAgaWYgKCFzZXNzaW9uIHx8IHNlc3Npb24udXNlci5yb2xlICE9PSBcIkFETUlOXCIpIHtcbiAgICAgIHRocm93IG5ldyBVbmF1dGhvcml6ZWRFcnJvcihcIkFkbWluIGFjY2VzcyByZXF1aXJlZFwiKTtcbiAgICB9XG5cbiAgICBjb25zdCB7IGlkIH0gPSBhd2FpdCBwYXJhbXM7XG5cbiAgICAvLyBDaGVjayBpZiBhcHBvaW50bWVudCBleGlzdHNcbiAgICBjb25zdCBhcHBvaW50bWVudCA9IGF3YWl0IHByaXNtYS5hcHBvaW50bWVudC5maW5kVW5pcXVlKHtcbiAgICAgIHdoZXJlOiB7IGlkIH0sXG4gICAgICBzZWxlY3Q6IHsgaWQ6IHRydWUgfSxcbiAgICB9KTtcblxuICAgIGlmICghYXBwb2ludG1lbnQpIHtcbiAgICAgIHRocm93IG5ldyBOb3RGb3VuZEVycm9yKFwiQXBwb2ludG1lbnRcIik7XG4gICAgfVxuXG4gICAgLy8gR2V0IGFwcG9pbnRtZW50IGhpc3RvcnlcbiAgICBjb25zdCBoaXN0b3J5ID0gYXdhaXQgcHJpc21hLmFwcG9pbnRtZW50SGlzdG9yeS5maW5kTWFueSh7XG4gICAgICB3aGVyZTogeyBhcHBvaW50bWVudElkOiBpZCB9LFxuICAgICAgb3JkZXJCeTogeyBjcmVhdGVkQXQ6IFwiZGVzY1wiIH0sXG4gICAgICBzZWxlY3Q6IHtcbiAgICAgICAgaWQ6IHRydWUsXG4gICAgICAgIGFjdGlvbjogdHJ1ZSxcbiAgICAgICAgb2xkRGF0ZVRpbWU6IHRydWUsXG4gICAgICAgIG5ld0RhdGVUaW1lOiB0cnVlLFxuICAgICAgICBvbGRTdGF0dXM6IHRydWUsXG4gICAgICAgIG5ld1N0YXR1czogdHJ1ZSxcbiAgICAgICAgcmVhc29uOiB0cnVlLFxuICAgICAgICBhZG1pbk5hbWU6IHRydWUsXG4gICAgICAgIGNyZWF0ZWRBdDogdHJ1ZSxcbiAgICAgIH0sXG4gICAgfSk7XG5cbiAgICBsb2dnZXIuaW5mbyhcIlJldHJpZXZlZCBhcHBvaW50bWVudCBoaXN0b3J5XCIsIHtcbiAgICAgIGFwcG9pbnRtZW50SWQ6IGlkLFxuICAgICAgaGlzdG9yeVJlY29yZHM6IGhpc3RvcnkubGVuZ3RoLFxuICAgICAgYWRtaW5JZDogc2Vzc2lvbi51c2VyLmlkLFxuICAgIH0pO1xuXG4gICAgcmV0dXJuIE5leHRSZXNwb25zZS5qc29uKHtcbiAgICAgIHN1Y2Nlc3M6IHRydWUsXG4gICAgICBoaXN0b3J5OiBoaXN0b3J5Lm1hcChyZWNvcmQgPT4gKHtcbiAgICAgICAgLi4ucmVjb3JkLFxuICAgICAgICBvbGREYXRlVGltZTogcmVjb3JkLm9sZERhdGVUaW1lPy50b0lTT1N0cmluZygpLFxuICAgICAgICBuZXdEYXRlVGltZTogcmVjb3JkLm5ld0RhdGVUaW1lPy50b0lTT1N0cmluZygpLFxuICAgICAgICBjcmVhdGVkQXQ6IHJlY29yZC5jcmVhdGVkQXQudG9JU09TdHJpbmcoKSxcbiAgICAgIH0pKSxcbiAgICB9KTtcbiAgfVxuKTtcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7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

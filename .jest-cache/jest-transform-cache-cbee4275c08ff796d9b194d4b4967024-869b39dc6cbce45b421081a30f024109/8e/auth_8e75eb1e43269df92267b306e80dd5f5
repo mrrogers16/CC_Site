@@ -1,0 +1,664 @@
+09356af6c62ae285e40f36bbbf8c670f
+"use strict";
+
+/* istanbul ignore next */
+function cov_1k797w5h95() {
+  var path = "D:\\github\\CC_Site\\src\\lib\\validations\\auth.ts";
+  var hash = "963c2e49f057175fa3c1371bb257bb42c63f0ca5";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\github\\CC_Site\\src\\lib\\validations\\auth.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 4,
+          column: 3
+        }
+      },
+      "1": {
+        start: {
+          line: 6,
+          column: 4
+        },
+        end: {
+          line: 9,
+          column: 7
+        }
+      },
+      "2": {
+        start: {
+          line: 6,
+          column: 24
+        },
+        end: {
+          line: 9,
+          column: 7
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 0
+        },
+        end: {
+          line: 27,
+          column: 3
+        }
+      },
+      "4": {
+        start: {
+          line: 13,
+          column: 8
+        },
+        end: {
+          line: 13,
+          column: 39
+        }
+      },
+      "5": {
+        start: {
+          line: 16,
+          column: 8
+        },
+        end: {
+          line: 16,
+          column: 36
+        }
+      },
+      "6": {
+        start: {
+          line: 19,
+          column: 8
+        },
+        end: {
+          line: 19,
+          column: 27
+        }
+      },
+      "7": {
+        start: {
+          line: 22,
+          column: 8
+        },
+        end: {
+          line: 22,
+          column: 30
+        }
+      },
+      "8": {
+        start: {
+          line: 25,
+          column: 8
+        },
+        end: {
+          line: 25,
+          column: 35
+        }
+      },
+      "9": {
+        start: {
+          line: 28,
+          column: 13
+        },
+        end: {
+          line: 28,
+          column: 27
+        }
+      },
+      "10": {
+        start: {
+          line: 29,
+          column: 23
+        },
+        end: {
+          line: 48,
+          column: 2
+        }
+      },
+      "11": {
+        start: {
+          line: 35,
+          column: 8
+        },
+        end: {
+          line: 35,
+          column: 30
+        }
+      },
+      "12": {
+        start: {
+          line: 35,
+          column: 18
+        },
+        end: {
+          line: 35,
+          column: 30
+        }
+      },
+      "13": {
+        start: {
+          line: 37,
+          column: 24
+        },
+        end: {
+          line: 37,
+          column: 50
+        }
+      },
+      "14": {
+        start: {
+          line: 39,
+          column: 8
+        },
+        end: {
+          line: 39,
+          column: 45
+        }
+      },
+      "15": {
+        start: {
+          line: 43,
+          column: 18
+        },
+        end: {
+          line: 43,
+          column: 56
+        }
+      },
+      "16": {
+        start: {
+          line: 49,
+          column: 20
+        },
+        end: {
+          line: 52,
+          column: 2
+        }
+      },
+      "17": {
+        start: {
+          line: 53,
+          column: 32
+        },
+        end: {
+          line: 55,
+          column: 2
+        }
+      },
+      "18": {
+        start: {
+          line: 56,
+          column: 29
+        },
+        end: {
+          line: 58,
+          column: 2
+        }
+      },
+      "19": {
+        start: {
+          line: 59,
+          column: 28
+        },
+        end: {
+          line: 68,
+          column: 2
+        }
+      },
+      "20": {
+        start: {
+          line: 63,
+          column: 18
+        },
+        end: {
+          line: 63,
+          column: 56
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "_export",
+        decl: {
+          start: {
+            line: 5,
+            column: 9
+          },
+          end: {
+            line: 5,
+            column: 16
+          }
+        },
+        loc: {
+          start: {
+            line: 5,
+            column: 30
+          },
+          end: {
+            line: 10,
+            column: 1
+          }
+        },
+        line: 5
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 12,
+            column: 4
+          },
+          end: {
+            line: 12,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 12,
+            column: 35
+          },
+          end: {
+            line: 14,
+            column: 5
+          }
+        },
+        line: 12
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 15,
+            column: 4
+          },
+          end: {
+            line: 15,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 32
+          },
+          end: {
+            line: 17,
+            column: 5
+          }
+        },
+        line: 15
+      },
+      "3": {
+        name: "(anonymous_3)",
+        decl: {
+          start: {
+            line: 18,
+            column: 4
+          },
+          end: {
+            line: 18,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 18,
+            column: 23
+          },
+          end: {
+            line: 20,
+            column: 5
+          }
+        },
+        line: 18
+      },
+      "4": {
+        name: "(anonymous_4)",
+        decl: {
+          start: {
+            line: 21,
+            column: 4
+          },
+          end: {
+            line: 21,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 21,
+            column: 26
+          },
+          end: {
+            line: 23,
+            column: 5
+          }
+        },
+        line: 21
+      },
+      "5": {
+        name: "(anonymous_5)",
+        decl: {
+          start: {
+            line: 24,
+            column: 4
+          },
+          end: {
+            line: 24,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 24,
+            column: 31
+          },
+          end: {
+            line: 26,
+            column: 5
+          }
+        },
+        line: 24
+      },
+      "6": {
+        name: "(anonymous_6)",
+        decl: {
+          start: {
+            line: 34,
+            column: 45
+          },
+          end: {
+            line: 34,
+            column: 46
+          }
+        },
+        loc: {
+          start: {
+            line: 34,
+            column: 52
+          },
+          end: {
+            line: 40,
+            column: 5
+          }
+        },
+        line: 34
+      },
+      "7": {
+        name: "(anonymous_7)",
+        decl: {
+          start: {
+            line: 43,
+            column: 10
+          },
+          end: {
+            line: 43,
+            column: 11
+          }
+        },
+        loc: {
+          start: {
+            line: 43,
+            column: 18
+          },
+          end: {
+            line: 43,
+            column: 56
+          }
+        },
+        line: 43
+      },
+      "8": {
+        name: "(anonymous_8)",
+        decl: {
+          start: {
+            line: 63,
+            column: 10
+          },
+          end: {
+            line: 63,
+            column: 11
+          }
+        },
+        loc: {
+          start: {
+            line: 63,
+            column: 18
+          },
+          end: {
+            line: 63,
+            column: 56
+          }
+        },
+        line: 63
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 35,
+            column: 8
+          },
+          end: {
+            line: 35,
+            column: 30
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 35,
+            column: 8
+          },
+          end: {
+            line: 35,
+            column: 30
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 35
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "16": 0,
+      "17": 0,
+      "18": 0,
+      "19": 0,
+      "20": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0
+    },
+    b: {
+      "0": [0, 0]
+    },
+    inputSourceMap: {
+      version: 3,
+      sources: ["D:\\github\\CC_Site\\src\\lib\\validations\\auth.ts"],
+      sourcesContent: ["import { z } from \"zod\";\n\nexport const registerSchema = z\n  .object({\n    name: z\n      .string()\n      .min(2, \"Name must be at least 2 characters\")\n      .max(100, \"Name must be less than 100 characters\"),\n    email: z\n      .string()\n      .email(\"Please enter a valid email address\")\n      .min(1, \"Email is required\"),\n    password: z\n      .string()\n      .min(8, \"Password must be at least 8 characters\")\n      .regex(\n        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)/,\n        \"Password must contain at least one lowercase letter, one uppercase letter, and one number\"\n      ),\n    confirmPassword: z.string(),\n    phone: z\n      .string()\n      .optional()\n      .refine(\n        val => {\n          if (!val) return true;\n          // Remove all non-digit characters except + at the beginning\n          const cleaned = val.replace(/[^\\d+]/g, \"\");\n          // Must have + only at start (optional) and at least 7 digits\n          return /^\\+?\\d{7,15}$/.test(cleaned);\n        },\n        {\n          message: \"Please enter a valid phone number\",\n        }\n      ),\n  })\n  .refine(data => data.password === data.confirmPassword, {\n    message: \"Passwords don't match\",\n    path: [\"confirmPassword\"],\n  });\n\nexport const loginSchema = z.object({\n  email: z\n    .string()\n    .email(\"Please enter a valid email address\")\n    .min(1, \"Email is required\"),\n  password: z.string().min(1, \"Password is required\"),\n});\n\nexport const emailVerificationSchema = z.object({\n  token: z.string().min(1, \"Verification token is required\"),\n});\n\nexport const forgotPasswordSchema = z.object({\n  email: z\n    .string()\n    .email(\"Please enter a valid email address\")\n    .min(1, \"Email is required\"),\n});\n\nexport const resetPasswordSchema = z\n  .object({\n    token: z.string().min(1, \"Reset token is required\"),\n    password: z\n      .string()\n      .min(8, \"Password must be at least 8 characters\")\n      .regex(\n        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)/,\n        \"Password must contain at least one lowercase letter, one uppercase letter, and one number\"\n      ),\n    confirmPassword: z.string(),\n  })\n  .refine(data => data.password === data.confirmPassword, {\n    message: \"Passwords don't match\",\n    path: [\"confirmPassword\"],\n  });\n\nexport type RegisterFormData = z.infer<typeof registerSchema>;\nexport type LoginFormData = z.infer<typeof loginSchema>;\nexport type EmailVerificationData = z.infer<typeof emailVerificationSchema>;\nexport type ForgotPasswordData = z.infer<typeof forgotPasswordSchema>;\nexport type ResetPasswordData = z.infer<typeof resetPasswordSchema>;\n"],
+      names: ["emailVerificationSchema", "forgotPasswordSchema", "loginSchema", "registerSchema", "resetPasswordSchema", "z", "object", "name", "string", "min", "max", "email", "password", "regex", "confirmPassword", "phone", "optional", "refine", "val", "cleaned", "replace", "test", "message", "data", "path", "token"],
+      mappings: ";;;;;;;;;;;QAiDaA;eAAAA;;QAIAC;eAAAA;;QAZAC;eAAAA;;QAvCAC;eAAAA;;QA0DAC;eAAAA;;;qBA5DK;AAEX,MAAMD,iBAAiBE,MAAC,CAC5BC,MAAM,CAAC;IACNC,MAAMF,MAAC,CACJG,MAAM,GACNC,GAAG,CAAC,GAAG,sCACPC,GAAG,CAAC,KAAK;IACZC,OAAON,MAAC,CACLG,MAAM,GACNG,KAAK,CAAC,sCACNF,GAAG,CAAC,GAAG;IACVG,UAAUP,MAAC,CACRG,MAAM,GACNC,GAAG,CAAC,GAAG,0CACPI,KAAK,CACJ,mCACA;IAEJC,iBAAiBT,MAAC,CAACG,MAAM;IACzBO,OAAOV,MAAC,CACLG,MAAM,GACNQ,QAAQ,GACRC,MAAM,CACLC,CAAAA;QACE,IAAI,CAACA,KAAK,OAAO;QACjB,4DAA4D;QAC5D,MAAMC,UAAUD,IAAIE,OAAO,CAAC,WAAW;QACvC,6DAA6D;QAC7D,OAAO,gBAAgBC,IAAI,CAACF;IAC9B,GACA;QACEG,SAAS;IACX;AAEN,GACCL,MAAM,CAACM,CAAAA,OAAQA,KAAKX,QAAQ,KAAKW,KAAKT,eAAe,EAAE;IACtDQ,SAAS;IACTE,MAAM;QAAC;KAAkB;AAC3B;AAEK,MAAMtB,cAAcG,MAAC,CAACC,MAAM,CAAC;IAClCK,OAAON,MAAC,CACLG,MAAM,GACNG,KAAK,CAAC,sCACNF,GAAG,CAAC,GAAG;IACVG,UAAUP,MAAC,CAACG,MAAM,GAAGC,GAAG,CAAC,GAAG;AAC9B;AAEO,MAAMT,0BAA0BK,MAAC,CAACC,MAAM,CAAC;IAC9CmB,OAAOpB,MAAC,CAACG,MAAM,GAAGC,GAAG,CAAC,GAAG;AAC3B;AAEO,MAAMR,uBAAuBI,MAAC,CAACC,MAAM,CAAC;IAC3CK,OAAON,MAAC,CACLG,MAAM,GACNG,KAAK,CAAC,sCACNF,GAAG,CAAC,GAAG;AACZ;AAEO,MAAML,sBAAsBC,MAAC,CACjCC,MAAM,CAAC;IACNmB,OAAOpB,MAAC,CAACG,MAAM,GAAGC,GAAG,CAAC,GAAG;IACzBG,UAAUP,MAAC,CACRG,MAAM,GACNC,GAAG,CAAC,GAAG,0CACPI,KAAK,CACJ,mCACA;IAEJC,iBAAiBT,MAAC,CAACG,MAAM;AAC3B,GACCS,MAAM,CAACM,CAAAA,OAAQA,KAAKX,QAAQ,KAAKW,KAAKT,eAAe,EAAE;IACtDQ,SAAS;IACTE,MAAM;QAAC;KAAkB;AAC3B"
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "963c2e49f057175fa3c1371bb257bb42c63f0ca5"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1k797w5h95 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1k797w5h95();
+cov_1k797w5h95().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function _export(target, all) {
+  /* istanbul ignore next */
+  cov_1k797w5h95().f[0]++;
+  cov_1k797w5h95().s[1]++;
+  for (var name in all) {
+    /* istanbul ignore next */
+    cov_1k797w5h95().s[2]++;
+    Object.defineProperty(target, name, {
+      enumerable: true,
+      get: Object.getOwnPropertyDescriptor(all, name).get
+    });
+  }
+}
+/* istanbul ignore next */
+cov_1k797w5h95().s[3]++;
+_export(exports, {
+  get emailVerificationSchema() {
+    /* istanbul ignore next */
+    cov_1k797w5h95().f[1]++;
+    cov_1k797w5h95().s[4]++;
+    return emailVerificationSchema;
+  },
+  get forgotPasswordSchema() {
+    /* istanbul ignore next */
+    cov_1k797w5h95().f[2]++;
+    cov_1k797w5h95().s[5]++;
+    return forgotPasswordSchema;
+  },
+  get loginSchema() {
+    /* istanbul ignore next */
+    cov_1k797w5h95().f[3]++;
+    cov_1k797w5h95().s[6]++;
+    return loginSchema;
+  },
+  get registerSchema() {
+    /* istanbul ignore next */
+    cov_1k797w5h95().f[4]++;
+    cov_1k797w5h95().s[7]++;
+    return registerSchema;
+  },
+  get resetPasswordSchema() {
+    /* istanbul ignore next */
+    cov_1k797w5h95().f[5]++;
+    cov_1k797w5h95().s[8]++;
+    return resetPasswordSchema;
+  }
+});
+const _zod =
+/* istanbul ignore next */
+(cov_1k797w5h95().s[9]++, require("zod"));
+const registerSchema =
+/* istanbul ignore next */
+(cov_1k797w5h95().s[10]++, _zod.z.object({
+  name: _zod.z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
+  email: _zod.z.string().email("Please enter a valid email address").min(1, "Email is required"),
+  password: _zod.z.string().min(8, "Password must be at least 8 characters").regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, "Password must contain at least one lowercase letter, one uppercase letter, and one number"),
+  confirmPassword: _zod.z.string(),
+  phone: _zod.z.string().optional().refine(val => {
+    /* istanbul ignore next */
+    cov_1k797w5h95().f[6]++;
+    cov_1k797w5h95().s[11]++;
+    if (!val) {
+      /* istanbul ignore next */
+      cov_1k797w5h95().b[0][0]++;
+      cov_1k797w5h95().s[12]++;
+      return true;
+    } else
+    /* istanbul ignore next */
+    {
+      cov_1k797w5h95().b[0][1]++;
+    }
+    // Remove all non-digit characters except + at the beginning
+    const cleaned =
+    /* istanbul ignore next */
+    (cov_1k797w5h95().s[13]++, val.replace(/[^\d+]/g, ""));
+    // Must have + only at start (optional) and at least 7 digits
+    /* istanbul ignore next */
+    cov_1k797w5h95().s[14]++;
+    return /^\+?\d{7,15}$/.test(cleaned);
+  }, {
+    message: "Please enter a valid phone number"
+  })
+}).refine(data => {
+  /* istanbul ignore next */
+  cov_1k797w5h95().f[7]++;
+  cov_1k797w5h95().s[15]++;
+  return data.password === data.confirmPassword;
+}, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"]
+}));
+const loginSchema =
+/* istanbul ignore next */
+(cov_1k797w5h95().s[16]++, _zod.z.object({
+  email: _zod.z.string().email("Please enter a valid email address").min(1, "Email is required"),
+  password: _zod.z.string().min(1, "Password is required")
+}));
+const emailVerificationSchema =
+/* istanbul ignore next */
+(cov_1k797w5h95().s[17]++, _zod.z.object({
+  token: _zod.z.string().min(1, "Verification token is required")
+}));
+const forgotPasswordSchema =
+/* istanbul ignore next */
+(cov_1k797w5h95().s[18]++, _zod.z.object({
+  email: _zod.z.string().email("Please enter a valid email address").min(1, "Email is required")
+}));
+const resetPasswordSchema =
+/* istanbul ignore next */
+(cov_1k797w5h95().s[19]++, _zod.z.object({
+  token: _zod.z.string().min(1, "Reset token is required"),
+  password: _zod.z.string().min(8, "Password must be at least 8 characters").regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, "Password must contain at least one lowercase letter, one uppercase letter, and one number"),
+  confirmPassword: _zod.z.string()
+}).refine(data => {
+  /* istanbul ignore next */
+  cov_1k797w5h95().f[8]++;
+  cov_1k797w5h95().s[20]++;
+  return data.password === data.confirmPassword;
+}, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"]
+}));
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJlbWFpbFZlcmlmaWNhdGlvblNjaGVtYSIsImNvdl8xazc5N3c1aDk1IiwiZiIsInMiLCJmb3Jnb3RQYXNzd29yZFNjaGVtYSIsImxvZ2luU2NoZW1hIiwicmVnaXN0ZXJTY2hlbWEiLCJyZXNldFBhc3N3b3JkU2NoZW1hIiwiX3pvZCIsInoiLCJvYmplY3QiLCJuYW1lIiwic3RyaW5nIiwibWluIiwibWF4IiwiZW1haWwiLCJwYXNzd29yZCIsInJlZ2V4IiwiY29uZmlybVBhc3N3b3JkIiwicGhvbmUiLCJvcHRpb25hbCIsInJlZmluZSIsInZhbCIsImIiLCJjbGVhbmVkIiwicmVwbGFjZSIsInRlc3QiLCJtZXNzYWdlIiwiZGF0YSIsInBhdGgiLCJ0b2tlbiJdLCJzb3VyY2VzIjpbIkQ6XFxnaXRodWJcXENDX1NpdGVcXHNyY1xcbGliXFx2YWxpZGF0aW9uc1xcYXV0aC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyB6IH0gZnJvbSBcInpvZFwiO1xuXG5leHBvcnQgY29uc3QgcmVnaXN0ZXJTY2hlbWEgPSB6XG4gIC5vYmplY3Qoe1xuICAgIG5hbWU6IHpcbiAgICAgIC5zdHJpbmcoKVxuICAgICAgLm1pbigyLCBcIk5hbWUgbXVzdCBiZSBhdCBsZWFzdCAyIGNoYXJhY3RlcnNcIilcbiAgICAgIC5tYXgoMTAwLCBcIk5hbWUgbXVzdCBiZSBsZXNzIHRoYW4gMTAwIGNoYXJhY3RlcnNcIiksXG4gICAgZW1haWw6IHpcbiAgICAgIC5zdHJpbmcoKVxuICAgICAgLmVtYWlsKFwiUGxlYXNlIGVudGVyIGEgdmFsaWQgZW1haWwgYWRkcmVzc1wiKVxuICAgICAgLm1pbigxLCBcIkVtYWlsIGlzIHJlcXVpcmVkXCIpLFxuICAgIHBhc3N3b3JkOiB6XG4gICAgICAuc3RyaW5nKClcbiAgICAgIC5taW4oOCwgXCJQYXNzd29yZCBtdXN0IGJlIGF0IGxlYXN0IDggY2hhcmFjdGVyc1wiKVxuICAgICAgLnJlZ2V4KFxuICAgICAgICAvXig/PS4qW2Etel0pKD89LipbQS1aXSkoPz0uKlxcZCkvLFxuICAgICAgICBcIlBhc3N3b3JkIG11c3QgY29udGFpbiBhdCBsZWFzdCBvbmUgbG93ZXJjYXNlIGxldHRlciwgb25lIHVwcGVyY2FzZSBsZXR0ZXIsIGFuZCBvbmUgbnVtYmVyXCJcbiAgICAgICksXG4gICAgY29uZmlybVBhc3N3b3JkOiB6LnN0cmluZygpLFxuICAgIHBob25lOiB6XG4gICAgICAuc3RyaW5nKClcbiAgICAgIC5vcHRpb25hbCgpXG4gICAgICAucmVmaW5lKFxuICAgICAgICB2YWwgPT4ge1xuICAgICAgICAgIGlmICghdmFsKSByZXR1cm4gdHJ1ZTtcbiAgICAgICAgICAvLyBSZW1vdmUgYWxsIG5vbi1kaWdpdCBjaGFyYWN0ZXJzIGV4Y2VwdCArIGF0IHRoZSBiZWdpbm5pbmdcbiAgICAgICAgICBjb25zdCBjbGVhbmVkID0gdmFsLnJlcGxhY2UoL1teXFxkK10vZywgXCJcIik7XG4gICAgICAgICAgLy8gTXVzdCBoYXZlICsgb25seSBhdCBzdGFydCAob3B0aW9uYWwpIGFuZCBhdCBsZWFzdCA3IGRpZ2l0c1xuICAgICAgICAgIHJldHVybiAvXlxcKz9cXGR7NywxNX0kLy50ZXN0KGNsZWFuZWQpO1xuICAgICAgICB9LFxuICAgICAgICB7XG4gICAgICAgICAgbWVzc2FnZTogXCJQbGVhc2UgZW50ZXIgYSB2YWxpZCBwaG9uZSBudW1iZXJcIixcbiAgICAgICAgfVxuICAgICAgKSxcbiAgfSlcbiAgLnJlZmluZShkYXRhID0+IGRhdGEucGFzc3dvcmQgPT09IGRhdGEuY29uZmlybVBhc3N3b3JkLCB7XG4gICAgbWVzc2FnZTogXCJQYXNzd29yZHMgZG9uJ3QgbWF0Y2hcIixcbiAgICBwYXRoOiBbXCJjb25maXJtUGFzc3dvcmRcIl0sXG4gIH0pO1xuXG5leHBvcnQgY29uc3QgbG9naW5TY2hlbWEgPSB6Lm9iamVjdCh7XG4gIGVtYWlsOiB6XG4gICAgLnN0cmluZygpXG4gICAgLmVtYWlsKFwiUGxlYXNlIGVudGVyIGEgdmFsaWQgZW1haWwgYWRkcmVzc1wiKVxuICAgIC5taW4oMSwgXCJFbWFpbCBpcyByZXF1aXJlZFwiKSxcbiAgcGFzc3dvcmQ6IHouc3RyaW5nKCkubWluKDEsIFwiUGFzc3dvcmQgaXMgcmVxdWlyZWRcIiksXG59KTtcblxuZXhwb3J0IGNvbnN0IGVtYWlsVmVyaWZpY2F0aW9uU2NoZW1hID0gei5vYmplY3Qoe1xuICB0b2tlbjogei5zdHJpbmcoKS5taW4oMSwgXCJWZXJpZmljYXRpb24gdG9rZW4gaXMgcmVxdWlyZWRcIiksXG59KTtcblxuZXhwb3J0IGNvbnN0IGZvcmdvdFBhc3N3b3JkU2NoZW1hID0gei5vYmplY3Qoe1xuICBlbWFpbDogelxuICAgIC5zdHJpbmcoKVxuICAgIC5lbWFpbChcIlBsZWFzZSBlbnRlciBhIHZhbGlkIGVtYWlsIGFkZHJlc3NcIilcbiAgICAubWluKDEsIFwiRW1haWwgaXMgcmVxdWlyZWRcIiksXG59KTtcblxuZXhwb3J0IGNvbnN0IHJlc2V0UGFzc3dvcmRTY2hlbWEgPSB6XG4gIC5vYmplY3Qoe1xuICAgIHRva2VuOiB6LnN0cmluZygpLm1pbigxLCBcIlJlc2V0IHRva2VuIGlzIHJlcXVpcmVkXCIpLFxuICAgIHBhc3N3b3JkOiB6XG4gICAgICAuc3RyaW5nKClcbiAgICAgIC5taW4oOCwgXCJQYXNzd29yZCBtdXN0IGJlIGF0IGxlYXN0IDggY2hhcmFjdGVyc1wiKVxuICAgICAgLnJlZ2V4KFxuICAgICAgICAvXig/PS4qW2Etel0pKD89LipbQS1aXSkoPz0uKlxcZCkvLFxuICAgICAgICBcIlBhc3N3b3JkIG11c3QgY29udGFpbiBhdCBsZWFzdCBvbmUgbG93ZXJjYXNlIGxldHRlciwgb25lIHVwcGVyY2FzZSBsZXR0ZXIsIGFuZCBvbmUgbnVtYmVyXCJcbiAgICAgICksXG4gICAgY29uZmlybVBhc3N3b3JkOiB6LnN0cmluZygpLFxuICB9KVxuICAucmVmaW5lKGRhdGEgPT4gZGF0YS5wYXNzd29yZCA9PT0gZGF0YS5jb25maXJtUGFzc3dvcmQsIHtcbiAgICBtZXNzYWdlOiBcIlBhc3N3b3JkcyBkb24ndCBtYXRjaFwiLFxuICAgIHBhdGg6IFtcImNvbmZpcm1QYXNzd29yZFwiXSxcbiAgfSk7XG5cbmV4cG9ydCB0eXBlIFJlZ2lzdGVyRm9ybURhdGEgPSB6LmluZmVyPHR5cGVvZiByZWdpc3RlclNjaGVtYT47XG5leHBvcnQgdHlwZSBMb2dpbkZvcm1EYXRhID0gei5pbmZlcjx0eXBlb2YgbG9naW5TY2hlbWE+O1xuZXhwb3J0IHR5cGUgRW1haWxWZXJpZmljYXRpb25EYXRhID0gei5pbmZlcjx0eXBlb2YgZW1haWxWZXJpZmljYXRpb25TY2hlbWE+O1xuZXhwb3J0IHR5cGUgRm9yZ290UGFzc3dvcmREYXRhID0gei5pbmZlcjx0eXBlb2YgZm9yZ290UGFzc3dvcmRTY2hlbWE+O1xuZXhwb3J0IHR5cGUgUmVzZXRQYXNzd29yZERhdGEgPSB6LmluZmVyPHR5cGVvZiByZXNldFBhc3N3b3JkU2NoZW1hPjtcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7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

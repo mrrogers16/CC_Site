@@ -1,0 +1,89 @@
+9686bfb1baae872b48ac8dd7c47b7bf3
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: Object.getOwnPropertyDescriptor(all, name).get
+    });
+}
+_export(exports, {
+    get calculateCancellationPolicy () {
+        return calculateCancellationPolicy;
+    },
+    get formatTimeUntilAppointment () {
+        return formatTimeUntilAppointment;
+    },
+    get getCancellationWarningColor () {
+        return getCancellationWarningColor;
+    }
+});
+function calculateCancellationPolicy(appointmentDateTime, servicePrice) {
+    const appointmentDate = new Date(appointmentDateTime);
+    const now = new Date();
+    // Calculate hours between now and appointment
+    const hoursUntilAppointment = Math.ceil((appointmentDate.getTime() - now.getTime()) / (1000 * 60 * 60));
+    // If appointment is in the past, no cancellation allowed
+    if (hoursUntilAppointment <= 0) {
+        return {
+            policy: "full",
+            refundAmount: 0,
+            refundPercentage: 0,
+            message: "This appointment has already passed and cannot be cancelled.",
+            canCancel: false
+        };
+    }
+    // 48+ hours: Free cancellation
+    if (hoursUntilAppointment >= 48) {
+        return {
+            policy: "free",
+            refundAmount: servicePrice,
+            refundPercentage: 100,
+            message: "Free cancellation available. You will receive a full refund.",
+            canCancel: true
+        };
+    }
+    // 24-48 hours: Half refund
+    if (hoursUntilAppointment >= 24) {
+        const refundAmount = servicePrice * 0.5;
+        return {
+            policy: "half",
+            refundAmount,
+            refundPercentage: 50,
+            message: "Cancellation within 48 hours. You will receive a 50% refund due to our cancellation policy.",
+            canCancel: true
+        };
+    }
+    // Less than 24 hours: No refund (full charge)
+    return {
+        policy: "full",
+        refundAmount: 0,
+        refundPercentage: 0,
+        message: "Cancellation within 24 hours. No refund available due to our cancellation policy. You will be charged the full amount.",
+        canCancel: true
+    };
+}
+function formatTimeUntilAppointment(hoursUntilAppointment) {
+    if (hoursUntilAppointment <= 0) {
+        return "Appointment has passed";
+    }
+    if (hoursUntilAppointment < 24) {
+        return `${hoursUntilAppointment} hour${hoursUntilAppointment !== 1 ? "s" : ""} remaining`;
+    }
+    const days = Math.floor(hoursUntilAppointment / 24);
+    const remainingHours = hoursUntilAppointment % 24;
+    if (remainingHours === 0) {
+        return `${days} day${days !== 1 ? "s" : ""} remaining`;
+    }
+    return `${days} day${days !== 1 ? "s" : ""} and ${remainingHours} hour${remainingHours !== 1 ? "s" : ""} remaining`;
+}
+function getCancellationWarningColor(hoursUntilAppointment) {
+    if (hoursUntilAppointment <= 0) return "gray";
+    if (hoursUntilAppointment >= 48) return "green";
+    if (hoursUntilAppointment >= 24) return "yellow";
+    return "red";
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkQ6XFxnaXRodWJcXENDX1NpdGVcXHNyY1xcbGliXFx1dGlsc1xcY2FuY2VsbGF0aW9uLXBvbGljeS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbnRlcmZhY2UgQ2FuY2VsbGF0aW9uUG9saWN5IHtcbiAgcG9saWN5OiBcImZyZWVcIiB8IFwiaGFsZlwiIHwgXCJmdWxsXCI7XG4gIHJlZnVuZEFtb3VudDogbnVtYmVyO1xuICByZWZ1bmRQZXJjZW50YWdlOiBudW1iZXI7XG4gIG1lc3NhZ2U6IHN0cmluZztcbiAgY2FuQ2FuY2VsOiBib29sZWFuO1xufVxuXG4vKipcbiAqIENhbGN1bGF0ZSBjYW5jZWxsYXRpb24gcG9saWN5IGJhc2VkIG9uIHRpbWUgcmVtYWluaW5nIHVudGlsIGFwcG9pbnRtZW50XG4gKlxuICogQHBhcmFtIGFwcG9pbnRtZW50RGF0ZVRpbWUgLSBJU08gc3RyaW5nIG9mIGFwcG9pbnRtZW50IGRhdGUvdGltZVxuICogQHBhcmFtIHNlcnZpY2VQcmljZSAtIFByaWNlIG9mIHRoZSBzZXJ2aWNlIGFzIGEgbnVtYmVyXG4gKiBAcmV0dXJucyBDYW5jZWxsYXRpb25Qb2xpY3kgb2JqZWN0IHdpdGggcmVmdW5kIGRldGFpbHNcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIGNhbGN1bGF0ZUNhbmNlbGxhdGlvblBvbGljeShcbiAgYXBwb2ludG1lbnREYXRlVGltZTogc3RyaW5nLFxuICBzZXJ2aWNlUHJpY2U6IG51bWJlclxuKTogQ2FuY2VsbGF0aW9uUG9saWN5IHtcbiAgY29uc3QgYXBwb2ludG1lbnREYXRlID0gbmV3IERhdGUoYXBwb2ludG1lbnREYXRlVGltZSk7XG4gIGNvbnN0IG5vdyA9IG5ldyBEYXRlKCk7XG5cbiAgLy8gQ2FsY3VsYXRlIGhvdXJzIGJldHdlZW4gbm93IGFuZCBhcHBvaW50bWVudFxuICBjb25zdCBob3Vyc1VudGlsQXBwb2ludG1lbnQgPSBNYXRoLmNlaWwoXG4gICAgKGFwcG9pbnRtZW50RGF0ZS5nZXRUaW1lKCkgLSBub3cuZ2V0VGltZSgpKSAvICgxMDAwICogNjAgKiA2MClcbiAgKTtcblxuICAvLyBJZiBhcHBvaW50bWVudCBpcyBpbiB0aGUgcGFzdCwgbm8gY2FuY2VsbGF0aW9uIGFsbG93ZWRcbiAgaWYgKGhvdXJzVW50aWxBcHBvaW50bWVudCA8PSAwKSB7XG4gICAgcmV0dXJuIHtcbiAgICAgIHBvbGljeTogXCJmdWxsXCIsXG4gICAgICByZWZ1bmRBbW91bnQ6IDAsXG4gICAgICByZWZ1bmRQZXJjZW50YWdlOiAwLFxuICAgICAgbWVzc2FnZTogXCJUaGlzIGFwcG9pbnRtZW50IGhhcyBhbHJlYWR5IHBhc3NlZCBhbmQgY2Fubm90IGJlIGNhbmNlbGxlZC5cIixcbiAgICAgIGNhbkNhbmNlbDogZmFsc2UsXG4gICAgfTtcbiAgfVxuXG4gIC8vIDQ4KyBob3VyczogRnJlZSBjYW5jZWxsYXRpb25cbiAgaWYgKGhvdXJzVW50aWxBcHBvaW50bWVudCA+PSA0OCkge1xuICAgIHJldHVybiB7XG4gICAgICBwb2xpY3k6IFwiZnJlZVwiLFxuICAgICAgcmVmdW5kQW1vdW50OiBzZXJ2aWNlUHJpY2UsXG4gICAgICByZWZ1bmRQZXJjZW50YWdlOiAxMDAsXG4gICAgICBtZXNzYWdlOiBcIkZyZWUgY2FuY2VsbGF0aW9uIGF2YWlsYWJsZS4gWW91IHdpbGwgcmVjZWl2ZSBhIGZ1bGwgcmVmdW5kLlwiLFxuICAgICAgY2FuQ2FuY2VsOiB0cnVlLFxuICAgIH07XG4gIH1cblxuICAvLyAyNC00OCBob3VyczogSGFsZiByZWZ1bmRcbiAgaWYgKGhvdXJzVW50aWxBcHBvaW50bWVudCA+PSAyNCkge1xuICAgIGNvbnN0IHJlZnVuZEFtb3VudCA9IHNlcnZpY2VQcmljZSAqIDAuNTtcbiAgICByZXR1cm4ge1xuICAgICAgcG9saWN5OiBcImhhbGZcIixcbiAgICAgIHJlZnVuZEFtb3VudCxcbiAgICAgIHJlZnVuZFBlcmNlbnRhZ2U6IDUwLFxuICAgICAgbWVzc2FnZTpcbiAgICAgICAgXCJDYW5jZWxsYXRpb24gd2l0aGluIDQ4IGhvdXJzLiBZb3Ugd2lsbCByZWNlaXZlIGEgNTAlIHJlZnVuZCBkdWUgdG8gb3VyIGNhbmNlbGxhdGlvbiBwb2xpY3kuXCIsXG4gICAgICBjYW5DYW5jZWw6IHRydWUsXG4gICAgfTtcbiAgfVxuXG4gIC8vIExlc3MgdGhhbiAyNCBob3VyczogTm8gcmVmdW5kIChmdWxsIGNoYXJnZSlcbiAgcmV0dXJuIHtcbiAgICBwb2xpY3k6IFwiZnVsbFwiLFxuICAgIHJlZnVuZEFtb3VudDogMCxcbiAgICByZWZ1bmRQZXJjZW50YWdlOiAwLFxuICAgIG1lc3NhZ2U6XG4gICAgICBcIkNhbmNlbGxhdGlvbiB3aXRoaW4gMjQgaG91cnMuIE5vIHJlZnVuZCBhdmFpbGFibGUgZHVlIHRvIG91ciBjYW5jZWxsYXRpb24gcG9saWN5LiBZb3Ugd2lsbCBiZSBjaGFyZ2VkIHRoZSBmdWxsIGFtb3VudC5cIixcbiAgICBjYW5DYW5jZWw6IHRydWUsIC8vIFN0aWxsIGFsbG93IGNhbmNlbGxhdGlvbiBmb3IgdHJhY2tpbmcgcHVycG9zZXNcbiAgfTtcbn1cblxuLyoqXG4gKiBGb3JtYXQgaG91cnMgcmVtYWluaW5nIGludG8gYSBodW1hbi1yZWFkYWJsZSBzdHJpbmdcbiAqXG4gKiBAcGFyYW0gaG91cnNVbnRpbEFwcG9pbnRtZW50IC0gTnVtYmVyIG9mIGhvdXJzIHVudGlsIGFwcG9pbnRtZW50XG4gKiBAcmV0dXJucyBGb3JtYXR0ZWQgc3RyaW5nXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBmb3JtYXRUaW1lVW50aWxBcHBvaW50bWVudChcbiAgaG91cnNVbnRpbEFwcG9pbnRtZW50OiBudW1iZXJcbik6IHN0cmluZyB7XG4gIGlmIChob3Vyc1VudGlsQXBwb2ludG1lbnQgPD0gMCkge1xuICAgIHJldHVybiBcIkFwcG9pbnRtZW50IGhhcyBwYXNzZWRcIjtcbiAgfVxuXG4gIGlmIChob3Vyc1VudGlsQXBwb2ludG1lbnQgPCAyNCkge1xuICAgIHJldHVybiBgJHtob3Vyc1VudGlsQXBwb2ludG1lbnR9IGhvdXIke2hvdXJzVW50aWxBcHBvaW50bWVudCAhPT0gMSA/IFwic1wiIDogXCJcIn0gcmVtYWluaW5nYDtcbiAgfVxuXG4gIGNvbnN0IGRheXMgPSBNYXRoLmZsb29yKGhvdXJzVW50aWxBcHBvaW50bWVudCAvIDI0KTtcbiAgY29uc3QgcmVtYWluaW5nSG91cnMgPSBob3Vyc1VudGlsQXBwb2ludG1lbnQgJSAyNDtcblxuICBpZiAocmVtYWluaW5nSG91cnMgPT09IDApIHtcbiAgICByZXR1cm4gYCR7ZGF5c30gZGF5JHtkYXlzICE9PSAxID8gXCJzXCIgOiBcIlwifSByZW1haW5pbmdgO1xuICB9XG5cbiAgcmV0dXJuIGAke2RheXN9IGRheSR7ZGF5cyAhPT0gMSA/IFwic1wiIDogXCJcIn0gYW5kICR7cmVtYWluaW5nSG91cnN9IGhvdXIke3JlbWFpbmluZ0hvdXJzICE9PSAxID8gXCJzXCIgOiBcIlwifSByZW1haW5pbmdgO1xufVxuXG4vKipcbiAqIEdldCB0aW1lLWJhc2VkIHdhcm5pbmcgY29sb3IgZm9yIFVJIHN0eWxpbmdcbiAqXG4gKiBAcGFyYW0gaG91cnNVbnRpbEFwcG9pbnRtZW50IC0gTnVtYmVyIG9mIGhvdXJzIHVudGlsIGFwcG9pbnRtZW50XG4gKiBAcmV0dXJucyBDU1MgY29sb3IgY2xhc3Mgc3VmZml4IChlLmcuLCAnZ3JlZW4nLCAneWVsbG93JywgJ3JlZCcpXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBnZXRDYW5jZWxsYXRpb25XYXJuaW5nQ29sb3IoXG4gIGhvdXJzVW50aWxBcHBvaW50bWVudDogbnVtYmVyXG4pOiBcImdyZWVuXCIgfCBcInllbGxvd1wiIHwgXCJyZWRcIiB8IFwiZ3JheVwiIHtcbiAgaWYgKGhvdXJzVW50aWxBcHBvaW50bWVudCA8PSAwKSByZXR1cm4gXCJncmF5XCI7XG4gIGlmIChob3Vyc1VudGlsQXBwb2ludG1lbnQgPj0gNDgpIHJldHVybiBcImdyZWVuXCI7XG4gIGlmIChob3Vyc1VudGlsQXBwb2ludG1lbnQgPj0gMjQpIHJldHVybiBcInllbGxvd1wiO1xuICByZXR1cm4gXCJyZWRcIjtcbn1cbiJdLCJuYW1lcyI6WyJjYWxjdWxhdGVDYW5jZWxsYXRpb25Qb2xpY3kiLCJmb3JtYXRUaW1lVW50aWxBcHBvaW50bWVudCIsImdldENhbmNlbGxhdGlvbldhcm5pbmdDb2xvciIsImFwcG9pbnRtZW50RGF0ZVRpbWUiLCJzZXJ2aWNlUHJpY2UiLCJhcHBvaW50bWVudERhdGUiLCJEYXRlIiwibm93IiwiaG91cnNVbnRpbEFwcG9pbnRtZW50IiwiTWF0aCIsImNlaWwiLCJnZXRUaW1lIiwicG9saWN5IiwicmVmdW5kQW1vdW50IiwicmVmdW5kUGVyY2VudGFnZSIsIm1lc3NhZ2UiLCJjYW5DYW5jZWwiLCJkYXlzIiwiZmxvb3IiLCJyZW1haW5pbmdIb3VycyJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7UUFlZ0JBO2VBQUFBOztRQWdFQUM7ZUFBQUE7O1FBMkJBQztlQUFBQTs7O0FBM0ZULFNBQVNGLDRCQUNkRyxtQkFBMkIsRUFDM0JDLFlBQW9CO0lBRXBCLE1BQU1DLGtCQUFrQixJQUFJQyxLQUFLSDtJQUNqQyxNQUFNSSxNQUFNLElBQUlEO0lBRWhCLDhDQUE4QztJQUM5QyxNQUFNRSx3QkFBd0JDLEtBQUtDLElBQUksQ0FDckMsQUFBQ0wsQ0FBQUEsZ0JBQWdCTSxPQUFPLEtBQUtKLElBQUlJLE9BQU8sRUFBQyxJQUFNLENBQUEsT0FBTyxLQUFLLEVBQUM7SUFHOUQseURBQXlEO0lBQ3pELElBQUlILHlCQUF5QixHQUFHO1FBQzlCLE9BQU87WUFDTEksUUFBUTtZQUNSQyxjQUFjO1lBQ2RDLGtCQUFrQjtZQUNsQkMsU0FBUztZQUNUQyxXQUFXO1FBQ2I7SUFDRjtJQUVBLCtCQUErQjtJQUMvQixJQUFJUix5QkFBeUIsSUFBSTtRQUMvQixPQUFPO1lBQ0xJLFFBQVE7WUFDUkMsY0FBY1Q7WUFDZFUsa0JBQWtCO1lBQ2xCQyxTQUFTO1lBQ1RDLFdBQVc7UUFDYjtJQUNGO0lBRUEsMkJBQTJCO0lBQzNCLElBQUlSLHlCQUF5QixJQUFJO1FBQy9CLE1BQU1LLGVBQWVULGVBQWU7UUFDcEMsT0FBTztZQUNMUSxRQUFRO1lBQ1JDO1lBQ0FDLGtCQUFrQjtZQUNsQkMsU0FDRTtZQUNGQyxXQUFXO1FBQ2I7SUFDRjtJQUVBLDhDQUE4QztJQUM5QyxPQUFPO1FBQ0xKLFFBQVE7UUFDUkMsY0FBYztRQUNkQyxrQkFBa0I7UUFDbEJDLFNBQ0U7UUFDRkMsV0FBVztJQUNiO0FBQ0Y7QUFRTyxTQUFTZiwyQkFDZE8scUJBQTZCO0lBRTdCLElBQUlBLHlCQUF5QixHQUFHO1FBQzlCLE9BQU87SUFDVDtJQUVBLElBQUlBLHdCQUF3QixJQUFJO1FBQzlCLE9BQU8sR0FBR0Esc0JBQXNCLEtBQUssRUFBRUEsMEJBQTBCLElBQUksTUFBTSxHQUFHLFVBQVUsQ0FBQztJQUMzRjtJQUVBLE1BQU1TLE9BQU9SLEtBQUtTLEtBQUssQ0FBQ1Ysd0JBQXdCO0lBQ2hELE1BQU1XLGlCQUFpQlgsd0JBQXdCO0lBRS9DLElBQUlXLG1CQUFtQixHQUFHO1FBQ3hCLE9BQU8sR0FBR0YsS0FBSyxJQUFJLEVBQUVBLFNBQVMsSUFBSSxNQUFNLEdBQUcsVUFBVSxDQUFDO0lBQ3hEO0lBRUEsT0FBTyxHQUFHQSxLQUFLLElBQUksRUFBRUEsU0FBUyxJQUFJLE1BQU0sR0FBRyxLQUFLLEVBQUVFLGVBQWUsS0FBSyxFQUFFQSxtQkFBbUIsSUFBSSxNQUFNLEdBQUcsVUFBVSxDQUFDO0FBQ3JIO0FBUU8sU0FBU2pCLDRCQUNkTSxxQkFBNkI7SUFFN0IsSUFBSUEseUJBQXlCLEdBQUcsT0FBTztJQUN2QyxJQUFJQSx5QkFBeUIsSUFBSSxPQUFPO0lBQ3hDLElBQUlBLHlCQUF5QixJQUFJLE9BQU87SUFDeEMsT0FBTztBQUNUIn0=

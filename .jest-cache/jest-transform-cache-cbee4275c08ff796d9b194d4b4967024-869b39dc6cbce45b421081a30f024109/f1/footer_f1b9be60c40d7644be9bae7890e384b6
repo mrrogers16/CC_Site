@@ -1,0 +1,600 @@
+99e10d341cb5300fe1e807bf0ea5771e
+"use strict";
+
+/* istanbul ignore next */
+function cov_27s9b041f1() {
+  var path = "D:\\github\\CC_Site\\src\\components\\layout\\footer.tsx";
+  var hash = "a6f6b4933f03b4e5fa03bcd8000aa76bc205b656";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\github\\CC_Site\\src\\components\\layout\\footer.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 4,
+          column: 3
+        }
+      },
+      "1": {
+        start: {
+          line: 5,
+          column: 0
+        },
+        end: {
+          line: 10,
+          column: 3
+        }
+      },
+      "2": {
+        start: {
+          line: 8,
+          column: 8
+        },
+        end: {
+          line: 8,
+          column: 22
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 20
+        },
+        end: {
+          line: 11,
+          column: 48
+        }
+      },
+      "4": {
+        start: {
+          line: 12,
+          column: 28
+        },
+        end: {
+          line: 12,
+          column: 74
+        }
+      },
+      "5": {
+        start: {
+          line: 13,
+          column: 14
+        },
+        end: {
+          line: 13,
+          column: 46
+        }
+      },
+      "6": {
+        start: {
+          line: 15,
+          column: 4
+        },
+        end: {
+          line: 17,
+          column: 6
+        }
+      },
+      "7": {
+        start: {
+          line: 19,
+          column: 20
+        },
+        end: {
+          line: 74,
+          column: 1
+        }
+      },
+      "8": {
+        start: {
+          line: 76,
+          column: 24
+        },
+        end: {
+          line: 76,
+          column: 48
+        }
+      },
+      "9": {
+        start: {
+          line: 77,
+          column: 4
+        },
+        end: {
+          line: 196,
+          column: 7
+        }
+      },
+      "10": {
+        start: {
+          line: 113,
+          column: 93
+        },
+        end: {
+          line: 119,
+          column: 53
+        }
+      },
+      "11": {
+        start: {
+          line: 131,
+          column: 94
+        },
+        end: {
+          line: 137,
+          column: 53
+        }
+      },
+      "12": {
+        start: {
+          line: 149,
+          column: 92
+        },
+        end: {
+          line: 155,
+          column: 53
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 7,
+            column: 9
+          },
+          end: {
+            line: 7,
+            column: 10
+          }
+        },
+        loc: {
+          start: {
+            line: 7,
+            column: 20
+          },
+          end: {
+            line: 9,
+            column: 5
+          }
+        },
+        line: 7
+      },
+      "1": {
+        name: "_interop_require_default",
+        decl: {
+          start: {
+            line: 14,
+            column: 9
+          },
+          end: {
+            line: 14,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 14,
+            column: 39
+          },
+          end: {
+            line: 18,
+            column: 1
+          }
+        },
+        line: 14
+      },
+      "2": {
+        name: "Footer",
+        decl: {
+          start: {
+            line: 75,
+            column: 9
+          },
+          end: {
+            line: 75,
+            column: 15
+          }
+        },
+        loc: {
+          start: {
+            line: 75,
+            column: 18
+          },
+          end: {
+            line: 197,
+            column: 1
+          }
+        },
+        line: 75
+      },
+      "3": {
+        name: "(anonymous_3)",
+        decl: {
+          start: {
+            line: 113,
+            column: 71
+          },
+          end: {
+            line: 113,
+            column: 72
+          }
+        },
+        loc: {
+          start: {
+            line: 113,
+            column: 93
+          },
+          end: {
+            line: 119,
+            column: 53
+          }
+        },
+        line: 113
+      },
+      "4": {
+        name: "(anonymous_4)",
+        decl: {
+          start: {
+            line: 131,
+            column: 72
+          },
+          end: {
+            line: 131,
+            column: 73
+          }
+        },
+        loc: {
+          start: {
+            line: 131,
+            column: 94
+          },
+          end: {
+            line: 137,
+            column: 53
+          }
+        },
+        line: 131
+      },
+      "5": {
+        name: "(anonymous_5)",
+        decl: {
+          start: {
+            line: 149,
+            column: 70
+          },
+          end: {
+            line: 149,
+            column: 71
+          }
+        },
+        loc: {
+          start: {
+            line: 149,
+            column: 92
+          },
+          end: {
+            line: 155,
+            column: 53
+          }
+        },
+        line: 149
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 15,
+            column: 11
+          },
+          end: {
+            line: 17,
+            column: 5
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 15,
+            column: 35
+          },
+          end: {
+            line: 15,
+            column: 38
+          }
+        }, {
+          start: {
+            line: 15,
+            column: 41
+          },
+          end: {
+            line: 17,
+            column: 5
+          }
+        }],
+        line: 15
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 15,
+            column: 11
+          },
+          end: {
+            line: 15,
+            column: 32
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 15,
+            column: 11
+          },
+          end: {
+            line: 15,
+            column: 14
+          }
+        }, {
+          start: {
+            line: 15,
+            column: 18
+          },
+          end: {
+            line: 15,
+            column: 32
+          }
+        }],
+        line: 15
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0]
+    },
+    inputSourceMap: {
+      version: 3,
+      sources: ["D:\\github\\CC_Site\\src\\components\\layout\\footer.tsx"],
+      sourcesContent: ["import Link from \"next/link\";\nimport { siteConfig } from \"@/lib/config/site\";\n\nconst footerLinks = {\n  services: [\n    { title: \"Individual Therapy\", href: \"/services/individual\" },\n    { title: \"Couples Counseling\", href: \"/services/couples\" },\n    { title: \"Family Therapy\", href: \"/services/family\" },\n    { title: \"Group Therapy\", href: \"/services/group\" },\n  ],\n  resources: [\n    { title: \"About\", href: \"/about\" },\n    { title: \"Blog\", href: \"/blog\" },\n    { title: \"FAQ\", href: \"/faq\" },\n    { title: \"Privacy Policy\", href: \"/privacy\" },\n  ],\n  contact: [\n    { title: \"Schedule Appointment\", href: \"/book\" },\n    { title: \"Contact Us\", href: \"/contact\" },\n    { title: \"Location\", href: \"/location\" },\n    { title: \"Emergency Resources\", href: \"/emergency\" },\n  ],\n};\n\nexport function Footer() {\n  const currentYear = new Date().getFullYear();\n\n  return (\n    <footer className=\"bg-muted border-t border-border\">\n      <div className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12\">\n        <div className=\"grid grid-cols-1 md:grid-cols-4 gap-8\">\n          {/* Brand */}\n          <div className=\"col-span-1 md:col-span-1\">\n            <Link href=\"/\" className=\"inline-block mb-4\">\n              <span className=\"font-serif text-2xl font-semibold text-primary\">\n                {siteConfig.name}\n              </span>\n            </Link>\n            <p className=\"text-muted-foreground text-sm leading-relaxed mb-4\">\n              Professional counseling services focused on your mental health and\n              wellbeing.\n            </p>\n            <div className=\"flex space-x-4\">\n              {/* Social links would go here */}\n            </div>\n          </div>\n\n          {/* Services */}\n          <div>\n            <h3 className=\"font-semibold text-foreground mb-4\">Services</h3>\n            <ul className=\"space-y-2\">\n              {footerLinks.services.map(link => (\n                <li key={link.href}>\n                  <Link\n                    href={link.href}\n                    className=\"text-muted-foreground hover:text-primary transition-colors duration-200 text-sm\"\n                  >\n                    {link.title}\n                  </Link>\n                </li>\n              ))}\n            </ul>\n          </div>\n\n          {/* Resources */}\n          <div>\n            <h3 className=\"font-semibold text-foreground mb-4\">Resources</h3>\n            <ul className=\"space-y-2\">\n              {footerLinks.resources.map(link => (\n                <li key={link.href}>\n                  <Link\n                    href={link.href}\n                    className=\"text-muted-foreground hover:text-primary transition-colors duration-200 text-sm\"\n                  >\n                    {link.title}\n                  </Link>\n                </li>\n              ))}\n            </ul>\n          </div>\n\n          {/* Contact */}\n          <div>\n            <h3 className=\"font-semibold text-foreground mb-4\">Contact</h3>\n            <ul className=\"space-y-2\">\n              {footerLinks.contact.map(link => (\n                <li key={link.href}>\n                  <Link\n                    href={link.href}\n                    className=\"text-muted-foreground hover:text-primary transition-colors duration-200 text-sm\"\n                  >\n                    {link.title}\n                  </Link>\n                </li>\n              ))}\n            </ul>\n            <div className=\"mt-4 text-sm text-muted-foreground\">\n              <p>Phone: (555) 123-4567</p>\n              <p>Email: info@healingpathways.com</p>\n            </div>\n          </div>\n        </div>\n\n        <div className=\"border-t border-border mt-12 pt-8\">\n          <div className=\"flex flex-col md:flex-row justify-between items-center\">\n            <p className=\"text-muted-foreground text-sm\">\n              \xA9 {currentYear} {siteConfig.name}. All rights reserved.\n            </p>\n            <p className=\"text-muted-foreground text-sm mt-4 md:mt-0\">\n              Licensed Professional Counselor \u2022 LPC #12345\n            </p>\n          </div>\n        </div>\n      </div>\n    </footer>\n  );\n}\n"],
+      names: ["Footer", "footerLinks", "services", "title", "href", "resources", "contact", "currentYear", "Date", "getFullYear", "footer", "className", "div", "Link", "span", "siteConfig", "name", "p", "h3", "ul", "map", "link", "li"],
+      mappings: ";;;;+BAwBgBA;;;eAAAA;;;;6DAxBC;sBACU;;;;;;AAE3B,MAAMC,cAAc;IAClBC,UAAU;QACR;YAAEC,OAAO;YAAsBC,MAAM;QAAuB;QAC5D;YAAED,OAAO;YAAsBC,MAAM;QAAoB;QACzD;YAAED,OAAO;YAAkBC,MAAM;QAAmB;QACpD;YAAED,OAAO;YAAiBC,MAAM;QAAkB;KACnD;IACDC,WAAW;QACT;YAAEF,OAAO;YAASC,MAAM;QAAS;QACjC;YAAED,OAAO;YAAQC,MAAM;QAAQ;QAC/B;YAAED,OAAO;YAAOC,MAAM;QAAO;QAC7B;YAAED,OAAO;YAAkBC,MAAM;QAAW;KAC7C;IACDE,SAAS;QACP;YAAEH,OAAO;YAAwBC,MAAM;QAAQ;QAC/C;YAAED,OAAO;YAAcC,MAAM;QAAW;QACxC;YAAED,OAAO;YAAYC,MAAM;QAAY;QACvC;YAAED,OAAO;YAAuBC,MAAM;QAAa;KACpD;AACH;AAEO,SAASJ;IACd,MAAMO,cAAc,IAAIC,OAAOC,WAAW;IAE1C,qBACE,qBAACC;QAAOC,WAAU;kBAChB,cAAA,sBAACC;YAAID,WAAU;;8BACb,sBAACC;oBAAID,WAAU;;sCAEb,sBAACC;4BAAID,WAAU;;8CACb,qBAACE,aAAI;oCAACT,MAAK;oCAAIO,WAAU;8CACvB,cAAA,qBAACG;wCAAKH,WAAU;kDACbI,gBAAU,CAACC,IAAI;;;8CAGpB,qBAACC;oCAAEN,WAAU;8CAAqD;;8CAIlE,qBAACC;oCAAID,WAAU;;;;sCAMjB,sBAACC;;8CACC,qBAACM;oCAAGP,WAAU;8CAAqC;;8CACnD,qBAACQ;oCAAGR,WAAU;8CACXV,YAAYC,QAAQ,CAACkB,GAAG,CAACC,CAAAA,qBACxB,qBAACC;sDACC,cAAA,qBAACT,aAAI;gDACHT,MAAMiB,KAAKjB,IAAI;gDACfO,WAAU;0DAETU,KAAKlB,KAAK;;2CALNkB,KAAKjB,IAAI;;;;sCAaxB,sBAACQ;;8CACC,qBAACM;oCAAGP,WAAU;8CAAqC;;8CACnD,qBAACQ;oCAAGR,WAAU;8CACXV,YAAYI,SAAS,CAACe,GAAG,CAACC,CAAAA,qBACzB,qBAACC;sDACC,cAAA,qBAACT,aAAI;gDACHT,MAAMiB,KAAKjB,IAAI;gDACfO,WAAU;0DAETU,KAAKlB,KAAK;;2CALNkB,KAAKjB,IAAI;;;;sCAaxB,sBAACQ;;8CACC,qBAACM;oCAAGP,WAAU;8CAAqC;;8CACnD,qBAACQ;oCAAGR,WAAU;8CACXV,YAAYK,OAAO,CAACc,GAAG,CAACC,CAAAA,qBACvB,qBAACC;sDACC,cAAA,qBAACT,aAAI;gDACHT,MAAMiB,KAAKjB,IAAI;gDACfO,WAAU;0DAETU,KAAKlB,KAAK;;2CALNkB,KAAKjB,IAAI;;8CAUtB,sBAACQ;oCAAID,WAAU;;sDACb,qBAACM;sDAAE;;sDACH,qBAACA;sDAAE;;;;;;;;8BAKT,qBAACL;oBAAID,WAAU;8BACb,cAAA,sBAACC;wBAAID,WAAU;;0CACb,sBAACM;gCAAEN,WAAU;;oCAAgC;oCACxCJ;oCAAY;oCAAEQ,gBAAU,CAACC,IAAI;oCAAC;;;0CAEnC,qBAACC;gCAAEN,WAAU;0CAA6C;;;;;;;;AAQtE"
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "a6f6b4933f03b4e5fa03bcd8000aa76bc205b656"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_27s9b041f1 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_27s9b041f1();
+cov_27s9b041f1().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* istanbul ignore next */
+cov_27s9b041f1().s[1]++;
+Object.defineProperty(exports, "Footer", {
+  enumerable: true,
+  get: function () {
+    /* istanbul ignore next */
+    cov_27s9b041f1().f[0]++;
+    cov_27s9b041f1().s[2]++;
+    return Footer;
+  }
+});
+const _jsxruntime =
+/* istanbul ignore next */
+(cov_27s9b041f1().s[3]++, require("react/jsx-runtime"));
+const _link =
+/* istanbul ignore next */
+(/*#__PURE__*/cov_27s9b041f1().s[4]++, _interop_require_default(require("next/link")));
+const _site =
+/* istanbul ignore next */
+(cov_27s9b041f1().s[5]++, require("../../lib/config/site"));
+function _interop_require_default(obj) {
+  /* istanbul ignore next */
+  cov_27s9b041f1().f[1]++;
+  cov_27s9b041f1().s[6]++;
+  return /* istanbul ignore next */(cov_27s9b041f1().b[1][0]++, obj) &&
+  /* istanbul ignore next */
+  (cov_27s9b041f1().b[1][1]++, obj.__esModule) ?
+  /* istanbul ignore next */
+  (cov_27s9b041f1().b[0][0]++, obj) :
+  /* istanbul ignore next */
+  (cov_27s9b041f1().b[0][1]++, {
+    default: obj
+  });
+}
+const footerLinks =
+/* istanbul ignore next */
+(cov_27s9b041f1().s[7]++, {
+  services: [{
+    title: "Individual Therapy",
+    href: "/services/individual"
+  }, {
+    title: "Couples Counseling",
+    href: "/services/couples"
+  }, {
+    title: "Family Therapy",
+    href: "/services/family"
+  }, {
+    title: "Group Therapy",
+    href: "/services/group"
+  }],
+  resources: [{
+    title: "About",
+    href: "/about"
+  }, {
+    title: "Blog",
+    href: "/blog"
+  }, {
+    title: "FAQ",
+    href: "/faq"
+  }, {
+    title: "Privacy Policy",
+    href: "/privacy"
+  }],
+  contact: [{
+    title: "Schedule Appointment",
+    href: "/book"
+  }, {
+    title: "Contact Us",
+    href: "/contact"
+  }, {
+    title: "Location",
+    href: "/location"
+  }, {
+    title: "Emergency Resources",
+    href: "/emergency"
+  }]
+});
+function Footer() {
+  /* istanbul ignore next */
+  cov_27s9b041f1().f[2]++;
+  const currentYear =
+  /* istanbul ignore next */
+  (cov_27s9b041f1().s[8]++, new Date().getFullYear());
+  /* istanbul ignore next */
+  cov_27s9b041f1().s[9]++;
+  return /*#__PURE__*/(0, _jsxruntime.jsx)("footer", {
+    className: "bg-muted border-t border-border",
+    children: /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+      className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12",
+      children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+        className: "grid grid-cols-1 md:grid-cols-4 gap-8",
+        children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+          className: "col-span-1 md:col-span-1",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)(_link.default, {
+            href: "/",
+            className: "inline-block mb-4",
+            children: /*#__PURE__*/(0, _jsxruntime.jsx)("span", {
+              className: "font-serif text-2xl font-semibold text-primary",
+              children: _site.siteConfig.name
+            })
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("p", {
+            className: "text-muted-foreground text-sm leading-relaxed mb-4",
+            children: "Professional counseling services focused on your mental health and wellbeing."
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("div", {
+            className: "flex space-x-4"
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("h3", {
+            className: "font-semibold text-foreground mb-4",
+            children: "Services"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("ul", {
+            className: "space-y-2",
+            children: footerLinks.services.map(link => {
+              /* istanbul ignore next */
+              cov_27s9b041f1().f[3]++;
+              cov_27s9b041f1().s[10]++;
+              return /*#__PURE__*/(0, _jsxruntime.jsx)("li", {
+                children: /*#__PURE__*/(0, _jsxruntime.jsx)(_link.default, {
+                  href: link.href,
+                  className: "text-muted-foreground hover:text-primary transition-colors duration-200 text-sm",
+                  children: link.title
+                })
+              }, link.href);
+            })
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("h3", {
+            className: "font-semibold text-foreground mb-4",
+            children: "Resources"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("ul", {
+            className: "space-y-2",
+            children: footerLinks.resources.map(link => {
+              /* istanbul ignore next */
+              cov_27s9b041f1().f[4]++;
+              cov_27s9b041f1().s[11]++;
+              return /*#__PURE__*/(0, _jsxruntime.jsx)("li", {
+                children: /*#__PURE__*/(0, _jsxruntime.jsx)(_link.default, {
+                  href: link.href,
+                  className: "text-muted-foreground hover:text-primary transition-colors duration-200 text-sm",
+                  children: link.title
+                })
+              }, link.href);
+            })
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("h3", {
+            className: "font-semibold text-foreground mb-4",
+            children: "Contact"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("ul", {
+            className: "space-y-2",
+            children: footerLinks.contact.map(link => {
+              /* istanbul ignore next */
+              cov_27s9b041f1().f[5]++;
+              cov_27s9b041f1().s[12]++;
+              return /*#__PURE__*/(0, _jsxruntime.jsx)("li", {
+                children: /*#__PURE__*/(0, _jsxruntime.jsx)(_link.default, {
+                  href: link.href,
+                  className: "text-muted-foreground hover:text-primary transition-colors duration-200 text-sm",
+                  children: link.title
+                })
+              }, link.href);
+            })
+          }), /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+            className: "mt-4 text-sm text-muted-foreground",
+            children: [/*#__PURE__*/(0, _jsxruntime.jsx)("p", {
+              children: "Phone: (555) 123-4567"
+            }), /*#__PURE__*/(0, _jsxruntime.jsx)("p", {
+              children: "Email: info@healingpathways.com"
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0, _jsxruntime.jsx)("div", {
+        className: "border-t border-border mt-12 pt-8",
+        children: /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+          className: "flex flex-col md:flex-row justify-between items-center",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("p", {
+            className: "text-muted-foreground text-sm",
+            children: ["\xa9 ", currentYear, " ", _site.siteConfig.name, ". All rights reserved."]
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("p", {
+            className: "text-muted-foreground text-sm mt-4 md:mt-0",
+            children: "Licensed Professional Counselor • LPC #12345"
+          })]
+        })
+      })]
+    })
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJGb290ZXIiLCJmb290ZXJMaW5rcyIsImNvdl8yN3M5YjA0MWYxIiwicyIsInNlcnZpY2VzIiwidGl0bGUiLCJocmVmIiwicmVzb3VyY2VzIiwiY29udGFjdCIsImYiLCJjdXJyZW50WWVhciIsIkRhdGUiLCJnZXRGdWxsWWVhciIsIl9qc3hydW50aW1lIiwianN4IiwiY2xhc3NOYW1lIiwianN4cyIsIl9saW5rIiwiZGVmYXVsdCIsIl9zaXRlIiwic2l0ZUNvbmZpZyIsIm5hbWUiLCJtYXAiLCJsaW5rIl0sInNvdXJjZXMiOlsiRDpcXGdpdGh1YlxcQ0NfU2l0ZVxcc3JjXFxjb21wb25lbnRzXFxsYXlvdXRcXGZvb3Rlci50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IExpbmsgZnJvbSBcIm5leHQvbGlua1wiO1xuaW1wb3J0IHsgc2l0ZUNvbmZpZyB9IGZyb20gXCJAL2xpYi9jb25maWcvc2l0ZVwiO1xuXG5jb25zdCBmb290ZXJMaW5rcyA9IHtcbiAgc2VydmljZXM6IFtcbiAgICB7IHRpdGxlOiBcIkluZGl2aWR1YWwgVGhlcmFweVwiLCBocmVmOiBcIi9zZXJ2aWNlcy9pbmRpdmlkdWFsXCIgfSxcbiAgICB7IHRpdGxlOiBcIkNvdXBsZXMgQ291bnNlbGluZ1wiLCBocmVmOiBcIi9zZXJ2aWNlcy9jb3VwbGVzXCIgfSxcbiAgICB7IHRpdGxlOiBcIkZhbWlseSBUaGVyYXB5XCIsIGhyZWY6IFwiL3NlcnZpY2VzL2ZhbWlseVwiIH0sXG4gICAgeyB0aXRsZTogXCJHcm91cCBUaGVyYXB5XCIsIGhyZWY6IFwiL3NlcnZpY2VzL2dyb3VwXCIgfSxcbiAgXSxcbiAgcmVzb3VyY2VzOiBbXG4gICAgeyB0aXRsZTogXCJBYm91dFwiLCBocmVmOiBcIi9hYm91dFwiIH0sXG4gICAgeyB0aXRsZTogXCJCbG9nXCIsIGhyZWY6IFwiL2Jsb2dcIiB9LFxuICAgIHsgdGl0bGU6IFwiRkFRXCIsIGhyZWY6IFwiL2ZhcVwiIH0sXG4gICAgeyB0aXRsZTogXCJQcml2YWN5IFBvbGljeVwiLCBocmVmOiBcIi9wcml2YWN5XCIgfSxcbiAgXSxcbiAgY29udGFjdDogW1xuICAgIHsgdGl0bGU6IFwiU2NoZWR1bGUgQXBwb2ludG1lbnRcIiwgaHJlZjogXCIvYm9va1wiIH0sXG4gICAgeyB0aXRsZTogXCJDb250YWN0IFVzXCIsIGhyZWY6IFwiL2NvbnRhY3RcIiB9LFxuICAgIHsgdGl0bGU6IFwiTG9jYXRpb25cIiwgaHJlZjogXCIvbG9jYXRpb25cIiB9LFxuICAgIHsgdGl0bGU6IFwiRW1lcmdlbmN5IFJlc291cmNlc1wiLCBocmVmOiBcIi9lbWVyZ2VuY3lcIiB9LFxuICBdLFxufTtcblxuZXhwb3J0IGZ1bmN0aW9uIEZvb3RlcigpIHtcbiAgY29uc3QgY3VycmVudFllYXIgPSBuZXcgRGF0ZSgpLmdldEZ1bGxZZWFyKCk7XG5cbiAgcmV0dXJuIChcbiAgICA8Zm9vdGVyIGNsYXNzTmFtZT1cImJnLW11dGVkIGJvcmRlci10IGJvcmRlci1ib3JkZXJcIj5cbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwibWF4LXctN3hsIG14LWF1dG8gcHgtNCBzbTpweC02IGxnOnB4LTggcHktMTJcIj5cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJncmlkIGdyaWQtY29scy0xIG1kOmdyaWQtY29scy00IGdhcC04XCI+XG4gICAgICAgICAgey8qIEJyYW5kICovfVxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY29sLXNwYW4tMSBtZDpjb2wtc3Bhbi0xXCI+XG4gICAgICAgICAgICA8TGluayBocmVmPVwiL1wiIGNsYXNzTmFtZT1cImlubGluZS1ibG9jayBtYi00XCI+XG4gICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT1cImZvbnQtc2VyaWYgdGV4dC0yeGwgZm9udC1zZW1pYm9sZCB0ZXh0LXByaW1hcnlcIj5cbiAgICAgICAgICAgICAgICB7c2l0ZUNvbmZpZy5uYW1lfVxuICAgICAgICAgICAgICA8L3NwYW4+XG4gICAgICAgICAgICA8L0xpbms+XG4gICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJ0ZXh0LW11dGVkLWZvcmVncm91bmQgdGV4dC1zbSBsZWFkaW5nLXJlbGF4ZWQgbWItNFwiPlxuICAgICAgICAgICAgICBQcm9mZXNzaW9uYWwgY291bnNlbGluZyBzZXJ2aWNlcyBmb2N1c2VkIG9uIHlvdXIgbWVudGFsIGhlYWx0aCBhbmRcbiAgICAgICAgICAgICAgd2VsbGJlaW5nLlxuICAgICAgICAgICAgPC9wPlxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IHNwYWNlLXgtNFwiPlxuICAgICAgICAgICAgICB7LyogU29jaWFsIGxpbmtzIHdvdWxkIGdvIGhlcmUgKi99XG4gICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgIHsvKiBTZXJ2aWNlcyAqL31cbiAgICAgICAgICA8ZGl2PlxuICAgICAgICAgICAgPGgzIGNsYXNzTmFtZT1cImZvbnQtc2VtaWJvbGQgdGV4dC1mb3JlZ3JvdW5kIG1iLTRcIj5TZXJ2aWNlczwvaDM+XG4gICAgICAgICAgICA8dWwgY2xhc3NOYW1lPVwic3BhY2UteS0yXCI+XG4gICAgICAgICAgICAgIHtmb290ZXJMaW5rcy5zZXJ2aWNlcy5tYXAobGluayA9PiAoXG4gICAgICAgICAgICAgICAgPGxpIGtleT17bGluay5ocmVmfT5cbiAgICAgICAgICAgICAgICAgIDxMaW5rXG4gICAgICAgICAgICAgICAgICAgIGhyZWY9e2xpbmsuaHJlZn1cbiAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwidGV4dC1tdXRlZC1mb3JlZ3JvdW5kIGhvdmVyOnRleHQtcHJpbWFyeSB0cmFuc2l0aW9uLWNvbG9ycyBkdXJhdGlvbi0yMDAgdGV4dC1zbVwiXG4gICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgIHtsaW5rLnRpdGxlfVxuICAgICAgICAgICAgICAgICAgPC9MaW5rPlxuICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICkpfVxuICAgICAgICAgICAgPC91bD5cbiAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgIHsvKiBSZXNvdXJjZXMgKi99XG4gICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgIDxoMyBjbGFzc05hbWU9XCJmb250LXNlbWlib2xkIHRleHQtZm9yZWdyb3VuZCBtYi00XCI+UmVzb3VyY2VzPC9oMz5cbiAgICAgICAgICAgIDx1bCBjbGFzc05hbWU9XCJzcGFjZS15LTJcIj5cbiAgICAgICAgICAgICAge2Zvb3RlckxpbmtzLnJlc291cmNlcy5tYXAobGluayA9PiAoXG4gICAgICAgICAgICAgICAgPGxpIGtleT17bGluay5ocmVmfT5cbiAgICAgICAgICAgICAgICAgIDxMaW5rXG4gICAgICAgICAgICAgICAgICAgIGhyZWY9e2xpbmsuaHJlZn1cbiAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwidGV4dC1tdXRlZC1mb3JlZ3JvdW5kIGhvdmVyOnRleHQtcHJpbWFyeSB0cmFuc2l0aW9uLWNvbG9ycyBkdXJhdGlvbi0yMDAgdGV4dC1zbVwiXG4gICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgIHtsaW5rLnRpdGxlfVxuICAgICAgICAgICAgICAgICAgPC9MaW5rPlxuICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICkpfVxuICAgICAgICAgICAgPC91bD5cbiAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgIHsvKiBDb250YWN0ICovfVxuICAgICAgICAgIDxkaXY+XG4gICAgICAgICAgICA8aDMgY2xhc3NOYW1lPVwiZm9udC1zZW1pYm9sZCB0ZXh0LWZvcmVncm91bmQgbWItNFwiPkNvbnRhY3Q8L2gzPlxuICAgICAgICAgICAgPHVsIGNsYXNzTmFtZT1cInNwYWNlLXktMlwiPlxuICAgICAgICAgICAgICB7Zm9vdGVyTGlua3MuY29udGFjdC5tYXAobGluayA9PiAoXG4gICAgICAgICAgICAgICAgPGxpIGtleT17bGluay5ocmVmfT5cbiAgICAgICAgICAgICAgICAgIDxMaW5rXG4gICAgICAgICAgICAgICAgICAgIGhyZWY9e2xpbmsuaHJlZn1cbiAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwidGV4dC1tdXRlZC1mb3JlZ3JvdW5kIGhvdmVyOnRleHQtcHJpbWFyeSB0cmFuc2l0aW9uLWNvbG9ycyBkdXJhdGlvbi0yMDAgdGV4dC1zbVwiXG4gICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgIHtsaW5rLnRpdGxlfVxuICAgICAgICAgICAgICAgICAgPC9MaW5rPlxuICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICkpfVxuICAgICAgICAgICAgPC91bD5cbiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibXQtNCB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZFwiPlxuICAgICAgICAgICAgICA8cD5QaG9uZTogKDU1NSkgMTIzLTQ1Njc8L3A+XG4gICAgICAgICAgICAgIDxwPkVtYWlsOiBpbmZvQGhlYWxpbmdwYXRod2F5cy5jb208L3A+XG4gICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJib3JkZXItdCBib3JkZXItYm9yZGVyIG10LTEyIHB0LThcIj5cbiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImZsZXggZmxleC1jb2wgbWQ6ZmxleC1yb3cganVzdGlmeS1iZXR3ZWVuIGl0ZW1zLWNlbnRlclwiPlxuICAgICAgICAgICAgPHAgY2xhc3NOYW1lPVwidGV4dC1tdXRlZC1mb3JlZ3JvdW5kIHRleHQtc21cIj5cbiAgICAgICAgICAgICAgwqkge2N1cnJlbnRZZWFyfSB7c2l0ZUNvbmZpZy5uYW1lfS4gQWxsIHJpZ2h0cyByZXNlcnZlZC5cbiAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cInRleHQtbXV0ZWQtZm9yZWdyb3VuZCB0ZXh0LXNtIG10LTQgbWQ6bXQtMFwiPlxuICAgICAgICAgICAgICBMaWNlbnNlZCBQcm9mZXNzaW9uYWwgQ291bnNlbG9yIOKAoiBMUEMgIzEyMzQ1XG4gICAgICAgICAgICA8L3A+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9kaXY+XG4gICAgPC9mb290ZXI+XG4gICk7XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OytCQXdCZ0I7Ozs7OztXQUFBQSxNQUFBOzs7Ozs7Ozt3RUF4QkM7OztrQ0FDVTs7Ozs7Ozs7Ozs7Ozs7O0FBRTNCLE1BQU1DLFdBQUE7QUFBQTtBQUFBLENBQUFDLGNBQUEsR0FBQUMsQ0FBQSxPQUFjO0VBQ2xCQyxRQUFBLEVBQVUsQ0FDUjtJQUFFQyxLQUFBLEVBQU87SUFBc0JDLElBQUEsRUFBTTtFQUF1QixHQUM1RDtJQUFFRCxLQUFBLEVBQU87SUFBc0JDLElBQUEsRUFBTTtFQUFvQixHQUN6RDtJQUFFRCxLQUFBLEVBQU87SUFBa0JDLElBQUEsRUFBTTtFQUFtQixHQUNwRDtJQUFFRCxLQUFBLEVBQU87SUFBaUJDLElBQUEsRUFBTTtFQUFrQixFQUNuRDtFQUNEQyxTQUFBLEVBQVcsQ0FDVDtJQUFFRixLQUFBLEVBQU87SUFBU0MsSUFBQSxFQUFNO0VBQVMsR0FDakM7SUFBRUQsS0FBQSxFQUFPO0lBQVFDLElBQUEsRUFBTTtFQUFRLEdBQy9CO0lBQUVELEtBQUEsRUFBTztJQUFPQyxJQUFBLEVBQU07RUFBTyxHQUM3QjtJQUFFRCxLQUFBLEVBQU87SUFBa0JDLElBQUEsRUFBTTtFQUFXLEVBQzdDO0VBQ0RFLE9BQUEsRUFBUyxDQUNQO0lBQUVILEtBQUEsRUFBTztJQUF3QkMsSUFBQSxFQUFNO0VBQVEsR0FDL0M7SUFBRUQsS0FBQSxFQUFPO0lBQWNDLElBQUEsRUFBTTtFQUFXLEdBQ3hDO0lBQUVELEtBQUEsRUFBTztJQUFZQyxJQUFBLEVBQU07RUFBWSxHQUN2QztJQUFFRCxLQUFBLEVBQU87SUFBdUJDLElBQUEsRUFBTTtFQUFhO0FBRXZEO0FBRU8sU0FBU04sT0FBQTtFQUFBO0VBQUFFLGNBQUEsR0FBQU8sQ0FBQTtFQUNkLE1BQU1DLFdBQUE7RUFBQTtFQUFBLENBQUFSLGNBQUEsR0FBQUMsQ0FBQSxPQUFjLElBQUlRLElBQUEsR0FBT0MsV0FBVztFQUFBO0VBQUFWLGNBQUEsR0FBQUMsQ0FBQTtFQUUxQyxvQkFDRSxJQUFBVSxXQUFBLENBQUFDLEdBQUEsRUFBQztJQUFPQyxTQUFBLEVBQVU7Y0FDaEIsaUJBQUFGLFdBQUEsQ0FBQUcsSUFBQSxFQUFDO01BQUlELFNBQUEsRUFBVTs4QkFDYixJQUFBRixXQUFBLENBQUFHLElBQUEsRUFBQztRQUFJRCxTQUFBLEVBQVU7Z0NBRWIsSUFBQUYsV0FBQSxDQUFBRyxJQUFBLEVBQUM7VUFBSUQsU0FBQSxFQUFVO2tDQUNiLElBQUFGLFdBQUEsQ0FBQUMsR0FBQSxFQUFDRyxLQUFBLENBQUFDLE9BQUk7WUFBQ1osSUFBQSxFQUFLO1lBQUlTLFNBQUEsRUFBVTtzQkFDdkIsaUJBQUFGLFdBQUEsQ0FBQUMsR0FBQSxFQUFDO2NBQUtDLFNBQUEsRUFBVTt3QkFDYkksS0FBQSxDQUFBQyxVQUFVLENBQUNDOzsyQkFHaEIsSUFBQVIsV0FBQSxDQUFBQyxHQUFBLEVBQUM7WUFBRUMsU0FBQSxFQUFVO3NCQUFxRDsyQkFJbEUsSUFBQUYsV0FBQSxDQUFBQyxHQUFBLEVBQUM7WUFBSUMsU0FBQSxFQUFVOzt5QkFNakIsSUFBQUYsV0FBQSxDQUFBRyxJQUFBLEVBQUM7a0NBQ0MsSUFBQUgsV0FBQSxDQUFBQyxHQUFBLEVBQUM7WUFBR0MsU0FBQSxFQUFVO3NCQUFxQzsyQkFDbkQsSUFBQUYsV0FBQSxDQUFBQyxHQUFBLEVBQUM7WUFBR0MsU0FBQSxFQUFVO3NCQUNYZCxXQUFBLENBQVlHLFFBQVEsQ0FBQ2tCLEdBQUcsQ0FBQ0MsSUFBQSxJQUN4QjtjQUFBO2NBQUFyQixjQUFBLEdBQUFPLENBQUE7Y0FBQVAsY0FBQSxHQUFBQyxDQUFBO2NBQUEsT0FEd0IsYUFDeEIsSUFBQVUsV0FBQSxDQUFBQyxHQUFBLEVBQUM7MEJBQ0MsaUJBQUFELFdBQUEsQ0FBQUMsR0FBQSxFQUFDRyxLQUFBLENBQUFDLE9BQUk7a0JBQ0haLElBQUEsRUFBTWlCLElBQUEsQ0FBS2pCLElBQUk7a0JBQ2ZTLFNBQUEsRUFBVTs0QkFFVFEsSUFBQSxDQUFLbEI7O2lCQUxEa0IsSUFBQSxDQUFLakIsSUFBSTtZQUFBOzt5QkFheEIsSUFBQU8sV0FBQSxDQUFBRyxJQUFBLEVBQUM7a0NBQ0MsSUFBQUgsV0FBQSxDQUFBQyxHQUFBLEVBQUM7WUFBR0MsU0FBQSxFQUFVO3NCQUFxQzsyQkFDbkQsSUFBQUYsV0FBQSxDQUFBQyxHQUFBLEVBQUM7WUFBR0MsU0FBQSxFQUFVO3NCQUNYZCxXQUFBLENBQVlNLFNBQVMsQ0FBQ2UsR0FBRyxDQUFDQyxJQUFBLElBQ3pCO2NBQUE7Y0FBQXJCLGNBQUEsR0FBQU8sQ0FBQTtjQUFBUCxjQUFBLEdBQUFDLENBQUE7Y0FBQSxPQUR5QixhQUN6QixJQUFBVSxXQUFBLENBQUFDLEdBQUEsRUFBQzswQkFDQyxpQkFBQUQsV0FBQSxDQUFBQyxHQUFBLEVBQUNHLEtBQUEsQ0FBQUMsT0FBSTtrQkFDSFosSUFBQSxFQUFNaUIsSUFBQSxDQUFLakIsSUFBSTtrQkFDZlMsU0FBQSxFQUFVOzRCQUVUUSxJQUFBLENBQUtsQjs7aUJBTERrQixJQUFBLENBQUtqQixJQUFJO1lBQUE7O3lCQWF4QixJQUFBTyxXQUFBLENBQUFHLElBQUEsRUFBQztrQ0FDQyxJQUFBSCxXQUFBLENBQUFDLEdBQUEsRUFBQztZQUFHQyxTQUFBLEVBQVU7c0JBQXFDOzJCQUNuRCxJQUFBRixXQUFBLENBQUFDLEdBQUEsRUFBQztZQUFHQyxTQUFBLEVBQVU7c0JBQ1hkLFdBQUEsQ0FBWU8sT0FBTyxDQUFDYyxHQUFHLENBQUNDLElBQUEsSUFDdkI7Y0FBQTtjQUFBckIsY0FBQSxHQUFBTyxDQUFBO2NBQUFQLGNBQUEsR0FBQUMsQ0FBQTtjQUFBLE9BRHVCLGFBQ3ZCLElBQUFVLFdBQUEsQ0FBQUMsR0FBQSxFQUFDOzBCQUNDLGlCQUFBRCxXQUFBLENBQUFDLEdBQUEsRUFBQ0csS0FBQSxDQUFBQyxPQUFJO2tCQUNIWixJQUFBLEVBQU1pQixJQUFBLENBQUtqQixJQUFJO2tCQUNmUyxTQUFBLEVBQVU7NEJBRVRRLElBQUEsQ0FBS2xCOztpQkFMRGtCLElBQUEsQ0FBS2pCLElBQUk7WUFBQTsyQkFVdEIsSUFBQU8sV0FBQSxDQUFBRyxJQUFBLEVBQUM7WUFBSUQsU0FBQSxFQUFVO29DQUNiLElBQUFGLFdBQUEsQ0FBQUMsR0FBQSxFQUFDO3dCQUFFOzZCQUNILElBQUFELFdBQUEsQ0FBQUMsR0FBQSxFQUFDO3dCQUFFOzs7O3VCQUtULElBQUFELFdBQUEsQ0FBQUMsR0FBQSxFQUFDO1FBQUlDLFNBQUEsRUFBVTtrQkFDYixpQkFBQUYsV0FBQSxDQUFBRyxJQUFBLEVBQUM7VUFBSUQsU0FBQSxFQUFVO2tDQUNiLElBQUFGLFdBQUEsQ0FBQUcsSUFBQSxFQUFDO1lBQUVELFNBQUEsRUFBVTt1QkFBZ0MsU0FDeENMLFdBQUEsRUFBWSxLQUFFUyxLQUFBLENBQUFDLFVBQVUsQ0FBQ0MsSUFBSSxFQUFDOzJCQUVuQyxJQUFBUixXQUFBLENBQUFDLEdBQUEsRUFBQztZQUFFQyxTQUFBLEVBQVU7c0JBQTZDOzs7Ozs7QUFRdEUiLCJpZ25vcmVMaXN0IjpbXX0=

@@ -1,0 +1,498 @@
+8244b37b5a78564532c463c12f8e3a93
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "AppointmentConfirmationEmail", {
+    enumerable: true,
+    get: function() {
+        return AppointmentConfirmationEmail;
+    }
+});
+const _jsxruntime = require("react/jsx-runtime");
+function AppointmentConfirmationEmail({ clientName, appointmentDetails }) {
+    const appointmentDate = new Date(appointmentDetails.dateTime);
+    const formattedDate = appointmentDate.toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+    const formattedTime = appointmentDate.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+    });
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+        style: {
+            fontFamily: "Arial, sans-serif",
+            margin: 0,
+            padding: 0,
+            backgroundColor: "#f9f9f9"
+        },
+        children: /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+            style: {
+                maxWidth: "600px",
+                margin: "0 auto",
+                backgroundColor: "#ffffff"
+            },
+            children: [
+                /*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+                    style: {
+                        backgroundColor: "#4a8b8c",
+                        color: "white",
+                        padding: "30px 20px",
+                        textAlign: "center"
+                    },
+                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)("h1", {
+                        style: {
+                            margin: 0,
+                            fontSize: "28px",
+                            fontWeight: 300,
+                            fontFamily: "Playfair Display, serif"
+                        },
+                        children: "Healing Pathways Counseling"
+                    })
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                    style: {
+                        padding: "40px 30px"
+                    },
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("h2", {
+                            style: {
+                                color: "#2c2c2c",
+                                fontSize: "24px",
+                                marginBottom: "20px",
+                                fontWeight: 300
+                            },
+                            children: [
+                                "Appointment Confirmed, ",
+                                clientName,
+                                "!"
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                            style: {
+                                color: "#555",
+                                lineHeight: 1.6,
+                                marginBottom: "30px",
+                                fontSize: "16px"
+                            },
+                            children: "Thank you for scheduling your appointment with Healing Pathways Counseling. We're committed to supporting you on your journey to better mental health and well-being."
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                            style: {
+                                backgroundColor: "#f0f7f7",
+                                border: "1px solid #e0e9e9",
+                                borderRadius: "8px",
+                                padding: "25px",
+                                marginBottom: "30px"
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                                    style: {
+                                        color: "#4a8b8c",
+                                        fontSize: "18px",
+                                        fontWeight: 600,
+                                        marginBottom: "15px",
+                                        marginTop: 0
+                                    },
+                                    children: "Your Appointment Details"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                    style: {
+                                        color: "#333"
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                            style: {
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                marginBottom: "12px",
+                                                borderBottom: "1px solid #e0e9e9",
+                                                paddingBottom: "8px"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                                    style: {
+                                                        fontWeight: 600
+                                                    },
+                                                    children: "Service:"
+                                                }),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                                    children: appointmentDetails.service
+                                                })
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                            style: {
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                marginBottom: "12px",
+                                                borderBottom: "1px solid #e0e9e9",
+                                                paddingBottom: "8px"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                                    style: {
+                                                        fontWeight: 600
+                                                    },
+                                                    children: "Date:"
+                                                }),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                                    children: formattedDate
+                                                })
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                            style: {
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                marginBottom: "12px",
+                                                borderBottom: "1px solid #e0e9e9",
+                                                paddingBottom: "8px"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                                    style: {
+                                                        fontWeight: 600
+                                                    },
+                                                    children: "Time:"
+                                                }),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                                    children: formattedTime
+                                                })
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                            style: {
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                marginBottom: "12px",
+                                                borderBottom: "1px solid #e0e9e9",
+                                                paddingBottom: "8px"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                                    style: {
+                                                        fontWeight: 600
+                                                    },
+                                                    children: "Duration:"
+                                                }),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsxs)("span", {
+                                                    children: [
+                                                        appointmentDetails.duration,
+                                                        " minutes"
+                                                    ]
+                                                })
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                            style: {
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                marginBottom: "0"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                                    style: {
+                                                        fontWeight: 600
+                                                    },
+                                                    children: "Session Fee:"
+                                                }),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsxs)("span", {
+                                                    style: {
+                                                        fontWeight: 600,
+                                                        color: "#4a8b8c"
+                                                    },
+                                                    children: [
+                                                        "$",
+                                                        appointmentDetails.price
+                                                    ]
+                                                })
+                                            ]
+                                        })
+                                    ]
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                            style: {
+                                backgroundColor: "#fff",
+                                border: "1px solid #e0e0e0",
+                                borderRadius: "8px",
+                                padding: "20px",
+                                marginBottom: "30px"
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                                    style: {
+                                        color: "#4a8b8c",
+                                        fontSize: "18px",
+                                        fontWeight: 600,
+                                        marginBottom: "15px",
+                                        marginTop: 0
+                                    },
+                                    children: "Office Location"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                    style: {
+                                        color: "#555",
+                                        lineHeight: 1.6
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("p", {
+                                            style: {
+                                                margin: "0 0 8px 0"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Healing Pathways Counseling"
+                                                }),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                "123 Wellness Way, Suite 200",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                "Cityville, ST 12345"
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("p", {
+                                            style: {
+                                                margin: "8px 0 0 0"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Phone:"
+                                                }),
+                                                " (555) 123-4567",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Email:"
+                                                }),
+                                                " appointments@healingpathways.com"
+                                            ]
+                                        })
+                                    ]
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                            style: {
+                                marginBottom: "30px"
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                                    style: {
+                                        color: "#4a8b8c",
+                                        fontSize: "18px",
+                                        fontWeight: 600,
+                                        marginBottom: "15px"
+                                    },
+                                    children: "What to Expect"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                    style: {
+                                        color: "#555",
+                                        lineHeight: 1.6
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                            style: {
+                                                marginBottom: "12px"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "For First-Time Clients:"
+                                                }),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsxs)("ul", {
+                                                    style: {
+                                                        marginTop: "5px",
+                                                        paddingLeft: "20px"
+                                                    },
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxruntime.jsx)("li", {
+                                                            children: "Please arrive 10-15 minutes early to complete intake forms"
+                                                        }),
+                                                        /*#__PURE__*/ (0, _jsxruntime.jsx)("li", {
+                                                            children: "Bring a valid ID and insurance card (if applicable)"
+                                                        }),
+                                                        /*#__PURE__*/ (0, _jsxruntime.jsx)("li", {
+                                                            children: "We'll discuss your goals and create a personalized treatment plan"
+                                                        })
+                                                    ]
+                                                })
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Parking:"
+                                                }),
+                                                " Free parking is available in our building lot"
+                                            ]
+                                        })
+                                    ]
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                            style: {
+                                backgroundColor: "#fef9e7",
+                                border: "1px solid #f7e98e",
+                                borderRadius: "8px",
+                                padding: "20px",
+                                marginBottom: "25px"
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                                    style: {
+                                        color: "#8b5a00",
+                                        fontSize: "16px",
+                                        fontWeight: 600,
+                                        marginBottom: "12px",
+                                        marginTop: 0
+                                    },
+                                    children: "Important Information"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                    style: {
+                                        color: "#8b5a00",
+                                        fontSize: "14px",
+                                        lineHeight: 1.5
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("p", {
+                                            style: {
+                                                margin: "0 0 10px 0"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Cancellation Policy:"
+                                                }),
+                                                " Please provide 24-hour notice for cancellations to avoid fees."
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("p", {
+                                            style: {
+                                                margin: "0 0 10px 0"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Rescheduling:"
+                                                }),
+                                                " You can reschedule through your patient portal or by calling our office."
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("p", {
+                                            style: {
+                                                margin: "0"
+                                            },
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Confirmation ID:"
+                                                }),
+                                                " ",
+                                                appointmentDetails.id
+                                            ]
+                                        })
+                                    ]
+                                })
+                            ]
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                    style: {
+                        backgroundColor: "#f8f4f4",
+                        padding: "25px 30px",
+                        borderTop: "1px solid #e0e0e0"
+                    },
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                            style: {
+                                color: "#8b0000",
+                                fontSize: "16px",
+                                fontWeight: 600,
+                                marginBottom: "12px",
+                                marginTop: 0
+                            },
+                            children: "Crisis Support Available 24/7"
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                            style: {
+                                color: "#555",
+                                fontSize: "14px",
+                                lineHeight: 1.5
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                                    style: {
+                                        margin: "0 0 8px 0"
+                                    },
+                                    children: "If you're experiencing a mental health crisis before your appointment:"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)("ul", {
+                                    style: {
+                                        margin: "0",
+                                        paddingLeft: "20px"
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("li", {
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "National Crisis Lifeline:"
+                                                }),
+                                                " 988"
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("li", {
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Crisis Text Line:"
+                                                }),
+                                                " Text HOME to 741741"
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("li", {
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Emergency Services:"
+                                                }),
+                                                " Call 911"
+                                            ]
+                                        })
+                                    ]
+                                })
+                            ]
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                    style: {
+                        backgroundColor: "#2c2c2c",
+                        color: "white",
+                        padding: "20px 30px",
+                        textAlign: "center",
+                        fontSize: "12px"
+                    },
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                            style: {
+                                margin: "0 0 10px 0"
+                            },
+                            children: "We're here to support you on your journey to better mental health."
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                            style: {
+                                margin: "0"
+                            },
+                            children: "Healing Pathways Counseling | Licensed Professional Counselor #12345"
+                        })
+                    ]
+                })
+            ]
+        })
+    });
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkQ6XFxnaXRodWJcXENDX1NpdGVcXHNyY1xcY29tcG9uZW50c1xcZW1haWxcXGFwcG9pbnRtZW50LWNvbmZpcm1hdGlvbi50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW50ZXJmYWNlIEFwcG9pbnRtZW50Q29uZmlybWF0aW9uRW1haWxQcm9wcyB7XG4gIGNsaWVudE5hbWU6IHN0cmluZztcbiAgYXBwb2ludG1lbnREZXRhaWxzOiB7XG4gICAgaWQ6IHN0cmluZztcbiAgICBzZXJ2aWNlOiBzdHJpbmc7XG4gICAgZGF0ZVRpbWU6IHN0cmluZztcbiAgICBkdXJhdGlvbjogbnVtYmVyO1xuICAgIHByaWNlOiBzdHJpbmc7XG4gIH07XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBBcHBvaW50bWVudENvbmZpcm1hdGlvbkVtYWlsKHtcbiAgY2xpZW50TmFtZSxcbiAgYXBwb2ludG1lbnREZXRhaWxzLFxufTogQXBwb2ludG1lbnRDb25maXJtYXRpb25FbWFpbFByb3BzKSB7XG4gIGNvbnN0IGFwcG9pbnRtZW50RGF0ZSA9IG5ldyBEYXRlKGFwcG9pbnRtZW50RGV0YWlscy5kYXRlVGltZSk7XG4gIGNvbnN0IGZvcm1hdHRlZERhdGUgPSBhcHBvaW50bWVudERhdGUudG9Mb2NhbGVEYXRlU3RyaW5nKFwiZW4tVVNcIiwge1xuICAgIHdlZWtkYXk6IFwibG9uZ1wiLFxuICAgIHllYXI6IFwibnVtZXJpY1wiLFxuICAgIG1vbnRoOiBcImxvbmdcIixcbiAgICBkYXk6IFwibnVtZXJpY1wiLFxuICB9KTtcbiAgY29uc3QgZm9ybWF0dGVkVGltZSA9IGFwcG9pbnRtZW50RGF0ZS50b0xvY2FsZVRpbWVTdHJpbmcoXCJlbi1VU1wiLCB7XG4gICAgaG91cjogXCJudW1lcmljXCIsXG4gICAgbWludXRlOiBcIjItZGlnaXRcIixcbiAgICBob3VyMTI6IHRydWUsXG4gIH0pO1xuXG4gIHJldHVybiAoXG4gICAgPGRpdlxuICAgICAgc3R5bGU9e3tcbiAgICAgICAgZm9udEZhbWlseTogXCJBcmlhbCwgc2Fucy1zZXJpZlwiLFxuICAgICAgICBtYXJnaW46IDAsXG4gICAgICAgIHBhZGRpbmc6IDAsXG4gICAgICAgIGJhY2tncm91bmRDb2xvcjogXCIjZjlmOWY5XCIsXG4gICAgICB9fVxuICAgID5cbiAgICAgIDxkaXZcbiAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICBtYXhXaWR0aDogXCI2MDBweFwiLFxuICAgICAgICAgIG1hcmdpbjogXCIwIGF1dG9cIixcbiAgICAgICAgICBiYWNrZ3JvdW5kQ29sb3I6IFwiI2ZmZmZmZlwiLFxuICAgICAgICB9fVxuICAgICAgPlxuICAgICAgICB7LyogSGVhZGVyICovfVxuICAgICAgICA8ZGl2XG4gICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgIGJhY2tncm91bmRDb2xvcjogXCIjNGE4YjhjXCIsXG4gICAgICAgICAgICBjb2xvcjogXCJ3aGl0ZVwiLFxuICAgICAgICAgICAgcGFkZGluZzogXCIzMHB4IDIwcHhcIixcbiAgICAgICAgICAgIHRleHRBbGlnbjogXCJjZW50ZXJcIixcbiAgICAgICAgICB9fVxuICAgICAgICA+XG4gICAgICAgICAgPGgxXG4gICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICBtYXJnaW46IDAsXG4gICAgICAgICAgICAgIGZvbnRTaXplOiBcIjI4cHhcIixcbiAgICAgICAgICAgICAgZm9udFdlaWdodDogMzAwLFxuICAgICAgICAgICAgICBmb250RmFtaWx5OiBcIlBsYXlmYWlyIERpc3BsYXksIHNlcmlmXCIsXG4gICAgICAgICAgICB9fVxuICAgICAgICAgID5cbiAgICAgICAgICAgIEhlYWxpbmcgUGF0aHdheXMgQ291bnNlbGluZ1xuICAgICAgICAgIDwvaDE+XG4gICAgICAgIDwvZGl2PlxuXG4gICAgICAgIHsvKiBNYWluIENvbnRlbnQgKi99XG4gICAgICAgIDxkaXYgc3R5bGU9e3sgcGFkZGluZzogXCI0MHB4IDMwcHhcIiB9fT5cbiAgICAgICAgICA8aDJcbiAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgIGNvbG9yOiBcIiMyYzJjMmNcIixcbiAgICAgICAgICAgICAgZm9udFNpemU6IFwiMjRweFwiLFxuICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMjBweFwiLFxuICAgICAgICAgICAgICBmb250V2VpZ2h0OiAzMDAsXG4gICAgICAgICAgICB9fVxuICAgICAgICAgID5cbiAgICAgICAgICAgIEFwcG9pbnRtZW50IENvbmZpcm1lZCwge2NsaWVudE5hbWV9IVxuICAgICAgICAgIDwvaDI+XG5cbiAgICAgICAgICA8cFxuICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgY29sb3I6IFwiIzU1NVwiLFxuICAgICAgICAgICAgICBsaW5lSGVpZ2h0OiAxLjYsXG4gICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIzMHB4XCIsXG4gICAgICAgICAgICAgIGZvbnRTaXplOiBcIjE2cHhcIixcbiAgICAgICAgICAgIH19XG4gICAgICAgICAgPlxuICAgICAgICAgICAgVGhhbmsgeW91IGZvciBzY2hlZHVsaW5nIHlvdXIgYXBwb2ludG1lbnQgd2l0aCBIZWFsaW5nIFBhdGh3YXlzXG4gICAgICAgICAgICBDb3Vuc2VsaW5nLiBXZSZhcG9zO3JlIGNvbW1pdHRlZCB0byBzdXBwb3J0aW5nIHlvdSBvbiB5b3VyIGpvdXJuZXlcbiAgICAgICAgICAgIHRvIGJldHRlciBtZW50YWwgaGVhbHRoIGFuZCB3ZWxsLWJlaW5nLlxuICAgICAgICAgIDwvcD5cblxuICAgICAgICAgIHsvKiBBcHBvaW50bWVudCBEZXRhaWxzIENhcmQgKi99XG4gICAgICAgICAgPGRpdlxuICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgYmFja2dyb3VuZENvbG9yOiBcIiNmMGY3ZjdcIixcbiAgICAgICAgICAgICAgYm9yZGVyOiBcIjFweCBzb2xpZCAjZTBlOWU5XCIsXG4gICAgICAgICAgICAgIGJvcmRlclJhZGl1czogXCI4cHhcIixcbiAgICAgICAgICAgICAgcGFkZGluZzogXCIyNXB4XCIsXG4gICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIzMHB4XCIsXG4gICAgICAgICAgICB9fVxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxoM1xuICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgIGNvbG9yOiBcIiM0YThiOGNcIixcbiAgICAgICAgICAgICAgICBmb250U2l6ZTogXCIxOHB4XCIsXG4gICAgICAgICAgICAgICAgZm9udFdlaWdodDogNjAwLFxuICAgICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIxNXB4XCIsXG4gICAgICAgICAgICAgICAgbWFyZ2luVG9wOiAwLFxuICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgPlxuICAgICAgICAgICAgICBZb3VyIEFwcG9pbnRtZW50IERldGFpbHNcbiAgICAgICAgICAgIDwvaDM+XG5cbiAgICAgICAgICAgIDxkaXYgc3R5bGU9e3sgY29sb3I6IFwiIzMzM1wiIH19PlxuICAgICAgICAgICAgICA8ZGl2XG4gICAgICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgICAgIGRpc3BsYXk6IFwiZmxleFwiLFxuICAgICAgICAgICAgICAgICAganVzdGlmeUNvbnRlbnQ6IFwic3BhY2UtYmV0d2VlblwiLFxuICAgICAgICAgICAgICAgICAgbWFyZ2luQm90dG9tOiBcIjEycHhcIixcbiAgICAgICAgICAgICAgICAgIGJvcmRlckJvdHRvbTogXCIxcHggc29saWQgI2UwZTllOVwiLFxuICAgICAgICAgICAgICAgICAgcGFkZGluZ0JvdHRvbTogXCI4cHhcIixcbiAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgPHNwYW4gc3R5bGU9e3sgZm9udFdlaWdodDogNjAwIH19PlNlcnZpY2U6PC9zcGFuPlxuICAgICAgICAgICAgICAgIDxzcGFuPnthcHBvaW50bWVudERldGFpbHMuc2VydmljZX08L3NwYW4+XG4gICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgIDxkaXZcbiAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgZGlzcGxheTogXCJmbGV4XCIsXG4gICAgICAgICAgICAgICAgICBqdXN0aWZ5Q29udGVudDogXCJzcGFjZS1iZXR3ZWVuXCIsXG4gICAgICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMTJweFwiLFxuICAgICAgICAgICAgICAgICAgYm9yZGVyQm90dG9tOiBcIjFweCBzb2xpZCAjZTBlOWU5XCIsXG4gICAgICAgICAgICAgICAgICBwYWRkaW5nQm90dG9tOiBcIjhweFwiLFxuICAgICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICA8c3BhbiBzdHlsZT17eyBmb250V2VpZ2h0OiA2MDAgfX0+RGF0ZTo8L3NwYW4+XG4gICAgICAgICAgICAgICAgPHNwYW4+e2Zvcm1hdHRlZERhdGV9PC9zcGFuPlxuICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICA8ZGl2XG4gICAgICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgICAgIGRpc3BsYXk6IFwiZmxleFwiLFxuICAgICAgICAgICAgICAgICAganVzdGlmeUNvbnRlbnQ6IFwic3BhY2UtYmV0d2VlblwiLFxuICAgICAgICAgICAgICAgICAgbWFyZ2luQm90dG9tOiBcIjEycHhcIixcbiAgICAgICAgICAgICAgICAgIGJvcmRlckJvdHRvbTogXCIxcHggc29saWQgI2UwZTllOVwiLFxuICAgICAgICAgICAgICAgICAgcGFkZGluZ0JvdHRvbTogXCI4cHhcIixcbiAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgPHNwYW4gc3R5bGU9e3sgZm9udFdlaWdodDogNjAwIH19PlRpbWU6PC9zcGFuPlxuICAgICAgICAgICAgICAgIDxzcGFuPntmb3JtYXR0ZWRUaW1lfTwvc3Bhbj5cbiAgICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICBkaXNwbGF5OiBcImZsZXhcIixcbiAgICAgICAgICAgICAgICAgIGp1c3RpZnlDb250ZW50OiBcInNwYWNlLWJldHdlZW5cIixcbiAgICAgICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIxMnB4XCIsXG4gICAgICAgICAgICAgICAgICBib3JkZXJCb3R0b206IFwiMXB4IHNvbGlkICNlMGU5ZTlcIixcbiAgICAgICAgICAgICAgICAgIHBhZGRpbmdCb3R0b206IFwiOHB4XCIsXG4gICAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgIDxzcGFuIHN0eWxlPXt7IGZvbnRXZWlnaHQ6IDYwMCB9fT5EdXJhdGlvbjo8L3NwYW4+XG4gICAgICAgICAgICAgICAgPHNwYW4+e2FwcG9pbnRtZW50RGV0YWlscy5kdXJhdGlvbn0gbWludXRlczwvc3Bhbj5cbiAgICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICBkaXNwbGF5OiBcImZsZXhcIixcbiAgICAgICAgICAgICAgICAgIGp1c3RpZnlDb250ZW50OiBcInNwYWNlLWJldHdlZW5cIixcbiAgICAgICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIwXCIsXG4gICAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgIDxzcGFuIHN0eWxlPXt7IGZvbnRXZWlnaHQ6IDYwMCB9fT5TZXNzaW9uIEZlZTo8L3NwYW4+XG4gICAgICAgICAgICAgICAgPHNwYW4gc3R5bGU9e3sgZm9udFdlaWdodDogNjAwLCBjb2xvcjogXCIjNGE4YjhjXCIgfX0+XG4gICAgICAgICAgICAgICAgICAke2FwcG9pbnRtZW50RGV0YWlscy5wcmljZX1cbiAgICAgICAgICAgICAgICA8L3NwYW4+XG4gICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICB7LyogTG9jYXRpb24gSW5mb3JtYXRpb24gKi99XG4gICAgICAgICAgPGRpdlxuICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgYmFja2dyb3VuZENvbG9yOiBcIiNmZmZcIixcbiAgICAgICAgICAgICAgYm9yZGVyOiBcIjFweCBzb2xpZCAjZTBlMGUwXCIsXG4gICAgICAgICAgICAgIGJvcmRlclJhZGl1czogXCI4cHhcIixcbiAgICAgICAgICAgICAgcGFkZGluZzogXCIyMHB4XCIsXG4gICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIzMHB4XCIsXG4gICAgICAgICAgICB9fVxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxoM1xuICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgIGNvbG9yOiBcIiM0YThiOGNcIixcbiAgICAgICAgICAgICAgICBmb250U2l6ZTogXCIxOHB4XCIsXG4gICAgICAgICAgICAgICAgZm9udFdlaWdodDogNjAwLFxuICAgICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIxNXB4XCIsXG4gICAgICAgICAgICAgICAgbWFyZ2luVG9wOiAwLFxuICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgPlxuICAgICAgICAgICAgICBPZmZpY2UgTG9jYXRpb25cbiAgICAgICAgICAgIDwvaDM+XG4gICAgICAgICAgICA8ZGl2IHN0eWxlPXt7IGNvbG9yOiBcIiM1NTVcIiwgbGluZUhlaWdodDogMS42IH19PlxuICAgICAgICAgICAgICA8cCBzdHlsZT17eyBtYXJnaW46IFwiMCAwIDhweCAwXCIgfX0+XG4gICAgICAgICAgICAgICAgPHN0cm9uZz5IZWFsaW5nIFBhdGh3YXlzIENvdW5zZWxpbmc8L3N0cm9uZz5cbiAgICAgICAgICAgICAgICA8YnIgLz5cbiAgICAgICAgICAgICAgICAxMjMgV2VsbG5lc3MgV2F5LCBTdWl0ZSAyMDBcbiAgICAgICAgICAgICAgICA8YnIgLz5cbiAgICAgICAgICAgICAgICBDaXR5dmlsbGUsIFNUIDEyMzQ1XG4gICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgICAgPHAgc3R5bGU9e3sgbWFyZ2luOiBcIjhweCAwIDAgMFwiIH19PlxuICAgICAgICAgICAgICAgIDxzdHJvbmc+UGhvbmU6PC9zdHJvbmc+ICg1NTUpIDEyMy00NTY3XG4gICAgICAgICAgICAgICAgPGJyIC8+XG4gICAgICAgICAgICAgICAgPHN0cm9uZz5FbWFpbDo8L3N0cm9uZz4gYXBwb2ludG1lbnRzQGhlYWxpbmdwYXRod2F5cy5jb21cbiAgICAgICAgICAgICAgPC9wPlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICB7LyogV2hhdCB0byBFeHBlY3QgKi99XG4gICAgICAgICAgPGRpdiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IFwiMzBweFwiIH19PlxuICAgICAgICAgICAgPGgzXG4gICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgY29sb3I6IFwiIzRhOGI4Y1wiLFxuICAgICAgICAgICAgICAgIGZvbnRTaXplOiBcIjE4cHhcIixcbiAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiA2MDAsXG4gICAgICAgICAgICAgICAgbWFyZ2luQm90dG9tOiBcIjE1cHhcIixcbiAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgV2hhdCB0byBFeHBlY3RcbiAgICAgICAgICAgIDwvaDM+XG4gICAgICAgICAgICA8ZGl2IHN0eWxlPXt7IGNvbG9yOiBcIiM1NTVcIiwgbGluZUhlaWdodDogMS42IH19PlxuICAgICAgICAgICAgICA8ZGl2IHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogXCIxMnB4XCIgfX0+XG4gICAgICAgICAgICAgICAgPHN0cm9uZz5Gb3IgRmlyc3QtVGltZSBDbGllbnRzOjwvc3Ryb25nPlxuICAgICAgICAgICAgICAgIDx1bCBzdHlsZT17eyBtYXJnaW5Ub3A6IFwiNXB4XCIsIHBhZGRpbmdMZWZ0OiBcIjIwcHhcIiB9fT5cbiAgICAgICAgICAgICAgICAgIDxsaT5cbiAgICAgICAgICAgICAgICAgICAgUGxlYXNlIGFycml2ZSAxMC0xNSBtaW51dGVzIGVhcmx5IHRvIGNvbXBsZXRlIGludGFrZSBmb3Jtc1xuICAgICAgICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgICAgICAgIDxsaT5CcmluZyBhIHZhbGlkIElEIGFuZCBpbnN1cmFuY2UgY2FyZCAoaWYgYXBwbGljYWJsZSk8L2xpPlxuICAgICAgICAgICAgICAgICAgPGxpPlxuICAgICAgICAgICAgICAgICAgICBXZSZhcG9zO2xsIGRpc2N1c3MgeW91ciBnb2FscyBhbmQgY3JlYXRlIGEgcGVyc29uYWxpemVkXG4gICAgICAgICAgICAgICAgICAgIHRyZWF0bWVudCBwbGFuXG4gICAgICAgICAgICAgICAgICA8L2xpPlxuICAgICAgICAgICAgICAgIDwvdWw+XG4gICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICA8ZGl2PlxuICAgICAgICAgICAgICAgIDxzdHJvbmc+UGFya2luZzo8L3N0cm9uZz4gRnJlZSBwYXJraW5nIGlzIGF2YWlsYWJsZSBpbiBvdXJcbiAgICAgICAgICAgICAgICBidWlsZGluZyBsb3RcbiAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgIHsvKiBJbXBvcnRhbnQgUG9saWNpZXMgKi99XG4gICAgICAgICAgPGRpdlxuICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgYmFja2dyb3VuZENvbG9yOiBcIiNmZWY5ZTdcIixcbiAgICAgICAgICAgICAgYm9yZGVyOiBcIjFweCBzb2xpZCAjZjdlOThlXCIsXG4gICAgICAgICAgICAgIGJvcmRlclJhZGl1czogXCI4cHhcIixcbiAgICAgICAgICAgICAgcGFkZGluZzogXCIyMHB4XCIsXG4gICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIyNXB4XCIsXG4gICAgICAgICAgICB9fVxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxoM1xuICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgIGNvbG9yOiBcIiM4YjVhMDBcIixcbiAgICAgICAgICAgICAgICBmb250U2l6ZTogXCIxNnB4XCIsXG4gICAgICAgICAgICAgICAgZm9udFdlaWdodDogNjAwLFxuICAgICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIxMnB4XCIsXG4gICAgICAgICAgICAgICAgbWFyZ2luVG9wOiAwLFxuICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgPlxuICAgICAgICAgICAgICBJbXBvcnRhbnQgSW5mb3JtYXRpb25cbiAgICAgICAgICAgIDwvaDM+XG4gICAgICAgICAgICA8ZGl2XG4gICAgICAgICAgICAgIHN0eWxlPXt7IGNvbG9yOiBcIiM4YjVhMDBcIiwgZm9udFNpemU6IFwiMTRweFwiLCBsaW5lSGVpZ2h0OiAxLjUgfX1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgPHAgc3R5bGU9e3sgbWFyZ2luOiBcIjAgMCAxMHB4IDBcIiB9fT5cbiAgICAgICAgICAgICAgICA8c3Ryb25nPkNhbmNlbGxhdGlvbiBQb2xpY3k6PC9zdHJvbmc+IFBsZWFzZSBwcm92aWRlIDI0LWhvdXJcbiAgICAgICAgICAgICAgICBub3RpY2UgZm9yIGNhbmNlbGxhdGlvbnMgdG8gYXZvaWQgZmVlcy5cbiAgICAgICAgICAgICAgPC9wPlxuICAgICAgICAgICAgICA8cCBzdHlsZT17eyBtYXJnaW46IFwiMCAwIDEwcHggMFwiIH19PlxuICAgICAgICAgICAgICAgIDxzdHJvbmc+UmVzY2hlZHVsaW5nOjwvc3Ryb25nPiBZb3UgY2FuIHJlc2NoZWR1bGUgdGhyb3VnaCB5b3VyXG4gICAgICAgICAgICAgICAgcGF0aWVudCBwb3J0YWwgb3IgYnkgY2FsbGluZyBvdXIgb2ZmaWNlLlxuICAgICAgICAgICAgICA8L3A+XG4gICAgICAgICAgICAgIDxwIHN0eWxlPXt7IG1hcmdpbjogXCIwXCIgfX0+XG4gICAgICAgICAgICAgICAgPHN0cm9uZz5Db25maXJtYXRpb24gSUQ6PC9zdHJvbmc+IHthcHBvaW50bWVudERldGFpbHMuaWR9XG4gICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cblxuICAgICAgICB7LyogQ3Jpc2lzIFN1cHBvcnQgU2VjdGlvbiAqL31cbiAgICAgICAgPGRpdlxuICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICBiYWNrZ3JvdW5kQ29sb3I6IFwiI2Y4ZjRmNFwiLFxuICAgICAgICAgICAgcGFkZGluZzogXCIyNXB4IDMwcHhcIixcbiAgICAgICAgICAgIGJvcmRlclRvcDogXCIxcHggc29saWQgI2UwZTBlMFwiLFxuICAgICAgICAgIH19XG4gICAgICAgID5cbiAgICAgICAgICA8aDNcbiAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgIGNvbG9yOiBcIiM4YjAwMDBcIixcbiAgICAgICAgICAgICAgZm9udFNpemU6IFwiMTZweFwiLFxuICAgICAgICAgICAgICBmb250V2VpZ2h0OiA2MDAsXG4gICAgICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIxMnB4XCIsXG4gICAgICAgICAgICAgIG1hcmdpblRvcDogMCxcbiAgICAgICAgICAgIH19XG4gICAgICAgICAgPlxuICAgICAgICAgICAgQ3Jpc2lzIFN1cHBvcnQgQXZhaWxhYmxlIDI0LzdcbiAgICAgICAgICA8L2gzPlxuICAgICAgICAgIDxkaXYgc3R5bGU9e3sgY29sb3I6IFwiIzU1NVwiLCBmb250U2l6ZTogXCIxNHB4XCIsIGxpbmVIZWlnaHQ6IDEuNSB9fT5cbiAgICAgICAgICAgIDxwIHN0eWxlPXt7IG1hcmdpbjogXCIwIDAgOHB4IDBcIiB9fT5cbiAgICAgICAgICAgICAgSWYgeW91JmFwb3M7cmUgZXhwZXJpZW5jaW5nIGEgbWVudGFsIGhlYWx0aCBjcmlzaXMgYmVmb3JlIHlvdXJcbiAgICAgICAgICAgICAgYXBwb2ludG1lbnQ6XG4gICAgICAgICAgICA8L3A+XG4gICAgICAgICAgICA8dWwgc3R5bGU9e3sgbWFyZ2luOiBcIjBcIiwgcGFkZGluZ0xlZnQ6IFwiMjBweFwiIH19PlxuICAgICAgICAgICAgICA8bGk+XG4gICAgICAgICAgICAgICAgPHN0cm9uZz5OYXRpb25hbCBDcmlzaXMgTGlmZWxpbmU6PC9zdHJvbmc+IDk4OFxuICAgICAgICAgICAgICA8L2xpPlxuICAgICAgICAgICAgICA8bGk+XG4gICAgICAgICAgICAgICAgPHN0cm9uZz5DcmlzaXMgVGV4dCBMaW5lOjwvc3Ryb25nPiBUZXh0IEhPTUUgdG8gNzQxNzQxXG4gICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgIDxsaT5cbiAgICAgICAgICAgICAgICA8c3Ryb25nPkVtZXJnZW5jeSBTZXJ2aWNlczo8L3N0cm9uZz4gQ2FsbCA5MTFcbiAgICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgIDwvdWw+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuXG4gICAgICAgIHsvKiBGb290ZXIgKi99XG4gICAgICAgIDxkaXZcbiAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgYmFja2dyb3VuZENvbG9yOiBcIiMyYzJjMmNcIixcbiAgICAgICAgICAgIGNvbG9yOiBcIndoaXRlXCIsXG4gICAgICAgICAgICBwYWRkaW5nOiBcIjIwcHggMzBweFwiLFxuICAgICAgICAgICAgdGV4dEFsaWduOiBcImNlbnRlclwiLFxuICAgICAgICAgICAgZm9udFNpemU6IFwiMTJweFwiLFxuICAgICAgICAgIH19XG4gICAgICAgID5cbiAgICAgICAgICA8cCBzdHlsZT17eyBtYXJnaW46IFwiMCAwIDEwcHggMFwiIH19PlxuICAgICAgICAgICAgV2UmYXBvcztyZSBoZXJlIHRvIHN1cHBvcnQgeW91IG9uIHlvdXIgam91cm5leSB0byBiZXR0ZXIgbWVudGFsXG4gICAgICAgICAgICBoZWFsdGguXG4gICAgICAgICAgPC9wPlxuICAgICAgICAgIDxwIHN0eWxlPXt7IG1hcmdpbjogXCIwXCIgfX0+XG4gICAgICAgICAgICBIZWFsaW5nIFBhdGh3YXlzIENvdW5zZWxpbmcgfCBMaWNlbnNlZCBQcm9mZXNzaW9uYWwgQ291bnNlbG9yICMxMjM0NVxuICAgICAgICAgIDwvcD5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2Rpdj5cbiAgICA8L2Rpdj5cbiAgKTtcbn1cbiJdLCJuYW1lcyI6WyJBcHBvaW50bWVudENvbmZpcm1hdGlvbkVtYWlsIiwiY2xpZW50TmFtZSIsImFwcG9pbnRtZW50RGV0YWlscyIsImFwcG9pbnRtZW50RGF0ZSIsIkRhdGUiLCJkYXRlVGltZSIsImZvcm1hdHRlZERhdGUiLCJ0b0xvY2FsZURhdGVTdHJpbmciLCJ3ZWVrZGF5IiwieWVhciIsIm1vbnRoIiwiZGF5IiwiZm9ybWF0dGVkVGltZSIsInRvTG9jYWxlVGltZVN0cmluZyIsImhvdXIiLCJtaW51dGUiLCJob3VyMTIiLCJkaXYiLCJzdHlsZSIsImZvbnRGYW1pbHkiLCJtYXJnaW4iLCJwYWRkaW5nIiwiYmFja2dyb3VuZENvbG9yIiwibWF4V2lkdGgiLCJjb2xvciIsInRleHRBbGlnbiIsImgxIiwiZm9udFNpemUiLCJmb250V2VpZ2h0IiwiaDIiLCJtYXJnaW5Cb3R0b20iLCJwIiwibGluZUhlaWdodCIsImJvcmRlciIsImJvcmRlclJhZGl1cyIsImgzIiwibWFyZ2luVG9wIiwiZGlzcGxheSIsImp1c3RpZnlDb250ZW50IiwiYm9yZGVyQm90dG9tIiwicGFkZGluZ0JvdHRvbSIsInNwYW4iLCJzZXJ2aWNlIiwiZHVyYXRpb24iLCJwcmljZSIsInN0cm9uZyIsImJyIiwidWwiLCJwYWRkaW5nTGVmdCIsImxpIiwiaWQiLCJi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

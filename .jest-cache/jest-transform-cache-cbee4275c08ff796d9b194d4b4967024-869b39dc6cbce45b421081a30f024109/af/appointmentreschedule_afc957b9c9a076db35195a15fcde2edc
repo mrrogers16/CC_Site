@@ -1,0 +1,481 @@
+8057fed9cd35f1783dcc9c8708994235
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "AppointmentRescheduleEmail", {
+    enumerable: true,
+    get: function() {
+        return AppointmentRescheduleEmail;
+    }
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _components = require("@react-email/components");
+function AppointmentRescheduleEmail({ clientName, oldDateTime, newDateTime, service, duration, price, reason }) {
+    const formatDateTime = (dateTimeStr)=>{
+        const date = new Date(dateTimeStr);
+        return {
+            date: date.toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            }),
+            time: date.toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true
+            })
+        };
+    };
+    const oldFormatted = formatDateTime(oldDateTime);
+    const newFormatted = formatDateTime(newDateTime);
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Html, {
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Head, {}),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Preview, {
+                children: "Your appointment has been rescheduled - New date confirmed"
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Body, {
+                style: main,
+                children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Container, {
+                    style: container,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                            style: header,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Heading, {
+                                    style: headerTitle,
+                                    children: "Healing Pathways Counseling"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                    style: headerSubtitle,
+                                    children: "Professional Mental Health Services"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                            style: content,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Heading, {
+                                    style: title,
+                                    children: "Appointment Rescheduled"
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Text, {
+                                    style: greeting,
+                                    children: [
+                                        "Dear ",
+                                        clientName,
+                                        ","
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                    style: paragraph,
+                                    children: "We're writing to confirm that your appointment has been rescheduled. Please note your new appointment details below."
+                                }),
+                                reason && /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                    style: reasonSection,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: reasonTitle,
+                                            children: "Reason for rescheduling:"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: reasonText,
+                                            children: reason
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Hr, {
+                                    style: divider
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Row, {
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Column, {
+                                            style: columnHeader,
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                                style: sectionTitle,
+                                                children: "Previous Appointment"
+                                            })
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Column, {
+                                            style: columnHeader,
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                                style: sectionTitle,
+                                                children: "New Appointment"
+                                            })
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Row, {
+                                    style: appointmentRow,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Column, {
+                                            style: appointmentColumn,
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                                style: oldAppointment,
+                                                children: [
+                                                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                                        style: appointmentDate,
+                                                        children: oldFormatted.date
+                                                    }),
+                                                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                                        style: appointmentTime,
+                                                        children: oldFormatted.time
+                                                    }),
+                                                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                                        style: cancelledLabel,
+                                                        children: "CANCELLED"
+                                                    })
+                                                ]
+                                            })
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Column, {
+                                            style: appointmentColumn,
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                                style: newAppointment,
+                                                children: [
+                                                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                                        style: appointmentDate,
+                                                        children: newFormatted.date
+                                                    }),
+                                                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                                        style: appointmentTime,
+                                                        children: newFormatted.time
+                                                    }),
+                                                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                                        style: confirmedLabel,
+                                                        children: "CONFIRMED"
+                                                    })
+                                                ]
+                                            })
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Hr, {
+                                    style: divider
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                    style: serviceDetails,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: sectionTitle,
+                                            children: "Service Details"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Row, {
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Column, {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                                            style: detailLabel,
+                                                            children: "Service:"
+                                                        }),
+                                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                                            style: detailValue,
+                                                            children: service
+                                                        })
+                                                    ]
+                                                }),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Column, {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                                            style: detailLabel,
+                                                            children: "Duration:"
+                                                        }),
+                                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Text, {
+                                                            style: detailValue,
+                                                            children: [
+                                                                duration,
+                                                                " minutes"
+                                                            ]
+                                                        })
+                                                    ]
+                                                })
+                                            ]
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Row, {
+                                            children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Column, {
+                                                children: [
+                                                    /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                                        style: detailLabel,
+                                                        children: "Fee:"
+                                                    }),
+                                                    /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Text, {
+                                                        style: detailValue,
+                                                        children: [
+                                                            "$",
+                                                            price
+                                                        ]
+                                                    })
+                                                ]
+                                            })
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Hr, {
+                                    style: divider
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                    style: locationSection,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: sectionTitle,
+                                            children: "Location & Contact"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Text, {
+                                            style: locationText,
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                    children: "Healing Pathways Counseling"
+                                                }),
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                "123 Wellness Way, Suite 200",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                "Cityville, ST 12345",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                "Phone: (555) 123-4567"
+                                            ]
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Section, {
+                                    style: importantNotes,
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                            style: sectionTitle,
+                                            children: "Important Reminders"
+                                        }),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Text, {
+                                            style: noteText,
+                                            children: [
+                                                "• Please arrive 10-15 minutes early for your appointment",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                "• Bring a valid ID and insurance card if applicable",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                "• For cancellations or further rescheduling, please provide 24-hour notice",
+                                                /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                                "• Contact us immediately if you need to make any changes"
+                                            ]
+                                        })
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                    style: closingText,
+                                    children: "We appreciate your understanding regarding this schedule change and look forward to supporting you on your wellness journey."
+                                }),
+                                /*#__PURE__*/ (0, _jsxruntime.jsxs)(_components.Text, {
+                                    style: signature,
+                                    children: [
+                                        "Warm regards,",
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                            children: "The Healing Pathways Counseling Team"
+                                        })
+                                    ]
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Section, {
+                            style: footer,
+                            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_components.Text, {
+                                style: footerText,
+                                children: "This is an automated message from Healing Pathways Counseling. If you have any questions, please call us at (555) 123-4567 or email contact@healingpathways.com."
+                            })
+                        })
+                    ]
+                })
+            })
+        ]
+    });
+}
+// Styles
+const main = {
+    backgroundColor: "#fefefe",
+    fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
+};
+const container = {
+    backgroundColor: "#ffffff",
+    margin: "0 auto",
+    padding: "20px 0 48px",
+    marginBottom: "64px"
+};
+const header = {
+    backgroundColor: "#4a8b8c",
+    padding: "24px 20px",
+    textAlign: "center"
+};
+const headerTitle = {
+    color: "#ffffff",
+    fontSize: "24px",
+    fontWeight: "bold",
+    margin: "0 0 8px 0"
+};
+const headerSubtitle = {
+    color: "#b5d3d4",
+    fontSize: "14px",
+    margin: "0"
+};
+const content = {
+    padding: "24px 20px"
+};
+const title = {
+    color: "#2c2c2c",
+    fontSize: "20px",
+    fontWeight: "bold",
+    margin: "0 0 20px 0",
+    textAlign: "center"
+};
+const greeting = {
+    color: "#2c2c2c",
+    fontSize: "16px",
+    margin: "0 0 16px 0"
+};
+const paragraph = {
+    color: "#525252",
+    fontSize: "14px",
+    lineHeight: "1.5",
+    margin: "0 0 16px 0"
+};
+const reasonSection = {
+    backgroundColor: "#f0f7f7",
+    borderLeft: "4px solid #4a8b8c",
+    padding: "12px 16px",
+    margin: "16px 0"
+};
+const reasonTitle = {
+    color: "#2c2c2c",
+    fontSize: "14px",
+    fontWeight: "bold",
+    margin: "0 0 8px 0"
+};
+const reasonText = {
+    color: "#525252",
+    fontSize: "14px",
+    margin: "0",
+    fontStyle: "italic"
+};
+const divider = {
+    borderColor: "#e0e0e0",
+    margin: "20px 0"
+};
+const columnHeader = {
+    width: "50%",
+    paddingRight: "10px"
+};
+const sectionTitle = {
+    color: "#2c2c2c",
+    fontSize: "16px",
+    fontWeight: "bold",
+    margin: "0 0 12px 0"
+};
+const appointmentRow = {
+    margin: "16px 0"
+};
+const appointmentColumn = {
+    width: "50%",
+    paddingRight: "10px"
+};
+const oldAppointment = {
+    backgroundColor: "#fef2f2",
+    border: "1px solid #fecaca",
+    borderRadius: "8px",
+    padding: "16px",
+    textAlign: "center"
+};
+const newAppointment = {
+    backgroundColor: "#f0fdf4",
+    border: "1px solid #bbf7d0",
+    borderRadius: "8px",
+    padding: "16px",
+    textAlign: "center"
+};
+const appointmentDate = {
+    color: "#2c2c2c",
+    fontSize: "16px",
+    fontWeight: "bold",
+    margin: "0 0 4px 0"
+};
+const appointmentTime = {
+    color: "#525252",
+    fontSize: "14px",
+    margin: "0 0 8px 0"
+};
+const cancelledLabel = {
+    backgroundColor: "#dc2626",
+    color: "#ffffff",
+    fontSize: "12px",
+    fontWeight: "bold",
+    padding: "4px 8px",
+    borderRadius: "4px",
+    margin: "0"
+};
+const confirmedLabel = {
+    backgroundColor: "#16a34a",
+    color: "#ffffff",
+    fontSize: "12px",
+    fontWeight: "bold",
+    padding: "4px 8px",
+    borderRadius: "4px",
+    margin: "0"
+};
+const serviceDetails = {
+    margin: "20px 0"
+};
+const detailLabel = {
+    color: "#6b7280",
+    fontSize: "12px",
+    margin: "0 0 4px 0",
+    textTransform: "uppercase",
+    fontWeight: "bold"
+};
+const detailValue = {
+    color: "#2c2c2c",
+    fontSize: "14px",
+    margin: "0 0 12px 0"
+};
+const locationSection = {
+    margin: "20px 0"
+};
+const locationText = {
+    color: "#525252",
+    fontSize: "14px",
+    lineHeight: "1.5",
+    margin: "0"
+};
+const importantNotes = {
+    backgroundColor: "#fffbeb",
+    border: "1px solid #fcd34d",
+    borderRadius: "8px",
+    padding: "16px",
+    margin: "20px 0"
+};
+const noteText = {
+    color: "#92400e",
+    fontSize: "14px",
+    lineHeight: "1.5",
+    margin: "0"
+};
+const closingText = {
+    color: "#525252",
+    fontSize: "14px",
+    lineHeight: "1.5",
+    margin: "20px 0 16px 0"
+};
+const signature = {
+    color: "#2c2c2c",
+    fontSize: "14px",
+    margin: "0 0 24px 0"
+};
+const footer = {
+    backgroundColor: "#f9fafb",
+    padding: "16px 20px"
+};
+const footerText = {
+    color: "#6b7280",
+    fontSize: "12px",
+    lineHeight: "1.4",
+    margin: "0",
+    textAlign: "center"
+};
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkQ6XFxnaXRodWJcXENDX1NpdGVcXHNyY1xcY29tcG9uZW50c1xcZW1haWxcXGFwcG9pbnRtZW50LXJlc2NoZWR1bGUudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7XG4gIEJvZHksXG4gIENvbnRhaW5lcixcbiAgSGVhZCxcbiAgSGVhZGluZyxcbiAgSHRtbCxcbiAgUHJldmlldyxcbiAgU2VjdGlvbixcbiAgVGV4dCxcbiAgSHIsXG4gIFJvdyxcbiAgQ29sdW1uLFxufSBmcm9tIFwiQHJlYWN0LWVtYWlsL2NvbXBvbmVudHNcIjtcblxuaW50ZXJmYWNlIEFwcG9pbnRtZW50UmVzY2hlZHVsZUVtYWlsUHJvcHMge1xuICBjbGllbnROYW1lOiBzdHJpbmc7XG4gIG9sZERhdGVUaW1lOiBzdHJpbmc7XG4gIG5ld0RhdGVUaW1lOiBzdHJpbmc7XG4gIHNlcnZpY2U6IHN0cmluZztcbiAgZHVyYXRpb246IG51bWJlcjtcbiAgcHJpY2U6IHN0cmluZztcbiAgcmVhc29uPzogc3RyaW5nO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gQXBwb2ludG1lbnRSZXNjaGVkdWxlRW1haWwoe1xuICBjbGllbnROYW1lLFxuICBvbGREYXRlVGltZSxcbiAgbmV3RGF0ZVRpbWUsXG4gIHNlcnZpY2UsXG4gIGR1cmF0aW9uLFxuICBwcmljZSxcbiAgcmVhc29uLFxufTogQXBwb2ludG1lbnRSZXNjaGVkdWxlRW1haWxQcm9wcykge1xuICBjb25zdCBmb3JtYXREYXRlVGltZSA9IChkYXRlVGltZVN0cjogc3RyaW5nKSA9PiB7XG4gICAgY29uc3QgZGF0ZSA9IG5ldyBEYXRlKGRhdGVUaW1lU3RyKTtcbiAgICByZXR1cm4ge1xuICAgICAgZGF0ZTogZGF0ZS50b0xvY2FsZURhdGVTdHJpbmcoXCJlbi1VU1wiLCB7XG4gICAgICAgIHdlZWtkYXk6IFwibG9uZ1wiLFxuICAgICAgICB5ZWFyOiBcIm51bWVyaWNcIixcbiAgICAgICAgbW9udGg6IFwibG9uZ1wiLFxuICAgICAgICBkYXk6IFwibnVtZXJpY1wiLFxuICAgICAgfSksXG4gICAgICB0aW1lOiBkYXRlLnRvTG9jYWxlVGltZVN0cmluZyhcImVuLVVTXCIsIHtcbiAgICAgICAgaG91cjogXCJudW1lcmljXCIsXG4gICAgICAgIG1pbnV0ZTogXCIyLWRpZ2l0XCIsXG4gICAgICAgIGhvdXIxMjogdHJ1ZSxcbiAgICAgIH0pLFxuICAgIH07XG4gIH07XG5cbiAgY29uc3Qgb2xkRm9ybWF0dGVkID0gZm9ybWF0RGF0ZVRpbWUob2xkRGF0ZVRpbWUpO1xuICBjb25zdCBuZXdGb3JtYXR0ZWQgPSBmb3JtYXREYXRlVGltZShuZXdEYXRlVGltZSk7XG5cbiAgcmV0dXJuIChcbiAgICA8SHRtbD5cbiAgICAgIDxIZWFkIC8+XG4gICAgICA8UHJldmlldz5cbiAgICAgICAgWW91ciBhcHBvaW50bWVudCBoYXMgYmVlbiByZXNjaGVkdWxlZCAtIE5ldyBkYXRlIGNvbmZpcm1lZFxuICAgICAgPC9QcmV2aWV3PlxuICAgICAgPEJvZHkgc3R5bGU9e21haW59PlxuICAgICAgICA8Q29udGFpbmVyIHN0eWxlPXtjb250YWluZXJ9PlxuICAgICAgICAgIDxTZWN0aW9uIHN0eWxlPXtoZWFkZXJ9PlxuICAgICAgICAgICAgPEhlYWRpbmcgc3R5bGU9e2hlYWRlclRpdGxlfT5IZWFsaW5nIFBhdGh3YXlzIENvdW5zZWxpbmc8L0hlYWRpbmc+XG4gICAgICAgICAgICA8VGV4dCBzdHlsZT17aGVhZGVyU3VidGl0bGV9PlxuICAgICAgICAgICAgICBQcm9mZXNzaW9uYWwgTWVudGFsIEhlYWx0aCBTZXJ2aWNlc1xuICAgICAgICAgICAgPC9UZXh0PlxuICAgICAgICAgIDwvU2VjdGlvbj5cblxuICAgICAgICAgIDxTZWN0aW9uIHN0eWxlPXtjb250ZW50fT5cbiAgICAgICAgICAgIDxIZWFkaW5nIHN0eWxlPXt0aXRsZX0+QXBwb2ludG1lbnQgUmVzY2hlZHVsZWQ8L0hlYWRpbmc+XG5cbiAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtncmVldGluZ30+RGVhciB7Y2xpZW50TmFtZX0sPC9UZXh0PlxuXG4gICAgICAgICAgICA8VGV4dCBzdHlsZT17cGFyYWdyYXBofT5cbiAgICAgICAgICAgICAgV2UmYXBvcztyZSB3cml0aW5nIHRvIGNvbmZpcm0gdGhhdCB5b3VyIGFwcG9pbnRtZW50IGhhcyBiZWVuXG4gICAgICAgICAgICAgIHJlc2NoZWR1bGVkLiBQbGVhc2Ugbm90ZSB5b3VyIG5ldyBhcHBvaW50bWVudCBkZXRhaWxzIGJlbG93LlxuICAgICAgICAgICAgPC9UZXh0PlxuXG4gICAgICAgICAgICB7cmVhc29uICYmIChcbiAgICAgICAgICAgICAgPFNlY3Rpb24gc3R5bGU9e3JlYXNvblNlY3Rpb259PlxuICAgICAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtyZWFzb25UaXRsZX0+UmVhc29uIGZvciByZXNjaGVkdWxpbmc6PC9UZXh0PlxuICAgICAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtyZWFzb25UZXh0fT57cmVhc29ufTwvVGV4dD5cbiAgICAgICAgICAgICAgPC9TZWN0aW9uPlxuICAgICAgICAgICAgKX1cblxuICAgICAgICAgICAgPEhyIHN0eWxlPXtkaXZpZGVyfSAvPlxuXG4gICAgICAgICAgICA8Um93PlxuICAgICAgICAgICAgICA8Q29sdW1uIHN0eWxlPXtjb2x1bW5IZWFkZXJ9PlxuICAgICAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtzZWN0aW9uVGl0bGV9PlByZXZpb3VzIEFwcG9pbnRtZW50PC9UZXh0PlxuICAgICAgICAgICAgICA8L0NvbHVtbj5cbiAgICAgICAgICAgICAgPENvbHVtbiBzdHlsZT17Y29sdW1uSGVhZGVyfT5cbiAgICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17c2VjdGlvblRpdGxlfT5OZXcgQXBwb2ludG1lbnQ8L1RleHQ+XG4gICAgICAgICAgICAgIDwvQ29sdW1uPlxuICAgICAgICAgICAgPC9Sb3c+XG5cbiAgICAgICAgICAgIDxSb3cgc3R5bGU9e2FwcG9pbnRtZW50Um93fT5cbiAgICAgICAgICAgICAgPENvbHVtbiBzdHlsZT17YXBwb2ludG1lbnRDb2x1bW59PlxuICAgICAgICAgICAgICAgIDxTZWN0aW9uIHN0eWxlPXtvbGRBcHBvaW50bWVudH0+XG4gICAgICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17YXBwb2ludG1lbnREYXRlfT57b2xkRm9ybWF0dGVkLmRhdGV9PC9UZXh0PlxuICAgICAgICAgICAgICAgICAgPFRleHQgc3R5bGU9e2FwcG9pbnRtZW50VGltZX0+e29sZEZvcm1hdHRlZC50aW1lfTwvVGV4dD5cbiAgICAgICAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtjYW5jZWxsZWRMYWJlbH0+Q0FOQ0VMTEVEPC9UZXh0PlxuICAgICAgICAgICAgICAgIDwvU2VjdGlvbj5cbiAgICAgICAgICAgICAgPC9Db2x1bW4+XG4gICAgICAgICAgICAgIDxDb2x1bW4gc3R5bGU9e2FwcG9pbnRtZW50Q29sdW1ufT5cbiAgICAgICAgICAgICAgICA8U2VjdGlvbiBzdHlsZT17bmV3QXBwb2ludG1lbnR9PlxuICAgICAgICAgICAgICAgICAgPFRleHQgc3R5bGU9e2FwcG9pbnRtZW50RGF0ZX0+e25ld0Zvcm1hdHRlZC5kYXRlfTwvVGV4dD5cbiAgICAgICAgICAgICAgICAgIDxUZXh0IHN0eWxlPXthcHBvaW50bWVudFRpbWV9PntuZXdGb3JtYXR0ZWQudGltZX08L1RleHQ+XG4gICAgICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17Y29uZmlybWVkTGFiZWx9PkNPTkZJUk1FRDwvVGV4dD5cbiAgICAgICAgICAgICAgICA8L1NlY3Rpb24+XG4gICAgICAgICAgICAgIDwvQ29sdW1uPlxuICAgICAgICAgICAgPC9Sb3c+XG5cbiAgICAgICAgICAgIDxIciBzdHlsZT17ZGl2aWRlcn0gLz5cblxuICAgICAgICAgICAgPFNlY3Rpb24gc3R5bGU9e3NlcnZpY2VEZXRhaWxzfT5cbiAgICAgICAgICAgICAgPFRleHQgc3R5bGU9e3NlY3Rpb25UaXRsZX0+U2VydmljZSBEZXRhaWxzPC9UZXh0PlxuICAgICAgICAgICAgICA8Um93PlxuICAgICAgICAgICAgICAgIDxDb2x1bW4+XG4gICAgICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17ZGV0YWlsTGFiZWx9PlNlcnZpY2U6PC9UZXh0PlxuICAgICAgICAgICAgICAgICAgPFRleHQgc3R5bGU9e2RldGFpbFZhbHVlfT57c2VydmljZX08L1RleHQ+XG4gICAgICAgICAgICAgICAgPC9Db2x1bW4+XG4gICAgICAgICAgICAgICAgPENvbHVtbj5cbiAgICAgICAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtkZXRhaWxMYWJlbH0+RHVyYXRpb246PC9UZXh0PlxuICAgICAgICAgICAgICAgICAgPFRleHQgc3R5bGU9e2RldGFpbFZhbHVlfT57ZHVyYXRpb259IG1pbnV0ZXM8L1RleHQ+XG4gICAgICAgICAgICAgICAgPC9Db2x1bW4+XG4gICAgICAgICAgICAgIDwvUm93PlxuICAgICAgICAgICAgICA8Um93PlxuICAgICAgICAgICAgICAgIDxDb2x1bW4+XG4gICAgICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17ZGV0YWlsTGFiZWx9PkZlZTo8L1RleHQ+XG4gICAgICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17ZGV0YWlsVmFsdWV9PiR7cHJpY2V9PC9UZXh0PlxuICAgICAgICAgICAgICAgIDwvQ29sdW1uPlxuICAgICAgICAgICAgICA8L1Jvdz5cbiAgICAgICAgICAgIDwvU2VjdGlvbj5cblxuICAgICAgICAgICAgPEhyIHN0eWxlPXtkaXZpZGVyfSAvPlxuXG4gICAgICAgICAgICA8U2VjdGlvbiBzdHlsZT17bG9jYXRpb25TZWN0aW9ufT5cbiAgICAgICAgICAgICAgPFRleHQgc3R5bGU9e3NlY3Rpb25UaXRsZX0+TG9jYXRpb24gJiBDb250YWN0PC9UZXh0PlxuICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17bG9jYXRpb25UZXh0fT5cbiAgICAgICAgICAgICAgICA8c3Ryb25nPkhlYWxpbmcgUGF0aHdheXMgQ291bnNlbGluZzwvc3Ryb25nPlxuICAgICAgICAgICAgICAgIDxiciAvPlxuICAgICAgICAgICAgICAgIDEyMyBXZWxsbmVzcyBXYXksIFN1aXRlIDIwMFxuICAgICAgICAgICAgICAgIDxiciAvPlxuICAgICAgICAgICAgICAgIENpdHl2aWxsZSwgU1QgMTIzNDVcbiAgICAgICAgICAgICAgICA8YnIgLz5cbiAgICAgICAgICAgICAgICBQaG9uZTogKDU1NSkgMTIzLTQ1NjdcbiAgICAgICAgICAgICAgPC9UZXh0PlxuICAgICAgICAgICAgPC9TZWN0aW9uPlxuXG4gICAgICAgICAgICA8U2VjdGlvbiBzdHlsZT17aW1wb3J0YW50Tm90ZXN9PlxuICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17c2VjdGlvblRpdGxlfT5JbXBvcnRhbnQgUmVtaW5kZXJzPC9UZXh0PlxuICAgICAgICAgICAgICA8VGV4dCBzdHlsZT17bm90ZVRleHR9PlxuICAgICAgICAgICAgICAgIOKAoiBQbGVhc2UgYXJyaXZlIDEwLTE1IG1pbnV0ZXMgZWFybHkgZm9yIHlvdXIgYXBwb2ludG1lbnRcbiAgICAgICAgICAgICAgICA8YnIgLz5cbiAgICAgICAgICAgICAgICDigKIgQnJpbmcgYSB2YWxpZCBJRCBhbmQgaW5zdXJhbmNlIGNhcmQgaWYgYXBwbGljYWJsZVxuICAgICAgICAgICAgICAgIDxiciAvPlxuICAgICAgICAgICAgICAgIOKAoiBGb3IgY2FuY2VsbGF0aW9ucyBvciBmdXJ0aGVyIHJlc2NoZWR1bGluZywgcGxlYXNlIHByb3ZpZGVcbiAgICAgICAgICAgICAgICAyNC1ob3VyIG5vdGljZVxuICAgICAgICAgICAgICAgIDxiciAvPuKAoiBDb250YWN0IHVzIGltbWVkaWF0ZWx5IGlmIHlvdSBuZWVkIHRvIG1ha2UgYW55IGNoYW5nZXNcbiAgICAgICAgICAgICAgPC9UZXh0PlxuICAgICAgICAgICAgPC9TZWN0aW9uPlxuXG4gICAgICAgICAgICA8VGV4dCBzdHlsZT17Y2xvc2luZ1RleHR9PlxuICAgICAgICAgICAgICBXZSBhcHByZWNpYXRlIHlvdXIgdW5kZXJzdGFuZGluZyByZWdhcmRpbmcgdGhpcyBzY2hlZHVsZSBjaGFuZ2VcbiAgICAgICAgICAgICAgYW5kIGxvb2sgZm9yd2FyZCB0byBzdXBwb3J0aW5nIHlvdSBvbiB5b3VyIHdlbGxuZXNzIGpvdXJuZXkuXG4gICAgICAgICAgICA8L1RleHQ+XG5cbiAgICAgICAgICAgIDxUZXh0IHN0eWxlPXtzaWduYXR1cmV9PlxuICAgICAgICAgICAgICBXYXJtIHJlZ2FyZHMsXG4gICAgICAgICAgICAgIDxiciAvPlxuICAgICAgICAgICAgICA8c3Ryb25nPlRoZSBIZWFsaW5nIFBhdGh3YXlzIENvdW5zZWxpbmcgVGVhbTwvc3Ryb25nPlxuICAgICAgICAgICAgPC9UZXh0PlxuICAgICAgICAgIDwvU2VjdGlvbj5cblxuICAgICAgICAgIDxTZWN0aW9uIHN0eWxlPXtmb290ZXJ9PlxuICAgICAgICAgICAgPFRleHQgc3R5bGU9e2Zvb3RlclRleHR9PlxuICAgICAgICAgICAgICBUaGlzIGlzIGFuIGF1dG9tYXRlZCBtZXNzYWdlIGZyb20gSGVhbGluZyBQYXRod2F5cyBDb3Vuc2VsaW5nLiBJZlxuICAgICAgICAgICAgICB5b3UgaGF2ZSBhbnkgcXVlc3Rpb25zLCBwbGVhc2UgY2FsbCB1cyBhdCAoNTU1KSAxMjMtNDU2NyBvciBlbWFpbFxuICAgICAgICAgICAgICBjb250YWN0QGhlYWxpbmdwYXRod2F5cy5jb20uXG4gICAgICAgICAgICA8L1RleHQ+XG4gICAgICAgICAgPC9TZWN0aW9uPlxuICAgICAgICA8L0NvbnRhaW5lcj5cbiAgICAgIDwvQm9keT5cbiAgICA8L0h0bWw+XG4gICk7XG59XG5cbi8vIFN0eWxlc1xuY29uc3QgbWFpbiA9IHtcbiAgYmFja2dyb3VuZENvbG9yOiBcIiNmZWZlZmVcIixcbiAgZm9udEZhbWlseTpcbiAgICAnLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsXCJTZWdvZSBVSVwiLFJvYm90byxPeHlnZW4tU2FucyxVYnVudHUsQ2FudGFyZWxsLFwiSGVsdmV0aWNhIE5ldWVcIixzYW5zLXNlcmlmJyxcbn07XG5cbmNvbnN0IGNvbnRhaW5lciA9IHtcbiAgYmFja2dyb3VuZENvbG9yOiBcIiNmZmZmZmZcIixcbiAgbWFyZ2luOiBcIjAgYXV0b1wiLFxuICBwYWRkaW5nOiBcIjIwcHggMCA0OHB4XCIsXG4gIG1hcmdpbkJvdHRvbTogXCI2NHB4XCIsXG59O1xuXG5jb25zdCBoZWFkZXIgPSB7XG4gIGJhY2tncm91bmRDb2xvcjogXCIjNGE4YjhjXCIsXG4gIHBhZGRpbmc6IFwiMjRweCAyMHB4XCIsXG4gIHRleHRBbGlnbjogXCJjZW50ZXJcIiBhcyBjb25zdCxcbn07XG5cbmNvbnN0IGhlYWRlclRpdGxlID0ge1xuICBjb2xvcjogXCIjZmZmZmZmXCIsXG4gIGZvbnRTaXplOiBcIjI0cHhcIixcbiAgZm9udFdlaWdodDogXCJib2xkXCIsXG4gIG1hcmdpbjogXCIwIDAgOHB4IDBcIixcbn07XG5cbmNvbnN0IGhlYWRlclN1YnRpdGxlID0ge1xuICBjb2xvcjogXCIjYjVkM2Q0XCIsXG4gIGZvbnRTaXplOiBcIjE0cHhcIixcbiAgbWFyZ2luOiBcIjBcIixcbn07XG5cbmNvbnN0IGNvbnRlbnQgPSB7XG4gIHBhZGRpbmc6IFwiMjRweCAyMHB4XCIsXG59O1xuXG5jb25zdCB0aXRsZSA9IHtcbiAgY29sb3I6IFwiIzJjMmMyY1wiLFxuICBmb250U2l6ZTogXCIyMHB4XCIsXG4gIGZvbnRXZWlnaHQ6IFwiYm9sZFwiLFxuICBtYXJnaW46IFwiMCAwIDIwcHggMFwiLFxuICB0ZXh0QWxpZ246IFwiY2VudGVyXCIgYXMgY29uc3QsXG59O1xuXG5jb25zdCBncmVldGluZyA9IHtcbiAgY29sb3I6IFwiIzJjMmMyY1wiLFxuICBmb250U2l6ZTogXCIxNnB4XCIsXG4gIG1hcmdpbjogXCIwIDAgMTZweCAwXCIsXG59O1xuXG5jb25zdCBwYXJhZ3JhcGggPSB7XG4gIGNvbG9yOiBcIiM1MjUyNTJcIixcbiAgZm9udFNpemU6IFwiMTRweFwiLFxuICBsaW5lSGVpZ2h0OiBcIjEuNVwiLFxuICBtYXJnaW46IFwiMCAwIDE2cHggMFwiLFxufTtcblxuY29uc3QgcmVhc29uU2VjdGlvbiA9IHtcbiAgYmFja2dyb3VuZENvbG9yOiBcIiNmMGY3ZjdcIixcbiAgYm9yZGVyTGVmdDogXCI0cHggc29saWQgIzRhOGI4Y1wiLFxuICBwYWRkaW5nOiBcIjEycHggMTZweFwiLFxuICBtYXJnaW46IFwiMTZweCAwXCIsXG59O1xuXG5jb25zdCByZWFzb25UaXRsZSA9IHtcbiAgY29sb3I6IFwiIzJjMmMyY1wiLFxuICBmb250U2l6ZTogXCIxNHB4XCIsXG4gIGZvbnRXZWlnaHQ6IFwiYm9sZFwiLFxuICBtYXJnaW46IFwiMCAwIDhweCAwXCIsXG59O1xuXG5jb25zdCByZWFzb25UZXh0ID0ge1xuICBjb2xvcjogXCIjNTI1MjUyXCIsXG4gIGZvbnRTaXplOiBcIjE0cHhcIixcbiAgbWFyZ2luOiBcIjBcIixcbiAgZm9udFN0eWxlOiBcIml0YWxpY1wiLFxufTtcblxuY29uc3QgZGl2aWRlciA9IHtcbiAgYm9yZGVyQ29sb3I6IFwiI2UwZTBlMFwiLFxuICBtYXJnaW46IFwiMjBweCAwXCIsXG59O1xuXG5jb25zdCBjb2x1bW5IZWFkZXIgPSB7XG4gIHdpZHRoOiBcIjUwJVwiLFxuICBwYWRkaW5nUmlnaHQ6IFwiMTBweFwiLFxufTtcblxuY29uc3Qgc2VjdGlvblRpdGxlID0ge1xuICBjb2xvcjogXCIjMmMyYzJjXCIsXG4gIGZvbnRTaXplOiBcIjE2cHhcIixcbiAgZm9udFdlaWdodDogXCJib2xkXCIsXG4gIG1hcmdpbjogXCIwIDAgMTJweCAwXCIsXG59O1xuXG5jb25zdCBhcHBvaW50bWVudFJvdyA9IHtcbiAgbWFyZ2luOiBcIjE2cHggMFwiLFxufTtcblxuY29uc3QgYXBwb2ludG1lbnRDb2x1bW4gPSB7XG4gIHdpZHRoOiBcIjUwJVwiLFxuICBwYWRkaW5nUmlnaHQ6IFwiMTBweFwiLFxufTtcblxuY29uc3Qgb2xkQXBwb2ludG1lbnQgPSB7XG4gIGJhY2tncm91bmRDb2xvcjogXCIjZmVmMmYyXCIsXG4gIGJvcmRlcjogXCIxcHggc29saWQgI2ZlY2FjYVwiLFxuICBib3JkZXJSYWRpdXM6IFwiOHB4XCIsXG4gIHBhZGRpbmc6IFwiMTZweFwiLFxuICB0ZXh0QWxpZ246IFwiY2VudGVyXCIgYXMgY29uc3QsXG59O1xuXG5jb25zdCBuZXdBcHBvaW50bWVudCA9IHtcbiAgYmFja2dyb3VuZENvbG9yOiBcIiNmMGZkZjRcIixcbiAgYm9yZGVyOiBcIjFweCBzb2xpZCAjYmJmN2QwXCIsXG4gIGJvcmRlclJhZGl1czogXCI4cHhcIixcbiAgcGFkZGluZzogXCIxNnB4XCIsXG4gIHRleHRBbGlnbjogXCJjZW50ZXJcIiBhcyBjb25zdCxcbn07XG5cbmNvbnN0IGFwcG9pbnRtZW50RGF0ZSA9IHtcbiAgY29sb3I6IFwiIzJjMmMyY1wiLFxuICBmb250U2l6ZTogXCIxNnB4XCIsXG4gIGZvbnRXZWlnaHQ6IFwiYm9sZFwiLFxuICBtYXJnaW46IFwiMCAwIDRweCAwXCIsXG59O1xuXG5jb25zdCBhcHBvaW50bWVudFRpbWUgPSB7XG4gIGNvbG9yOiBcIiM1MjUyNTJcIixcbiAgZm9udFNpemU6IFwiMTRweFwiLFxuICBtYXJnaW46IFwiMCAwIDhweCAwXCIsXG59O1xuXG5jb25zdCBjYW5jZWxsZWRMYWJlbCA9IHtcbiAgYmFja2dyb3VuZENvbG9yOiBcIiNkYzI2MjZcIixcbiAgY29sb3I6IFwiI2ZmZmZmZlwiLFxuICBmb250U2l6ZTogXCIxMnB4XCIsXG4gIGZvbnRXZWlnaHQ6IFwiYm9sZFwiLFxuICBwYWRkaW5nOiBcIjRweCA4cHhcIixcbiAgYm9yZGVyUmFkaXVzOiBcIjRweFwiLFxuICBtYXJnaW46IFwiMFwiLFxufTtcblxuY29uc3QgY29uZmlybWVkTGFiZWwgPSB7XG4gIGJhY2tncm91bmRDb2xvcjogXCIjMTZhMzRhXCIsXG4gIGNvbG9yOiBcIiNmZmZmZmZcIixcbiAgZm9udFNpemU6IFwiMTJweFwiLFxuICBmb250V2VpZ2h0OiBcImJvbGRcIixcbiAgcGFkZGluZzogXCI0cHggOHB4XCIsXG4gIGJvcmRlclJhZGl1czogXCI0cHhcIixcbiAgbWFyZ2luOiBcIjBcIixcbn07XG5cbmNvbnN0IHNlcnZpY2VEZXRhaWxzID0ge1xuICBtYXJnaW46IFwiMjBweCAwXCIsXG59O1xuXG5jb25zdCBkZXRhaWxMYWJlbCA9IHtcbiAgY29sb3I6IFwiIzZiNzI4MFwiLFxuICBmb250U2l6ZTogXCIxMnB4XCIsXG4gIG1hcmdpbjogXCIwIDAgNHB4IDBcIixcbiAgdGV4dFRyYW5zZm9ybTogXCJ1cHBlcmNhc2VcIiBhcyBjb25zdCxcbiAgZm9udFdlaWdodDogXCJib2xkXCIsXG59O1xuXG5jb25zdCBkZXRhaWxWYWx1ZSA9IHtcbiAgY29sb3I6IFwiIzJjMmMyY1wiLFxuICBmb250U2l6ZTogXCIxNHB4XCIsXG4gIG1hcmdpbjogXCIwIDAgMTJweCAwXCIsXG59O1xuXG5jb25zdCBsb2NhdGlvblNlY3Rpb24gPSB7XG4gIG1hcmdpbjogXCIyMHB4IDBcIixcbn07XG5cbmNvbnN0IGxvY2F0aW9uVGV4dCA9IHtcbiAgY29sb3I6IFwiIzUyNTI1MlwiLFxuICBmb250U2l6ZTogXCIxNHB4XCIsXG4gIGxpbmVIZWlnaHQ6IFwiMS41XCIsXG4gIG1hcmdpbjogXCIwXCIsXG59O1xuXG5jb25zdCBpbXBvcnRhbnROb3RlcyA9IHtcbiAgYmFja2dyb3VuZENvbG9yOiBcIiNmZmZiZWJcIixcbiAgYm9yZGVyOiBcIjFweCBzb2xpZCAjZmNkMzRkXCIsXG4gIGJvcmRlclJhZGl1czogXCI4cHhcIixcbiAgcGFkZGluZzogXCIxNnB4XCIsXG4gIG1hcmdpbjogXCIyMHB4IDBcIixcbn07XG5cbmNvbnN0IG5vdGVUZXh0ID0ge1xuICBjb2xvcjogXCIjOTI0MDBlXCIsXG4gIGZvbnRTaXplOiBcIjE0cHhcIixcbiAgbGluZUhlaWdodDogXCIxLjVcIixcbiAgbWFyZ2luOiBcIjBcIixcbn07XG5cbmNvbnN0IGNsb3NpbmdUZXh0ID0ge1xuICBjb2xvcjogXCIjNTI1MjUyXCIsXG4gIGZvbnRTaXplOiBcIjE0cHhcIixcbiAgbGluZUhlaWdodDogXCIxLjVcIixcbiAgbWFyZ2luOiBcIjIwcHggMCAxNnB4IDBcIixcbn07XG5cbmNvbnN0IHNpZ25hdHVyZSA9IHtcbiAgY29sb3I6IFwiIzJjMmMyY1wiLFxuICBmb250U2l6ZTogXCIxNHB4XCIsXG4gIG1hcmdpbjogXCIwIDAgMjRweCAwXCIsXG59O1xuXG5jb25zdCBmb290ZXIgPSB7XG4gIGJhY2tncm91bmRDb2xvcjogXCIjZjlmYWZiXCIsXG4gIHBhZGRpbmc6IFwiMTZweCAyMHB4XCIsXG59O1xuXG5jb25zdCBmb290ZXJUZXh0ID0ge1xuICBjb2xvcjogXCIjNmI3MjgwXCIsXG4gIGZvbnRTaXplOiBcIjEycHhcIixcbiAgbGluZUhlaWdodDogXCIxLjRcIixcbiAgbWFyZ2luOiBcIjBcIixcbiAgdGV4dEFsaWduOiBcImNlbnRlclwiIGFzIGNvbnN0LFxufTtcbiJdLCJuYW1lcyI6WyJBcHBvaW50bWVudFJlc2NoZWR1bGVFbWFpbCIsImNsaWVudE5hbWUiLCJvbGREYXRlVGltZSIsIm5ld0RhdGVUaW1lIiwic2VydmljZSIsImR1cmF0aW9uIiwicHJpY2UiLCJyZWFzb24iLCJmb3JtYXREYXRlVGltZSIsImRhdGVUaW1lU3RyIiwiZGF0ZSIsIkRhdGUiLCJ0b0xvY2FsZURhdGVTdHJpbmciLCJ3ZWVrZGF5IiwieWVhciIsIm1vbnRoIiwiZGF5IiwidGltZSIsInRvTG9jYWxlVGltZVN0cmluZyIsImhvdXIiLCJtaW51dGUiLCJob3VyMTIiLCJvbGRGb3JtYXR0ZWQiLCJuZXdGb3JtYXR0ZWQiLCJIdG1sIiwiSGVhZCIsIlByZXZpZXciLCJCb2R5Iiwic3R5bGUiLCJtYWluIiwiQ29udGFpbmVyIiwiY29udGFpbmVyIiwiU2VjdGlvbiIsImhlYWRlciIsIkhlYWRpbmciLCJoZWFkZXJUaXRsZSIsIlRleHQiLCJoZWFkZXJTdWJ0aXRsZSIsImNvbnRlbnQiLCJ0aXRsZSIsImdyZWV0aW5nIiwicGFyYWdyYXBoIiwicmVhc29uU2VjdGlvbiIsInJlYXNvblRpdGxlIiwicmVhc29uVGV4dCIsIkhyIiwiZGl2aWRlciIsIlJvdyIsIkNvbHVtbiIsImNvbHVtbkhlYWRlciIsInNlY3Rpb25UaXRsZSIsImFwcG9pbnRtZW50Um93IiwiYXBwb2ludG1lbnRDb2x1bW4iLCJvbGRBcHBvaW50bWVudCIsImFwcG9pbnRtZW50RGF0ZSIsImFwcG9pbnRtZW50VGltZSIsImNhbmNlbGxlZExhYmVsIiwibmV3QXBwb2ludG1lbnQiLCJjb25maXJtZWRMYWJlbCIsInNlcnZpY2VEZXRhaWxzIiwiZGV0YWlsTGFiZWwiLCJkZXRhaWxWYWx1ZSIsImxvY2F0aW9uU2VjdGlvbiIsImxvY2F0aW9uVGV4dCIsInN0cm9uZyIsImJyIiwiaW1wb3J0YW50Tm90ZXMiLCJub3RlVGV4dCIsImNsb3NpbmdUZXh0Iiwic2lnbmF0dXJlIiwiZm9vdGVyIiwiZm9vdGVyVGV4dCIsImJhY2tncm91bmRDb2xvciIsImZvbnRGYW1pbHkiLCJtYXJnaW4iLCJwYWRkaW5nIiwibWFyZ2luQm90dG9tIiwidGV4dEFsaWduIiwiY29sb3IiLCJmb250U2l6ZSIsImZvbnRXZWlnaHQiLCJsaW5lSGVpZ2h0IiwiYm9yZGVyTGVmdCIsImZvbnRTdHlsZSIsImJvcmRlckNvbG9yIiwid2lkdGgiLCJwYWRkaW5nUmlnaHQiLCJib3JkZXIiLCJib3JkZXJSYWRpdXMiLCJ0ZXh0VHJhbnNmb3JtIl0sIm1hcHBpbmdzIjoiOzs7OytCQXdCZ0JBOzs7ZUFBQUE7Ozs7NEJBWlQ7QUFZQSxTQUFTQSwyQkFBMkIsRUFDekNDLFVBQVUsRUFDVkMsV0FBVyxFQUNYQyxXQUFXLEVBQ1hDLE9BQU8sRUFDUEMsUUFBUSxFQUNSQyxLQUFLLEVBQ0xDLE1BQU0sRUFDMEI7SUFDaEMsTUFBTUMsaUJBQWlCLENBQUNDO1FBQ3RCLE1BQU1DLE9BQU8sSUFBSUMsS0FBS0Y7UUFDdEIsT0FBTztZQUNMQyxNQUFNQSxLQUFLRSxrQkFBa0IsQ0FBQyxTQUFTO2dCQUNyQ0Ms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

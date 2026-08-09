@@ -1,0 +1,406 @@
+4f9a9acf55702275ccd66f5b093737ea
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _react = require("@testing-library/react");
+const _appointmentreschedule = require("../../../src/components/email/appointment-reschedule");
+const _appointmentcancellation = require("../../../src/components/email/appointment-cancellation");
+describe("Email Templates", ()=>{
+    describe("AppointmentRescheduleEmail", ()=>{
+        const defaultProps = {
+            clientName: "John Doe",
+            oldDateTime: "2025-08-28T10:00:00Z",
+            newDateTime: "2025-08-29T14:00:00Z",
+            service: "Individual Therapy",
+            duration: 60,
+            price: "150.00"
+        };
+        it("renders reschedule email with required content", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("Healing Pathways Counseling");
+            expect(html).toContain("Appointment Rescheduled");
+            expect(html).toContain("Dear John Doe");
+            expect(html).toContain("Individual Therapy");
+            expect(html).toContain("60 minutes");
+            expect(html).toContain("$150.00");
+        });
+        it("displays previous appointment section with cancelled label", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("Previous Appointment");
+            expect(html).toContain("CANCELLED");
+            // Check for old date formatting (Wednesday, August 28, 2025)
+            expect(html).toContain("Wednesday, August 28, 2025");
+        });
+        it("displays new appointment section with confirmed label", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("New Appointment");
+            expect(html).toContain("CONFIRMED");
+            // Check for new date formatting (Thursday, August 29, 2025)
+            expect(html).toContain("Thursday, August 29, 2025");
+        });
+        it("formats time correctly in 12-hour format", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            // Old time: 10:00 AM UTC
+            expect(html).toContain("10:00 AM");
+            // New time: 2:00 PM UTC
+            expect(html).toContain("2:00 PM");
+        });
+        it("displays reason when provided", ()=>{
+            const propsWithReason = {
+                ...defaultProps,
+                reason: "Client requested different time"
+            };
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                ...propsWithReason
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("Reason for rescheduling:");
+            expect(html).toContain("Client requested different time");
+        });
+        it("does not display reason section when not provided", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).not.toContain("Reason for rescheduling:");
+        });
+        it("includes contact information and location", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("123 Wellness Way, Suite 200");
+            expect(html).toContain("Cityville, ST 12345");
+            expect(html).toContain("(555) 123-4567");
+        });
+        it("includes important reminders section", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("Important Reminders");
+            expect(html).toContain("arrive 10-15 minutes early");
+            expect(html).toContain("24-hour notice");
+            expect(html).toContain("valid ID and insurance card");
+        });
+        it("includes professional signature", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("Warm regards");
+            expect(html).toContain("The Healing Pathways Counseling Team");
+        });
+        it("includes footer with automated message disclaimer", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("automated message");
+            expect(html).toContain("contact@healingpathways.com");
+        });
+        it("has proper email preview text", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("Your appointment has been rescheduled - New date confirmed");
+        });
+    });
+    describe("AppointmentCancellationEmail", ()=>{
+        const defaultProps = {
+            clientName: "Jane Smith",
+            appointmentDateTime: "2025-08-28T15:30:00Z",
+            service: "Couples Therapy",
+            duration: 90,
+            price: "200.00"
+        };
+        it("renders cancellation email with required content", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("Healing Pathways Counseling");
+            expect(html).toContain("Appointment Cancelled");
+            expect(html).toContain("Dear Jane Smith");
+            expect(html).toContain("Couples Therapy");
+            expect(html).toContain("90 minutes");
+            expect(html).toContain("$200.00");
+        });
+        it("displays cancelled appointment details with proper formatting", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("Cancelled Appointment Details");
+            expect(html).toContain("CANCELLED");
+            // Check for date formatting (Wednesday, August 28, 2025)
+            expect(html).toContain("Wednesday, August 28, 2025");
+            // Check for time formatting (3:30 PM UTC)
+            expect(html).toContain("3:30 PM");
+        });
+        it("displays reason when provided", ()=>{
+            const propsWithReason = {
+                ...defaultProps,
+                reason: "Emergency cancellation"
+            };
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                ...propsWithReason
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("Cancellation reason:");
+            expect(html).toContain("Emergency cancellation");
+        });
+        it("does not display reason section when not provided", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).not.toContain("Cancellation reason:");
+        });
+        it("displays cancellation policy when provided", ()=>{
+            const propsWithPolicy = {
+                ...defaultProps,
+                cancellationPolicy: "24-hour cancellation notice required for full refund"
+            };
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                ...propsWithPolicy
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("Cancellation Policy");
+            expect(html).toContain("24-hour cancellation notice required for full refund");
+        });
+        it("does not display policy section when not provided", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).not.toContain("Cancellation Policy");
+        });
+        it("includes next steps section", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("What's Next?");
+            expect(html).toContain("Rescheduling:");
+            expect(html).toContain("Billing:");
+            expect(html).toContain("Questions:");
+            expect(html).toContain("(555) 123-4567");
+        });
+        it("includes support resources section", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("Support Resources");
+            expect(html).toContain("mental health emergency");
+            expect(html).toContain("Call 911");
+            expect(html).toContain("National Suicide Prevention Lifeline: 988");
+            expect(html).toContain("Text HOME to 741741");
+        });
+        it("includes professional signature and closing", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("appointments need to be cancelled");
+            expect(html).toContain("wellness journey");
+            expect(html).toContain("Warm regards");
+            expect(html).toContain("The Healing Pathways Counseling Team");
+        });
+        it("includes comprehensive footer with contact details", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("123 Wellness Way, Suite 200");
+            expect(html).toContain("Cityville, ST 12345");
+            expect(html).toContain("Phone: (555) 123-4567");
+            expect(html).toContain("Email: contact@healingpathways.com");
+            expect(html).toContain("automated message");
+        });
+        it("has proper email preview text", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                ...defaultProps
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("Appointment Cancellation Confirmation - Couples Therapy");
+        });
+    });
+    describe("Date and Time Formatting", ()=>{
+        it("formats various date times correctly in reschedule email", ()=>{
+            // Test different times and dates
+            const testCases = [
+                {
+                    dateTime: "2025-12-25T08:00:00Z",
+                    expectedDate: "Thursday, December 25, 2025",
+                    expectedTime: "8:00 AM"
+                },
+                {
+                    dateTime: "2025-01-01T23:45:00Z",
+                    expectedDate: "Wednesday, January 1, 2025",
+                    expectedTime: "11:45 PM"
+                },
+                {
+                    dateTime: "2025-06-15T12:00:00Z",
+                    expectedDate: "Sunday, June 15, 2025",
+                    expectedTime: "12:00 PM"
+                }
+            ];
+            testCases.forEach(({ dateTime, expectedDate, expectedTime })=>{
+                const props = {
+                    clientName: "Test Client",
+                    oldDateTime: dateTime,
+                    newDateTime: "2025-08-29T14:00:00Z",
+                    service: "Test Service",
+                    duration: 60,
+                    price: "100.00"
+                };
+                const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                    ...props
+                }));
+                const html = container.innerHTML;
+                expect(html).toContain(expectedDate);
+                expect(html).toContain(expectedTime);
+            });
+        });
+        it("formats various date times correctly in cancellation email", ()=>{
+            const testCases = [
+                {
+                    dateTime: "2025-07-04T16:30:00Z",
+                    expectedDate: "Friday, July 4, 2025",
+                    expectedTime: "4:30 PM"
+                },
+                {
+                    dateTime: "2025-02-14T09:15:00Z",
+                    expectedDate: "Friday, February 14, 2025",
+                    expectedTime: "9:15 AM"
+                }
+            ];
+            testCases.forEach(({ dateTime, expectedDate, expectedTime })=>{
+                const props = {
+                    clientName: "Test Client",
+                    appointmentDateTime: dateTime,
+                    service: "Test Service",
+                    duration: 60,
+                    price: "100.00"
+                };
+                const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                    ...props
+                }));
+                const html = container.innerHTML;
+                expect(html).toContain(expectedDate);
+                expect(html).toContain(expectedTime);
+            });
+        });
+    });
+    describe("Email Styling and Structure", ()=>{
+        it("includes proper HTML structure in reschedule email", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                clientName: "Test",
+                oldDateTime: "2025-08-28T10:00:00Z",
+                newDateTime: "2025-08-29T14:00:00Z",
+                service: "Test",
+                duration: 60,
+                price: "100"
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("<html");
+            expect(html).toContain("<head>");
+            expect(html).toContain("<body");
+            expect(html).toContain("style=");
+        });
+        it("includes proper HTML structure in cancellation email", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                clientName: "Test",
+                appointmentDateTime: "2025-08-28T10:00:00Z",
+                service: "Test",
+                duration: 60,
+                price: "100"
+            }));
+            const html = container.innerHTML;
+            expect(html).toContain("<html");
+            expect(html).toContain("<head>");
+            expect(html).toContain("<body");
+            expect(html).toContain("style=");
+        });
+        it("uses consistent branding colors in both emails", ()=>{
+            const rescheduleProps = {
+                clientName: "Test",
+                oldDateTime: "2025-08-28T10:00:00Z",
+                newDateTime: "2025-08-29T14:00:00Z",
+                service: "Test",
+                duration: 60,
+                price: "100"
+            };
+            const cancellationProps = {
+                clientName: "Test",
+                appointmentDateTime: "2025-08-28T10:00:00Z",
+                service: "Test",
+                duration: 60,
+                price: "100"
+            };
+            const rescheduleHtml = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                ...rescheduleProps
+            })).container.innerHTML;
+            const cancellationHtml = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                ...cancellationProps
+            })).container.innerHTML;
+            // Check for sage green primary color (#4a8b8c)
+            expect(rescheduleHtml).toContain("#4a8b8c");
+            expect(cancellationHtml).toContain("#4a8b8c");
+            // Check for consistent background colors
+            expect(rescheduleHtml).toContain("#fefefe");
+            expect(cancellationHtml).toContain("#fefefe");
+        });
+    });
+    describe("Accessibility and Best Practices", ()=>{
+        it("includes alt text and proper semantic structure", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentreschedule.AppointmentRescheduleEmail, {
+                clientName: "Test",
+                oldDateTime: "2025-08-28T10:00:00Z",
+                newDateTime: "2025-08-29T14:00:00Z",
+                service: "Test",
+                duration: 60,
+                price: "100"
+            }));
+            const html = container.innerHTML;
+            // Check for proper heading hierarchy
+            expect(html).toContain("Healing Pathways Counseling");
+            expect(html).toContain("Appointment Rescheduled");
+        });
+        it("uses appropriate contrast and readable fonts", ()=>{
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_appointmentcancellation.AppointmentCancellationEmail, {
+                clientName: "Test",
+                appointmentDateTime: "2025-08-28T10:00:00Z",
+                service: "Test",
+                duration: 60,
+                price: "100"
+            }));
+            const html = container.innerHTML;
+            // Check for readable font families
+            expect(html).toContain("Segoe UI");
+            expect(html).toContain("Roboto");
+            // Check for appropriate text colors (high contrast)
+            expect(html).toContain("#2c2c2c"); // Dark text
+            expect(html).toContain("#ffffff"); // White text on dark backgrounds
+        });
+    });
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkQ6XFxnaXRodWJcXENDX1NpdGVcXHRlc3RzXFx1bml0XFxjb21wb25lbnRzXFxhcHBvaW50bWVudC1lbWFpbC10ZW1wbGF0ZXMudGVzdC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgcmVuZGVyIH0gZnJvbSBcIkB0ZXN0aW5nLWxpYnJhcnkvcmVhY3RcIjtcbmltcG9ydCB7IEFwcG9pbnRtZW50UmVzY2hlZHVsZUVtYWlsIH0gZnJvbSBcIkAvY29tcG9uZW50cy9lbWFpbC9hcHBvaW50bWVudC1yZXNjaGVkdWxlXCI7XG5pbXBvcnQgeyBBcHBvaW50bWVudENhbmNlbGxhdGlvbkVtYWlsIH0gZnJvbSBcIkAvY29tcG9uZW50cy9lbWFpbC9hcHBvaW50bWVudC1jYW5jZWxsYXRpb25cIjtcblxuZGVzY3JpYmUoXCJFbWFpbCBUZW1wbGF0ZXNcIiwgKCkgPT4ge1xuICBkZXNjcmliZShcIkFwcG9pbnRtZW50UmVzY2hlZHVsZUVtYWlsXCIsICgpID0+IHtcbiAgICBjb25zdCBkZWZhdWx0UHJvcHMgPSB7XG4gICAgICBjbGllbnROYW1lOiBcIkpvaG4gRG9lXCIsXG4gICAgICBvbGREYXRlVGltZTogXCIyMDI1LTA4LTI4VDEwOjAwOjAwWlwiLFxuICAgICAgbmV3RGF0ZVRpbWU6IFwiMjAyNS0wOC0yOVQxNDowMDowMFpcIixcbiAgICAgIHNlcnZpY2U6IFwiSW5kaXZpZHVhbCBUaGVyYXB5XCIsXG4gICAgICBkdXJhdGlvbjogNjAsXG4gICAgICBwcmljZTogXCIxNTAuMDBcIixcbiAgICB9O1xuXG4gICAgaXQoXCJyZW5kZXJzIHJlc2NoZWR1bGUgZW1haWwgd2l0aCByZXF1aXJlZCBjb250ZW50XCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udGFpbmVyIH0gPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudFJlc2NoZWR1bGVFbWFpbCB7Li4uZGVmYXVsdFByb3BzfSAvPlxuICAgICAgKTtcbiAgICAgIGNvbnN0IGh0bWwgPSBjb250YWluZXIuaW5uZXJIVE1MO1xuXG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiSGVhbGluZyBQYXRod2F5cyBDb3Vuc2VsaW5nXCIpO1xuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIkFwcG9pbnRtZW50IFJlc2NoZWR1bGVkXCIpO1xuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIkRlYXIgSm9obiBEb2VcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiSW5kaXZpZHVhbCBUaGVyYXB5XCIpO1xuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIjYwIG1pbnV0ZXNcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiJDE1MC4wMFwiKTtcbiAgICB9KTtcblxuICAgIGl0KFwiZGlzcGxheXMgcHJldmlvdXMgYXBwb2ludG1lbnQgc2VjdGlvbiB3aXRoIGNhbmNlbGxlZCBsYWJlbFwiLCAoKSA9PiB7XG4gICAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKFxuICAgICAgICA8QXBwb2ludG1lbnRSZXNjaGVkdWxlRW1haWwgey4uLmRlZmF1bHRQcm9wc30gLz5cbiAgICAgICk7XG4gICAgICBjb25zdCBodG1sID0gY29udGFpbmVyLmlubmVySFRNTDtcblxuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIlByZXZpb3VzIEFwcG9pbnRtZW50XCIpO1xuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIkNBTkNFTExFRFwiKTtcbiAgICAgIC8vIENoZWNrIGZvciBvbGQgZGF0ZSBmb3JtYXR0aW5nIChXZWRuZXNkYXksIEF1Z3VzdCAyOCwgMjAyNSlcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJXZWRuZXNkYXksIEF1Z3VzdCAyOCwgMjAyNVwiKTtcbiAgICB9KTtcblxuICAgIGl0KFwiZGlzcGxheXMgbmV3IGFwcG9pbnRtZW50IHNlY3Rpb24gd2l0aCBjb25maXJtZWQgbGFiZWxcIiwgKCkgPT4ge1xuICAgICAgY29uc3QgeyBjb250YWluZXIgfSA9IHJlbmRlcihcbiAgICAgICAgPEFwcG9pbnRtZW50UmVzY2hlZHVsZUVtYWlsIHsuLi5kZWZhdWx0UHJvcHN9IC8+XG4gICAgICApO1xuICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG5cbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJOZXcgQXBwb2ludG1lbnRcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiQ09ORklSTUVEXCIpO1xuICAgICAgLy8gQ2hlY2sgZm9yIG5ldyBkYXRlIGZvcm1hdHRpbmcgKFRodXJzZGF5LCBBdWd1c3QgMjksIDIwMjUpXG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiVGh1cnNkYXksIEF1Z3VzdCAyOSwgMjAyNVwiKTtcbiAgICB9KTtcblxuICAgIGl0KFwiZm9ybWF0cyB0aW1lIGNvcnJlY3RseSBpbiAxMi1ob3VyIGZvcm1hdFwiLCAoKSA9PiB7XG4gICAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKFxuICAgICAgICA8QXBwb2ludG1lbnRSZXNjaGVkdWxlRW1haWwgey4uLmRlZmF1bHRQcm9wc30gLz5cbiAgICAgICk7XG4gICAgICBjb25zdCBodG1sID0gY29udGFpbmVyLmlubmVySFRNTDtcblxuICAgICAgLy8gT2xkIHRpbWU6IDEwOjAwIEFNIFVUQ1xuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIjEwOjAwIEFNXCIpO1xuICAgICAgLy8gTmV3IHRpbWU6IDI6MDAgUE0gVVRDXG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiMjowMCBQTVwiKTtcbiAgICB9KTtcblxuICAgIGl0KFwiZGlzcGxheXMgcmVhc29uIHdoZW4gcHJvdmlkZWRcIiwgKCkgPT4ge1xuICAgICAgY29uc3QgcHJvcHNXaXRoUmVhc29uID0ge1xuICAgICAgICAuLi5kZWZhdWx0UHJvcHMsXG4gICAgICAgIHJlYXNvbjogXCJDbGllbnQgcmVxdWVzdGVkIGRpZmZlcmVudCB0aW1lXCIsXG4gICAgICB9O1xuXG4gICAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKFxuICAgICAgICA8QXBwb2ludG1lbnRSZXNjaGVkdWxlRW1haWwgey4uLnByb3BzV2l0aFJlYXNvbn0gLz5cbiAgICAgICk7XG4gICAgICBjb25zdCBodG1sID0gY29udGFpbmVyLmlubmVySFRNTDtcblxuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIlJlYXNvbiBmb3IgcmVzY2hlZHVsaW5nOlwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJDbGllbnQgcmVxdWVzdGVkIGRpZmZlcmVudCB0aW1lXCIpO1xuICAgIH0pO1xuXG4gICAgaXQoXCJkb2VzIG5vdCBkaXNwbGF5IHJlYXNvbiBzZWN0aW9uIHdoZW4gbm90IHByb3ZpZGVkXCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udGFpbmVyIH0gPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudFJlc2NoZWR1bGVFbWFpbCB7Li4uZGVmYXVsdFByb3BzfSAvPlxuICAgICAgKTtcbiAgICAgIGNvbnN0IGh0bWwgPSBjb250YWluZXIuaW5uZXJIVE1MO1xuXG4gICAgICBleHBlY3QoaHRtbCkubm90LnRvQ29udGFpbihcIlJlYXNvbiBmb3IgcmVzY2hlZHVsaW5nOlwiKTtcbiAgICB9KTtcblxuICAgIGl0KFwiaW5jbHVkZXMgY29udGFjdCBpbmZvcm1hdGlvbiBhbmQgbG9jYXRpb25cIiwgKCkgPT4ge1xuICAgICAgY29uc3QgeyBjb250YWluZXIgfSA9IHJlbmRlcihcbiAgICAgICAgPEFwcG9pbnRtZW50UmVzY2hlZHVsZUVtYWlsIHsuLi5kZWZhdWx0UHJvcHN9IC8+XG4gICAgICApO1xuICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG5cbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCIxMjMgV2VsbG5lc3MgV2F5LCBTdWl0ZSAyMDBcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiQ2l0eXZpbGxlLCBTVCAxMjM0NVwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCIoNTU1KSAxMjMtNDU2N1wiKTtcbiAgICB9KTtcblxuICAgIGl0KFwiaW5jbHVkZXMgaW1wb3J0YW50IHJlbWluZGVycyBzZWN0aW9uXCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udGFpbmVyIH0gPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudFJlc2NoZWR1bGVFbWFpbCB7Li4uZGVmYXVsdFByb3BzfSAvPlxuICAgICAgKTtcbiAgICAgIGNvbnN0IGh0bWwgPSBjb250YWluZXIuaW5uZXJIVE1MO1xuXG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiSW1wb3J0YW50IFJlbWluZGVyc1wiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJhcnJpdmUgMTAtMTUgbWludXRlcyBlYXJseVwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCIyNC1ob3VyIG5vdGljZVwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJ2YWxpZCBJRCBhbmQgaW5zdXJhbmNlIGNhcmRcIik7XG4gICAgfSk7XG5cbiAgICBpdChcImluY2x1ZGVzIHByb2Zlc3Npb25hbCBzaWduYXR1cmVcIiwgKCkgPT4ge1xuICAgICAgY29uc3QgeyBjb250YWluZXIgfSA9IHJlbmRlcihcbiAgICAgICAgPEFwcG9pbnRtZW50UmVzY2hlZHVsZUVtYWlsIHsuLi5kZWZhdWx0UHJvcHN9IC8+XG4gICAgICApO1xuICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG5cbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJXYXJtIHJlZ2FyZHNcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiVGhlIEhlYWxpbmcgUGF0aHdheXMgQ291bnNlbGluZyBUZWFtXCIpO1xuICAgIH0pO1xuXG4gICAgaXQoXCJpbmNsdWRlcyBmb290ZXIgd2l0aCBhdXRvbWF0ZWQgbWVzc2FnZSBkaXNjbGFpbWVyXCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udGFpbmVyIH0gPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudFJlc2NoZWR1bGVFbWFpbCB7Li4uZGVmYXVsdFByb3BzfSAvPlxuICAgICAgKTtcbiAgICAgIGNvbnN0IGh0bWwgPSBjb250YWluZXIuaW5uZXJIVE1MO1xuXG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiYXV0b21hdGVkIG1lc3NhZ2VcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiY29udGFjdEBoZWFsaW5ncGF0aHdheXMuY29tXCIpO1xuICAgIH0pO1xuXG4gICAgaXQoXCJoYXMgcHJvcGVyIGVtYWlsIHByZXZpZXcgdGV4dFwiLCAoKSA9PiB7XG4gICAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKFxuICAgICAgICA8QXBwb2ludG1lbnRSZXNjaGVkdWxlRW1haWwgey4uLmRlZmF1bHRQcm9wc30gLz5cbiAgICAgICk7XG4gICAgICBjb25zdCBodG1sID0gY29udGFpbmVyLmlubmVySFRNTDtcblxuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcbiAgICAgICAgXCJZb3VyIGFwcG9pbnRtZW50IGhhcyBiZWVuIHJlc2NoZWR1bGVkIC0gTmV3IGRhdGUgY29uZmlybWVkXCJcbiAgICAgICk7XG4gICAgfSk7XG4gIH0pO1xuXG4gIGRlc2NyaWJlKFwiQXBwb2ludG1lbnRDYW5jZWxsYXRpb25FbWFpbFwiLCAoKSA9PiB7XG4gICAgY29uc3QgZGVmYXVsdFByb3BzID0ge1xuICAgICAgY2xpZW50TmFtZTogXCJKYW5lIFNtaXRoXCIsXG4gICAgICBhcHBvaW50bWVudERhdGVUaW1lOiBcIjIwMjUtMDgtMjhUMTU6MzA6MDBaXCIsXG4gICAgICBzZXJ2aWNlOiBcIkNvdXBsZXMgVGhlcmFweVwiLFxuICAgICAgZHVyYXRpb246IDkwLFxuICAgICAgcHJpY2U6IFwiMjAwLjAwXCIsXG4gICAgfTtcblxuICAgIGl0KFwicmVuZGVycyBjYW5jZWxsYXRpb24gZW1haWwgd2l0aCByZXF1aXJlZCBjb250ZW50XCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udGFpbmVyIH0gPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudENhbmNlbGxhdGlvbkVtYWlsIHsuLi5kZWZhdWx0UHJvcHN9IC8+XG4gICAgICApO1xuICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG5cbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJIZWFsaW5nIFBhdGh3YXlzIENvdW5zZWxpbmdcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiQXBwb2ludG1lbnQgQ2FuY2VsbGVkXCIpO1xuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIkRlYXIgSmFuZSBTbWl0aFwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJDb3VwbGVzIFRoZXJhcHlcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiOTAgbWludXRlc1wiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCIkMjAwLjAwXCIpO1xuICAgIH0pO1xuXG4gICAgaXQoXCJkaXNwbGF5cyBjYW5jZWxsZWQgYXBwb2ludG1lbnQgZGV0YWlscyB3aXRoIHByb3BlciBmb3JtYXR0aW5nXCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udGFpbmVyIH0gPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudENhbmNlbGxhdGlvbkVtYWlsIHsuLi5kZWZhdWx0UHJvcHN9IC8+XG4gICAgICApO1xuICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG5cbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJDYW5jZWxsZWQgQXBwb2ludG1lbnQgRGV0YWlsc1wiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJDQU5DRUxMRURcIik7XG4gICAgICAvLyBDaGVjayBmb3IgZGF0ZSBmb3JtYXR0aW5nIChXZWRuZXNkYXksIEF1Z3VzdCAyOCwgMjAyNSlcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJXZWRuZXNkYXksIEF1Z3VzdCAyOCwgMjAyNVwiKTtcbiAgICAgIC8vIENoZWNrIGZvciB0aW1lIGZvcm1hdHRpbmcgKDM6MzAgUE0gVVRDKVxuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIjM6MzAgUE1cIik7XG4gICAgfSk7XG5cbiAgICBpdChcImRpc3BsYXlzIHJlYXNvbiB3aGVuIHByb3ZpZGVkXCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHByb3BzV2l0aFJlYXNvbiA9IHtcbiAgICAgICAgLi4uZGVmYXVsdFByb3BzLFxuICAgICAgICByZWFzb246IFwiRW1lcmdlbmN5IGNhbmNlbGxhdGlvblwiLFxuICAgICAgfTtcblxuICAgICAgY29uc3QgeyBjb250YWluZXIgfSA9IHJlbmRlcihcbiAgICAgICAgPEFwcG9pbnRtZW50Q2FuY2VsbGF0aW9uRW1haWwgey4uLnByb3BzV2l0aFJlYXNvbn0gLz5cbiAgICAgICk7XG4gICAgICBjb25zdCBodG1sID0gY29udGFpbmVyLmlubmVySFRNTDtcblxuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIkNhbmNlbGxhdGlvbiByZWFzb246XCIpO1xuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIkVtZXJnZW5jeSBjYW5jZWxsYXRpb25cIik7XG4gICAgfSk7XG5cbiAgICBpdChcImRvZXMgbm90IGRpc3BsYXkgcmVhc29uIHNlY3Rpb24gd2hlbiBub3QgcHJvdmlkZWRcIiwgKCkgPT4ge1xuICAgICAgY29uc3QgeyBjb250YWluZXIgfSA9IHJlbmRlcihcbiAgICAgICAgPEFwcG9pbnRtZW50Q2FuY2VsbGF0aW9uRW1haWwgey4uLmRlZmF1bHRQcm9wc30gLz5cbiAgICAgICk7XG4gICAgICBjb25zdCBodG1sID0gY29udGFpbmVyLmlubmVySFRNTDtcblxuICAgICAgZXhwZWN0KGh0bWwpLm5vdC50b0NvbnRhaW4oXCJDYW5jZWxsYXRpb24gcmVhc29uOlwiKTtcbiAgICB9KTtcblxuICAgIGl0KFwiZGlzcGxheXMgY2FuY2VsbGF0aW9uIHBvbGljeSB3aGVuIHByb3ZpZGVkXCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHByb3BzV2l0aFBvbGljeSA9IHtcbiAgICAgICAgLi4uZGVmYXVsdFByb3BzLFxuICAgICAgICBjYW5jZWxsYXRpb25Qb2xpY3k6XG4gICAgICAgICAgXCIyNC1ob3VyIGNhbmNlbGxhdGlvbiBub3RpY2UgcmVxdWlyZWQgZm9yIGZ1bGwgcmVmdW5kXCIsXG4gICAgICB9O1xuXG4gICAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKFxuICAgICAgICA8QXBwb2ludG1lbnRDYW5jZWxsYXRpb25FbWFpbCB7Li4ucHJvcHNXaXRoUG9saWN5fSAvPlxuICAgICAgKTtcbiAgICAgIGNvbnN0IGh0bWwgPSBjb250YWluZXIuaW5uZXJIVE1MO1xuXG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiQ2FuY2VsbGF0aW9uIFBvbGljeVwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXG4gICAgICAgIFwiMjQtaG91ciBjYW5jZWxsYXRpb24gbm90aWNlIHJlcXVpcmVkIGZvciBmdWxsIHJlZnVuZFwiXG4gICAgICApO1xuICAgIH0pO1xuXG4gICAgaXQoXCJkb2VzIG5vdCBkaXNwbGF5IHBvbGljeSBzZWN0aW9uIHdoZW4gbm90IHByb3ZpZGVkXCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udGFpbmVyIH0gPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudENhbmNlbGxhdGlvbkVtYWlsIHsuLi5kZWZhdWx0UHJvcHN9IC8+XG4gICAgICApO1xuICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG5cbiAgICAgIGV4cGVjdChodG1sKS5ub3QudG9Db250YWluKFwiQ2FuY2VsbGF0aW9uIFBvbGljeVwiKTtcbiAgICB9KTtcblxuICAgIGl0KFwiaW5jbHVkZXMgbmV4dCBzdGVwcyBzZWN0aW9uXCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udGFpbmVyIH0gPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudENhbmNlbGxhdGlvbkVtYWlsIHsuLi5kZWZhdWx0UHJvcHN9IC8+XG4gICAgICApO1xuICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG5cbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJXaGF0J3MgTmV4dD9cIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiUmVzY2hlZHVsaW5nOlwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJCaWxsaW5nOlwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJRdWVzdGlvbnM6XCIpO1xuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIig1NTUpIDEyMy00NTY3XCIpO1xuICAgIH0pO1xuXG4gICAgaXQoXCJpbmNsdWRlcyBzdXBwb3J0IHJlc291cmNlcyBzZWN0aW9uXCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udGFpbmVyIH0gPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudENhbmNlbGxhdGlvbkVtYWlsIHsuLi5kZWZhdWx0UHJvcHN9IC8+XG4gICAgICApO1xuICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG5cbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJTdXBwb3J0IFJlc291cmNlc1wiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJtZW50YWwgaGVhbHRoIGVtZXJnZW5jeVwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJDYWxsIDkxMVwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJOYXRpb25hbCBTdWljaWRlIFByZXZlbnRpb24gTGlmZWxpbmU6IDk4OFwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJUZXh0IEhPTUUgdG8gNzQxNzQxXCIpO1xuICAgIH0pO1xuXG4gICAgaXQoXCJpbmNsdWRlcyBwcm9mZXNzaW9uYWwgc2lnbmF0dXJlIGFuZCBjbG9zaW5nXCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udGFpbmVyIH0gPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudENhbmNlbGxhdGlvbkVtYWlsIHsuLi5kZWZhdWx0UHJvcHN9IC8+XG4gICAgICApO1xuICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG5cbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJhcHBvaW50bWVudHMgbmVlZCB0byBiZSBjYW5jZWxsZWRcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwid2VsbG5lc3Mgam91cm5leVwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJXYXJtIHJlZ2FyZHNcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiVGhlIEhlYWxpbmcgUGF0aHdheXMgQ291bnNlbGluZyBUZWFtXCIpO1xuICAgIH0pO1xuXG4gICAgaXQoXCJpbmNsdWRlcyBjb21wcmVoZW5zaXZlIGZvb3RlciB3aXRoIGNvbnRhY3QgZGV0YWlsc1wiLCAoKSA9PiB7XG4gICAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKFxuICAgICAgICA8QXBwb2ludG1lbnRDYW5jZWxsYXRpb25FbWFpbCB7Li4uZGVmYXVsdFByb3BzfSAvPlxuICAgICAgKTtcbiAgICAgIGNvbnN0IGh0bWwgPSBjb250YWluZXIuaW5uZXJIVE1MO1xuXG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiMTIzIFdlbGxuZXNzIFdheSwgU3VpdGUgMjAwXCIpO1xuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIkNpdHl2aWxsZSwgU1QgMTIzNDVcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiUGhvbmU6ICg1NTUpIDEyMy00NTY3XCIpO1xuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIkVtYWlsOiBjb250YWN0QGhlYWxpbmdwYXRod2F5cy5jb21cIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiYXV0b21hdGVkIG1lc3NhZ2VcIik7XG4gICAgfSk7XG5cbiAgICBpdChcImhhcyBwcm9wZXIgZW1haWwgcHJldmlldyB0ZXh0XCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udGFpbmVyIH0gPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudENhbmNlbGxhdGlvbkVtYWlsIHsuLi5kZWZhdWx0UHJvcHN9IC8+XG4gICAgICApO1xuICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG5cbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXG4gICAgICAgIFwiQXBwb2ludG1lbnQgQ2FuY2VsbGF0aW9uIENvbmZpcm1hdGlvbiAtIENvdXBsZXMgVGhlcmFweVwiXG4gICAgICApO1xuICAgIH0pO1xuICB9KTtcblxuICBkZXNjcmliZShcIkRhdGUgYW5kIFRpbWUgRm9ybWF0dGluZ1wiLCAoKSA9PiB7XG4gICAgaXQoXCJmb3JtYXRzIHZhcmlvdXMgZGF0ZSB0aW1lcyBjb3JyZWN0bHkgaW4gcmVzY2hlZHVsZSBlbWFpbFwiLCAoKSA9PiB7XG4gICAgICAvLyBUZXN0IGRpZmZlcmVudCB0aW1lcyBhbmQgZGF0ZXNcbiAgICAgIGNvbnN0IHRlc3RDYXNlcyA9IFtcbiAgICAgICAge1xuICAgICAgICAgIGRhdGVUaW1lOiBcIjIwMjUtMTItMjVUMDg6MDA6MDBaXCIsIC8vIENocmlzdG1hcyBtb3JuaW5nXG4gICAgICAgICAgZXhwZWN0ZWREYXRlOiBcIlRodXJzZGF5LCBEZWNlbWJlciAyNSwgMjAyNVwiLFxuICAgICAgICAgIGV4cGVjdGVkVGltZTogXCI4OjAwIEFNXCIsXG4gICAgICAgIH0sXG4gICAgICAgIHtcbiAgICAgICAgICBkYXRlVGltZTogXCIyMDI1LTAxLTAxVDIzOjQ1OjAwWlwiLCAvLyBOZXcgWWVhcidzIEV2ZSBsYXRlXG4gICAgICAgICAgZXhwZWN0ZWREYXRlOiBcIldlZG5lc2RheSwgSmFudWFyeSAxLCAyMDI1XCIsXG4gICAgICAgICAgZXhwZWN0ZWRUaW1lOiBcIjExOjQ1IFBNXCIsXG4gICAgICAgIH0sXG4gICAgICAgIHtcbiAgICAgICAgICBkYXRlVGltZTogXCIyMDI1LTA2LTE1VDEyOjAwOjAwWlwiLCAvLyBOb29uIG9uIFN1bmRheVxuICAgICAgICAgIGV4cGVjdGVkRGF0ZTogXCJTdW5kYXksIEp1bmUgMTUsIDIwMjVcIixcbiAgICAgICAgICBleHBlY3RlZFRpbWU6IFwiMTI6MDAgUE1cIixcbiAgICAgICAgfSxcbiAgICAgIF07XG5cbiAgICAgIHRlc3RDYXNlcy5mb3JFYWNoKCh7IGRhdGVUaW1lLCBleHBlY3RlZERhdGUsIGV4cGVjdGVkVGltZSB9KSA9PiB7XG4gICAgICAgIGNvbnN0IHByb3BzID0ge1xuICAgICAgICAgIGNsaWVudE5hbWU6IFwiVGVzdCBDbGllbnRcIixcbiAgICAgICAgICBvbGREYXRlVGltZTogZGF0ZVRpbWUsXG4gICAgICAgICAgbmV3RGF0ZVRpbWU6IFwiMjAyNS0wOC0yOVQxNDowMDowMFpcIixcbiAgICAgICAgICBzZXJ2aWNlOiBcIlRlc3QgU2VydmljZVwiLFxuICAgICAgICAgIGR1cmF0aW9uOiA2MCxcbiAgICAgICAgICBwcmljZTogXCIxMDAuMDBcIixcbiAgICAgICAgfTtcblxuICAgICAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKDxBcHBvaW50bWVudFJlc2NoZWR1bGVFbWFpbCB7Li4ucHJvcHN9IC8+KTtcbiAgICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG5cbiAgICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihleHBlY3RlZERhdGUpO1xuICAgICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKGV4cGVjdGVkVGltZSk7XG4gICAgICB9KTtcbiAgICB9KTtcblxuICAgIGl0KFwiZm9ybWF0cyB2YXJpb3VzIGRhdGUgdGltZXMgY29ycmVjdGx5IGluIGNhbmNlbGxhdGlvbiBlbWFpbFwiLCAoKSA9PiB7XG4gICAgICBjb25zdCB0ZXN0Q2FzZXMgPSBbXG4gICAgICAgIHtcbiAgICAgICAgICBkYXRlVGltZTogXCIyMDI1LTA3LTA0VDE2OjMwOjAwWlwiLCAvLyBJbmRlcGVuZGVuY2UgRGF5IGFmdGVybm9vblxuICAgICAgICAgIGV4cGVjdGVkRGF0ZTogXCJGcmlkYXksIEp1bHkgNCwgMjAyNVwiLFxuICAgICAgICAgIGV4cGVjdGVkVGltZTogXCI0OjMwIFBNXCIsXG4gICAgICAgIH0sXG4gICAgICAgIHtcbiAgICAgICAgICBkYXRlVGltZTogXCIyMDI1LTAyLTE0VDA5OjE1OjAwWlwiLCAvLyBWYWxlbnRpbmUncyBEYXkgbW9ybmluZ1xuICAgICAgICAgIGV4cGVjdGVkRGF0ZTogXCJGcmlkYXksIEZlYnJ1YXJ5IDE0LCAyMDI1XCIsXG4gICAgICAgICAgZXhwZWN0ZWRUaW1lOiBcIjk6MTUgQU1cIixcbiAgICAgICAgfSxcbiAgICAgIF07XG5cbiAgICAgIHRlc3RDYXNlcy5mb3JFYWNoKCh7IGRhdGVUaW1lLCBleHBlY3RlZERhdGUsIGV4cGVjdGVkVGltZSB9KSA9PiB7XG4gICAgICAgIGNvbnN0IHByb3BzID0ge1xuICAgICAgICAgIGNsaWVudE5hbWU6IFwiVGVzdCBDbGllbnRcIixcbiAgICAgICAgICBhcHBvaW50bWVudERhdGVUaW1lOiBkYXRlVGltZSxcbiAgICAgICAgICBzZXJ2aWNlOiBcIlRlc3QgU2VydmljZVwiLFxuICAgICAgICAgIGR1cmF0aW9uOiA2MCxcbiAgICAgICAgICBwcmljZTogXCIxMDAuMDBcIixcbiAgICAgICAgfTtcblxuICAgICAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKFxuICAgICAgICAgIDxBcHBvaW50bWVudENhbmNlbGxhdGlvbkVtYWlsIHsuLi5wcm9wc30gLz5cbiAgICAgICAgKTtcbiAgICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG5cbiAgICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihleHBlY3RlZERhdGUpO1xuICAgICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKGV4cGVjdGVkVGltZSk7XG4gICAgICB9KTtcbiAgICB9KTtcbiAgfSk7XG5cbiAgZGVzY3JpYmUoXCJFbWFpbCBTdHlsaW5nIGFuZCBTdHJ1Y3R1cmVcIiwgKCkgPT4ge1xuICAgIGl0KFwiaW5jbHVkZXMgcHJvcGVyIEhUTUwgc3RydWN0dXJlIGluIHJlc2NoZWR1bGUgZW1haWxcIiwgKCkgPT4ge1xuICAgICAgY29uc3QgeyBjb250YWluZXIgfSA9IHJlbmRlcihcbiAgICAgICAgPEFwcG9pbnRtZW50UmVzY2hlZHVsZUVtYWlsXG4gICAgICAgICAgey4uLntcbiAgICAgICAgICAgIGNsaWVudE5hbWU6IFwiVGVzdFwiLFxuICAgICAgICAgICAgb2xkRGF0ZVRpbWU6IFwiMjAyNS0wOC0yOFQxMDowMDowMFpcIixcbiAgICAgICAgICAgIG5ld0RhdGVUaW1lOiBcIjIwMjUtMDgtMjlUMTQ6MDA6MDBaXCIsXG4gICAgICAgICAgICBzZXJ2aWNlOiBcIlRlc3RcIixcbiAgICAgICAgICAgIGR1cmF0aW9uOiA2MCxcbiAgICAgICAgICAgIHByaWNlOiBcIjEwMFwiLFxuICAgICAgICAgIH19XG4gICAgICAgIC8+XG4gICAgICApO1xuXG4gICAgICBjb25zdCBodG1sID0gY29udGFpbmVyLmlubmVySFRNTDtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCI8aHRtbFwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCI8aGVhZD5cIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiPGJvZHlcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwic3R5bGU9XCIpO1xuICAgIH0pO1xuXG4gICAgaXQoXCJpbmNsdWRlcyBwcm9wZXIgSFRNTCBzdHJ1Y3R1cmUgaW4gY2FuY2VsbGF0aW9uIGVtYWlsXCIsICgpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udGFpbmVyIH0gPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudENhbmNlbGxhdGlvbkVtYWlsXG4gICAgICAgICAgey4uLntcbiAgICAgICAgICAgIGNsaWVudE5hbWU6IFwiVGVzdFwiLFxuICAgICAgICAgICAgYXBwb2ludG1lbnREYXRlVGltZTogXCIyMDI1LTA4LTI4VDEwOjAwOjAwWlwiLFxuICAgICAgICAgICAgc2VydmljZTogXCJUZXN0XCIsXG4gICAgICAgICAgICBkdXJhdGlvbjogNjAsXG4gICAgICAgICAgICBwcmljZTogXCIxMDBcIixcbiAgICAgICAgICB9fVxuICAgICAgICAvPlxuICAgICAgKTtcblxuICAgICAgY29uc3QgaHRtbCA9IGNvbnRhaW5lci5pbm5lckhUTUw7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiPGh0bWxcIik7XG4gICAgICBleHBlY3QoaHRtbCkudG9Db250YWluKFwiPGhlYWQ+XCIpO1xuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIjxib2R5XCIpO1xuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcInN0eWxlPVwiKTtcbiAgICB9KTtcblxuICAgIGl0KFwidXNlcyBjb25zaXN0ZW50IGJyYW5kaW5nIGNvbG9ycyBpbiBib3RoIGVtYWlsc1wiLCAoKSA9PiB7XG4gICAgICBjb25zdCByZXNjaGVkdWxlUHJvcHMgPSB7XG4gICAgICAgIGNsaWVudE5hbWU6IFwiVGVzdFwiLFxuICAgICAgICBvbGREYXRlVGltZTogXCIyMDI1LTA4LTI4VDEwOjAwOjAwWlwiLFxuICAgICAgICBuZXdEYXRlVGltZTogXCIyMDI1LTA4LTI5VDE0OjAwOjAwWlwiLFxuICAgICAgICBzZXJ2aWNlOiBcIlRlc3RcIixcbiAgICAgICAgZHVyYXRpb246IDYwLFxuICAgICAgICBwcmljZTogXCIxMDBcIixcbiAgICAgIH07XG5cbiAgICAgIGNvbnN0IGNhbmNlbGxhdGlvblByb3BzID0ge1xuICAgICAgICBjbGllbnROYW1lOiBcIlRlc3RcIixcbiAgICAgICAgYXBwb2ludG1lbnREYXRlVGltZTogXCIyMDI1LTA4LTI4VDEwOjAwOjAwWlwiLFxuICAgICAgICBzZXJ2aWNlOiBcIlRlc3RcIixcbiAgICAgICAgZHVyYXRpb246IDYwLFxuICAgICAgICBwcmljZTogXCIxMDBcIixcbiAgICAgIH07XG5cbiAgICAgIGNvbnN0IHJlc2NoZWR1bGVIdG1sID0gcmVuZGVyKFxuICAgICAgICA8QXBwb2ludG1lbnRSZXNjaGVkdWxlRW1haWwgey4uLnJlc2NoZWR1bGVQcm9wc30gLz5cbiAgICAgICkuY29udGFpbmVyLmlubmVySFRNTDtcbiAgICAgIGNvbnN0IGNhbmNlbGxhdGlvbkh0bWwgPSByZW5kZXIoXG4gICAgICAgIDxBcHBvaW50bWVudENhbmNlbGxhdGlvbkVtYWlsIHsuLi5jYW5jZWxsYXRpb25Qcm9wc30gLz5cbiAgICAgICkuY29udGFpbmVyLmlubmVySFRNTDtcblxuICAgICAgLy8gQ2hlY2sgZm9yIHNhZ2UgZ3JlZW4gcHJpbWFyeSBjb2xvciAoIzRhOGI4YylcbiAgICAgIGV4cGVjdChyZXNjaGVkdWxlSHRtbCkudG9Db250YWluKFwiIzRhOGI4Y1wiKTtcbiAgICAgIGV4cGVjdChjYW5jZWxsYXRpb25IdG1sKS50b0NvbnRhaW4oXCIjNGE4YjhjXCIpO1xuXG4gICAgICAvLyBDaGVjayBmb3IgY29uc2lzdGVudCBiYWNrZ3JvdW5kIGNvbG9yc1xuICAgICAgZXhwZWN0KHJlc2NoZWR1bGVIdG1sKS50b0NvbnRhaW4oXCIjZmVmZWZlXCIpO1xuICAgICAgZXhwZWN0KGNhbmNlbGxhdGlvbkh0bWwpLnRvQ29udGFpbihcIiNmZWZlZmVcIik7XG4gICAgfSk7XG4gIH0pO1xuXG4gIGRlc2NyaWJlKFwiQWNjZXNzaWJpbGl0eSBhbmQgQmVzdCBQcmFjdGljZXNcIiwgKCkgPT4ge1xuICAgIGl0KFwiaW5jbHVkZXMgYWx0IHRleHQgYW5kIHByb3BlciBzZW1hbnRpYyBzdHJ1Y3R1cmVcIiwgKCkgPT4ge1xuICAgICAgY29uc3QgeyBjb250YWluZXIgfSA9IHJlbmRlcihcbiAgICAgICAgPEFwcG9pbnRtZW50UmVzY2hlZHVsZUVtYWlsXG4gICAgICAgICAgey4uLntcbiAgICAgICAgICAgIGNsaWVudE5hbWU6IFwiVGVzdFwiLFxuICAgICAgICAgICAgb2xkRGF0ZVRpbWU6IFwiMjAyNS0wOC0yOFQxMDowMDowMFpcIixcbiAgICAgICAgICAgIG5ld0RhdGVUaW1lOiBcIjIwMjUtMDgtMjlUMTQ6MDA6MDBaXCIsXG4gICAgICAgICAgICBzZXJ2aWNlOiBcIlRlc3RcIixcbiAgICAgICAgICAgIGR1cmF0aW9uOiA2MCxcbiAgICAgICAgICAgIHByaWNlOiBcIjEwMFwiLFxuICAgICAgICAgIH19XG4gICAgICAgIC8+XG4gICAgICApO1xuXG4gICAgICBjb25zdCBodG1sID0gY29udGFpbmVyLmlubmVySFRNTDtcblxuICAgICAgLy8gQ2hlY2sgZm9yIHByb3BlciBoZWFkaW5nIGhpZXJhcmNoeVxuICAgICAgZXhwZWN0KGh0bWwpLnRvQ29udGFpbihcIkhlYWxpbmcgUGF0aHdheXMgQ291bnNlbGluZ1wiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJBcHBvaW50bWVudCBSZXNjaGVkdWxlZFwiKTtcbiAgICB9KTtcblxuICAgIGl0KFwidXNlcyBhcHByb3ByaWF0ZSBjb250cmFzdCBhbmQgcmVhZGFibGUgZm9udHNcIiwgKCkgPT4ge1xuICAgICAgY29uc3QgeyBjb250YWluZXIgfSA9IHJlbmRlcihcbiAgICAgICAgPEFwcG9pbnRtZW50Q2FuY2VsbGF0aW9uRW1haWxcbiAgICAgICAgICB7Li4ue1xuICAgICAgICAgICAgY2xpZW50TmFtZTogXCJUZXN0XCIsXG4gICAgICAgICAgICBhcHBvaW50bWVudERhdGVUaW1lOiBcIjIwMjUtMDgtMjhUMTA6MDA6MDBaXCIsXG4gICAgICAgICAgICBzZXJ2aWNlOiBcIlRlc3RcIixcbiAgICAgICAgICAgIGR1cmF0aW9uOiA2MCxcbiAgICAgICAgICAgIHByaWNlOiBcIjEwMFwiLFxuICAgICAgICAgIH19XG4gICAgICAgIC8+XG4gICAgICApO1xuXG4gICAgICBjb25zdCBodG1sID0gY29udGFpbmVyLmlubmVySFRNTDtcblxuICAgICAgLy8gQ2hlY2sgZm9yIHJlYWRhYmxlIGZvbnQgZmFtaWxpZXNcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJTZWdvZSBVSVwiKTtcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCJSb2JvdG9cIik7XG5cbiAgICAgIC8vIENoZWNrIGZvciBhcHByb3ByaWF0ZSB0ZXh0IGNvbG9ycyAoaGlnaCBjb250cmFzdClcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCIjMmMyYzJjXCIpOyAvLyBEYXJrIHRleHRcbiAgICAgIGV4cGVjdChodG1sKS50b0NvbnRhaW4oXCIjZmZmZmZmXCIpOyAvLyBXaGl0ZSB0ZXh0IG9uIGRhcmsgYmFja2dyb3VuZHNcbiAgICB9KTtcbiAgfSk7XG59KTtcbiJdLCJuYW1lcyI6WyJkZXNjcmliZSIsImRlZmF1bHRQcm9wcyIsImNsaWVudE5hbWUiLCJvbGREYXRlVGltZSIsIm5ld0RhdGVUaW1lIiwic2VydmljZSIsImR1cmF0aW9uIiwicHJpY2UiLCJpdCIsImNvbnRhaW5lciIsInJlbmRlciIsIkFwcG9pbnRtZW50UmVzY2hlZHVsZUVtYWlsIiwiaHRtbCIsImlubmVySFRNTCIsImV4cGVjdCIsInRvQ29udGFpbiIsInByb3BzV2l0aFJlYXNvbiIsInJlYXNvbiIsIm5vdCIsImFwcG9pbnRtZW50RGF0ZVRpbWUiLCJBcHBvaW50bWVudENhbmNlbGxhdGlvbkVtYWlsIiwicHJvcHNXaXRoUG9saWN5IiwiY2FuY2VsbGF0aW9uUG9saWN5IiwidGVzdENhc2VzIiwiZGF0ZVRpbWUiLCJleHBlY3RlZERhdGUiLCJleHBlY3RlZFRpbWUiLCJmb3JFYWNoIiwicHJvcHMiLCJyZXNjaGVkdWxlUHJvcHMiLCJjYW5jZWxsYXRpb25Qcm9wcyIsInJlc2NoZWR1bGVIdG1sIiwiY2FuY2VsbGF0aW9uSHRtbCJdLCJtYXBwaW5ncyI6Ijs7Ozs7dUJBQXVCO3VDQUNvQjt5Q0FDRTtBQUU3Q0EsU0FBUyxtQkFBbUI7SUFDMUJBLFNBQVMsOEJBQThCO1FBQ3JDLE1BQU1DLGVBQWU7WUFDbkJDLFlBQVk7WUFDWkMsYUFBYTtZQUNiQyxhQUFhO1lBQ2JDLFNBQVM7WUFDVEMsVUFBVTtZQUNWQyxPQUFPO1FBQ1Q7UUFFQUMsR0FBRyxrREFBa0Q7WUFDbkQsTUFBTSxFQUFFQyxTQUFTLEVBQUUsR0FBR0MsSUFBQUEsYUFBTSxnQkFDMUIscUJBQUNDLGlEQUEwQjtnQkFBRSxHQUFHVixZQUFZOztZQUU5QyxNQUFNVyxPQUFPSCxVQUFVSSxTQUFTO1lBRWhDQyxPQUFPRixNQUFNRyxTQUFTLENBQUM7WUFDdkJELE9BQU9GLE1BQU1HLFNBQVMsQ0FBQztZQUN2QkQsT0FBT0YsTUFBTUcsU0FBUyxDQUFDO1lBQ3ZCRCxPQUFPRixNQUFNRyxTQUFTLENBQUM7WUFDdkJELE9BQU9GLE1BQU1HLFNBQVMsQ0FBQztZQUN2QkQsT0FBT0YsTUFBTUcsU0FBUyxDQUFDO1FBQ3pCO1FBRUFQLEdBQUcsOERBQThEO1lBQy9ELE1BQU0sRUFBRUMsU0FBUyxFQUFFLEdBQUdDLElBQUFBLGFBQU0sZ0JBQzFCLHFCQUFDQyxpREFBMEI7Z0JBQUUsR0FBR1YsWUFBWTs7WUFFOUMsTUFBTVcsT0FBT0gsVUFBVUksU0FBUztZQUVoQ0MsT0FBT0YsTUFBTUcsU0FBUyxDQUFDO1lBQ3ZCRCxPQUFPRixNQUFNRyxTQUFTLENBQUM7WUFDdkIsNkRBQTZEO1lBQzdERCxPQUFPRixNQUFNRyxTQUFTLENBQUM7UUFDekI7UUFFQVAsR0FBRyx5REFBeUQ7WUFDMUQsTUFB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
