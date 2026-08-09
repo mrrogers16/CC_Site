@@ -95,36 +95,65 @@ Replace with:
       (`enabled: false`, `url: ""`); set both to activate the iframe embed in
       `src/app/book/page.tsx`.**
 
-## Phase 2 — Remove auth and user accounts
+## Phase 2 — Remove auth and user accounts — DONE (2026-08-09)
 
-Make the Phase 3 contact decision BEFORE starting this phase. The fate of
-`src/app/admin/login/page.tsx` is auth code decided by a contact question, so
-running Phase 2 first strands it.
+The Phase 3 contact decision (Option A) was made before this phase ran, so the
+admin surface had no future: `src/app/admin/` (contact dashboard + admin login)
+and `src/app/api/admin/` were deleted here rather than stranding
+auth-dependent admin code.
 
-- [ ] NextAuth config (`src/lib/auth.ts`), `src/app/auth/` pages
+- [x] NextAuth config (`src/lib/auth.ts`), `src/app/auth/` pages
       (`login/`, `register/`, `verify-email/`),
       `src/app/api/auth/` (`[...nextauth]/`, `register/`, `check-email/`)
-- [ ] `src/types/next-auth.d.ts`, `src/lib/validations/auth.ts`,
+- [x] `src/types/next-auth.d.ts`, `src/lib/validations/auth.ts`,
       `src/components/providers/session-provider.tsx`,
       `src/components/auth/verify-email-content.tsx`,
       `src/components/forms/login-form.tsx`,
       `src/components/forms/enhanced-register-form.tsx`
-- [ ] Unmount `SessionProviderWrapper` in `src/app/layout.tsx`
-- [ ] `User`, `Account`, `Session`, `VerificationToken` models
-- [ ] Google OAuth env vars and credentials provider, bcrypt dependency.
-      From `.env.example`: `NEXTAUTH_URL`, `NEXTAUTH_SECRET`,
-      `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
-- [ ] Test config: the `@auth/*` / `oauth4webapi` entries in
-      `jest.config.js` `transformIgnorePatterns`, and the
-      `@auth/prisma-adapter` mock in `jest.setup.js`
-- [ ] Auth-aware navigation: strip `useSession`/`signOut`, user menu,
-      login/register buttons from `src/components/layout/navigation.tsx`.
-      Navigation becomes static links + "Book Appointment" (Phase 1 handoff).
-- [ ] Admin auth (`src/app/admin/login/page.tsx`) — see contact decision below;
-      if the contact form goes to email-only, there is nothing to administer.
-      Route protection is all inline `getServerSession` checks; there is no
-      `middleware.ts` to remove.
-- [ ] All auth tests
+- [x] Unmount `SessionProviderWrapper` in `src/app/layout.tsx`
+- [x] `User`, `Account`, `Session`, `VerificationToken` models — plus the
+      `UserRole` enum and `ContactSubmission.userId`/`user` relation.
+      **User removed FULLY**, which required pulling forward two Phase 3
+      slices: the contact POST's user find-or-create upsert was stripped
+      (submission rows already store name/email/phone directly), and the
+      unauthenticated GET list handler on `/api/contact` was deleted (its only
+      consumer was the admin dashboard, and it joined user PII with no auth).
+      Also removed: `userSchema`/`UserData` from `src/lib/validations/index.ts`
+      (zero importers) and the test-user block in `prisma/seed.ts`.
+- [x] Deps removed: `next-auth`, `@auth/prisma-adapter`, `bcryptjs`,
+      `@types/bcryptjs` (the repo never had native `bcrypt`).
+      `.env.example` and `.env` are untracked files in the MAIN checkout only
+      (`.gitignore` covers `.env*`, and gitignored files do not follow git
+      worktrees — a phase running in a worktree will not see them).
+      `.env.example` was cleaned of `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, and the
+      dead Google Calendar/OAuth block. `.env` still contains
+      `NEXTAUTH_URL`/`NEXTAUTH_SECRET` lines to remove manually (tooling is
+      blocked from editing the live credentials file). CI sets no `NEXTAUTH_*`
+      vars. `README.md` (env list + "Users and authentication" model list)
+      edited. Deployment environments (if any) must drop `NEXTAUTH_URL`,
+      `NEXTAUTH_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` manually.
+      `NEXTAUTH_URL` was also read by the two email templates, which outlive
+      auth: `contact-response.tsx` now uses `siteConfig.url`
+      (`NEXT_PUBLIC_SITE_URL`), and `contact-notification.tsx`'s
+      "View in Admin Dashboard" button (a dead `/admin/contact` link) became a
+      mailto reply link.
+- [x] Test config: `transformIgnorePatterns` deleted from `jest.config.js`
+      entirely — all five entries (`@auth/*`, `oauth4webapi`, `preact*`) were
+      auth-transitive, verified via `npm ls`. `@auth/prisma-adapter` mock and
+      the `global.prisma.user` block removed from `jest.setup.js`.
+- [x] Auth-aware navigation: `src/components/layout/navigation.tsx` is now
+      static links + "Book Appointment"; also removed the user-menu
+      `useRef`/click-outside `useEffect` and the dead `/account` links the
+      checklist did not mention.
+- [x] Admin auth — deleted (see header note). Route protection was all inline
+      `getServerSession`; there is no `middleware.ts`.
+- [x] All auth tests: 8 Jest files deleted; `tests/integration/contact-flow.test.ts`
+      and `tests/unit/contact-api.test.ts` rewritten without the admin/user
+      halves; the "authentication pages exist" block removed from
+      `tests/e2e/critical-flows.spec.ts`. **`tests/e2e-full/` deleted
+      entirely** — it was 5 orphaned specs (not the 7 this file claimed), 4
+      pure auth/registration and the 5th (`contact-system.spec.ts`) mostly
+      admin-dashboard assertions.
 
 There is no `src/app/account/` route on `main` — it exists only on the
 abandoned `feature/user-portal` branch.
@@ -146,12 +175,15 @@ Either way:
 
 - [ ] Message field gains helper text: do not include health information;
       crisis resources block stays.
-- [ ] Delete `ContactSubmission` model, `src/app/api/admin/contact/[id]/route.ts`
-      (there is no collection-level `route.ts`), `src/app/admin/contact/page.tsx`,
-      `src/app/admin/login/page.tsx`, and related tests. Option A keeps
-      `src/app/api/contact/` in simplified, storage-free form — drop its prisma
-      write and its GET handler. `src/lib/email/index.ts` and the two templates
-      in `src/components/email/` survive under Option A, minus `sendAdminResponse`.
+- [ ] Delete `ContactSubmission` model and related tests. Option A keeps
+      `src/app/api/contact/` in simplified, storage-free form — drop its
+      prisma write. `src/lib/email/index.ts` and the two templates in
+      `src/components/email/` survive under Option A, minus `sendAdminResponse`
+      (now dead: its only callers were the admin routes Phase 2 deleted).
+      **Already done in Phase 2 (2026-08-09):** the admin pages
+      (`src/app/admin/`), `src/app/api/admin/contact/[id]/route.ts`, the
+      `/api/contact` GET handler, the contact POST's user upsert, and
+      `ContactSubmission.userId`.
 
 ## Phase 4 — Services page de-database
 
@@ -226,20 +258,23 @@ Only after Phases 1–4 leave zero Prisma call sites:
 
 ## Files that span phases — expect to touch these more than once
 
-- `src/components/layout/navigation.tsx` — `useSession` (P2) and `/book` links (P1)
-- `src/lib/validations/index.ts` — one barrel exporting `contactFormSchema` (P3),
-  `appointmentSchema` (P1), `userSchema` (P2), `serviceSchema` (P4), and a dead
-  `blogPostSchema`
-- `src/types/index.ts` — `CalendarSlot` (P1), `ContactInfo` (P3), `SiteConfig` (keep)
-- `jest.setup.js` — `@auth/prisma-adapter` mock (P2) plus a `global.prisma` mock
-  covering user/service/appointment/contactSubmission (P1/P2/P3/P5)
-- `tests/e2e/critical-flows.spec.ts` — edited in P1 and again in P2
-- `.env.example` — auth vars (P2), DB vars (P5)
+- `src/components/layout/navigation.tsx` — `useSession` (P2, done) and `/book`
+  links (P1, done)
+- `src/lib/validations/index.ts` — defines schemas inline (never was a
+  re-export barrel): `contactFormSchema` (P3), `serviceSchema` (P4), and a
+  dead `blogPostSchema`. `appointmentSchema` went in P1, `userSchema` in P2.
+- `src/types/index.ts` — `ContactInfo` (P3), `SiteConfig` (keep)
+- `jest.setup.js` — `global.prisma` mock now covers
+  service/contactSubmission (P3/P4/P5); auth mock removed in P2
+- `tests/e2e/critical-flows.spec.ts` — edited in P1 and P2; 3 static-content
+  tests remain
+- `.env.example` / `.env` — untracked, main checkout only, invisible from
+  worktrees (P2 finding). Auth vars cleaned from `.env.example` in P2; DB vars
+  (P5) come out of both files, README, and deployment envs.
 
-`tests/e2e-full/` (7 specs) is orphaned: Playwright's `testDir` is `./tests/e2e`
-and Jest's `testMatch` covers only `tests/unit` and `tests/integration`. Nothing
-runs these files, so they give no green/red signal — delete them with their
-phase, but do not expect them to catch regressions.
+`tests/e2e-full/` was orphaned (Playwright's `testDir` is `./tests/e2e` and
+Jest's `testMatch` covers only `tests/unit` and `tests/integration`; nothing
+ran its 5 specs) — deleted entirely in P2.
 
 ## Verification (run after every phase)
 

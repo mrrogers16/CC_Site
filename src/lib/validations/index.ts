@@ -11,12 +11,6 @@ export const contactFormSchema = z.object({
     .max(1000),
 });
 
-export const userSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters").max(100),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().optional(),
-});
-
 export const serviceSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters").max(200),
   description: z.string().min(20, "Description must be at least 20 characters"),
@@ -35,6 +29,5 @@ export const blogPostSchema = z.object({
 });
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
-export type UserData = z.infer<typeof userSchema>;
 export type ServiceData = z.infer<typeof serviceSchema>;
 export type BlogPostData = z.infer<typeof blogPostSchema>;

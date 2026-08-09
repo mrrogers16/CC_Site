@@ -134,18 +134,16 @@ The website uses a calming, professional color palette suitable for a counseling
 
 The application includes models for:
 
-- Users and authentication
 - Services offered
-- Appointment booking system
 - Contact form submissions
 - Blog posts and content management
 
 ### Environment Variables
 
-Key environment variables (see `.env.example`):
+Key environment variables:
 
 - `DATABASE_URL` - PostgreSQL connection string
-- `NEXTAUTH_SECRET` - Authentication secret
+- `NEXT_PUBLIC_SITE_URL` - Public site URL (used in email links)
 - Email service configuration
 - Calendar integration settings
 - Payment processing (Stripe)

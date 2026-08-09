@@ -9,6 +9,7 @@ import {
   Hr,
   Link,
 } from "@react-email/components";
+import { siteConfig } from "@/lib/config/site";
 
 interface ContactResponseEmailProps {
   name: string;
@@ -111,7 +112,7 @@ export function ContactResponseEmail({ name }: ContactResponseEmailProps) {
               </Link>
             </Text>
             <Text style={footerText}>
-              <Link href={`${process.env.NEXTAUTH_URL}`} style={footerLink}>
+              <Link href={siteConfig.url} style={footerLink}>
                 Visit our website
               </Link>
             </Text>

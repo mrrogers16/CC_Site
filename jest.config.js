@@ -22,9 +22,6 @@ const customJestConfig = {
     "^@/(.*)$": "<rootDir>/src/$1",
     "^lodash-es$": "lodash",
   },
-  transformIgnorePatterns: [
-    "node_modules/(?!(@auth/prisma-adapter|@auth/core|oauth4webapi|preact-render-to-string|preact)/)",
-  ],
   testMatch: [
     "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
     "<rootDir>/src/**/*.{test,spec}.{js,jsx,ts,tsx}",
@@ -39,7 +36,6 @@ const customJestConfig = {
     "!src/app/**/page.tsx",
     "!src/app/**/layout.tsx",
     "!src/components/sections/**/*",
-    "!src/components/providers/**/*",
     "!src/lib/config/**/*",
     "!src/lib/utils/**/*",
   ],

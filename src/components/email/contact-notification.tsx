@@ -75,11 +75,8 @@ export function ContactNotificationEmail({
 
             <Section style={actionSection}>
               <Text style={actionText}>
-                <Link
-                  href={`${process.env.NEXTAUTH_URL}/admin/contact`}
-                  style={button}
-                >
-                  View in Admin Dashboard
+                <Link href={`mailto:${email}`} style={button}>
+                  Reply to {name}
                 </Link>
               </Text>
               <Text style={submissionInfo}>Submission ID: {submissionId}</Text>
