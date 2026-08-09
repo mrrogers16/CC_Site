@@ -106,9 +106,6 @@ export function Footer() {
             <p className="text-muted-foreground text-sm">
               © {currentYear} {siteConfig.name}. All rights reserved.
             </p>
-            <p className="text-muted-foreground text-sm mt-4 md:mt-0">
-              Licensed Professional Counselor • LPC #12345
-            </p>
           </div>
         </div>
       </div>
