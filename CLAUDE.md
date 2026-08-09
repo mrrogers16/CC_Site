@@ -60,8 +60,24 @@ scaffolding.
 - `npm run test` / `npm run test:e2e`
 - `npm run db:generate` / `db:push` / `db:studio` (legacy — see MIGRATION.md)
 
-A pre-commit hook runs format → lint → typecheck → test. Fix failures; never
-bypass the hook.
+There is NO pre-commit hook. Nothing runs automatically on commit — no husky, no
+lint-staged. Run format → lint → typecheck → test yourself before committing.
+CI (`.github/workflows/ci.yml`) is the only enforcement, so a broken commit
+reaches the remote before anything catches it.
+
+Two local-only false alarms on Windows — neither indicates a real problem, and
+neither should be "fixed" by reformatting the repo:
+
+- `npm run format:check` reports ~35 files unformatted. This is CRLF vs LF:
+  `.gitattributes` sets `* text=auto` so files check out with CRLF, while
+  `.prettierrc` sets `endOfLine: "lf"`. CI runs on Linux with LF and passes.
+  Never run `npm run format` to "fix" this — it rewrites every file's line
+  endings for no benefit.
+- `npm run lint` reports errors in `.claude/worktrees/**`. That is a checked-out
+  git worktree, not repo source; it does not exist on CI.
+
+To see the real state, scope the command to the file you changed
+(`npx eslint <file>`, `npx prettier --check <file>`).
 
 ## TypeScript gotchas specific to this repo's strict config
 

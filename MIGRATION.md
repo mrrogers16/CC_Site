@@ -26,27 +26,49 @@ test data only, which is why deletion is safe.
 
 ## Phase 0 — Safety net (do first, ~30 min)
 
-- [ ] Confirm everything is committed; tag the current state:
-      `git tag pre-teardown`
-- [ ] Export the Supabase schema + seed data to `/archive/poc/` in the repo
-      (schema.prisma copy, seed.ts copy, a pg_dump if desired). This is
-      reference material, not a rollback plan.
+- [x] Confirm everything is committed; tag the current state:
+      `git tag -a pre-teardown` (tagged at the footer license-claim fix, so the
+      restore point does not reinstate a false license number)
+- [x] Export the Supabase schema + seed data to `archive/poc/` in the repo
+      (schema.prisma copy, seed.ts copy). This is reference material, not a
+      rollback plan. No `pg_dump` needed: there is no `prisma/migrations/`
+      directory (the schema was managed with `db push`) and the project is
+      hibernating. `archive/` is excluded from tsconfig, eslint, and prettier
+      so the copies stay byte-identical.
 - [ ] Verify no real client data has ever entered the database. If anything
       real exists, export and purge deliberately before proceeding.
+      **Still open** — requires Supabase console access, which is deliberately
+      outside this repo.
 
 ## Phase 1 — Remove the booking system
 
 Delete (paths approximate — verify with a repo search first):
 
-- [ ] `src/app/book/` and any booking pages
-- [ ] `src/app/api/appointments/` (including `/available`)
-- [ ] Booking components: calendar, time-slot picker, DayPicker usage
-- [ ] Slot-generation logic (`generateTimeSlots`, business-hours, blocked-slot
-      utilities)
-- [ ] `Appointment`, `Service` → keep `Service` ONLY if the services page stays
-      DB-backed through Phase 3; otherwise it goes here too
-- [ ] All booking unit/integration/E2E tests
+- [ ] `src/app/book/page.tsx`
+- [ ] `src/app/api/appointments/` (`book/`, `available/`, `[id]/`)
+- [ ] `src/app/api/availability/route.ts` and `src/app/api/availability/[id]/route.ts`
+      — admin CRUD for availability windows and blocked slots
+- [ ] All 7 files in `src/components/booking/` (calendar-view, time-slot-grid,
+      service-selector, booking-form, booking-summary, booking-success,
+      appointment-booking) and `src/styles/calendar.css`
+- [ ] `src/hooks/use-available-slots.ts`, `src/hooks/use-booking-mutation.ts`
+- [ ] Slot-generation logic: `src/lib/utils/time-slots.ts` (`generateTimeSlots`,
+      `isTimeSlotAvailable`) and `src/lib/validations/appointments.ts`
+      (`BUSINESS_RULES`)
+- [ ] Models `Appointment`, `Availability`, `BlockedSlot` → and `Service` ONLY
+      if the services page stays DB-backed through Phase 4; otherwise it goes
+      here too
+- [ ] All booking unit/integration/E2E tests. Note `tests/e2e/critical-flows.spec.ts`
+      is EDITED, not deleted — it is the only spec Playwright runs and it also
+      covers non-booking routes
+- [ ] Deps `react-day-picker` and `@tanstack/react-query` (booking-only)
+- [ ] Edit `src/components/layout/navigation.tsx` (two `/book` links) and the
+      nav link list in `src/lib/config/site.ts`
 - [ ] `.claude/skills/daypicker-config/` once DayPicker is gone
+
+`tests/setup/global-setup.ts` instantiates a real `PrismaClient` and seeds
+services + availability for Playwright. It breaks the moment booking data goes
+away, so neutralize it here rather than waiting for Phase 5.
 
 Replace with:
 
@@ -57,17 +79,37 @@ Replace with:
 
 ## Phase 2 — Remove auth and user accounts
 
-- [ ] NextAuth config (`src/lib/auth.ts`), `src/app/auth/` pages,
-      `src/app/account/`
+Make the Phase 3 contact decision BEFORE starting this phase. The fate of
+`src/app/admin/login/page.tsx` is auth code decided by a contact question, so
+running Phase 2 first strands it.
+
+- [ ] NextAuth config (`src/lib/auth.ts`), `src/app/auth/` pages
+      (`login/`, `register/`, `verify-email/`),
+      `src/app/api/auth/` (`[...nextauth]/`, `register/`, `check-email/`)
+- [ ] `src/types/next-auth.d.ts`, `src/lib/validations/auth.ts`,
+      `src/components/providers/session-provider.tsx`,
+      `src/components/auth/verify-email-content.tsx`,
+      `src/components/forms/login-form.tsx`,
+      `src/components/forms/enhanced-register-form.tsx`
+- [ ] Unmount `SessionProviderWrapper` in `src/app/layout.tsx`
 - [ ] `User`, `Account`, `Session`, `VerificationToken` models
-- [ ] Google OAuth env vars and credentials provider, bcrypt dependency
-- [ ] Auth-aware navigation: strip `useSession`, user menu, login/register
-      buttons. Navigation becomes static links + "Book Appointment" (Phase 1
-      handoff).
-- [ ] Admin dashboard and admin auth (`src/app/admin/`) — see contact decision
-      below; if the contact form goes to email-only, there is nothing to
-      administer here.
+- [ ] Google OAuth env vars and credentials provider, bcrypt dependency.
+      From `.env.example`: `NEXTAUTH_URL`, `NEXTAUTH_SECRET`,
+      `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
+- [ ] Test config: the `@auth/*` / `oauth4webapi` entries in
+      `jest.config.js` `transformIgnorePatterns`, and the
+      `@auth/prisma-adapter` mock in `jest.setup.js`
+- [ ] Auth-aware navigation: strip `useSession`/`signOut`, user menu,
+      login/register buttons from `src/components/layout/navigation.tsx`.
+      Navigation becomes static links + "Book Appointment" (Phase 1 handoff).
+- [ ] Admin auth (`src/app/admin/login/page.tsx`) — see contact decision below;
+      if the contact form goes to email-only, there is nothing to administer.
+      Route protection is all inline `getServerSession` checks; there is no
+      `middleware.ts` to remove.
 - [ ] All auth tests
+
+There is no `src/app/account/` route on `main` — it exists only on the
+abandoned `feature/user-portal` branch.
 
 ## Phase 3 — Contact form decision, then execute
 
@@ -84,29 +126,45 @@ Either way:
 
 - [ ] Message field gains helper text: do not include health information;
       crisis resources block stays.
-- [ ] Delete `ContactSubmission` model, `src/app/api/admin/contact/`, admin
-      contact UI, related tests (Option A keeps `src/app/api/contact/` in
-      simplified, storage-free form).
+- [ ] Delete `ContactSubmission` model, `src/app/api/admin/contact/[id]/route.ts`
+      (there is no collection-level `route.ts`), `src/app/admin/contact/page.tsx`,
+      `src/app/admin/login/page.tsx`, and related tests. Option A keeps
+      `src/app/api/contact/` in simplified, storage-free form — drop its prisma
+      write and its GET handler. `src/lib/email/index.ts` and the two templates
+      in `src/components/email/` survive under Option A, minus `sendAdminResponse`.
 
 ## Phase 4 — Services page de-database
 
 - [ ] Move the 6 services (title, description, duration, price, features) to
       `src/lib/config/services.ts`
-- [ ] Services page reads config; delete seed script and `Service` model
+- [ ] Services page reads config; delete seed script and `Service` model.
+      TWO call sites, not one: `src/app/services/page.tsx` queries
+      `prisma.service.findMany` directly as a server component, bypassing
+      `src/app/api/services/route.ts` (which also goes).
 - [ ] Update services tests to config-based rendering
 
 ## Phase 5 — Remove the database layer
 
 Only after Phases 1–4 leave zero Prisma call sites:
 
-- [ ] Delete `prisma/`, `src/lib/db/`, `src/generated/prisma/`
+- [ ] Delete the dead `BlogPost`, `Tag`, `BlogTag` models — they have zero code
+      references and belong to no feature
+- [ ] Delete `prisma/`, `src/lib/db/`, and `src/generated/prisma/`. The last is
+      gitignored, so it is an `rm -rf` on disk with nothing to `git rm` — and it
+      must actually be deleted or the Phase-5 grep below keeps hitting it
+- [ ] Delete `tests/setup/prisma-mocks.ts`, `tests/utils/mock-factories.ts`,
+      `tests/setup/global-setup.ts`, and the `global.prisma` mock in
+      `jest.setup.js`
+- [ ] Drop the `tsx` devDependency (only `db:seed` used it)
 - [ ] Remove `@prisma/client`, `prisma` from package.json; drop `db:*` scripts
       from package.json and CLAUDE.md
 - [ ] Remove `DATABASE_URL` / direct-URL env vars from all environments
 - [ ] Decommission the Supabase project (it is currently hibernating; export
       per Phase 0 first, then delete the project so there is no dormant PHI-
       capable surface)
-- [ ] Remove Prisma mocking skill; strip DB rows from CI workflow
+- [ ] Remove Prisma mocking skill; strip DB usage from CI workflow — the
+      `postgres:15` service container and the `db:generate` / `db:push` steps
+      touch all three jobs in `.github/workflows/ci.yml`
 
 ## Phase 6 — Add what production actually needs
 
@@ -123,9 +181,38 @@ Only after Phases 1–4 leave zero Prisma call sites:
       the platform, never generated or stored by this site.
 - [ ] Site copy audit for telehealth-only: no street address, no map, no
       office imagery, no LocalBusiness schema; footer/contact show email,
-      phone, and state served
+      phone, and state served.
+      **Known offenders, already located** — all three render a fabricated
+      postal address ("123 Wellness Way, Suite 200"):
+      `src/app/contact/page.tsx:112-116`,
+      `src/components/sections/contact-section.tsx:93-97`,
+      `src/components/email/contact-response.tsx:99-101`.
+      For a telehealth-only practice a placeholder address is the same
+      misleading-advertising risk as a real one.
+- [ ] The footer's fabricated "LPC #12345" license line was already removed
+      (commit `edc419c`) ahead of this phase. What remains is the positive
+      requirement: the clinician's name must render WITH "Supervised by
+      {supervisor}". Today `src/components/sections/about-section.tsx:10,20`
+      renders her name and "LPC-A" with no supervisor anywhere on the site.
 - [ ] Verify zero third-party trackers ship in any bundle
 - [ ] Update PROJECT_STATUS.md and this file; retag `post-teardown`
+
+## Files that span phases — expect to touch these more than once
+
+- `src/components/layout/navigation.tsx` — `useSession` (P2) and `/book` links (P1)
+- `src/lib/validations/index.ts` — one barrel exporting `contactFormSchema` (P3),
+  `appointmentSchema` (P1), `userSchema` (P2), `serviceSchema` (P4), and a dead
+  `blogPostSchema`
+- `src/types/index.ts` — `CalendarSlot` (P1), `ContactInfo` (P3), `SiteConfig` (keep)
+- `jest.setup.js` — `@auth/prisma-adapter` mock (P2) plus a `global.prisma` mock
+  covering user/service/appointment/contactSubmission (P1/P2/P3/P5)
+- `tests/e2e/critical-flows.spec.ts` — edited in P1 and again in P2
+- `.env.example` — auth vars (P2), DB vars (P5)
+
+`tests/e2e-full/` (7 specs) is orphaned: Playwright's `testDir` is `./tests/e2e`
+and Jest's `testMatch` covers only `tests/unit` and `tests/integration`. Nothing
+runs these files, so they give no green/red signal — delete them with their
+phase, but do not expect them to catch regressions.
 
 ## Verification (run after every phase)
 
