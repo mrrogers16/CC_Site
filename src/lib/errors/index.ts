@@ -58,6 +58,13 @@ export class ConflictError extends AppError {
   }
 }
 
+export class EmailDeliveryError extends AppError {
+  constructor(message: string = "Email delivery failed") {
+    super(message, 502);
+    Object.setPrototypeOf(this, EmailDeliveryError.prototype);
+  }
+}
+
 export function handleError(error: unknown): AppError {
   if (error instanceof AppError) {
     return error;

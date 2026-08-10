@@ -15,9 +15,11 @@ scaffolding.
   Protected Health Information on our servers or database. This includes:
   appointment records tied to identifiable people, intake data, clinical or
   care-seeking free-text, and health-related form fields.
-- The contact form (if retained) collects name, email, and a message field that
-  explicitly instructs users NOT to include health information. Do not add
-  fields like "reason for seeking counseling," symptoms, insurance, or DOB.
+- The contact form is email-only with zero storage: it validates and forwards
+  to the practice email, and its message field explicitly instructs users NOT
+  to include health information. Do not add fields like "reason for seeking
+  counseling," symptoms, insurance, or DOB, and do not reintroduce any
+  persistence for submissions.
 - Booking and client portal functions hand off to the practice management
   platform via its embedded widget or a redirect. Our server NEVER holds
   platform API keys that can read client records, and NEVER proxies or renders

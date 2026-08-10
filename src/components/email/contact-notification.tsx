@@ -13,12 +13,10 @@ import type { ContactFormData } from "@/lib/validations";
 
 interface ContactNotificationEmailProps {
   contactData: ContactFormData;
-  submissionId: string;
 }
 
 export function ContactNotificationEmail({
   contactData,
-  submissionId,
 }: ContactNotificationEmailProps) {
   const { name, email, phone, subject, message } = contactData;
 
@@ -79,7 +77,6 @@ export function ContactNotificationEmail({
                   Reply to {name}
                 </Link>
               </Text>
-              <Text style={submissionInfo}>Submission ID: {submissionId}</Text>
             </Section>
           </Section>
 
@@ -199,12 +196,6 @@ const button = {
 
 const actionText = {
   margin: "0 0 8px 0",
-};
-
-const submissionInfo = {
-  color: "#6b7280",
-  fontSize: "12px",
-  margin: "8px 0 0 0",
 };
 
 const footer = {

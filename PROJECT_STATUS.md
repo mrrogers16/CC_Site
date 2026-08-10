@@ -3,15 +3,17 @@
 **Project**: Healing Pathways Counseling Website  
 **Last Updated**: 2026-08-09  
 **Current Phase**: Zero-PHI teardown (see MIGRATION.md)  
-**Next Milestone**: MIGRATION.md Phase 3 - contact form to email-only (Option A)  
-**Latest Update**: Phase 2 auth teardown complete: NextAuth, all auth pages/
-routes/forms, and the admin dashboard + admin login deleted (Option A means
-there is nothing to administer). User/Account/Session/VerificationToken
-models removed entirely - the contact POST no longer upserts users and the
-unauthenticated /api/contact GET list endpoint is gone. Navigation is static
-links + Book Appointment. Deps next-auth, @auth/prisma-adapter, bcryptjs
-removed. Previously: Phase 1 booking teardown, /book PracticeQ placeholder,
-fabricated street address removed, Phase 3 decision recorded (Option A).
+**Next Milestone**: MIGRATION.md Phase 4 - services page de-database  
+**Latest Update**: Phase 3 contact conversion complete: the contact form is
+email-only with zero storage. ContactSubmission model deleted; the POST route
+validates, awaits the notification email, and returns 502 (EmailDeliveryError)
+if it fails so no message is silently lost - EMAIL_SERVER_* and EMAIL_FROM
+are now required in production. sendAdminResponse and verifyEmailConfig
+deleted (dead since Phase 2). Message field gained no-health-information
+helper text. Previously: Phase 2 auth/admin teardown (NextAuth, admin
+dashboard, User/Account/Session/VerificationToken models removed); Phase 1
+booking teardown, /book PracticeQ placeholder, fabricated street address
+removed, Phase 3 decision recorded (Option A).
 Historical feature notes below predate the migration pivot and describe
 DELETED functionality - do not trust them; MIGRATION.md is authoritative.
 

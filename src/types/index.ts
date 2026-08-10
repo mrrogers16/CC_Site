@@ -17,20 +17,6 @@ export interface SiteConfig {
   };
 }
 
-export interface ContactInfo {
-  email: string;
-  phone: string;
-  address?: {
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-  };
-  hours?: {
-    [key: string]: string;
-  };
-}
-
 export interface ServiceFeature {
   title: string;
   description: string;

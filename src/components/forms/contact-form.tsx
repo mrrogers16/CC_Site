@@ -156,9 +156,15 @@ export function ContactForm({ className = "" }: ContactFormProps) {
             {...register("message")}
             id="message"
             rows={6}
+            aria-describedby="message-help"
             className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors resize-vertical"
             placeholder="Please share what you'd like to discuss or any questions you have about our services..."
           />
+          <p id="message-help" className="mt-1 text-sm text-muted-foreground">
+            Please do not include health information or clinical details in your
+            message. This form is for general questions and scheduling inquiries
+            only.
+          </p>
           {errors.message && (
             <p className="mt-1 text-sm text-red-600">
               {errors.message.message}

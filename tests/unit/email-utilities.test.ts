@@ -36,11 +36,7 @@ jest.mock("@/components/email/contact-response", () => ({
 }));
 
 // Now import the email module after mocks are set up
-import {
-  sendContactNotification,
-  sendAutoResponse,
-  sendAdminResponse,
-} from "@/lib/email";
+import { sendContactNotification, sendAutoResponse } from "@/lib/email";
 import nodemailer from "nodemailer";
 import { render } from "@react-email/components";
 import { logger } from "@/lib/logger";
@@ -78,10 +74,7 @@ describe("Email Utilities", () => {
         messageId: "test-message-id",
       });
 
-      const result = await sendContactNotification(
-        mockContactData,
-        "submission-123"
-      );
+      const result = await sendContactNotification(mockContactData);
 
       expect(result.success).toBe(true);
       expect(result.messageId).toBe("test-message-id");
@@ -105,10 +98,7 @@ describe("Email Utilities", () => {
     it("handles email sending failure", async () => {
       mockSendMail.mockRejectedValue(new Error("SMTP Error"));
 
-      const result = await sendContactNotification(
-        mockContactData,
-        "submission-123"
-      );
+      const result = await sendContactNotification(mockContactData);
 
       expect(result.success).toBe(false);
       expect(result.error).toBe("SMTP Error");
@@ -125,10 +115,7 @@ describe("Email Utilities", () => {
     it("handles missing email configuration", async () => {
       delete process.env.EMAIL_SERVER_USER;
 
-      const result = await sendContactNotification(
-        mockContactData,
-        "submission-123"
-      );
+      const result = await sendContactNotification(mockContactData);
 
       expect(result.success).toBe(false);
       expect(result.error).toBe("Email configuration not available");
@@ -179,85 +166,6 @@ describe("Email Utilities", () => {
       expect(logger.error).toHaveBeenCalledWith(
         "Failed to send auto-response",
         expect.any(Error)
-      );
-    });
-  });
-
-  describe("sendAdminResponse", () => {
-    it("sends admin response email successfully", async () => {
-      mockSendMail.mockResolvedValue({
-        messageId: "admin-response-id",
-      });
-
-      const result = await sendAdminResponse(
-        "user@example.com",
-        "Response Subject",
-        "Response message content",
-        "submission-123"
-      );
-
-      expect(result.success).toBe(true);
-      expect(result.messageId).toBe("admin-response-id");
-      expect(mockSendMail).toHaveBeenCalledWith({
-        from: "noreply@healingpathways.com",
-        to: "user@example.com",
-        subject: "Response Subject",
-        html: expect.stringContaining("Response message content"),
-        text: "Response message content",
-      });
-      expect(logger.info).toHaveBeenCalledWith(
-        "Admin response sent successfully",
-        expect.objectContaining({
-          to: "user@example.com",
-          subject: "Response Subject",
-          contactSubmissionId: "submission-123",
-        })
-      );
-    });
-
-    it("handles multiline messages correctly", async () => {
-      mockSendMail.mockResolvedValue({
-        messageId: "admin-response-id",
-      });
-
-      const multilineMessage = "Line 1\nLine 2\nLine 3";
-
-      await sendAdminResponse(
-        "user@example.com",
-        "Test Subject",
-        multilineMessage,
-        "submission-123"
-      );
-
-      expect(mockSendMail).toHaveBeenCalledWith(
-        expect.objectContaining({
-          html: expect.stringContaining(
-            '<p style="margin-bottom: 15px; line-height: 1.6;">Line 1</p>'
-          ),
-          text: multilineMessage,
-        })
-      );
-    });
-
-    it("handles sending failure", async () => {
-      mockSendMail.mockRejectedValue(new Error("Send failed"));
-
-      const result = await sendAdminResponse(
-        "user@example.com",
-        "Test Subject",
-        "Test message",
-        "submission-123"
-      );
-
-      expect(result.success).toBe(false);
-      expect(result.error).toBe("Send failed");
-      expect(logger.error).toHaveBeenCalledWith(
-        "Failed to send email",
-        expect.any(Error),
-        expect.objectContaining({
-          to: "user@example.com",
-          subject: "Test Subject",
-        })
       );
     });
   });

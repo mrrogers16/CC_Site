@@ -158,32 +158,37 @@ auth-dependent admin code.
 There is no `src/app/account/` route on `main` — it exists only on the
 abandoned `feature/user-portal` branch.
 
-## Phase 3 — Contact form decision, then execute
+## Phase 3 — Contact form decision, then execute — DONE (2026-08-09)
 
 **Decision (2026-08-09): Option A — email-only, no storage.**
 
-Decide ONE:
-
-- **Option A — email-only (recommended):** form posts to an API route that
-  validates and forwards to the practice email via the transactional email
-  provider, stores nothing. Delete `ContactSubmission` model and admin contact
-  dashboard. DB dependency for contact: none.
-- **Option B — platform-hosted:** embed the platform's contact/inquiry form;
-  delete our form entirely.
-
-Either way:
-
-- [ ] Message field gains helper text: do not include health information;
-      crisis resources block stays.
-- [ ] Delete `ContactSubmission` model and related tests. Option A keeps
-      `src/app/api/contact/` in simplified, storage-free form — drop its
-      prisma write. `src/lib/email/index.ts` and the two templates in
-      `src/components/email/` survive under Option A, minus `sendAdminResponse`
-      (now dead: its only callers were the admin routes Phase 2 deleted).
-      **Already done in Phase 2 (2026-08-09):** the admin pages
-      (`src/app/admin/`), `src/app/api/admin/contact/[id]/route.ts`, the
-      `/api/contact` GET handler, the contact POST's user upsert, and
-      `ContactSubmission.userId`.
+- [x] Message field gained helper text (do not include health information or
+      clinical details) with `aria-describedby`; crisis resources block on
+      `src/app/contact/page.tsx` untouched.
+- [x] `ContactSubmission` model deleted from `prisma/schema.prisma`;
+      `prisma/seed.ts` had no contact references. `db:push` deliberately NOT
+      run — the remote `contact_submissions` table goes away with the whole
+      Supabase project in Phase 5. NOTE: each checkout has its own generated
+      client — after merging, re-run `npm run db:generate` in the main
+      checkout or its stale client still exposes `contactSubmission` types.
+- [x] `src/app/api/contact/route.ts` is storage-free: validate, then AWAIT
+      both emails (no more fire-and-forget). Notification failure throws the
+      new `EmailDeliveryError` (502, in `src/lib/errors/`) so a message is
+      never silently lost; auto-response failure is logged best-effort. The
+      200 body no longer contains `submissionId` (nothing read it).
+      **Semantics change:** with `EMAIL_SERVER_USER`/`EMAIL_SERVER_PASSWORD`
+      unset, every submission now 502s by design (previously it 200'd and
+      stored a row) — email env vars are hard-required in production.
+- [x] `sendContactNotification` lost its `submissionId` param (template prop
+      dropped too). `sendAdminResponse` AND `verifyEmailConfig` deleted from
+      `src/lib/email/index.ts` (both dead since Phase 2).
+      `contact-response.tsx` KEPT — it is the live client auto-response, not
+      admin-reply code.
+- [x] Tests: both API test files now use an explicit `@/lib/db` tripwire mock
+      asserting `contactSubmission.create` is never called; email-utilities
+      lost the `sendAdminResponse` block; contact-form test asserts the new
+      helper text. `contactSubmission` block removed from `jest.setup.js`.
+      Dead `ContactInfo` type deleted from `src/types/index.ts`.
 
 ## Phase 4 — Services page de-database
 
@@ -263,9 +268,9 @@ Only after Phases 1–4 leave zero Prisma call sites:
 - `src/lib/validations/index.ts` — defines schemas inline (never was a
   re-export barrel): `contactFormSchema` (P3), `serviceSchema` (P4), and a
   dead `blogPostSchema`. `appointmentSchema` went in P1, `userSchema` in P2.
-- `src/types/index.ts` — `ContactInfo` (P3), `SiteConfig` (keep)
-- `jest.setup.js` — `global.prisma` mock now covers
-  service/contactSubmission (P3/P4/P5); auth mock removed in P2
+- `src/types/index.ts` — `ContactInfo` removed in P3, `SiteConfig` (keep)
+- `jest.setup.js` — `global.prisma` mock now covers service only (P4/P5);
+  auth mock removed in P2, contactSubmission in P3
 - `tests/e2e/critical-flows.spec.ts` — edited in P1 and P2; 3 static-content
   tests remain
 - `.env.example` / `.env` — untracked, main checkout only, invisible from

@@ -28,20 +28,6 @@ model Service {
   @@map("services")
 }
 
-model ContactSubmission {
-  id        String   @id @default(cuid())
-  name      String
-  email     String
-  phone     String?
-  subject   String
-  message   String
-  isRead    Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("contact_submissions")
-}
-
 model BlogPost {
   id          String   @id @default(cuid())
   title       String
