@@ -14,20 +14,6 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Service {
-  id          String  @id @default(cuid())
-  title       String
-  description String
-  duration    Int     // Duration in minutes
-  price       Decimal @db.Money
-  features    Json? 
-  isActive    Boolean @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@map("services")
-}
-
 model BlogPost {
   id          String   @id @default(cuid())
   title       String

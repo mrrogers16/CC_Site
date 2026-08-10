@@ -55,9 +55,6 @@ Before you begin, ensure you have the following installed:
 
    # Push database schema
    npm run db:push
-
-   # (Optional) Seed with initial data
-   npm run db:seed
    ```
 
 ## Development
@@ -134,8 +131,11 @@ The website uses a calming, professional color palette suitable for a counseling
 
 The application includes models for:
 
-- Services offered
-- Blog posts and content management
+- Blog posts and content management (unused legacy models; see MIGRATION.md
+  Phase 5)
+
+Services shown on the site are static config in `src/lib/config/services.ts`,
+not database rows.
 
 ### Environment Variables
 

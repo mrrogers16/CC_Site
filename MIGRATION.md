@@ -190,15 +190,29 @@ abandoned `feature/user-portal` branch.
       helper text. `contactSubmission` block removed from `jest.setup.js`.
       Dead `ContactInfo` type deleted from `src/types/index.ts`.
 
-## Phase 4 — Services page de-database
+## Phase 4 — Services page de-database — DONE (2026-08-09)
 
-- [ ] Move the 6 services (title, description, duration, price, features) to
-      `src/lib/config/services.ts`
-- [ ] Services page reads config; delete seed script and `Service` model.
-      TWO call sites, not one: `src/app/services/page.tsx` queries
-      `prisma.service.findMany` directly as a server component, bypassing
-      `src/app/api/services/route.ts` (which also goes).
-- [ ] Update services tests to config-based rendering
+- [x] The 6 services moved to `src/lib/config/services.ts` (typed by
+      `ServiceConfig` in `src/types/index.ts`, following the `BookingConfig`
+      pattern). Config order = display order; listed alphabetically to match
+      the old `orderBy: { title: "asc" }`.
+- [x] `src/app/services/page.tsx` reads config, is no longer async, and lost
+      `export const dynamic = "force-dynamic"` — the page now prerenders
+      statically. `src/app/api/services/route.ts` deleted (it had ZERO
+      consumers — its only caller was the booking system deleted in Phase 1).
+      `Service` model and `prisma/seed.ts` deleted; `db:seed` script removed.
+      `serviceSchema`/`ServiceData` deleted from `src/lib/validations/`
+      (zero importers). `service` block removed from the `global.prisma` mock
+      in `jest.setup.js` (now an empty `$transaction/$connect/$disconnect`
+      shell for Phase 5). Remote `services` table left for the Phase 5
+      Supabase decommission, same as `contact_submissions`.
+- [x] Pulled forward from Phase 5: the `tsx` devDependency (its only user was
+      the deleted `db:seed` script).
+- [x] There were no DB-backed services unit tests to update; added
+      `tests/unit/services-page.test.tsx` asserting config-based rendering
+      (every config entry renders; duration/price/features shown). The
+      services E2E test in `tests/e2e/critical-flows.spec.ts` passes
+      unchanged.
 
 ## Phase 5 — Remove the database layer
 
@@ -218,7 +232,7 @@ Only after Phases 1–4 leave zero Prisma call sites:
       `tests/setup/prisma-mocks.ts` and `tests/utils/mock-factories.ts` were
       already deleted in Phase 1 (orphaned, and they broke typecheck once the
       booking models dropped).
-- [ ] Drop the `tsx` devDependency (only `db:seed` used it)
+- [x] Drop the `tsx` devDependency (only `db:seed` used it) — done in Phase 4
 - [ ] Remove `@prisma/client`, `prisma` from package.json; drop `db:*` scripts
       from package.json and CLAUDE.md
 - [ ] Remove `DATABASE_URL` / direct-URL env vars from all environments
@@ -266,11 +280,13 @@ Only after Phases 1–4 leave zero Prisma call sites:
 - `src/components/layout/navigation.tsx` — `useSession` (P2, done) and `/book`
   links (P1, done)
 - `src/lib/validations/index.ts` — defines schemas inline (never was a
-  re-export barrel): `contactFormSchema` (P3), `serviceSchema` (P4), and a
-  dead `blogPostSchema`. `appointmentSchema` went in P1, `userSchema` in P2.
+  re-export barrel): `contactFormSchema` (kept) and a dead `blogPostSchema`
+  (P5). `appointmentSchema` went in P1, `userSchema` in P2, `serviceSchema`
+  in P4.
 - `src/types/index.ts` — `ContactInfo` removed in P3, `SiteConfig` (keep)
-- `jest.setup.js` — `global.prisma` mock now covers service only (P4/P5);
-  auth mock removed in P2, contactSubmission in P3
+- `jest.setup.js` — `global.prisma` mock is now an empty
+  `$transaction/$connect/$disconnect` shell; the whole mock goes in P5.
+  Auth mock removed in P2, contactSubmission in P3, service in P4
 - `tests/e2e/critical-flows.spec.ts` — edited in P1 and P2; 3 static-content
   tests remain
 - `.env.example` / `.env` — untracked, main checkout only, invisible from

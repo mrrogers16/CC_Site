@@ -35,3 +35,11 @@ export interface BookingConfig {
   enabled: boolean;
   url: string;
 }
+
+export interface ServiceConfig {
+  title: string;
+  description: string;
+  duration: number;
+  price: number;
+  features: string[];
+}
