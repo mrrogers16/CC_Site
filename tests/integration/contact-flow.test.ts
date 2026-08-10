@@ -1,14 +1,26 @@
 import { NextRequest } from "next/server";
 import { POST as ContactPost } from "@/app/api/contact/route";
 
-// Mock dependencies
-jest.mock("@/lib/db");
+// Mock dependencies. The db mock is a tripwire: the zero-storage contact
+// flow must never write to the database (explicit factory, not automock —
+// the global.prisma singleton no longer has a contactSubmission block).
+jest.mock("@/lib/db", () => ({
+  prisma: {
+    contactSubmission: {
+      create: jest.fn(),
+    },
+  },
+}));
 jest.mock("@/lib/logger");
 jest.mock("@/lib/email");
 
 import { prisma } from "@/lib/db";
 import { logger } from "@/lib/logger";
 import { sendContactNotification, sendAutoResponse } from "@/lib/email";
+
+const dbTripwire = prisma as unknown as {
+  contactSubmission: { create: jest.Mock };
+};
 
 describe("Contact System Integration", () => {
   beforeEach(() => {
@@ -21,7 +33,7 @@ describe("Contact System Integration", () => {
   });
 
   describe("Complete Contact Submission Flow", () => {
-    it("handles end-to-end contact submission", async () => {
+    it("handles end-to-end contact submission without storing anything", async () => {
       const contactData = {
         name: "John Doe",
         email: "john@example.com",
@@ -30,23 +42,6 @@ describe("Contact System Integration", () => {
         message: "I would like to schedule an appointment for therapy.",
       };
 
-      const mockSubmission = {
-        id: "submission-123",
-        name: "John Doe",
-        email: "john@example.com",
-        phone: "555-123-4567",
-        subject: "Seeking counseling services",
-        message: "I would like to schedule an appointment for therapy.",
-        isRead: false,
-        createdAt: new Date(),
-      };
-
-      // Mock database operations
-      (prisma.contactSubmission.create as jest.Mock).mockResolvedValue(
-        mockSubmission
-      );
-
-      // Mock email operations
       (sendContactNotification as jest.Mock).mockResolvedValue({
         success: true,
         messageId: "notification-123",
@@ -56,7 +51,6 @@ describe("Contact System Integration", () => {
         messageId: "autoresponse-123",
       });
 
-      // Submit contact form
       const request = new NextRequest("http://localhost:3000/api/contact", {
         method: "POST",
         body: JSON.stringify(contactData),
@@ -66,31 +60,16 @@ describe("Contact System Integration", () => {
       const response = await ContactPost(request);
       const responseData = await response.json();
 
-      // Verify response
       expect(response.status).toBe(200);
       expect(responseData.success).toBe(true);
-      expect(responseData.submissionId).toBe("submission-123");
+      expect(responseData).not.toHaveProperty("submissionId");
 
-      // Verify database operations
-      expect(prisma.contactSubmission.create).toHaveBeenCalledWith({
-        data: {
-          name: "John Doe",
-          email: "john@example.com",
-          phone: "555-123-4567",
-          subject: "Seeking counseling services",
-          message: "I would like to schedule an appointment for therapy.",
-          isRead: false,
-        },
+      expect(dbTripwire.contactSubmission.create).not.toHaveBeenCalled();
+
+      expect(logger.info).toHaveBeenCalledWith("Contact form forwarded", {
+        subject: "Seeking counseling services",
+        messageId: "notification-123",
       });
-
-      // Verify logging
-      expect(logger.info).toHaveBeenCalledWith(
-        "Contact form submission saved",
-        {
-          submissionId: "submission-123",
-          subject: "Seeking counseling services",
-        }
-      );
     });
 
     it("sends notification and auto-response emails", async () => {
@@ -101,13 +80,6 @@ describe("Contact System Integration", () => {
         message: "Do you offer evening telehealth sessions?",
       };
 
-      (prisma.contactSubmission.create as jest.Mock).mockResolvedValue({
-        id: "submission-456",
-        ...contactData,
-        phone: null,
-        isRead: false,
-        createdAt: new Date(),
-      });
       (sendContactNotification as jest.Mock).mockResolvedValue({
         success: true,
       });
@@ -129,31 +101,24 @@ describe("Contact System Integration", () => {
         expect.objectContaining({
           name: "Jane Smith",
           email: "jane@example.com",
-        }),
-        "submission-456"
+        })
       );
       expect(sendAutoResponse).toHaveBeenCalledWith(
         expect.objectContaining({ email: "jane@example.com" })
       );
+      expect(dbTripwire.contactSubmission.create).not.toHaveBeenCalled();
     });
   });
 
   describe("Error Handling", () => {
-    it("handles email sending failures gracefully in contact submission", async () => {
+    it("returns 502 when the notification email fails and stores nothing", async () => {
       const contactData = {
         name: "John Doe",
         email: "john@example.com",
         subject: "Test Subject",
-        message: "Test message",
+        message: "Test message content",
       };
 
-      const mockSubmission = { id: "submission-123" };
-
-      (prisma.contactSubmission.create as jest.Mock).mockResolvedValue(
-        mockSubmission
-      );
-
-      // Mock email failures
       (sendContactNotification as jest.Mock).mockResolvedValue({
         success: false,
         error: "SMTP Error",
@@ -172,16 +137,14 @@ describe("Contact System Integration", () => {
       const response = await ContactPost(request);
       const result = await response.json();
 
-      // Should still succeed even if emails fail
-      expect(response.status).toBe(200);
-      expect(result.success).toBe(true);
-      expect(result.submissionId).toBe("submission-123");
-
-      // Verify database operations still completed
-      expect(prisma.contactSubmission.create).toHaveBeenCalled();
+      // With zero storage, a lost notification email means a lost message;
+      // the user must see the failure so they can retry or email directly
+      expect(response.status).toBe(502);
+      expect(result.error).toBe("EmailDeliveryError");
+      expect(dbTripwire.contactSubmission.create).not.toHaveBeenCalled();
     });
 
-    it("rejects invalid submissions without touching the database", async () => {
+    it("rejects invalid submissions without sending or storing", async () => {
       const invalidData = {
         name: "J",
         email: "not-an-email",
@@ -200,7 +163,9 @@ describe("Contact System Integration", () => {
 
       expect(response.status).toBe(400);
       expect(result.error).toBe("Validation Error");
-      expect(prisma.contactSubmission.create).not.toHaveBeenCalled();
+      expect(sendContactNotification).not.toHaveBeenCalled();
+      expect(sendAutoResponse).not.toHaveBeenCalled();
+      expect(dbTripwire.contactSubmission.create).not.toHaveBeenCalled();
     });
   });
 });

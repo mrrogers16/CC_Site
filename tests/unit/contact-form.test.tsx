@@ -31,6 +31,19 @@ describe("ContactForm", () => {
     ).toBeInTheDocument();
   });
 
+  it("shows helper text warning against including health information", () => {
+    render(<ContactForm />);
+
+    const helperText = screen.getByText(
+      /do not include health information or clinical details/i
+    );
+    expect(helperText).toBeInTheDocument();
+    expect(screen.getByLabelText(/message/i)).toHaveAttribute(
+      "aria-describedby",
+      "message-help"
+    );
+  });
+
   it("shows validation errors for empty required fields", async () => {
     const user = userEvent.setup();
     render(<ContactForm />);

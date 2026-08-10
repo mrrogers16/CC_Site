@@ -113,13 +113,6 @@ global.NextResponse = NextResponse;
 
 // Mock global prisma for integration tests
 global.prisma = {
-  contactSubmission: {
-    findUnique: jest.fn(),
-    findMany: jest.fn(),
-    create: jest.fn(),
-    update: jest.fn(),
-    delete: jest.fn(),
-  },
   service: {
     findUnique: jest.fn(),
     findMany: jest.fn(),

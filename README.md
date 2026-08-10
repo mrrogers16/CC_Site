@@ -135,7 +135,6 @@ The website uses a calming, professional color palette suitable for a counseling
 The application includes models for:
 
 - Services offered
-- Contact form submissions
 - Blog posts and content management
 
 ### Environment Variables
@@ -166,9 +165,8 @@ Key environment variables:
 
 ### Contact System
 
-- Validated contact forms
-- Email notifications
-- Lead tracking and management
+- Validated contact form, forwarded by email only — nothing is stored
+- Notification email to the practice plus an auto-response to the sender
 
 ## Testing
 
