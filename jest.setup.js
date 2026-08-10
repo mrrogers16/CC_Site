@@ -111,15 +111,9 @@ jest.mock("next/server", () => {
 const { NextResponse } = require("next/server");
 global.NextResponse = NextResponse;
 
-// Mock global prisma for integration tests
+// Mock global prisma for integration tests (empty shell until MIGRATION.md
+// Phase 5 removes the database layer entirely)
 global.prisma = {
-  service: {
-    findUnique: jest.fn(),
-    findMany: jest.fn(),
-    create: jest.fn(),
-    update: jest.fn(),
-    delete: jest.fn(),
-  },
   $transaction: jest.fn(),
   $connect: jest.fn(),
   $disconnect: jest.fn(),

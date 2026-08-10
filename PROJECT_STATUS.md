@@ -3,17 +3,17 @@
 **Project**: Healing Pathways Counseling Website  
 **Last Updated**: 2026-08-09  
 **Current Phase**: Zero-PHI teardown (see MIGRATION.md)  
-**Next Milestone**: MIGRATION.md Phase 4 - services page de-database  
-**Latest Update**: Phase 3 contact conversion complete: the contact form is
-email-only with zero storage. ContactSubmission model deleted; the POST route
-validates, awaits the notification email, and returns 502 (EmailDeliveryError)
-if it fails so no message is silently lost - EMAIL_SERVER_* and EMAIL_FROM
-are now required in production. sendAdminResponse and verifyEmailConfig
-deleted (dead since Phase 2). Message field gained no-health-information
-helper text. Previously: Phase 2 auth/admin teardown (NextAuth, admin
-dashboard, User/Account/Session/VerificationToken models removed); Phase 1
+**Next Milestone**: MIGRATION.md Phase 5 - remove the database layer  
+**Latest Update**: Phase 4 services de-database complete: the 6 services now
+live in src/lib/config/services.ts and the services page renders statically
+from config (no more force-dynamic). Service model, prisma/seed.ts, db:seed
+script, the consumer-less /api/services route, serviceSchema, and the tsx
+devDependency all deleted. Zero Prisma call sites remain in src/ outside
+src/lib/db itself. Previously: Phase 3 contact form to email-only with zero
+storage (502 EmailDeliveryError on send failure; EMAIL_SERVER_* and
+EMAIL_FROM required in production); Phase 2 auth/admin teardown; Phase 1
 booking teardown, /book PracticeQ placeholder, fabricated street address
-removed, Phase 3 decision recorded (Option A).
+removed.
 Historical feature notes below predate the migration pivot and describe
 DELETED functionality - do not trust them; MIGRATION.md is authoritative.
 

@@ -2,9 +2,8 @@
 import { Metadata } from "next";
 import { Navigation } from "@/components/layout/navigation";
 import { Footer } from "@/components/layout/footer";
-import { prisma } from "@/lib/db";
-
-export const dynamic = "force-dynamic";
+import { services } from "@/lib/config/services";
+import type { ServiceConfig } from "@/types";
 
 export const metadata: Metadata = {
   title: "Our Services | Healing Pathways Counseling",
@@ -12,26 +11,7 @@ export const metadata: Metadata = {
     "Professional counseling services including individual therapy, couples counseling, and specialized mental health support tailored to your needs.",
 };
 
-// Fetch services from database
-async function getServices() {
-  const services = await prisma.service.findMany({
-    where: { isActive: true },
-    orderBy: { title: "asc" },
-  });
-
-  // Convert Decimal to number for the price and handle features
-  return services.map(service => ({
-    ...service,
-    price: Number(service.price),
-    features: (service.features as string[]) || [], // Cast the Json field to string array
-  }));
-}
-
-function ServiceCard({
-  service,
-}: {
-  service: Awaited<ReturnType<typeof getServices>>[0];
-}) {
+function ServiceCard({ service }: { service: ServiceConfig }) {
   return (
     <div className="bg-card rounded-lg shadow-sm border border-border p-8 hover:shadow-md transition-shadow h-full flex flex-col">
       <div className="flex-grow">
@@ -95,10 +75,7 @@ function ServiceCard({
   );
 }
 
-export default async function ServicesPage() {
-  // Get real services from database WITH features
-  const services = await getServices();
-
+export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -125,7 +102,7 @@ export default async function ServicesPage() {
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map(service => (
-                <ServiceCard key={service.id} service={service} />
+                <ServiceCard key={service.title} service={service} />
               ))}
             </div>
           </div>
